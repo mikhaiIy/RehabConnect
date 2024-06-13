@@ -1,0 +1,122 @@
+﻿@model Student
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Delete Student Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4" class="row">
+
+        <form method="post">
+            <input asp-for="StudentID" hidden />
+            <div class="pt-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildName" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildName" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildIC" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildIC" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildAge" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildAge" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildDOB" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildDOB" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildPassportNo" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildPassportNo" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildNationality" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildNationality" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildRace" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildRace" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildBirthPlace" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildBirthPlace" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildSex" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildSex" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildAddress" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildAddress" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildPostcode" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildPostcode" class="ms-2"></label>
+                </div>
+
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildCity" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildCity" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildCountry" disabled class="form-control border-0 shadow" />
+                    <label asp-for="ChildCountry" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Pediatricians" disabled class="form-control border-0 shadow" />
+                    <label asp-for="Pediatricians" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="HospReccommendation" disabled class="form-control border-0 shadow" />
+                    <label asp-for="HospReccommendation" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="DeadlineDiagnose" disabled class="form-control border-0 shadow" />
+                    <label asp-for="DeadlineDiagnose" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="DiagnosisOrCondition" disabled class="form-control border-0 shadow" />
+                    <label asp-for="DiagnosisOrCondition" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="OccupationalTheraphyPlace" disabled class="form-control border-0 shadow" />
+                    <label asp-for="OccupationalTheraphyPlace" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="SpeechTheoryPlace" disabled class="form-control border-0 shadow" />
+                    <label asp-for="SpeechTheoryPlace" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="OthersUnitPlace" disabled class="form-control border-0 shadow" />
+                    <label asp-for="OthersUnitPlace" class="ms-2"></label>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="ParentDetail" asp-action="Index" class="btn btn-outline-secondary border form-control">Back to List</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

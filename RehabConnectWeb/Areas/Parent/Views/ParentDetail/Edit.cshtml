@@ -1,0 +1,158 @@
+﻿@model ParentDetail
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Edit Parent Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4" class="row">
+
+        <form method="post">
+            <input asp-for="ParentID" hidden />
+            <div class="pt-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherName" class="form-control border-0 shadow" />
+                    <label asp-for="FatherName" class="ms-2"></label>
+                    <span asp-validation-for="FatherName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherPhoneNum" class="form-control border-0 shadow" />
+                    <label asp-for="FatherPhoneNum" class="ms-2"></label>
+                    <span asp-validation-for="FatherPhoneNum" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherIC" class="form-control border-0 shadow" />
+                    <label asp-for="FatherIC" class="ms-2"></label>
+                    <span asp-validation-for="FatherIC" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherRace" class="form-control border-0 shadow" />
+                    <label asp-for="FatherRace" class="ms-2"></label>
+                    <span asp-validation-for="FatherRace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherOccupation" class="form-control border-0 shadow" />
+                    <label asp-for="FatherOccupation" class="ms-2"></label>
+                    <span asp-validation-for="FatherOccupation" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherEmail" class="form-control border-0 shadow" />
+                    <label asp-for="FatherEmail" class="ms-2"></label>
+                    <span asp-validation-for="FatherEmail" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherAddress" class="form-control border-0 shadow" />
+                    <label asp-for="FatherAddress" class="ms-2"></label>
+                    <span asp-validation-for="FatherAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherPostcode" class="form-control border-0 shadow" />
+                    <label asp-for="FatherPostcode" class="ms-2"></label>
+                    <span asp-validation-for="FatherPostcode" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherCity" class="form-control border-0 shadow" />
+                    <label asp-for="FatherCity" class="ms-2"></label>
+                    <span asp-validation-for="FatherCity" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherCountry" class="form-control border-0 shadow" />
+                    <label asp-for="FatherCountry" class="ms-2"></label>
+                    <span asp-validation-for="FatherCountry" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FatherWorkAddress" class="form-control border-0 shadow" />
+                    <label asp-for="FatherWorkAddress" class="ms-2"></label>
+                    <span asp-validation-for="FatherWorkAddress" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherName" class="form-control border-0 shadow" />
+                    <label asp-for="MotherName" class="ms-2"></label>
+                    <span asp-validation-for="MotherName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherPhoneNum" class="form-control border-0 shadow" />
+                    <label asp-for="MotherPhoneNum" class="ms-2"></label>
+                    <span asp-validation-for="MotherPhoneNum" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherIC" class="form-control border-0 shadow" />
+                    <label asp-for="MotherIC" class="ms-2"></label>
+                    <span asp-validation-for="MotherIC" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherRace" class="form-control border-0 shadow" />
+                    <label asp-for="MotherRace" class="ms-2"></label>
+                    <span asp-validation-for="MotherRace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherOccupation" class="form-control border-0 shadow" />
+                    <label asp-for="MotherOccupation" class="ms-2"></label>
+                    <span asp-validation-for="MotherOccupation" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherEmail" class="form-control border-0 shadow" />
+                    <label asp-for="MotherEmail" class="ms-2"></label>
+                    <span asp-validation-for="MotherEmail" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherAddress" class="form-control border-0 shadow" />
+                    <label asp-for="MotherAddress" class="ms-2"></label>
+                    <span asp-validation-for="MotherAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherPostcode" class="form-control border-0 shadow" />
+                    <label asp-for="MotherPostcode" class="ms-2"></label>
+                    <span asp-validation-for="MotherPostcode" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherCity" class="form-control border-0 shadow" />
+                    <label asp-for="MotherCity" class="ms-2"></label>
+                    <span asp-validation-for="MotherCity" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherCountry" class="form-control border-0 shadow" />
+                    <label asp-for="MotherCountry" class="ms-2"></label>
+                    <span asp-validation-for="MotherCountry" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MotherWorkAddress" class="form-control border-0 shadow" />
+                    <label asp-for="MotherWorkAddress" class="ms-2"></label>
+                    <span asp-validation-for="MotherWorkAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="HouseholdIncome" class="form-control border-0 shadow" />
+                    <label asp-for="HouseholdIncome" class="ms-2"></label>
+                    <span asp-validation-for="HouseholdIncome" class="text-danger"></span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="ParentDetail" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

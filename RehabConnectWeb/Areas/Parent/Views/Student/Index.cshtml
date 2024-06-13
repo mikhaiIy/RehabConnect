@@ -1,0 +1,116 @@
+﻿@model List<Student>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Child Details</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+
+            </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Student" asp-action="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i>Register Form
+                    </a>
+            </div>
+            <div class="w-75 btn-group" role="group">
+                
+            </div>
+
+        </div>
+        
+        @foreach (var child in Model)
+        {
+
+            <div class="child-detail">
+                <button class="accordion">@child.ChildName's Details</button>
+                <div class="panel">
+                    <p><i class="fas fa-user-tie"></i> <strong>Child's Name:</strong> @child.ChildName</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's NRIC:</strong> @child.ChildIC</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Age:</strong> @child.ChildAge</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Date of Birth:</strong> @child.ChildDOB</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Passport No.:</strong> @child.ChildPassportNo</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Nationality:</strong> @child.ChildNationality</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Race:</strong> @child.ChildRace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Birth Place:</strong> @child.ChildBirthPlace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Gender:</strong> @child.ChildSex</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Address:</strong> @child.ChildAddress</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Postcode:</strong> @child.ChildPostcode</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's City:</strong> @child.ChildCity</p>
+                    <p><i class="fas fa-phone"></i> <strong>Child's Country:</strong> @child.ChildCountry</p>
+                    
+                    <!-- ... other child details ... -->
+                    <p><i class="fas fa-user-tie"></i> <strong>Pediatricians:</strong> @child.Pediatricians</p>
+                    <p><i class="fas fa-phone"></i> <strong>Hospital Recommendation:</strong> @child.Pediatricians</p>
+                    <p><i class="fas fa-phone"></i> <strong>Deadline Diagnose:</strong> @child.DeadlineDiagnose</p>
+                    <p><i class="fas fa-phone"></i> <strong>Diagnosis Or Condition:</strong> @child.DiagnosisOrCondition</p>
+                    <p><i class="fas fa-phone"></i> <strong>Place of Occupational Theraphy Unit:</strong> @child.OccupationalTheraphyPlace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Place of Speech Theory Unit:</strong> @child.SpeechTheoryPlace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Place of Others Unit:</strong> @child.OthersUnitPlace</p>
+                    
+                    <a asp-controller="Student" asp-action="Edit" asp-route-childid="@child.StudentID" class="btn btn-primary mx-2">
+                        <i class="bi bi-pencil-square"></i>Edit
+                    </a>
+                    <a asp-controller="Student" asp-action="Delete" asp-route-childid="@child.StudentID" class="btn btn-danger mx-2">
+                        <i class="bi bi-trash-fill"></i>Delete
+                    </a>
+                </div>
+                
+                
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+}
+
+
+<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>

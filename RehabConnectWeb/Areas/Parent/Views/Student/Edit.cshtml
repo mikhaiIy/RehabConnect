@@ -1,0 +1,142 @@
+﻿@model Student
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Edit Child Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4" class="row">
+
+        <form method="post">
+            <input asp-for="StudentID" hidden />
+            <div class="pt-3">
+                @*<div asp-validation-summary="ModelOnly"></div>*@
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildName" class="form-control border-0 shadow" />
+                    <label asp-for="ChildName" class="ms-2"></label>
+                    <span asp-validation-for="ChildName" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildIC" class="form-control border-0 shadow" />
+                    <label asp-for="ChildIC" class="ms-2"></label>
+                    <span asp-validation-for="ChildIC" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildAge" class="form-control border-0 shadow" />
+                    <label asp-for="ChildAge" class="ms-2"></label>
+                    <span asp-validation-for="ChildAge" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildDOB" class="form-control border-0 shadow" type="date"/>
+                    <label asp-for="ChildDOB" class="ms-2"></label>
+                    <span asp-validation-for="ChildDOB" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildPassportNo" class="form-control border-0 shadow" />
+                    <label asp-for="ChildPassportNo" class="ms-2"></label>
+                    <span asp-validation-for="ChildPassportNo" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildNationality" class="form-control border-0 shadow" />
+                    <label asp-for="ChildNationality" class="ms-2"></label>
+                    <span asp-validation-for="ChildNationality" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildRace" class="form-control border-0 shadow" />
+                    <label asp-for="ChildRace" class="ms-2"></label>
+                    <span asp-validation-for="ChildRace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildBirthPlace" class="form-control border-0 shadow" />
+                    <label asp-for="ChildBirthPlace" class="ms-2"></label>
+                    <span asp-validation-for="ChildBirthPlace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildSex" class="form-control border-0 shadow" />
+                    <label asp-for="ChildSex" class="ms-2"></label>
+                    <span asp-validation-for="ChildSex" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildAddress" class="form-control border-0 shadow" />
+                    <label asp-for="ChildAddress" class="ms-2"></label>
+                    <span asp-validation-for="ChildAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildPostcode" class="form-control border-0 shadow" />
+                    <label asp-for="ChildPostcode" class="ms-2"></label>
+                    <span asp-validation-for="ChildPostcode" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildCity" class="form-control border-0 shadow" />
+                    <label asp-for="ChildCity" class="ms-2"></label>
+                    <span asp-validation-for="ChildCity" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ChildCountry" class="form-control border-0 shadow" />
+                    <label asp-for="ChildCountry" class="ms-2"></label>
+                    <span asp-validation-for="ChildCountry" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Pediatricians" class="form-control border-0 shadow" />
+                    <label asp-for="Pediatricians" class="ms-2"></label>
+                    <span asp-validation-for="Pediatricians" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="HospReccommendation" class="form-control border-0 shadow" />
+                    <label asp-for="HospReccommendation" class="ms-2"></label>
+                    <span asp-validation-for="HospReccommendation" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="DeadlineDiagnose" class="form-control border-0 shadow" />
+                    <label asp-for="DeadlineDiagnose" class="ms-2"></label>
+                    <span asp-validation-for="DeadlineDiagnose" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="DiagnosisOrCondition" class="form-control border-0 shadow" />
+                    <label asp-for="DiagnosisOrCondition" class="ms-2"></label>
+                    <span asp-validation-for="DiagnosisOrCondition" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="OccupationalTheraphyPlace" class="form-control border-0 shadow" />
+                    <label asp-for="OccupationalTheraphyPlace" class="ms-2"></label>
+                    <span asp-validation-for="OccupationalTheraphyPlace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="SpeechTheoryPlace" class="form-control border-0 shadow" />
+                    <label asp-for="SpeechTheoryPlace" class="ms-2"></label>
+                    <span asp-validation-for="SpeechTheoryPlace" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="OthersUnitPlace" class="form-control border-0 shadow" />
+                    <label asp-for="OthersUnitPlace" class="ms-2"></label>
+                    <span asp-validation-for="OthersUnitPlace" class="text-danger"></span>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Student" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

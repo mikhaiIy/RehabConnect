@@ -1,0 +1,111 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RehabConnectWeb.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 2px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #343a40;
+        }
+
+        .highlight {
+            background-color: #f8f9fa;
+        }
+
+        .special {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    @model IEnumerable<RehabConnect.Models.ViewModel.ScheduleViewModel>
+
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row pb-3">
+                    <div class="col-6"><h2> <b>Session</b></h2></div>
+                    <div class="col-6 text-end">
+                        <a asp-controller="Session" asp-action="ManageSession" class="btn btn-primary">
+                            <i class="bi bi-plus-square"></i> Manage Session
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Day/Period</th>
+                        <th>I<br>9:30-10:20</th>
+                        <th>II<br>10:20-11:10</th>
+                        <th>III<br>11:10-12:00</th>
+                        <th>12:00-12:40</th>
+                        <th>IV<br>12:40-1:30</th>
+                        <th>V<br>1:30-2:20</th>
+                        <th>VI<br>2:20-3:10</th>
+                        <th>VII<br>3:10-4:00</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var schedule in Model)
+                    {
+                        <tr>
+                            <td class="highlight"><b>@schedule.Day</b></td>
+                            @for (int i = 0; i < 7; i++)
+                            {
+                                var period = schedule.Periods.ElementAtOrDefault(i);
+                                <td>
+                                    @if (period != null)
+                                    {
+                                        @period.Subject
+                                    }
+                                </td>
+                            }
+                            @if (schedule.Day == "Monday" || schedule.Day == "Tuesday" || schedule.Day == "Thursday" || schedule.Day == "Friday")
+                            {
+                                <td rowspan="6" class="special"><b>LUNCH</b></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+

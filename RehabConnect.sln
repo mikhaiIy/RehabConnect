@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RehabConnectWeb", "RehabConnectWeb\RehabConnectWeb.csproj", "{F937201A-3A7A-4D06-8DA6-1D8B0D03C354}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D7AA5652-7155-4FCF-8805-D4E0065EC8BF} = {D7AA5652-7155-4FCF-8805-D4E0065EC8BF}
+		{44230432-3C2E-4C49-8766-FE3241119B6A} = {44230432-3C2E-4C49-8766-FE3241119B6A}
+		{4F648038-DB35-462D-982D-7647A2A43FFC} = {4F648038-DB35-462D-982D-7647A2A43FFC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.DataAccess", "RehabConnect.DataAccess\RehabConnect.DataAccess.csproj", "{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.Models", "RehabConnect.Models\RehabConnect.Models.csproj", "{44230432-3C2E-4C49-8766-FE3241119B6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.Utility", "RehabConnect.Utility\RehabConnect.Utility.csproj", "{4F648038-DB35-462D-982D-7647A2A43FFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F937201A-3A7A-4D06-8DA6-1D8B0D03C354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F937201A-3A7A-4D06-8DA6-1D8B0D03C354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F937201A-3A7A-4D06-8DA6-1D8B0D03C354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F937201A-3A7A-4D06-8DA6-1D8B0D03C354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44230432-3C2E-4C49-8766-FE3241119B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44230432-3C2E-4C49-8766-FE3241119B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44230432-3C2E-4C49-8766-FE3241119B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44230432-3C2E-4C49-8766-FE3241119B6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F648038-DB35-462D-982D-7647A2A43FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F648038-DB35-462D-982D-7647A2A43FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F648038-DB35-462D-982D-7647A2A43FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F648038-DB35-462D-982D-7647A2A43FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2A041B0-85FC-4251-9C0F-E6B5862D4B3C}
+	EndGlobalSection
+EndGlobal

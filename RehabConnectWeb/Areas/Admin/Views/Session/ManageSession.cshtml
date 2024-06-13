@@ -1,0 +1,55 @@
+﻿
+@model IEnumerable<RehabConnect.ViewModels.SessionViewModel>
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row pb-3">
+                <div class="col-6"><h2>Manage <b>Session</b></h2></div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Session" asp-action="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-square"></i> Add New Session
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Session ID</th>
+                        <th>Student</th>
+                        <th>Therapist</th>
+                        <th>Program</th>
+                        <th>Schedule Date</th>
+                        <th>Status</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td>@obj.SessionID</td>
+                            <td>@obj.StudentName</td>
+                            <td>@obj.TherapistID</td>
+                            <td>@obj.ProgramName</td>
+                            <td>@obj.ScheduleDate.ToString("d")</td>
+                            <td>@obj.Status</td>
+                            <td>
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Session" asp-action="Edit" asp-route-id="@obj.SessionID" class="btn btn-primary mx-2">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a asp-controller="Session" asp-action="Delete" asp-route-id="@obj.SessionID" class="btn btn-danger mx-2">
+                                        <i class="bi bi-trash-fill"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

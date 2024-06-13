@@ -1,0 +1,118 @@
+﻿@model List<ParentDetail>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Parent Details</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+
+            </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="ParentDetail" asp-action="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i>Register Form
+                    </a>
+            </div>
+            <div class="w-75 btn-group" role="group">
+                
+            </div>
+
+        </div>
+        
+        @foreach (var parent in Model)
+        {
+
+            <div class="parent-detail">
+                <button class="accordion">@parent.FatherName & @parent.MotherName's Family</button>
+                <div class="panel">
+                    <p><i class="fas fa-user-tie"></i> <strong>Father's Name:</strong> @parent.FatherName</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Phone:</strong> @parent.FatherPhoneNum</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's NRIC:</strong> @parent.FatherIC</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Race:</strong> @parent.FatherRace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Occupation:</strong> @parent.FatherOccupation</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Email:</strong> @parent.FatherEmail</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Address:</strong> @parent.FatherAddress</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Postcode:</strong> @parent.FatherPostcode</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's City:</strong> @parent.FatherCity</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Country:</strong> @parent.FatherCountry</p>
+                    <p><i class="fas fa-phone"></i> <strong>Father's Work Address:</strong> @parent.FatherWorkAddress</p>
+                    <!-- ... other father details ... -->
+                    <p><i class="fas fa-user-tie"></i> <strong>Mother's Name:</strong> @parent.MotherName</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Phone:</strong> @parent.MotherPhoneNum</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's NRIC:</strong> @parent.MotherIC</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Race:</strong> @parent.MotherRace</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Occupation:</strong> @parent.MotherOccupation</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Email:</strong> @parent.MotherEmail</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Address:</strong> @parent.MotherAddress</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Postcode:</strong> @parent.MotherPostcode</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's City:</strong> @parent.MotherCity</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Country:</strong> @parent.MotherCountry</p>
+                    <p><i class="fas fa-phone"></i> <strong>Mother's Work Address:</strong> @parent.MotherWorkAddress</p>
+                    <!-- ... other mother details ... -->
+                    <p><i class="fas fa-home"></i> <strong>Household Income:</strong> @parent.HouseholdIncome</p>
+                    <a asp-controller="ParentDetail" asp-action="Edit" asp-route-parentid="@parent.ParentID" class="btn btn-primary mx-2">
+                        <i class="bi bi-pencil-square"></i>Edit
+                    </a>
+                    <a asp-controller="ParentDetail" asp-action="Delete" asp-route-parentid="@parent.ParentID" class="btn btn-danger mx-2">
+                        <i class="bi bi-trash-fill"></i>Delete
+                    </a>
+                </div>
+                
+                
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+}
+
+
+<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>

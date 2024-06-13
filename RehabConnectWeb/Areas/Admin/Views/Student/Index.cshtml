@@ -1,0 +1,135 @@
+﻿@model IEnumerable<RehabConnect.Models.Student>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Student Details</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="text-center">Approved Students</h3>
+                @foreach (var child in Model.Where(c => c.ApprovalStatus == "Approved"))
+                {
+                    <div class="child-detail">
+                        <button class="accordion">@child.ChildName's Details</button>
+                        <div class="panel">
+                            <p><strong>Student's Name:</strong> @child.ChildName</p>
+                            <p><strong>Student's NRIC:</strong> @child.ChildIC</p>
+                            <p><strong>Student's Age:</strong> @child.ChildAge</p>
+                            <p><strong>Student's Date of Birth:</strong> @child.ChildDOB.ToString("yyyy-MM-dd")</p>
+                            <p><strong>Student's Passport No.:</strong> @child.ChildPassportNo</p>
+                            <p><strong>Student's Nationality:</strong> @child.ChildNationality</p>
+                            <p><strong>Student's Race:</strong> @child.ChildRace</p>
+                            <p><strong>Student's Birth Place:</strong> @child.ChildBirthPlace</p>
+                            <p><strong>Student's Gender:</strong> @child.ChildSex</p>
+                            <p><strong>Student's Address:</strong> @child.ChildAddress</p>
+                            <p><strong>Student's Postcode:</strong> @child.ChildPostcode</p>
+                            <p><strong>Student's City:</strong> @child.ChildCity</p>
+                            <p><strong>Student's Country:</strong> @child.ChildCountry</p>
+                            <p><strong>Pediatricians:</strong> @child.Pediatricians</p>
+                            <p><strong>Hospital Recommendation:</strong> @child.HospReccommendation</p>
+                            <p><strong>Deadline Diagnose:</strong> @child.DeadlineDiagnose</p>
+                            <p><strong>Diagnosis Or Condition:</strong> @child.DiagnosisOrCondition</p>
+                            <p><strong>Place of Occupational Therapy Unit:</strong> @child.OccupationalTheraphyPlace</p>
+                            <p><strong>Place of Speech Theory Unit:</strong> @child.SpeechTheoryPlace</p>
+                            <p><strong>Place of Others Unit:</strong> @child.OthersUnitPlace</p>
+
+                            <a asp-controller="Student" asp-action="NotApprove" asp-route-childid="@child.StudentID" class="btn btn-danger">
+                                <i class="bi bi-pencil-square"></i>Not Approve
+                            </a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center">Not Approved Students</h3>
+                @foreach (var child in Model.Where(c => c.ApprovalStatus == "NotApproved"))
+                {
+                    <div class="child-detail">
+                        <button class="accordion">@child.ChildName's Details</button>
+                        <div class="panel">
+                            <p><strong>Student's Name:</strong> @child.ChildName</p>
+                            <p><strong>Student's NRIC:</strong> @child.ChildIC</p>
+                            <p><strong>Student's Age:</strong> @child.ChildAge</p>
+                            <p><strong>Student's Date of Birth:</strong> @child.ChildDOB.ToString("yyyy-MM-dd")</p>
+                            <p><strong>Student's Passport No.:</strong> @child.ChildPassportNo</p>
+                            <p><strong>Student's Nationality:</strong> @child.ChildNationality</p>
+                            <p><strong>Student's Race:</strong> @child.ChildRace</p>
+                            <p><strong>Student's Birth Place:</strong> @child.ChildBirthPlace</p>
+                            <p><strong>Student's Gender:</strong> @child.ChildSex</p>
+                            <p><strong>Student's Address:</strong> @child.ChildAddress</p>
+                            <p><strong>Student's Postcode:</strong> @child.ChildPostcode</p>
+                            <p><strong>Student's City:</strong> @child.ChildCity</p>
+                            <p><strong>Student's Country:</strong> @child.ChildCountry</p>
+                            <p><strong>Pediatricians:</strong> @child.Pediatricians</p>
+                            <p><strong>Hospital Recommendation:</strong> @child.HospReccommendation</p>
+                            <p><strong>Deadline Diagnose:</strong> @child.DeadlineDiagnose</p>
+                            <p><strong>Diagnosis Or Condition:</strong> @child.DiagnosisOrCondition</p>
+                            <p><strong>Place of Occupational Therapy Unit:</strong> @child.OccupationalTheraphyPlace</p>
+                            <p><strong>Place of Speech Theory Unit:</strong> @child.SpeechTheoryPlace</p>
+                            <p><strong>Place of Others Unit:</strong> @child.OthersUnitPlace</p>
+
+                            <a asp-controller="Student" asp-action="Approve" asp-route-childid="@child.StudentID" class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i>Approve
+                            </a>
+                        
+                        
+                        
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+}
+
+<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>
