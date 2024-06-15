@@ -49,6 +49,7 @@
 
         @if (Convert.ToBoolean(@ViewData["isMenu"]))
         {
+          // if user = parent... user = cs ... user = therapist ...
           @await Html.PartialAsync("Sections/Menu/_HorizontalMenu")
         }
         <!-- Content -->

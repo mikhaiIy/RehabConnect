@@ -1768,11 +1768,11 @@
   background-image: url(../fonts/flags/1x1/zw.svg);
 }
 
-.fi-arab {
-  background-image: url(../fonts/flags/4x3/arab.svg);
+.fi-ac {
+  background-image: url(../fonts/flags/4x3/ac.svg);
 }
-.fi-arab.fis {
-  background-image: url(../fonts/flags/1x1/arab.svg);
+.fi-ac.fis {
+  background-image: url(../fonts/flags/1x1/ac.svg);
 }
 
 .fi-cefta {
@@ -1796,11 +1796,11 @@
   background-image: url(../fonts/flags/1x1/dg.svg);
 }
 
-.fi-eac {
-  background-image: url(../fonts/flags/4x3/eac.svg);
+.fi-ea {
+  background-image: url(../fonts/flags/4x3/ea.svg);
 }
-.fi-eac.fis {
-  background-image: url(../fonts/flags/1x1/eac.svg);
+.fi-ea.fis {
+  background-image: url(../fonts/flags/1x1/ea.svg);
 }
 
 .fi-es-ct {
@@ -1866,32 +1866,11 @@
   background-image: url(../fonts/flags/1x1/ic.svg);
 }
 
-.fi-pc {
-  background-image: url(../fonts/flags/4x3/pc.svg);
+.fi-ta {
+  background-image: url(../fonts/flags/4x3/ta.svg);
 }
-.fi-pc.fis {
-  background-image: url(../fonts/flags/1x1/pc.svg);
-}
-
-.fi-sh-ac {
-  background-image: url(../fonts/flags/4x3/sh-ac.svg);
-}
-.fi-sh-ac.fis {
-  background-image: url(../fonts/flags/1x1/sh-ac.svg);
-}
-
-.fi-sh-hl {
-  background-image: url(../fonts/flags/4x3/sh-hl.svg);
-}
-.fi-sh-hl.fis {
-  background-image: url(../fonts/flags/1x1/sh-hl.svg);
-}
-
-.fi-sh-ta {
-  background-image: url(../fonts/flags/4x3/sh-ta.svg);
-}
-.fi-sh-ta.fis {
-  background-image: url(../fonts/flags/1x1/sh-ta.svg);
+.fi-ta.fis {
+  background-image: url(../fonts/flags/1x1/ta.svg);
 }
 
 .fi-un {

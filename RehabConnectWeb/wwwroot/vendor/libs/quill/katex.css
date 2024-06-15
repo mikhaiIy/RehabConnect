@@ -135,7 +135,7 @@
 }
 
 .katex .katex-version::after {
-  content: "0.16.9";
+  content: "0.16.8";
 }
 
 .katex .katex-mathml {
@@ -232,12 +232,6 @@
 .katex .mathfrak,
 .katex .textfrak {
   font-family: KaTeX_Fraktur;
-}
-
-.katex .mathboldfrak,
-.katex .textboldfrak {
-  font-family: KaTeX_Fraktur;
-  font-weight: bold;
 }
 
 .katex .mathtt {

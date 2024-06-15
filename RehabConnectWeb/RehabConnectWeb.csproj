@@ -237,4 +237,7 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Controllers\HomeController.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Shared\Sections\Menu\_HorizontalMenuTherapist.cshtml" />
+  </ItemGroup>
 </Project>
