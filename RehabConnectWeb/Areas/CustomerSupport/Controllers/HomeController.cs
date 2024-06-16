@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace RehabConnectWeb.Areas.CustomerSupport.Controllers;
 
 [Area("CustomerSupport")]
-public class CsDashboardsController : Controller
+public class HomeController : Controller
 {
 
-  public IActionResult CsDashboard() => View();
+  public IActionResult Index() => View();
 }

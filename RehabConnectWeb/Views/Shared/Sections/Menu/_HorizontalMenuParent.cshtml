@@ -1,0 +1,155 @@
+@{
+  TempData.Keep();
+
+  string? currentPage =  ViewContext.HttpContext.Request.Path;
+
+  ViewData["containerNav"] ??= "container-fluid";
+}
+
+<!-- Menu -->
+<aside id="layout-menu" class="layout-menu-horizontal menu-horizontal  menu bg-menu-theme flex-grow-0">
+  <div class='@ViewData["containerNav"] d-flex h-100'>
+    @* ! Full version menu-items *@
+    <ul class="menu-inner " >
+
+      <!-- Home -->
+      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <div data-i18n="Charts & Maps">Charts & Maps</div>
+        </a>
+        <ul class="menu-sub">
+          <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
+              <div data-i18n="Charts">Charts</div>
+            </a>
+            <ul class="menu-sub">
+              <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
+                  <div data-i18n="Apex Charts">Apex Charts</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
+                  <div data-i18n="ChartJS">ChartJS</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-map"></i>
+              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Payments -->
+      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <div data-i18n="Payments">Payments</div>
+        </a>
+        <ul class="menu-sub">
+          <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
+              <div data-i18n="Charts">Charts</div>
+            </a>
+            <ul class="menu-sub">
+              <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
+                  <div data-i18n="Apex Charts">Apex Charts</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
+                  <div data-i18n="ChartJS">ChartJS</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-map"></i>
+              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Academics -->
+      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <div data-i18n="Academic">Academic</div>
+        </a>
+        <ul class="menu-sub">
+          <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
+              <div data-i18n="Charts">Charts</div>
+            </a>
+            <ul class="menu-sub">
+              <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
+                  <div data-i18n="Apex Charts">Apex Charts</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
+                  <div data-i18n="ChartJS">ChartJS</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-map"></i>
+              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Profile -->
+      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <div data-i18n="Profile">Profile</div>
+        </a>
+        <ul class="menu-sub">
+          <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
+              <div data-i18n="Charts">Charts</div>
+            </a>
+            <ul class="menu-sub">
+              <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
+                  <div data-i18n="Apex Charts">Apex Charts</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
+                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
+                  <div data-i18n="ChartJS">ChartJS</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-map"></i>
+              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+    </ul>
+  </div>
+</aside>
+<!-- / Menu -->

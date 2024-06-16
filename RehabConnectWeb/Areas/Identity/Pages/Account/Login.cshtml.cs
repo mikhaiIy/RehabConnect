@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Identity.Pages.Account
 {
@@ -115,7 +116,27 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    if (User.IsInRole(SD.Role_Parent))
+                    {
+                      return RedirectToAction("Index", "Home", new {Area = "Parent"});
+
+                    }
+
+                    if (User.IsInRole(SD.Role_Therapist))
+                    {
+                      return RedirectToAction("Index", "Home", new {Area = "Therapist"});
+                    }
+
+                    if (User.IsInRole(SD.Role_CustomerSupport))
+                    {
+                      return RedirectToAction("Index", "Home", new {Area = "CustomerSupport"});
+                    }
+
+                    if (User.IsInRole(SD.Role_Admin))
+                    {
+                      return RedirectToAction("Index", "Home", new {Area = "Admin"});
+                    }
+
                 }
                 if (result.RequiresTwoFactor)
                 {

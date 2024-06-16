@@ -164,7 +164,7 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                
+
                 if(Input.Role == SD.Role_Therapist)
                 {
                     user.TherapistID = Input.TherapistID;
@@ -212,13 +212,14 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
                         if (User.IsInRole(SD.Role_Admin))
                         {
                             TempData["success"] = "New user has been created succesfully.";
+                            return LocalRedirect(returnUrl);
                         }
                         else
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
+                            return RedirectToPage("/Account/RegisterMultiSteps", new { area = "Identity" });
+
                         }
-                        
-                        return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)

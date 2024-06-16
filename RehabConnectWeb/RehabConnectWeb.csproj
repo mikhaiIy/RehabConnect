@@ -235,9 +235,15 @@
     <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Update="Areas\Identity\Pages\Account\Register.cshtml.cs">
+      <DependentUpon>Register.cshtml</DependentUpon>
+    </Compile>
+    <Compile Remove="Areas\Identity\Pages\Account\Register1.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="Views\Shared\Sections\Menu\_HorizontalMenuTherapist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
   </ItemGroup>
 </Project>

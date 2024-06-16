@@ -53,6 +53,10 @@ app.MapControllerRoute(
   pattern: "{area=exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
+  name: "parent",
+  pattern: "{area=exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
   name: "default",
   pattern: "{controller=FrontPages}/{action=LandingPage}/{id?}"
 );

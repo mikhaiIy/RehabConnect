@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers;
 
-public class PDashboardsController : Controller
+public class HomeController : Controller
 {
   [Area("Parent")]
-  public IActionResult PDashboard() => View();
+  public IActionResult Index() => View();
 }

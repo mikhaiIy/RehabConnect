@@ -1,119 +1,129 @@
-﻿@page
+@page
 @model RegisterModel
 
-<div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-4">
-        <div class="row">
-            <div class="col-12 text-center">
-                @if (User.IsInRole(SD.Role_Admin))
-                {
-                    <h2 class="py-2 text-white">Register - ADMIN PORTAL</h2>
-                }
-                else{
-                <h2 class="py-2 text-white">Register</h2>
-                }
-            </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
-        <div class="row pt-3">
-            <div class="col-md-12">
-                <form id="registerForm" class="row" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                    <h3 class="border-bottom pb-3 mb-4 text-secondary text-center">Create a new account</h3>
-                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    <div class="form-floating mb-3 col-md-12">
-                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                        <label asp-for="Input.Email" class="ms-2 text-muted">Email</label>
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                        <label asp-for="Input.Password" class="ms-2 text-muted">Password</label>
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                        <label asp-for="Input.ConfirmPassword" class="ms-2 text-muted">Confirm Password</label>
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                    </div>
-
-                    @if(User.IsInRole(SD.Role_Admin)){
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
-                            <option disabled selected>-Select Role-</option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.TherapistID" style="display:none;" asp-items="@Model.Input.TherapistList" class="form-select">
-                            <option disabled selected>-Select Therapist-</option>
-                        </select>
-                    </div>
-                        <div class="form-floating mb-3 col-md-6">
-                            <select asp-for="Input.CSID" style="display:none;" asp-items="@Model.Input.CustomerSupportList" class="form-select">
-                                <option disabled selected>-Select Customer Support-</option>
-                            </select>
-                        </div>
-                    }
-                    <div class="col-12">
-                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-12">
-                <section>
-                    <p class="divider-text d-flex pt-3">or</p>
-                    <h3>Use another service to register.</h3>
-                    @{
-                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                        {
-                                            <div>
-                                                <p>
-                                                    There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
-                                                        article
-                                                        about setting up this ASP.NET application to support logging in via external services
-                                                    </a>.
-                                                </p>
-                                            </div>
-                        }
-                        else
-                        {
-                                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                                <div>
-                                                    <p>
-                                                        @foreach (var provider in Model.ExternalLogins!)
-                                        {
-                                                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                        }
-                                                    </p>
-                                                </div>
-                                            </form>
-                        }
-                    }
-                </section>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        $(document).ready(function () {
-            $('#Input_Role').change(function () {
-                var selection = $('#Input_Role Option:Selected').text();
-                if (selection == 'Therapist') {
-                    $('#Input_TherapistID').show();
-                }
-                else if (selection == 'Customer Support') {
-                    $('#Input_CSID').show();
-                }
-                else {
-                    $('#Input_TherapistID').hide();
-                    $('#Input_CSID').hide();
-                }
-            })
-        })
-    </script>
+@{
+  Layout = "_BlankLayout";
+  ViewData["Title"] = "Register Basic - Pages";
 }
+
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
+
+@section PageScripts {
+<script src="~/js/pages-auth.js"></script>
+}
+@* ************** Content ************** *@
+
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner py-4">
+
+      <!-- Register Card -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="app-brand justify-content-center mb-4 mt-2">
+            <a href="/" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">@await Html.PartialAsync("../_Partials/_Macros")</span>
+              <span class="app-brand-text demo text-body fw-bold ms-1">@TempData.Peek("appName")</span>
+            </a>
+          </div>
+          <!-- /Logo -->
+          <h4 class="mb-1 pt-2">Adventure starts here 🚀</h4>
+          <p class="mb-4">Make your app management easy and fun!</p>
+
+          <form id="registerForm" class="mb-3" asp-route-returnUrl="@Model.ReturnUrl" method="POST">
+            <div class="mb-3">
+              <label asp-for="Input.Email" class="ms-2 text-muted">Email</label>
+              <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
+              <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <label asp-for="Input.Password" class="ms-2 text-muted">Password</label>
+              <div class="input-group input-group-merge">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <label asp-for="Input.ConfirmPassword" class="ms-2 text-muted">Confirm Password</label>
+              <div class="input-group input-group-merge">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+              </div>
+            </div>
+
+            @* User Role assignment *@
+            @if(User.IsInRole(SD.Role_Admin)){
+            <div class="form-floating mb-3 col-md-6">
+              <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                <option disabled selected>-Select Role-</option>
+              </select>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <select asp-for="Input.TherapistID" style="display:none;" asp-items="@Model.Input.TherapistList" class="form-select">
+                <option disabled selected>-Select Therapist-</option>
+              </select>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+              <select asp-for="Input.CSID" style="display:none;" asp-items="@Model.Input.CustomerSupportList" class="form-select">
+                <option disabled selected>-Select Customer Support-</option>
+              </select>
+            </div>
+            }
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms">
+                <label class="form-check-label" for="terms-conditions">
+                  I agree to
+                  <a href="javascript:void(0);">privacy policy & terms</a>
+                </label>
+              </div>
+            </div>
+            <button id="registerSubmit" type="submit" class="btn btn-primary d-grid w-100">
+              Sign up
+            </button>
+          </form>
+
+          <p class="text-center">
+            <span>Already have an account?</span>
+            <a asp-area="Identity"asp-page="/Account/Login">
+              <span>Sign in instead</span>
+            </a>
+          </p>
+
+          <div class="divider my-4">
+            <div class="divider-text">or</div>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+              <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
+            </a>
+
+            <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+              <i class="tf-icons fa-brands fa-google fs-5"></i>
+            </a>
+
+            <a href="javascript:;" class="btn btn-icon btn-label-twitter">
+              <i class="tf-icons fa-brands fa-twitter fs-5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Register Card -->
+    </div>
+  </div>
+</div>
