@@ -1,64 +1,53 @@
 ﻿@model IEnumerable<Program>
 
-<!DOCTYPE html>
-
-<html lang="English">
-<head>
-    <title>Roadmap</title>
-</head>
-<body>
-    <div class="card shadow border-0 mt-4">
-        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2 class="text-white py-2">Program </h2>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card-body p-4">
-            <div class="row pb-3">
-                <div class="col-6">
-                </div>
-                <div class="col-6 text-end">
-                    <a asp-controller="Step" asp-action="Upsert" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i>  Add New Program
-                    </a>
-                </div>
-            </div>
-            
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of Session</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var obj in Model)
-                {
-                <tr>
-                    <td>@obj.ProgramName</td>
-                    <td> @obj.NumOfSession Session</td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Program" asp-action="Upsert"
-                               asp-route-id="@obj.ProgramID" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a asp-controller="Program" asp-action="Delete"
-                               asp-route-step="@obj.ProgramID" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i> Delete
-                            </a>
-                        </div>
-                    </td>
-                    
-                </tr>
-                }
-                </tbody>
-            </table>
-        </div>
-        
+@* Program Table *@
+<div class="card">
+  <div class="container-fluid p-3">
+    <div class="row justify-content-between">
+      <div class="col-auto">
+        <h4 class="card-header m-0">Programs</h4>
+      </div>
+      <div class="row-auto">
+        <a asp-controller="Program" asp-action="Upsert" class="btn btn-primary float-end">
+          <i class="bi bi-plus-circle"></i> Add New Program
+        </a>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+  <div class="card-datatable table-responsive pb-0">
+    <table id="transactionsTable" class="table">
+      <thead class="border-top">
+      <tr class="text-nowrap">
+        <th></th>
+        <th>No</th>
+        <th>Name</th>
+        <th>Number of Session</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      @if (Model?.Any() == true)
+      {
+        int counter = 1;
+      @foreach (var obj in Model)
+        {
+          <tr>
+            <td></td>
+            <td>@counter</td>
+            <td>@obj.ProgramName</td>
+            <td> @obj.NumOfSession Session</td>
+            <td class="text-nowrap">
+              <a asp-controller="Program" asp-action="Upsert" asp-route-id="@obj.ProgramID"
+                 class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
+              <a asp-controller="Program" asp-action="Delete" asp-route-id="@obj.ProgramID"
+                 class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
+            </td>
+          </tr>
+          counter++;
+        }
+      }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -27,5 +27,14 @@ namespace RehabConnect.Models
         public string Title { get; set; }
         
         
+        // public int? NormalPrice { get; set; }
+        public int? PriceWeekday { get; set; }
+        public int? PriceWeekend { get; set; }
+        
+        
+        // Whether the price of the Step is combined or seperate for each program
+        [Required] public bool CombinedPricing { get; set; }
+        
+        
     }
 }

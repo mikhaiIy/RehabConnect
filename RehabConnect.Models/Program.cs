@@ -18,13 +18,10 @@ namespace RehabConnect.Models
 
         [Required]
         public int NumOfSession { get; set; }
-
-        // [Required]
-        // public int NormalPrice { get; set; }
-        // [Required]
-        // public int PriceWeekday { get; set; }
-        // [Required]
-        // public int PriceWeekend { get; set; }
+        
+        // public int? NormalPrice { get; set; }
+        public int? PriceWeekday { get; set; }
+        public int? PriceWeekend { get; set; }
 
 
         public int StepId { get; set; }

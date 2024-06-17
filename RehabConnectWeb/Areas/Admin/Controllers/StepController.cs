@@ -21,23 +21,23 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         }
         public IActionResult Index(int id)
         {
-            
-            IEnumerable<Step> objStepList = _unitOfWork.Step.Find(u => u.Roadmap.RoadmapId == id);
-            
-            // Step? objStepList = _unitOfWork.Step.Get(u=>u.Roadmap.RoadmapId==id) 
-            return View(objStepList);
+          var stepIds = _unitOfWork.Step.Find(u => u.RoadmapId == id).Select(s => s.StepId).ToList();
+
+          StepProgramVM stepProgramVm = new StepProgramVM()
+          {
+            Step = _unitOfWork.Step.Find(u => u.RoadmapId == id),
+            Program = _unitOfWork.Program.Find(p => stepIds.Contains(p.StepId))
+          };
+
+
+          // IEnumerable<Step> objStepList = _unitOfWork.Step.Find(u => u.Roadmap.RoadmapId == id);
+          return View(stepProgramVm);
         }
 
         public IActionResult Upsert(int? id, int? roadmap)
         {
-            StepVM stepVm = new()
-            {
-                RoadmapList = _unitOfWork.Roadmap.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.RoadmapId.ToString()
-                }),
-            };
+          StepVM stepVm = new();
+
 
             if (id is null or 0)
             {
@@ -46,15 +46,15 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
             else
             {
                 stepVm.Step = _unitOfWork.Step.Get(u => u.StepId == id);
-                return View(stepVm);  
+                return View(stepVm);
             }
 
         }
-        
+
         [HttpPost]
         public IActionResult Upsert(StepVM obj)
         {
-   
+
             if (ModelState.IsValid)
             {
                 if(obj.Step.StepId==0)
@@ -65,8 +65,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
                 {
                     _unitOfWork.Step.Update(obj.Step); //hey add this Step obj into categories table(telling what it will do)
                 }
-        
-                _unitOfWork.Save(); //hey now do it. 
+
+                _unitOfWork.Save(); //hey now do it.
                 TempData["success"] = "Step Created Successfully";
                 return RedirectToAction("Index", "Step"); //go to the Step controller, Index page.
             }
@@ -80,7 +80,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
                 });
                 return View(obj);
             }
-    
+
         }
 
         public IActionResult Delete()
