@@ -1,8 +1,6 @@
 ﻿using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
-using RehabConnect.DataAccess.Data;
-using RehabConnect.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

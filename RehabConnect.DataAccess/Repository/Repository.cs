@@ -7,9 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using RehabConnect.DataAccess.Data;
-using RehabConnect.DataAccess.Repository.IRepository;
 
 namespace RehabConnect.DataAccess.Repository
 {

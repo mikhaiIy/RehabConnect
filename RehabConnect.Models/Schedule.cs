@@ -16,7 +16,10 @@ namespace RehabConnect.Models
         public DateTime Date { get; set; }
 
         [Required]
-        public TimeSpan Time { get; set; }
+        public TimeSpan StartTime { get; set; }
+
+        [Required]
+        public TimeSpan EndTime { get; set; }
 
         [Required]
         public TimeSpan Duration { get; set; }
