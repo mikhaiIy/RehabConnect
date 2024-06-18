@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -209,18 +209,18 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        if (User.IsInRole(SD.Role_Admin))
-                        {
-                            TempData["success"] = "New user has been created succesfully.";
-                            return LocalRedirect(returnUrl);
-                        }
-                        else
-                        {
-                            await _signInManager.SignInAsync(user, isPersistent: false);
-                            return RedirectToPage("/Account/RegisterMultiSteps", new { area = "Identity" });
+            if (User.IsInRole(SD.Role_Admin))
+            {
+              TempData["success"] = "New user has been created succesfully.";
+            return LocalRedirect(returnUrl);
+          }
+            else
+          {
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            return RedirectToPage("/Account/RegisterMultiSteps", new { area = "Identity" });
 
-                        }
-                    }
+          }
+        }
                 }
                 foreach (var error in result.Errors)
                 {
