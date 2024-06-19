@@ -1,0 +1,65 @@
+@model IEnumerable<Program>
+@{
+    var today = DateTime.Now.DayOfWeek;
+    var isWeekend = (today == DayOfWeek.Saturday || today == DayOfWeek.Sunday);
+}
+
+
+<br />
+<div class="card shadow border-0 mt-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Payment List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="CheckOut" asp-action="CheckOut" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"> Add Session </i>
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Program Name</th>
+                    <th>Number of Session</th>
+                    <th>Total Price (RM)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.ProgramName</td>
+                        <td> @obj.NumOfSession Session</td>
+                        <td>RM @(isWeekend ? obj.PriceWeekend : obj.PriceWeekday)</td>
+                        <td style="background-color: @("Paid" == "Paid" ? "green" : "Due" == "Due" ? "red" : "transparent"); color: white;">
+                            @* @obj.Status *@
+                            Paid
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="" asp-action="Delete" asp-route-id="@obj.SessionID" class="btn btn-danger mx-2">
+                                    <i class="bi bi-x-circle"> Delete</i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p>
+            <a asp-action="CheckOut" asp-controller="CheckOut" value="CheckOut">Check Out</a>
+        </p>
+    </div>
+</div>

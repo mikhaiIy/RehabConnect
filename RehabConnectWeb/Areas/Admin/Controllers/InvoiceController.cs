@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 
-namespace RehabConnectWeb.Areas.Parent.Controllers
+namespace RehabConnectWeb.Areas.Admin.Controllers
 {
-  [Area("Parent")]
-  public class HomeController : Controller
+  [Area("Admin")]
+  public class InvoiceController : Controller
   {
-    public HomeController(IUnitOfWork unitOfWork)
+    public InvoiceController(IUnitOfWork unitOfWork)
     {
       _unitOfWork = unitOfWork;
     }
@@ -21,15 +21,6 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     public IActionResult Preview() => View();
     public IActionResult Print() => View();
 
-    public IActionResult Details(int SessionID)
-    {
-      ShoppingCart cart = new()
-      {
-        Program = _unitOfWork.Program.Get(u => u.SessionID == SessionID),
-        SessionID = SessionID
-      };
-      return View(cart);
-    }
   }
 }
 

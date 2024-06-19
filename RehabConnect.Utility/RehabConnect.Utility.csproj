@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+      <PackageReference Include="Stripe.net" Version="44.13.0" />
     </ItemGroup>
 
 </Project>

@@ -19,7 +19,8 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         IRoadmapRepository Roadmap { get; }
         IProgramRepository Program { get; }
 
-
+        //Billing
+        IShoppingCartRepository ShoppingCart { get; }
         void Save();
     }
 }

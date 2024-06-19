@@ -56,12 +56,12 @@
           <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-              <div data-i18n="Charts">Charts</div>
+              <div data-i18n="Payments">Charts</div>
             </a>
             <ul class="menu-sub">
               <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
-                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
-                  <div data-i18n="Apex Charts">Apex Charts</div>
+                <a asp-area="Parent"asp-controller="CheckOut" asp-action="Index" class="menu-link">
+                  <div data-i18n="Make Payments">Make Payments</div>
                 </a>
               </li>
               <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>

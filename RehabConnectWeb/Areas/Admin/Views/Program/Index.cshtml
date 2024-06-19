@@ -38,9 +38,9 @@
             <td>@obj.ProgramName</td>
             <td> @obj.NumOfSession Session</td>
             <td class="text-nowrap">
-              <a asp-controller="Program" asp-action="Upsert" asp-route-id="@obj.ProgramID"
+              <a asp-controller="Program" asp-action="Upsert" asp-route-id="@obj.SessionID"
                  class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
-              <a asp-controller="Program" asp-action="Delete" asp-route-id="@obj.ProgramID"
+              <a asp-controller="Program" asp-action="Delete" asp-route-id="@obj.SessionID"
                  class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
             </td>
           </tr>

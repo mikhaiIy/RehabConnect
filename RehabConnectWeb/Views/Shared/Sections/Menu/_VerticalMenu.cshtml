@@ -14,7 +14,7 @@
       <span class="app-brand-logo demo">
         @await Html.PartialAsync("../_Partials/_Macros")
       </span>
-      <span class="app-brand-text demo menu-text fw-bold">@TempData.Peek("appName")</span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1" style="font-size: 19px;">@TempData.Peek("appName")</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -219,23 +219,23 @@
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text" data-i18n="Billing & Invoice">Billing & Invoice</span>
     </li>
-    <li class='menu-item@(currentPage == "/Apps/Kanban" ? " active" : "")'>
-      <a asp-controller="Apps" asp-action="Kanban" class="menu-link">
+    <li class='menu-item@(currentPage == "/Invoice/Index" ? " active" : "")'>
+      <a asp-controller="Invoice" asp-action="Index" class="menu-link">
         <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
         <div data-i18n="Overview">Overview</div>
       </a>
     </li>
-    <li class='menu-item@(currentPage.StartsWith("/Ecommerce") ? " active open" : "")'>
+    <li class='menu-item@(currentPage.StartsWith("/Invoice") ? " active open" : "")'>
       <a href='javascript:void(0);' class='menu-link menu-toggle'>
         <i class='menu-icon tf-icons ti ti-shopping-cart'></i>
         <div data-i18n='Billing'>Billing</div>
       </a>
       <ul class='menu-sub'>
-        <li class='menu-item@(currentPage.StartsWith("/Ecommerce/Product") ? " active open" : "")'>
-          <a href='javascript:void(0);' class='menu-link'>
-            <div data-i18n='Overview'>Overview</div>
+        <li class='menu-item@(currentPage.StartsWith("/Invoice/Preview") ? " active open" : "")'>
+          <a asp-controller="Invoice" asp-action="Preview" class='menu-link'>
+            <div data-i18n='Overview'>Preview</div>
           </a>
-          <a href='javascript:void(0);' class='menu-link'>
+          <a asp-controller="Invoice" asp-action="Edit" class='menu-link'>
             <div data-i18n='Manage Billing'>Manage Billing</div>
           </a>
         </li>

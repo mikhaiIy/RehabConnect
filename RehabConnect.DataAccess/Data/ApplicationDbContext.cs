@@ -33,6 +33,7 @@ namespace RehabConnect.DataAccess.Data
         public DbSet<CustomerSupport> CustomerSupports { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<Roadmap> Roadmap { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,20 +55,20 @@ namespace RehabConnect.DataAccess.Data
                 );
             
             modelBuilder.Entity<Program>().HasData(
-                new Program{ProgramID = 1, ProgramName = "Consultation", NumOfSession = 1,StepId = 1},
-                new Program{ProgramID = 2, ProgramName = "Assessment",  NumOfSession = 3,StepId = 2},
-                new Program{ProgramID = 3, ProgramName = "Full Development Report",NumOfSession = 1,StepId = 2},
-                new Program{ProgramID = 4, ProgramName = "Program A", NumOfSession = 4,StepId =3, PriceWeekday = 500, PriceWeekend = 600},
-                new Program{ProgramID = 5, ProgramName = "Program B", NumOfSession = 8,StepId = 3, PriceWeekday = 800, PriceWeekend = 900},
-                new Program{ProgramID = 6, ProgramName = "Program C",  NumOfSession = 12,StepId = 3, PriceWeekday = 1100, PriceWeekend = 1200},
-                new Program{ProgramID = 7, ProgramName = "Program D",  NumOfSession = 20,StepId = 3, PriceWeekday = 2000, PriceWeekend = 2100},
-                new Program{ProgramID = 8, ProgramName = "Assessment",  NumOfSession = 3,StepId = 4},
-                new Program{ProgramID = 9, ProgramName = "Full Development Report",  NumOfSession = 1,StepId = 4},
-                new Program{ProgramID = 10, ProgramName = "Ready to School A",  NumOfSession = 4,StepId = 5, PriceWeekday = 1000, PriceWeekend = 1200},
-                new Program{ProgramID = 11, ProgramName = "Ready to School B",  NumOfSession = 8,StepId = 5, PriceWeekday = 2000, PriceWeekend = 2200}
+                new Program{SessionID = 1, ProgramName = "Consultation", NumOfSession = 1,StepId = 1},
+                new Program{SessionID = 2, ProgramName = "Assessment",  NumOfSession = 3,StepId = 2},
+                new Program{SessionID = 3, ProgramName = "Full Development Report",NumOfSession = 1,StepId = 2},
+                new Program{SessionID = 4, ProgramName = "Program A", NumOfSession = 4,StepId =3, PriceWeekday = 500, PriceWeekend = 600},
+                new Program{SessionID = 5, ProgramName = "Program B", NumOfSession = 8,StepId = 3, PriceWeekday = 800, PriceWeekend = 900},
+                new Program{SessionID = 6, ProgramName = "Program C",  NumOfSession = 12,StepId = 3, PriceWeekday = 1100, PriceWeekend = 1200},
+                new Program{SessionID = 7, ProgramName = "Program D",  NumOfSession = 20,StepId = 3, PriceWeekday = 2000, PriceWeekend = 2100},
+                new Program{SessionID = 8, ProgramName = "Assessment",  NumOfSession = 3,StepId = 4},
+                new Program{SessionID = 9, ProgramName = "Full Development Report",  NumOfSession = 1,StepId = 4},
+                new Program{SessionID = 10, ProgramName = "Ready to School A",  NumOfSession = 4,StepId = 5, PriceWeekday = 1000, PriceWeekend = 1200},
+                new Program{SessionID = 11, ProgramName = "Ready to School B",  NumOfSession = 8,StepId = 5, PriceWeekday = 2000, PriceWeekend = 2200}
                 );
-            
-           
+
+
             base.OnModelCreating(modelBuilder);
 
         }

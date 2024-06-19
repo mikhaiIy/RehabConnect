@@ -13,16 +13,12 @@ namespace RehabConnect.Models
         [Key]
         public int BillingID { get; set; }
 
-        [Required]
         public int ParentID { get; set; }
 
-        [Required]
         public decimal Amount { get; set; }
 
-        [Required]
         public DateTime DueDate { get; set; }
 
-        [Required]
         public string Status { get; set; }
 
         // Navigation properties
