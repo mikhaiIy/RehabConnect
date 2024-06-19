@@ -1,4 +1,4 @@
-﻿using RehabConnect.DataAccess.Data;
+using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Utility;

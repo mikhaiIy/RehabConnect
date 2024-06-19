@@ -247,4 +247,8 @@
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
+  </ItemGroup>
 </Project>

@@ -20,6 +20,8 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         IProgramRepository Program { get; }
 
         //Billing
+        IBillingRepository Billing { get; }
+        IInvoiceRepository Invoice { get; }
         IShoppingCartRepository ShoppingCart { get; }
         void Save();
     }

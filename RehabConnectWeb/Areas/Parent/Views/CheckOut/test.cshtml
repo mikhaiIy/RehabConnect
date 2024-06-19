@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Checkout - Wizards";
+}
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="~/vendor/libs/rateyo/rateyo.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/rateyo/rateyo.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/modal-add-new-address.js"></script>
+    <script src="~/js/wizard-ex-checkout.js"></script>
+}
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/wizard-ex-checkout.css" />
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">Wizard examples /</span> Checkout
+</h4>
+<!-- Checkout Wizard -->
+@await Html.PartialAsync("../_Partials/WizardCheckout")
+<!--/ Checkout Wizard -->
+<!-- Add new address modal -->
+@await Html.PartialAsync("../_Partials/_Modals/ModalAddNewAddress")

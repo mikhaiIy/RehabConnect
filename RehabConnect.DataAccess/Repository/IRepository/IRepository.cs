@@ -12,6 +12,8 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         IEnumerable<T> GetAll(string? includeProperties = null);
         T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+
+        int Count();
         
         // Add Object
         void Add(T entity);

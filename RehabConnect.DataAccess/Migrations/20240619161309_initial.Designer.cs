@@ -12,7 +12,7 @@ using RehabConnect.DataAccess.Data;
 namespace RehabConnect.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240618093730_initial")]
+    [Migration("20240619161309_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -246,10 +246,7 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ParentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ParentTempId1")
+                    b.Property<int>("InvoiceID")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -258,9 +255,7 @@ namespace RehabConnect.DataAccess.Migrations
 
                     b.HasKey("BillingID");
 
-                    b.HasIndex("ParentID");
-
-                    b.HasIndex("ParentTempId1");
+                    b.HasIndex("InvoiceID");
 
                     b.ToTable("Billings");
                 });
@@ -321,123 +316,29 @@ namespace RehabConnect.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceID"));
 
-                    b.Property<int>("BillingID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateIssued")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ParentID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("InvoiceID");
 
-                    b.HasIndex("BillingID");
+                    b.HasIndex("ParentID");
 
                     b.ToTable("Invoices");
-                });
 
-            modelBuilder.Entity("RehabConnect.Models.Parent", b =>
-                {
-                    b.Property<int>("ParentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParentID"));
-
-                    b.Property<string>("FatherAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherCity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherCountry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherIC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherOccupation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherPhoneNum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherPostcode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherRace")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FatherWorkAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HouseholdIncome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherCity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherCountry")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherIC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherOccupation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherPhoneNum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherPostcode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherRace")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherWorkAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ParentID");
-
-                    b.ToTable("Parent");
+                    b.HasData(
+                        new
+                        {
+                            InvoiceID = 1,
+                            DateIssued = new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741),
+                            ParentID = 1,
+                            TotalAmount = 1000m
+                        });
                 });
 
             modelBuilder.Entity("RehabConnect.Models.ParentDetail", b =>
@@ -544,6 +445,33 @@ namespace RehabConnect.DataAccess.Migrations
                     b.HasKey("ParentID");
 
                     b.ToTable("ParentDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            ParentID = 1,
+                            FatherAddress = "123 Main St",
+                            FatherCity = "City",
+                            FatherCountry = "Country",
+                            FatherEmail = "john.doe@example.com",
+                            FatherIC = "A1234567",
+                            FatherName = "John Doe",
+                            FatherOccupation = "Occupation",
+                            FatherPhoneNum = "123456789",
+                            FatherPostcode = "12345",
+                            FatherRace = "Race",
+                            HouseholdIncome = "50000",
+                            MotherAddress = "123 Main St",
+                            MotherCity = "City",
+                            MotherCountry = "Country",
+                            MotherEmail = "jane.doe@example.com",
+                            MotherIC = "B7654321",
+                            MotherName = "Jane Doe",
+                            MotherOccupation = "Occupation",
+                            MotherPhoneNum = "987654321",
+                            MotherPostcode = "12345",
+                            MotherRace = "Race"
+                        });
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Program", b =>
@@ -999,9 +927,6 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Property<int?>("ParentDetailParentID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Pediatricians")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1015,8 +940,6 @@ namespace RehabConnect.DataAccess.Migrations
                     b.HasKey("StudentID");
 
                     b.HasIndex("ParentDetailParentID");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("Students");
                 });
@@ -1139,28 +1062,24 @@ namespace RehabConnect.DataAccess.Migrations
 
             modelBuilder.Entity("RehabConnect.Models.Billing", b =>
                 {
-                    b.HasOne("RehabConnect.Models.ParentDetail", "ParentDetail")
-                        .WithMany("Billings")
-                        .HasForeignKey("ParentID")
+                    b.HasOne("RehabConnect.Models.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RehabConnect.Models.Parent", null)
-                        .WithMany("Billings")
-                        .HasForeignKey("ParentTempId1");
-
-                    b.Navigation("ParentDetail");
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Invoice", b =>
                 {
-                    b.HasOne("RehabConnect.Models.Billing", "Billing")
-                        .WithMany("Invoices")
-                        .HasForeignKey("BillingID")
+                    b.HasOne("RehabConnect.Models.ParentDetail", "ParentDetail")
+                        .WithMany()
+                        .HasForeignKey("ParentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Billing");
+                    b.Navigation("ParentDetail");
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Program", b =>
@@ -1246,7 +1165,7 @@ namespace RehabConnect.DataAccess.Migrations
 
             modelBuilder.Entity("RehabConnect.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("RehabConnect.Models.Parent", "Parent")
+                    b.HasOne("RehabConnect.Models.ParentDetail", "ParentDetail")
                         .WithMany()
                         .HasForeignKey("ParentID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1258,7 +1177,7 @@ namespace RehabConnect.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentDetail");
 
                     b.Navigation("Program");
                 });
@@ -1279,10 +1198,6 @@ namespace RehabConnect.DataAccess.Migrations
                     b.HasOne("RehabConnect.Models.ParentDetail", null)
                         .WithMany("Students")
                         .HasForeignKey("ParentDetailParentID");
-
-                    b.HasOne("RehabConnect.Models.Parent", null)
-                        .WithMany("Students")
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("RehabConnect.Models.ApplicationUser", b =>
@@ -1300,11 +1215,6 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Navigation("Therapist");
                 });
 
-            modelBuilder.Entity("RehabConnect.Models.Billing", b =>
-                {
-                    b.Navigation("Invoices");
-                });
-
             modelBuilder.Entity("RehabConnect.Models.CustomerSupport", b =>
                 {
                     b.Navigation("Reports");
@@ -1312,17 +1222,8 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("RehabConnect.Models.Parent", b =>
-                {
-                    b.Navigation("Billings");
-
-                    b.Navigation("Students");
-                });
-
             modelBuilder.Entity("RehabConnect.Models.ParentDetail", b =>
                 {
-                    b.Navigation("Billings");
-
                     b.Navigation("Students");
                 });
 

@@ -20,6 +20,8 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       return View(objProgramList);
     }
 
+    public IActionResult test() => View();
+
     //public IActionResult OrderConfirmation()
     //{
     //    var service = new Stripe.Checkout.SessionService();

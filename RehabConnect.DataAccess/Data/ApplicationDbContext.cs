@@ -68,6 +68,58 @@ namespace RehabConnect.DataAccess.Data
                 new Program{SessionID = 11, ProgramName = "Ready to School B",  NumOfSession = 8,StepId = 5, PriceWeekday = 2000, PriceWeekend = 2200}
                 );
 
+            // Configure foreign key relationships
+            //modelBuilder.Entity<Billing>()
+            //    .HasOne(b => b.ParentDetail)
+            //    .WithMany(p => p.Billings)
+            //    .HasForeignKey(b => b.ParentID)
+            //    .OnDelete(DeleteBehavior.Restrict);  // Disable cascade delete
+
+            //modelBuilder.Entity<Billing>()
+            //    .HasOne(b => b.Invoice)
+            //    .WithMany(i => i.Billings)
+            //    .HasForeignKey(b => b.InvoiceID)
+            //    .OnDelete(DeleteBehavior.Cascade);  // Keep cascade delete for invoices
+
+
+            modelBuilder.Entity<ParentDetail>().HasData(
+                new ParentDetail
+                {
+                    ParentID = 1,
+                    FatherName = "John Doe",
+                    FatherPhoneNum = "123456789",
+                    FatherIC = "A1234567",
+                    FatherRace = "Race",
+                    FatherOccupation = "Occupation",
+                    FatherEmail = "john.doe@example.com",
+                    FatherAddress = "123 Main St",
+                    FatherPostcode = "12345",
+                    FatherCity = "City",
+                    FatherCountry = "Country",
+                    MotherName = "Jane Doe",
+                    MotherPhoneNum = "987654321",
+                    MotherIC = "B7654321",
+                    MotherRace = "Race",
+                    MotherOccupation = "Occupation",
+                    MotherEmail = "jane.doe@example.com",
+                    MotherAddress = "123 Main St",
+                    MotherPostcode = "12345",
+                    MotherCity = "City",
+                    MotherCountry = "Country",
+                    HouseholdIncome = "50000"
+                }
+            );
+
+                    // Seed Invoice
+            modelBuilder.Entity<Invoice>().HasData(
+                new Invoice
+                {
+                    InvoiceID = 1,
+                    TotalAmount = 1000,
+                    ParentID = 1,  // Reference existing ParentID
+                    DateIssued = DateTime.Now
+                }
+            );
 
             base.OnModelCreating(modelBuilder);
 

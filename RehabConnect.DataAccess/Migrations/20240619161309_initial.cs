@@ -49,41 +49,6 @@ namespace RehabConnect.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Parent",
-                columns: table => new
-                {
-                    ParentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherPhoneNum = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherIC = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherRace = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherOccupation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherPostcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherCountry = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherWorkAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MotherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherPhoneNum = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherIC = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherRace = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherOccupation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherPostcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherCountry = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotherWorkAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HouseholdIncome = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Parent", x => x.ParentID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ParentDetails",
                 columns: table => new
                 {
@@ -190,31 +155,24 @@ namespace RehabConnect.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Billings",
+                name: "Invoices",
                 columns: table => new
                 {
-                    BillingID = table.Column<int>(type: "int", nullable: false)
+                    InvoiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ParentID = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentTempId1 = table.Column<int>(type: "int", nullable: true)
+                    DateIssued = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Billings", x => x.BillingID);
+                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
                     table.ForeignKey(
-                        name: "FK_Billings_ParentDetails_ParentID",
+                        name: "FK_Invoices_ParentDetails_ParentID",
                         column: x => x.ParentID,
                         principalTable: "ParentDetails",
                         principalColumn: "ParentID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Billings_Parent_ParentTempId1",
-                        column: x => x.ParentTempId1,
-                        principalTable: "Parent",
-                        principalColumn: "ParentID");
                 });
 
             migrationBuilder.CreateTable(
@@ -245,8 +203,7 @@ namespace RehabConnect.DataAccess.Migrations
                     OthersUnitPlace = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApprovalStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentDetailParentID = table.Column<int>(type: "int", nullable: true),
-                    ParentID = table.Column<int>(type: "int", nullable: true)
+                    ParentDetailParentID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,11 +212,6 @@ namespace RehabConnect.DataAccess.Migrations
                         name: "FK_Students_ParentDetails_ParentDetailParentID",
                         column: x => x.ParentDetailParentID,
                         principalTable: "ParentDetails",
-                        principalColumn: "ParentID");
-                    table.ForeignKey(
-                        name: "FK_Students_Parent_ParentID",
-                        column: x => x.ParentID,
-                        principalTable: "Parent",
                         principalColumn: "ParentID");
                 });
 
@@ -326,23 +278,24 @@ namespace RehabConnect.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoices",
+                name: "Billings",
                 columns: table => new
                 {
-                    InvoiceID = table.Column<int>(type: "int", nullable: false)
+                    BillingID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BillingID = table.Column<int>(type: "int", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DateIssued = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    InvoiceID = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
+                    table.PrimaryKey("PK_Billings", x => x.BillingID);
                     table.ForeignKey(
-                        name: "FK_Invoices_Billings_BillingID",
-                        column: x => x.BillingID,
-                        principalTable: "Billings",
-                        principalColumn: "BillingID",
+                        name: "FK_Billings_Invoices_InvoiceID",
+                        column: x => x.InvoiceID,
+                        principalTable: "Invoices",
+                        principalColumn: "InvoiceID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -551,9 +504,9 @@ namespace RehabConnect.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShoppingCarts_Parent_ParentID",
+                        name: "FK_ShoppingCarts_ParentDetails_ParentID",
                         column: x => x.ParentID,
-                        principalTable: "Parent",
+                        principalTable: "ParentDetails",
                         principalColumn: "ParentID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -565,6 +518,11 @@ namespace RehabConnect.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ParentDetails",
+                columns: new[] { "ParentID", "FatherAddress", "FatherCity", "FatherCountry", "FatherEmail", "FatherIC", "FatherName", "FatherOccupation", "FatherPhoneNum", "FatherPostcode", "FatherRace", "FatherWorkAddress", "HouseholdIncome", "MotherAddress", "MotherCity", "MotherCountry", "MotherEmail", "MotherIC", "MotherName", "MotherOccupation", "MotherPhoneNum", "MotherPostcode", "MotherRace", "MotherWorkAddress", "UserId" },
+                values: new object[] { 1, "123 Main St", "City", "Country", "john.doe@example.com", "A1234567", "John Doe", "Occupation", "123456789", "12345", "Race", null, "50000", "123 Main St", "City", "Country", "jane.doe@example.com", "B7654321", "Jane Doe", "Occupation", "987654321", "12345", "Race", null, null });
+
+            migrationBuilder.InsertData(
                 table: "Roadmap",
                 columns: new[] { "RoadmapId", "Name" },
                 values: new object[,]
@@ -572,6 +530,11 @@ namespace RehabConnect.DataAccess.Migrations
                     { 1, "Idzmir Hub Roadmap" },
                     { 2, "Test 2" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Invoices",
+                columns: new[] { "InvoiceID", "DateIssued", "ParentID", "TotalAmount" },
+                values: new object[] { 1, new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741), 1, 1000m });
 
             migrationBuilder.InsertData(
                 table: "Steps",
@@ -655,19 +618,14 @@ namespace RehabConnect.DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Billings_ParentID",
+                name: "IX_Billings_InvoiceID",
                 table: "Billings",
-                column: "ParentID");
+                column: "InvoiceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Billings_ParentTempId1",
-                table: "Billings",
-                column: "ParentTempId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoices_BillingID",
+                name: "IX_Invoices_ParentID",
                 table: "Invoices",
-                column: "BillingID");
+                column: "ParentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Programs_StepId",
@@ -733,11 +691,6 @@ namespace RehabConnect.DataAccess.Migrations
                 name: "IX_Students_ParentDetailParentID",
                 table: "Students",
                 column: "ParentDetailParentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Students_ParentID",
-                table: "Students",
-                column: "ParentID");
         }
 
         /// <inheritdoc />
@@ -759,7 +712,7 @@ namespace RehabConnect.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "Billings");
 
             migrationBuilder.DropTable(
                 name: "Reports");
@@ -777,7 +730,7 @@ namespace RehabConnect.DataAccess.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Billings");
+                name: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "Schedules");
@@ -796,9 +749,6 @@ namespace RehabConnect.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "ParentDetails");
-
-            migrationBuilder.DropTable(
-                name: "Parent");
 
             migrationBuilder.DropTable(
                 name: "Steps");

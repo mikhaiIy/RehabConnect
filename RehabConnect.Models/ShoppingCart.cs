@@ -20,7 +20,7 @@ namespace RehabConnect.Models
         public int ParentID { get; set; }
         [ForeignKey("ParentID")]
         [ValidateNever]
-        public Parent Parent { get; set; }
+        public ParentDetail ParentDetail { get; set; }
         //public int ApplicationUserId { get; set; }
         //[ForeignKey("ApplicationUserId")]
         //[ValidateNever]

@@ -21,12 +21,17 @@ namespace RehabConnect.DataAccess.Repository
         public IStudentRepository Student { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
+        public IInvoiceRepository Invoice { get; private set; }
+        public IBillingRepository Billing { get; private set; }
+
 
 
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+            Billing = new BillingRepository(_db);
+            Invoice = new InvoiceRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
             Step = new StepRepository(_db);

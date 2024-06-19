@@ -58,7 +58,12 @@ namespace RehabConnect.DataAccess.Repository
         {
             return dbSet.Where(expression);
         }
-        
+
+        public int Count()
+        {
+            return dbSet.Count();
+        }
+
         public void Remove(T entity)
         {
             dbSet.Remove(entity);
