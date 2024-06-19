@@ -13,7 +13,7 @@ namespace RehabConnect.Models
         public int ScheduleID { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         [Required]
         public TimeSpan StartTime { get; set; }

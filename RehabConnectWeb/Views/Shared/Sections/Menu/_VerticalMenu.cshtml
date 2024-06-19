@@ -167,15 +167,15 @@
         <li class='menu-item@(currentPage.StartsWith("/Ecommerce") ? " active open" : "")'>
             <a href='javascript:void(0);' class='menu-link menu-toggle'>
                 <i class='menu-icon tf-icons ti ti-calendar'></i>
-                <div data-i18n='Manage Schedule'>Manage Schedule</div>
+                <div data-i18n='Schedule'>Schedule</div>
             </a>
             <ul class='menu-sub'>
                 <li class='menu-item@(currentPage.StartsWith("/Ecommerce/Product") ? " active open" : "")'>
-                    <a href='javascript:void(0);' class='menu-link'>
+                    <a asp-controller="Schedule" asp-action="Index" class='menu-link'>
                         <div data-i18n='Overview'>Overview</div>
                     </a>
-                    <a asp-controller="Schedule" asp-action="Index" class='menu-link'>
-                        <div data-i18n='Manage Schedule'>Manage Schedule</div>
+                    <a asp-controller="Schedule" asp-action="Create" class='menu-link'>
+                        <div data-i18n='Add Schedule'>Add Schedule</div>
                     </a>
                 </li>
             </ul>

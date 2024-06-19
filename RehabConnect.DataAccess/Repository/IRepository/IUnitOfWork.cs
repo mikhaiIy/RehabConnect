@@ -18,6 +18,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         IStepRepository Step { get; }
         IRoadmapRepository Roadmap { get; }
         IProgramRepository Program { get; }
+        IScheduleRepository Schedule { get; }
 
 
         void Save();
