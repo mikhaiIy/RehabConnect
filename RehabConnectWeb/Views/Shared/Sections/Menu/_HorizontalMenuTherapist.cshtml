@@ -52,7 +52,46 @@
         </ul>
       </li>
 
-      <!-- Layouts -->
+      <!-- Pages -->
+      <li class='menu-item@((currentPage.StartsWith("/Report") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-file"></i>
+            <div data-i18n="Report">Report</div>
+        </a>
+        <ul class="menu-sub">
+          <!-- Front Pages -->
+          <li class='menu-item@(currentPage.StartsWith("/Report") ? " active open" : "")'>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class='menu-icon tf-icons ti ti-files'></i>
+              <div data-i18n="Manage Report">Manage Report</div>
+            </a>
+            <ul class="menu-sub">
+              <li class='menu-item@(currentPage == "/Report/Index" ? " active" : "")'>
+                <a asp-controller="Report" asp-action="Index" class="menu-link" target="_blank">
+                  <div data-i18n="Index">Index</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Report/Create" ? " active" : "")'>
+                <a asp-controller="Report" asp-action="Create" class="menu-link" target="_blank">
+                  <div data-i18n="Create">Create</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Report/Edit" ? " active" : "")'>
+                <a asp-controller="Report" asp-action="Edit" class="menu-link" target="_blank">
+                  <div data-i18n="Edit">Edit</div>
+                </a>
+              </li>
+              <li class='menu-item@(currentPage == "/Report/Delete" ? " active" : "")'>
+                <a asp-controller="Report" asp-action="Delete" class="menu-link" target="_blank">
+                  <div data-i18n="Delete">Delete</div>
+                </a>
+              </li>
+            </ul>
+          </li> 
+        </ul>
+      </li>
+
+      @* <!-- Layouts -->
       <li class='menu-item@(currentPage.StartsWith("/LayoutExamples") ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
@@ -407,301 +446,8 @@
             </a>
           </li>
         </ul>
-      </li>
-
-      <!-- Pages -->
-      <li
-        class='menu-item@((currentPage.StartsWith("/Pages") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>
-        <a href="javascript:void(0)" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons ti ti-file"></i>
-
-          <div data-i18n="Pages">Pages</div>
-        </a>
-        <ul class="menu-sub">
-          <!-- Front Pages -->
-          <li class='menu-item@(currentPage.StartsWith("/FrontPages") ? " active open" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon tf-icons ti ti-files'></i>
-              <div data-i18n="Front Pages">Front Pages</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/FrontPages/LandingPage" ? " active" : "")'>
-                <a asp-controller="FrontPages" asp-action="LandingPage" class="menu-link" target="_blank">
-                  <div data-i18n="Landing">Landing</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/FrontPages/PricingPage" ? " active" : "")'>
-                <a asp-controller="FrontPages" asp-action="PricingPage" class="menu-link" target="_blank">
-                  <div data-i18n="Pricing">Pricing</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/FrontPages/PaymentPage" ? " active" : "")'>
-                <a asp-controller="FrontPages" asp-action="PaymentPage" class="menu-link" target="_blank">
-                  <div data-i18n="Payment">Payment</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/FrontPages/CheckoutPage" ? " active" : "")'>
-                <a asp-controller="FrontPages" asp-action="CheckoutPage" class="menu-link" target="_blank">
-                  <div data-i18n="Checkout">Checkout</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/FrontPages/HelpCenterLanding" ? " active" : "")'>
-                <a asp-controller="FrontPages" asp-action="HelpCenterLanding" class="menu-link" target="_blank">
-                  <div data-i18n="Help Center">Help Center</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage.StartsWith("/Pages/Profile") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-user-circle"></i>
-              <div data-i18n="User Profile">User Profile</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/Pages/ProfileUser" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="ProfileUser" class="menu-link">
-                  <div data-i18n="Profile">Profile</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/ProfileTeams" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="ProfileTeams" class="menu-link">
-                  <div data-i18n="Teams">Teams</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/ProfileProjects" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="ProfileProjects" class="menu-link">
-                  <div data-i18n="Projects">Projects</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/ProfileConnections" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="ProfileConnections" class="menu-link">
-                  <div data-i18n="Connections">Connections</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage.StartsWith("/Pages/Account") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-settings"></i>
-              <div data-i18n="Account Settings">Account Settings</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/Pages/AccountSettings" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="AccountSettings" class="menu-link">
-                  <div data-i18n="Account">Account</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/AccountSettings/Security" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="AccountSettingsSecurity" class="menu-link">
-                  <div data-i18n="Security">Security</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/AccountSettings/Billing" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="AccountSettingsBilling" class="menu-link">
-                  <div data-i18n="Billing & Plans">Billing & Plans</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/AccountSettings/Notifications" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="AccountSettingsNotifications" class="menu-link">
-                  <div data-i18n="Notifications">Notifications</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/AccountSettings/Connections" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="AccountSettingsConnections" class="menu-link">
-                  <div data-i18n="Connections">Connections</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage == "/Pages/FAQ" ? " active" : "")'>
-            <a asp-controller="Pages" asp-action="FAQ" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-help"></i>
-              <div data-i18n="FAQ">FAQ</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/Pages/Pricing" ? " active" : "")'>
-            <a asp-controller="Pages" asp-action="Pricing" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-diamond"></i>
-              <div data-i18n="Pricing">Pricing</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage.StartsWith("/Pages/Misc") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-3d-cube-sphere"></i>
-              <div data-i18n="Misc">Misc</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/Pages/MiscError" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="MiscError" class="menu-link" target="_blank">
-                  <div data-i18n="Error">Error</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/MiscUnderMaintenance" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="MiscUnderMaintenance" class="menu-link" target="_blank">
-                  <div data-i18n="Under Maintenance">Under Maintenance</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/MiscComingSoon" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="MiscComingSoon" class="menu-link" target="_blank">
-                  <div data-i18n="Coming Soon">Coming Soon</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Pages/MiscNotAuthorized" ? " active" : "")'>
-                <a asp-controller="Pages" asp-action="MiscNotAuthorized" class="menu-link" target="_blank">
-                  <div data-i18n="Not Authorized">Not Authorized</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class='menu-item@(currentPage.StartsWith("/Auth/") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-lock"></i>
-              <div data-i18n="Authentications">Authentications</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage.StartsWith("/Auth/Login") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Login">Login</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/LoginBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="LoginBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/LoginCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="LoginCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class='menu-item@(currentPage.StartsWith("/Auth/Register") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Register">Register</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/RegisterBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="RegisterBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/RegisterCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="RegisterCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/RegisterMultisteps" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="RegisterMultisteps" class="menu-link" target="_blank">
-                      <div data-i18n="Multi-steps">Multi-steps</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class='menu-item@(currentPage.StartsWith("/Auth/VerifyEmail") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Verify Email">Verify Email</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/VerifyEmailBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="VerifyEmailBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/VerifyEmailCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="VerifyEmailCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class='menu-item@(currentPage.StartsWith("/Auth/ResetPassword") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Reset Password">Reset Password</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/ResetPasswordBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="ResetPasswordBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/ResetPasswordCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="ResetPasswordCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class='menu-item@(currentPage.StartsWith("/Auth/ForgotPassword") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Forgot Password">Forgot Password</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/ForgotPasswordBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="ForgotPasswordBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/ForgotPasswordCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="ForgotPasswordCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class='menu-item@(currentPage.StartsWith("/Auth/TwoSteps") ? " active" : "")'>
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Two Steps">Two Steps</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class='menu-item@(currentPage == "/Auth/TwoStepsBasic" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="TwoStepsBasic" class="menu-link" target="_blank">
-                      <div data-i18n="Basic">Basic</div>
-                    </a>
-                  </li>
-                  <li class='menu-item@(currentPage == "/Auth/TwoStepsCover" ? " active" : "")'>
-                    <a asp-controller="Auth" asp-action="TwoStepsCover" class="menu-link" target="_blank">
-                      <div data-i18n="Cover">Cover</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage.StartsWith("/Wizards") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-forms"></i>
-              <div data-i18n="Wizard Examples">Wizard Examples</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/Wizards/Checkout" ? " active" : "")'>
-                <a asp-controller="Wizards" asp-action="Checkout" class="menu-link">
-                  <div data-i18n="Checkout">Checkout</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Wizards/PropertyListing" ? " active" : "")'>
-                <a asp-controller="Wizards" asp-action="PropertyListing" class="menu-link">
-                  <div data-i18n="Property Listing">Property Listing</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Wizards/CreateDeal" ? " active" : "")'>
-                <a asp-controller="Wizards" asp-action="CreateDeal" class="menu-link">
-                  <div data-i18n="Create Deal">Create Deal</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage == "/Modals/Examples" ? " active" : "")'>
-            <a asp-controller="Modals" asp-action="Examples" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-square"></i>
-              <div data-i18n="Modal Examples">Modal Examples</div>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- Components -->
+      </li> 
+@*       <!-- Components -->
       <li
         class='menu-item@((currentPage.StartsWith("/Cards") || currentPage.StartsWith("/Ui") || currentPage.StartsWith("/ExtendedUi") || currentPage.StartsWith("/Icons")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -1160,7 +906,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> *@
 
     </ul>
   </div>

@@ -251,4 +251,7 @@
     <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
     <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\CustomerSupport\Views\Report\" />
+  </ItemGroup>
 </Project>

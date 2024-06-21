@@ -49,7 +49,7 @@
 
         @if (Convert.ToBoolean(@ViewData["isMenu"]))
         {
-          @await Html.PartialAsync("Sections/Menu/_HorizontalMenu")
+          @await Html.PartialAsync("Sections/Menu/_HorizontalMenuTherapist")
         }
         <!-- Content -->
         <div class='@ViewData["container"] @((Convert.ToBoolean(@ViewData["isFlex"])) ? "d-flex align-items-stretch flex-grow-1 p-0" : "flex-grow-1 container-p-y")'>
