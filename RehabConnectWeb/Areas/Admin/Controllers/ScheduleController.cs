@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
@@ -65,12 +67,34 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     #region API CALLS
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    [HttpGet]
+    public IActionResult GetAll(int draw, int start, int length)
     {
-      var allSchedules =  _unitOfWork.Schedule.GetAll();
-      return Json(new { data = allSchedules });
+      try
+      {
+        var allSchedules = _unitOfWork.Schedule.GetAll();
+        int recordsTotal = allSchedules.Count();
+        var data = allSchedules.Skip(start).Take(length).ToList();
+
+        var response = new
+        {
+          draw = draw,
+          recordsTotal = recordsTotal,
+          recordsFiltered = recordsTotal,
+          data = data
+        };
+
+        return Json(response);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Error in GetAll: {ex.Message}");
+        return StatusCode(500, "Internal server error");
+      }
     }
+
 
     #endregion
   }
+
 }
