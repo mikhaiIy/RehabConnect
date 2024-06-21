@@ -18,6 +18,8 @@ $(function () {
           d.draw = d.draw || 1;
           d.start = d.start || 0;
           d.length = d.length || 10;
+          d.search = { value: $('#searchInput').val() }; // Example: Global search input value
+          // Add other search inputs if needed
         }
       },
       columns: [
@@ -40,11 +42,17 @@ $(function () {
           searchable: false
         }
       ],
-      order: [[0, 'asc']],
+      order: [[0, 'asc']], // Default sorting by date ascending
       dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>><"table-responsive"t><"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>'
     });
   }
 });
+
+
+
+
+
+
 
 
 
