@@ -57,7 +57,7 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
                         <div>
-                            <h3 class="mb-1">$@Model.TotalPaid.ToString("N2")</h3>
+                            <h3 class="mb-1">RM @Model.TotalPaid.ToString("N2")</h3>
                             <p class="mb-0">Paid</p>
                         </div>
                         <span class="avatar me-sm-4">
@@ -68,7 +68,7 @@
                 <div class="col-sm-6 col-lg-3">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <h3 class="mb-1">$@Model.TotalUnpaid.ToString("N2")</h3>
+                            <h3 class="mb-1">RM @Model.TotalUnpaid.ToString("N2")</h3>
                             <p class="mb-0">Unpaid</p>
                         </div>
                         <span class="avatar">
@@ -84,7 +84,18 @@
 <!-- Invoice List Table -->
 <div class="card">
     <div class="card-datatable table-responsive">
-        <table class="invoice-list-table table border-top">
+        @* <table class="invoice-list-table table border-top"> *@
+        <table class="table border-top">
+            <div class="row pb-3">
+                <div class="col-6">
+                  
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Invoice" asp-action="Add" class="btn btn-primary">
+                        <i data-feather='file-plus'>+ Invoice</i>
+                    </a>
+                </div>
+            </div>
             <thead>
                 <tr>
                     <th></th>
@@ -98,6 +109,46 @@
                     <th class="cell-fit">Actions</th>
                 </tr>
             </thead>
+            <tbody>
+                @foreach (var invoice in Model.Invoices)
+                {
+                    <tr>
+                        <td>
+                            @* @if (invoice.avatar_image)
+                            {
+                                <img src="path/to/avatar/image.jpg" alt="Avatar" class="avatar-image" />
+                            } *@
+                        </td>
+                        <td>@invoice.InvoiceID</td>
+                        <td>
+                            @if (invoice.ParentDetail.FatherName == "John Doe")
+                            {
+                                <i class='ti ti-check text-success'></i>
+                            }
+                            else if (invoice.ParentDetail.FatherName == "Past Due")
+                            {
+                                <i class='ti ti-alert text-danger'></i>
+                            }
+                            else
+                            {
+                                <i class='ti ti-trending-up text-secondary'></i>
+                            }
+                        </td>
+                        <td>@invoice.ParentDetail.FatherName</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-secondary">Preview</a>
+                                <a href="@Url.Action("Print", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-info">Print</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>

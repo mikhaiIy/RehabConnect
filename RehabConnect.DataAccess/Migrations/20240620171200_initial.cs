@@ -162,7 +162,8 @@ namespace RehabConnect.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ParentID = table.Column<int>(type: "int", nullable: false),
-                    DateIssued = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateIssued = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -285,7 +286,6 @@ namespace RehabConnect.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceID = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -533,8 +533,8 @@ namespace RehabConnect.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "InvoiceID", "DateIssued", "ParentID", "TotalAmount" },
-                values: new object[] { 1, new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741), 1, 1000m });
+                columns: new[] { "InvoiceID", "DateIssued", "DueDate", "ParentID", "TotalAmount" },
+                values: new object[] { 1, new DateTime(2024, 6, 21, 1, 11, 59, 337, DateTimeKind.Local).AddTicks(2256), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1000m });
 
             migrationBuilder.InsertData(
                 table: "Steps",

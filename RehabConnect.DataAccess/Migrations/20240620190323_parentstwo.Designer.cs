@@ -12,8 +12,8 @@ using RehabConnect.DataAccess.Data;
 namespace RehabConnect.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240619161309_initial")]
-    partial class initial
+    [Migration("20240620190323_parentstwo")]
+    partial class parentstwo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,9 +243,6 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("InvoiceID")
                         .HasColumnType("int");
 
@@ -319,6 +316,9 @@ namespace RehabConnect.DataAccess.Migrations
                     b.Property<DateTime>("DateIssued")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ParentID")
                         .HasColumnType("int");
 
@@ -335,7 +335,8 @@ namespace RehabConnect.DataAccess.Migrations
                         new
                         {
                             InvoiceID = 1,
-                            DateIssued = new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741),
+                            DateIssued = new DateTime(2024, 6, 21, 3, 3, 22, 153, DateTimeKind.Local).AddTicks(5142),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ParentID = 1,
                             TotalAmount = 1000m
                         });
@@ -467,6 +468,31 @@ namespace RehabConnect.DataAccess.Migrations
                             MotherEmail = "jane.doe@example.com",
                             MotherIC = "B7654321",
                             MotherName = "Jane Doe",
+                            MotherOccupation = "Occupation",
+                            MotherPhoneNum = "987654321",
+                            MotherPostcode = "12345",
+                            MotherRace = "Race"
+                        },
+                        new
+                        {
+                            ParentID = 2,
+                            FatherAddress = "123 Main St",
+                            FatherCity = "City",
+                            FatherCountry = "Country",
+                            FatherEmail = "Homelander.doe@example.com",
+                            FatherIC = "A1234567",
+                            FatherName = "Homelander",
+                            FatherOccupation = "Occupation",
+                            FatherPhoneNum = "123456789",
+                            FatherPostcode = "12345",
+                            FatherRace = "Race",
+                            HouseholdIncome = "50000",
+                            MotherAddress = "123 Main St",
+                            MotherCity = "City",
+                            MotherCountry = "Country",
+                            MotherEmail = "Deep.doe@example.com",
+                            MotherIC = "B7654321",
+                            MotherName = "Deep",
                             MotherOccupation = "Occupation",
                             MotherPhoneNum = "987654321",
                             MotherPostcode = "12345",

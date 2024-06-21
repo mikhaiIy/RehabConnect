@@ -1,0 +1,106 @@
+@model Invoice
+
+@{
+    ViewData["Title"] = "Invoice - Add";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css">
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/app-invoice.css" />
+}
+
+@section PageScripts {
+    <script src="~/js/offcanvas-send-invoice.js"></script>
+    <script src="~/js/app-invoice-add.js"></script>
+}
+
+<div class="row invoice-add">
+    <!-- Invoice Add -->
+    <div class="col-lg-9 col-12 mb-lg-0 mb-4">
+        <div class="card invoice-preview-card">
+            <div class="card-body">
+                <form method="post" asp-action="Add">
+                    <div class="row m-sm-4 m-0">
+                        <div class="col-md-7 mb-md-0 mb-4 px-0">
+                            <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
+                                <div class="app-brand-logo demo">
+                                    @await Html.PartialAsync("../_Partials/_Macros")
+                                </div>
+                                <span class="app-brand-text fw-bold fs-4">
+                                    @TempData.Peek("appName")
+                                </span>
+                            </div>
+                            <p class="mb-2">KTDI MA1, 351 South Brand Wing C</p>
+                            <p class="mb-2">Johor Bharu, CA 91905, USA</p>
+                            <p class="mb-3">+60 (011) 2810 3703, +44 (876) 543 2198</p>
+                        </div>
+                        <div class="col-md-5">
+                            <dl class="row mb-2">
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="h4 text-capitalize mb-0 text-nowrap">Invoice</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <div class="input-group input-group-merge disabled w-px-150">
+                                        <span class="input-group-text">#</span>
+                                        <input type="text" class="form-control" disabled placeholder="Auto-Generated" value="@Model.InvoiceID" />
+                                    </div>
+                                </dd>
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="fw-normal">Date:</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <input asp-for="DateIssued" class="form-control w-px-150 date-picker" placeholder="YYYY-MM-DD" />
+                                </dd>
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="fw-normal">Due Date:</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <input asp-for="DueDate" class="form-control w-px-150 date-picker" placeholder="YYYY-MM-DD" />
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <hr class="my-3 mx-n4" />
+
+                    <!-- Add more fields as necessary -->
+
+                    <div class="row pb-4">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary d-grid w-100">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Invoice Add -->
+    <!-- Invoice Actions -->
+    <div class="col-lg-3 col-12 invoice-actions">
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-primary d-grid w-100 mb-2" data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
+                    <span class="d-flex align-items-center justify-content-center text-nowrap">
+                        <i class="ti ti-send ti-xs me-2"></i>Send Invoice
+                    </span>
+                </button>
+                <a href="/Admin/Invoice/Preview" class="btn btn-label-secondary d-grid w-100 mb-2">Preview</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Invoice Actions -->
+</div>
+
+<!-- Offcanvas -->
+@await Html.PartialAsync("../_Partials/_Offcanvas/OffcanvasSendInvoice")
+<!-- /Offcanvas -->

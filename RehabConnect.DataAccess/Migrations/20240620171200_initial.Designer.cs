@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RehabConnect.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using RehabConnect.DataAccess.Data;
 namespace RehabConnect.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240620171200_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,7 +335,7 @@ namespace RehabConnect.DataAccess.Migrations
                         new
                         {
                             InvoiceID = 1,
-                            DateIssued = new DateTime(2024, 6, 21, 3, 3, 22, 153, DateTimeKind.Local).AddTicks(5142),
+                            DateIssued = new DateTime(2024, 6, 21, 1, 11, 59, 337, DateTimeKind.Local).AddTicks(2256),
                             DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ParentID = 1,
                             TotalAmount = 1000m
@@ -465,31 +468,6 @@ namespace RehabConnect.DataAccess.Migrations
                             MotherEmail = "jane.doe@example.com",
                             MotherIC = "B7654321",
                             MotherName = "Jane Doe",
-                            MotherOccupation = "Occupation",
-                            MotherPhoneNum = "987654321",
-                            MotherPostcode = "12345",
-                            MotherRace = "Race"
-                        },
-                        new
-                        {
-                            ParentID = 2,
-                            FatherAddress = "123 Main St",
-                            FatherCity = "City",
-                            FatherCountry = "Country",
-                            FatherEmail = "Homelander.doe@example.com",
-                            FatherIC = "A1234567",
-                            FatherName = "Homelander",
-                            FatherOccupation = "Occupation",
-                            FatherPhoneNum = "123456789",
-                            FatherPostcode = "12345",
-                            FatherRace = "Race",
-                            HouseholdIncome = "50000",
-                            MotherAddress = "123 Main St",
-                            MotherCity = "City",
-                            MotherCountry = "Country",
-                            MotherEmail = "Deep.doe@example.com",
-                            MotherIC = "B7654321",
-                            MotherName = "Deep",
                             MotherOccupation = "Occupation",
                             MotherPhoneNum = "987654321",
                             MotherPostcode = "12345",

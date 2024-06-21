@@ -1,4 +1,5 @@
-﻿using RehabConnect.DataAccess.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using System;
@@ -23,7 +24,6 @@ namespace RehabConnect.DataAccess.Repository
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IInvoiceRepository Invoice { get; private set; }
         public IBillingRepository Billing { get; private set; }
-
 
 
 

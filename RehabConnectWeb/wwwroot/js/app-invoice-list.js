@@ -15,18 +15,19 @@ $(function () {
         url: '/Admin/Invoice/GetInvoices', // Endpoint to fetch invoice data
         type: 'GET',
         dataType: 'json',
-        dataSrc: ''
+        dataSrc: function (json) {
+          return json.data.invoice;
+        }
       },
       columns: [
-        // columns according to JSON
         { data: null }, // For the expand/collapse control
         { data: 'invoiceID' }, // Invoice ID
-        { data: 'parentDetail.fatherName' }, // Invoice status
-        { data: 'parentDetail.MotherName' }, // Parent name
+        { data: 'parentDetail.fatherName' }, // Father's Name
+        { data: 'parentDetail.motherName' }, // Mother's Name
         { data: 'totalAmount' }, // Total amount
         { data: 'dateIssued' }, // Issued date
-        { data: 'parentDetail.householdIncome' }, // Balance
-        { data: 'totalAmount' }, // Invoice status (again, for the tooltip)
+        { data: 'parentDetail.householdIncome' }, // Household Income
+        { data: 'totalAmount' }, // Total amount for the tooltip
         { data: null } // Actions
       ],
       columnDefs: [
@@ -45,77 +46,21 @@ $(function () {
           targets: 1,
           render: function (data, type, full) {
             var invoice_id = full['invoiceID'];
-            var row_output = '<a href="/Invoice/Preview/' + invoice_id + '">#' + invoice_id + '</a>';
-            return row_output;
+            return '<a href="/Admin/Invoice/Preview/' + invoice_id + '">#' + invoice_id + '</a>';
           }
         },
         {
-          // Invoice status
+          // Father's Name
           targets: 2,
           render: function (data, type, full) {
-            var invoice_status = full['totalAmount'];
-            var due_date = moment(full['dateIssued']).format('DD MMM YYYY');
-            var balance = full['balance'];
-            var roleBadgeObj = {
-              Sent: '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30"><i class="ti ti-circle-check ti-sm"></i></span>',
-              Draft: '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30"><i class="ti ti-device-floppy ti-sm"></i></span>',
-              'Past Due': '<span class="badge badge-center rounded-pill bg-label-danger w-px-30 h-px-30"><i class="ti ti-info-circle ti-sm"></i></span>',
-              'Partial Payment': '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30"><i class="ti ti-circle-half-2 ti-sm"></i></span>',
-              Paid: '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30"><i class="ti ti-chart-pie ti-sm"></i></span>',
-              Downloaded: '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30"><i class="ti ti-arrow-down-circle ti-sm"></i></span>'
-            };
-            return (
-              "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>" +
-              invoice_status +
-              '<br> <span class="fw-medium">Balance:</span> ' +
-              balance +
-              '<br> <span class="fw-medium">Due Date:</span> ' +
-              due_date +
-              "</span>'>" +
-              roleBadgeObj[invoice_status] +
-              '</span>'
-            );
+            return full['parentDetail']['fatherName'];
           }
         },
         {
-          // Parent name
+          // Mother's Name
           targets: 3,
-          responsivePriority: 4,
           render: function (data, type, full) {
-            var name = full['parentName'];
-            var service = full['service'];
-            var image = full['avatarImage'];
-            var rand_num = Math.floor(Math.random() * 11) + 1;
-            var user_img = rand_num + '.png';
-            if (image === true) {
-              // For Avatar image
-              var output = '<img src="' + assetsPath + 'img/avatars/' + user_img + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
-              var state = states[stateNum];
-              var initials = name.match(/\b\w/g) || [];
-              initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
-              output = '<span class="avatar-initial rounded-circle bg-label-' + state + '">' + initials + '</span>';
-            }
-            var row_output =
-              '<div class="d-flex justify-content-start align-items-center">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar me-2">' +
-              output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<a href="/Parent/Profile/' + full['parentId'] + '" class="text-body text-truncate"><span class="fw-medium">' +
-              name +
-              '</span></a>' +
-              '<small class="text-truncate text-muted">' +
-              service +
-              '</small>' +
-              '</div>' +
-              '</div>';
-            return row_output;
+            return full['parentDetail']['motherName'];
           }
         },
         {
@@ -130,32 +75,47 @@ $(function () {
           // Issued Date
           targets: 5,
           render: function (data, type, full) {
-            var issued_date = new Date(full['issuedDate']);
-            var row_output =
-              '<span class="d-none">' +
-              moment(issued_date).format('YYYYMMDD') +
-              '</span>' +
-              moment(issued_date).format('DD MMM YYYY');
-            return row_output;
+            var issued_date = new Date(full['dateIssued']);
+            return '<span class="d-none">' + moment(issued_date).format('YYYYMMDD') + '</span>' + moment(issued_date).format('DD MMM YYYY');
           }
         },
         {
-          // Client Balance/Status
+          // Household Income
           targets: 6,
           orderable: false,
           render: function (data, type, full) {
-            var balance = full['balance'];
-            if (balance === 0) {
-              var badge_class = 'bg-label-success';
-              return '<span class="badge ' + badge_class + ' text-capitalized"> Paid </span>';
-            } else {
-              return '<span class="d-none">' + balance + '</span>' + balance;
-            }
+            var householdIncome = full['parentDetail']['householdIncome'];
+            return '<span class="d-none">' + householdIncome + '</span>$' + householdIncome;
           }
         },
         {
+          // Total Amount for Tooltip
           targets: 7,
-          visible: false
+          visible: false,
+          render: function (data, type, full) {
+            var totalAmount = full['totalAmount'];
+            var due_date = moment(full['dateIssued']).format('DD MMM YYYY');
+            var balance = full['parentDetail']['householdIncome'];
+            var roleBadgeObj = {
+              Sent: '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30"><i class="ti ti-circle-check ti-sm"></i></span>',
+              Draft: '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30"><i class="ti ti-device-floppy ti-sm"></i></span>',
+              'Past Due': '<span class="badge badge-center rounded-pill bg-label-danger w-px-30 h-px-30"><i class="ti ti-info-circle ti-sm"></i></span>',
+              'Partial Payment': '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30"><i class="ti ti-circle-half-2 ti-sm"></i></span>',
+              Paid: '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30"><i class="ti ti-chart-pie ti-sm"></i></span>',
+              Downloaded: '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30"><i class="ti ti-arrow-down-circle ti-sm"></i></span>'
+            };
+            return (
+              "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>" +
+              totalAmount +
+              '<br> <span class="fw-medium">Balance:</span> ' +
+              balance +
+              '<br> <span class="fw-medium">Due Date:</span> ' +
+              due_date +
+              "</span>'>" +
+              roleBadgeObj[totalAmount] +
+              '</span>'
+            );
+          }
         },
         {
           // Actions
@@ -167,13 +127,13 @@ $(function () {
             return (
               '<div class="d-flex align-items-center">' +
               '<a href="javascript:;" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Send Mail"><i class="ti ti-mail mx-2 ti-sm"></i></a>' +
-              '<a href="/Admin/Invoice/Preview/' + full['id'] + '" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Preview Invoice"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
+              '<a href="/Admin/Invoice/Preview/' + full['invoiceID'] + '" data-bs-toggle="tooltip" class="text-body" data-bs-placement="top" title="Preview Invoice"><i class="ti ti-eye mx-2 ti-sm"></i></a>' +
               '<div class="dropdown">' +
               '<a href="javascript:;" class="btn dropdown-toggle hide-arrow text-body p-0" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm"></i></a>' +
               '<div class="dropdown-menu dropdown-menu-end">' +
-              '<a href="/Admin/Invoice/Download/' + full['id'] + '" class="dropdown-item">Download</a>' +
-              '<a href="/Admin/Invoice/Edit/' + full['id'] + '" class="dropdown-item">Edit</a>' +
-              '<a href="/Admin/Invoice/Duplicate/' + full['id'] + '" class="dropdown-item">Duplicate</a>' +
+              '<a href="/Admin/Invoice/Download/' + full['invoiceID'] + '" class="dropdown-item">Download</a>' +
+              '<a href="/Admin/Invoice/Edit/' + full['invoiceID'] + '" class="dropdown-item">Edit</a>' +
+              '<a href="/Admin/Invoice/Duplicate/' + full['invoiceID'] + '" class="dropdown-item">Duplicate</a>' +
               '<div class="dropdown-divider"></div>' +
               '<a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>' +
               '</div>' +
@@ -208,7 +168,7 @@ $(function () {
           text: '<i class="ti ti-plus me-md-1"></i><span class="d-md-inline-block d-none">Create Invoice</span>',
           className: 'btn btn-primary waves-effect waves-light',
           action: function () {
-            window.location = '/Invoice/Add';
+            window.location = '/Admin/Invoice/Add';
           }
         }
       ],
@@ -218,7 +178,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data();
-              return 'Details of ' + data['parentName'];
+              return 'Details of ' + data['parentDetail.fatherName'] + ' ' + data['parentDetail.motherName'];
             }
           }),
           type: 'column',

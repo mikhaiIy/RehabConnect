@@ -12,7 +12,6 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
   [Area("Admin")]
   public class InvoiceController : Controller
   {
-    private readonly ApplicationDbContext _context;
     private readonly IUnitOfWork _unitOfWork;
 
     public InvoiceController(IUnitOfWork unitOfWork)
@@ -29,8 +28,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       model.InvoicesCount = _unitOfWork.Invoice.Count();
       model.TotalPaid = _unitOfWork.Billing.Sum();
       model.TotalUnpaid = _unitOfWork.Billing.Sum();
-
-      
+      model.Invoices = _unitOfWork.Invoice.GetAll(includeProperties: "ParentDetail").ToList();
+      model.parentDetails = _unitOfWork.ParentDetail.GetAll().ToList();
 
       return View(model);
     }
@@ -39,6 +38,21 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     {
       return View();
     }
+
+    [HttpPost]
+    public IActionResult Add(Invoice obj)
+    {
+      if (ModelState.IsValid)
+      {
+        _unitOfWork.Invoice.Add(obj);
+        _unitOfWork.Save();
+        TempData["success"] = "Category created successfully";
+        return RedirectToAction("Index");
+      }
+      return View();
+    }
+
+
 
     public IActionResult Edit()
     {
@@ -77,6 +91,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     public int InvoicesCount { get; set; }
     public decimal TotalPaid { get; set; }
     public decimal TotalUnpaid { get; set; }
+    public List<ParentDetail> parentDetails { get; set; }
+    public List<Invoice> Invoices { get; set; }
   }
 }
 

@@ -19,5 +19,6 @@ namespace RehabConnect.Models
         public ParentDetail ParentDetail { get; set; }  // Changed to ParentDetail
 
         public DateTime DateIssued { get; set; }
+        public DateTime DueDate { get; set; }
     }
 }
