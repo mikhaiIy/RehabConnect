@@ -933,7 +933,7 @@
           text: '<i class="ti ti-plus me-md-2"></i><span class="d-md-inline-block d-none">Create Invoice</span>',
           className: 'btn btn-primary waves-effect waves-light',
           action: function (e, dt, button, config) {
-            window.location = '/Admin/Invoice/Add';
+            window.location = '/Invoice/Add';
           }
         }
       ],

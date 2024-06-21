@@ -1,0 +1,44 @@
+@model Program
+
+@{
+  ViewData["Title"] = "Program";
+}
+
+<div class="col-xl">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Delete Program</h5>
+      <small class="text-muted float-end">Make sure to delete the correct Program!</small>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="ProgramName" class="form-label" for="multicol-step-name">Title</label>
+            <input asp-for="ProgramName" type="text" id="multicol-step-name" class="form-control" />
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="NumOfSession" class="form-label" for="multicol-step-number">Number of Session</label>
+            <input asp-for="NumOfSession" type="number" id="multicol-step-number" class="form-control" />
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="multicol-first-name">Price Weekday</label>
+            <input asp-for="PriceWeekday" type="number" id="multicol-first-name" class="form-control"/>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="multicol-last-name">Price Weekend</label>
+            <input asp-for="PriceWeekend" type="number" id="multicol-last-name" class="form-control"/>
+          </div>
+        </div>
+        <div class="pt-4">
+          <button type="submit" class="btn btn-danger me-sm-3 me-1">Delete</button>
+          <button  class="btn btn-label-secondary"><a asp-controller="Program" asp-action="Index"></a>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

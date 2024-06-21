@@ -20,7 +20,7 @@ namespace RehabConnect.Models
         
         [Required] public int RoadmapId { get; set; }
         [ForeignKey("RoadmapId")]
-        public Roadmap Roadmap { get; set; }
+        public Roadmap? Roadmap { get; set; }
         [Required]
         public int StepNo { get; set; }
         [Required]

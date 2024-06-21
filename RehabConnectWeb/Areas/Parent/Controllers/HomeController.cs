@@ -21,15 +21,6 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     public IActionResult Preview() => View();
     public IActionResult Print() => View();
 
-    public IActionResult Details(int SessionID)
-    {
-      ShoppingCart cart = new()
-      {
-        Program = _unitOfWork.Program.Get(u => u.SessionID == SessionID),
-        SessionID = SessionID
-      };
-      return View(cart);
-    }
   }
 }
 
