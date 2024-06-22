@@ -62,7 +62,7 @@
               </a>
             </li>
             <li class='menu-item@(currentPage == "/Ecommerce/ProductAdd" ? " active" : "")'>
-              <a asp-controller="Ecommerce" asp-action="ProductAdd" class="menu-link">
+              <a asp-controller="CustomerSupport" asp-action="Index" class="menu-link">
                 <div data-i18n='Manage Customer Support'>Manage Customer Support</div>
               </a>
             </li>
@@ -79,7 +79,7 @@
               </a>
             </li>
             <li class='menu-item@(currentPage == "/Ecommerce/OrderDetails" ? " active" : "")'>
-              <a asp-controller="Ecommerce" asp-action="OrderDetails" class="menu-link">
+              <a asp-controller="Therapist" asp-action="Index" class="menu-link">
                 <div data-i18n='Manage Therapist'>Manage Therapist</div>
               </a>
             </li>
@@ -130,7 +130,7 @@
           </ul>
         </li>
         <li class='menu-item@(currentPage == "/Ecommerce/Dashboard" ? " active" : "")'>
-          <a asp-controller='Ecommerce' asp-action='Dashboard' class="menu-link">
+                    <a asp-area="Identity" asp-page="/Account/Register" class="menu-link">
             <div data-i18n='Create New User'>Create New User</div>
           </a>
         </li>

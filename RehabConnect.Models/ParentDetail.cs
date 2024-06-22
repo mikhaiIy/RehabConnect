@@ -63,7 +63,7 @@ namespace RehabConnect.Models
 
         public string? UserId{ get; set; }
         // Navigation properties
-        public ICollection<Billing> Billings { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public ICollection<Billing>? Billings { get; set; }
+        public ICollection<Student>? Students { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace RehabConnect.Models
 
         // Navigation properties
 
-        public ICollection<Session> Sessions { get; set; }
-        public ICollection<Report> Reports { get; set; }
+        public ICollection<Session>? Sessions { get; set; }
+        public ICollection<Report>? Reports { get; set; }
     }
 }

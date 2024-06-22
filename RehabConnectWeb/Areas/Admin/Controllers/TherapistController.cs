@@ -1,4 +1,4 @@
-﻿using RehabConnect.DataAccess.Data;
+using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Utility;
@@ -49,6 +49,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Upsert(RehabConnect.Models.Therapist TherapistObj)
         {
+      if(ModelState.IsValid) { 
                 if(TherapistObj.TherapistID == 0)
                 {
                     _unitOfWork.Therapist.Add(TherapistObj);
@@ -60,8 +61,13 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
                 _unitOfWork.Save();
                 TempData["success"] = "Therapist created successfully";
                 return RedirectToAction("Index");
+      }
+      else
+      {
+        return View(TherapistObj) ;
+      }
 
-        }
+    }
 
         #region API CALLS
         [HttpGet]

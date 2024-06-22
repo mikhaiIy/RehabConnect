@@ -1,4 +1,4 @@
-﻿using RehabConnect.DataAccess.Data;
+using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 //using RehabConnect.Models.ViewModels;
@@ -50,22 +50,30 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Upsert(RehabConnect.Models.CustomerSupport CustomerSupportObj)
         {
+          if(ModelState.IsValid)
+          { 
 
-                if(CustomerSupportObj.CSID == 0)
-                {
-                    _unitOfWork.CustomerSupport.Add(CustomerSupportObj);
-                }
-                else
-                {
-                    _unitOfWork.CustomerSupport.Update(CustomerSupportObj);
-                }
-                _unitOfWork.Save();
-                TempData["success"] = "Customer Support created successfully";
-                return RedirectToAction("Index");
-        }
+                    if(CustomerSupportObj.CSID == 0)
+                    {
+                        _unitOfWork.CustomerSupport.Add(CustomerSupportObj);
+                    }
+                    else
+                    {
+                        _unitOfWork.CustomerSupport.Update(CustomerSupportObj);
+                    }
+                    _unitOfWork.Save();
+                    TempData["success"] = "Customer Support created successfully";
+                    return RedirectToAction("Index");
+          }
+          else
+          {
+        return View(CustomerSupportObj);
 
-        #region API CALLS
-        [HttpGet]
+          }
+    }
+
+    #region API CALLS
+    [HttpGet]
         public IActionResult GetAll()
         {
             List<RehabConnect.Models.CustomerSupport> objCustomerSupportList = _unitOfWork.CustomerSupport.GetAll().ToList();

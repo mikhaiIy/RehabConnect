@@ -217,7 +217,7 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
             else
           {
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToPage("/Account/RegisterMultiSteps", new { area = "Identity" });
+            return RedirectToAction("Create", "ParentDetail", new { Area = "Parent" });
 
           }
         }

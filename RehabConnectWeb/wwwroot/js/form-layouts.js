@@ -75,6 +75,75 @@
       });
     });
   }
+
+  // Initialize accordion functionality
+  const accordionItems = document.querySelectorAll('.accordion-button');
+  accordionItems.forEach(function (accordionItem) {
+    accordionItem.addEventListener('click', function () {
+      const panel = accordionItem.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  });
+
+  // Form validation
+  const form = document.querySelector('form');
+  form.addEventListener('submit', function (e) {
+    let valid = true;
+
+    // Name validation
+    const name = document.querySelector('[asp-for="csName"]').value;
+    if (name.trim() === '') {
+      valid = false;
+      alert('Name is required.');
+    }
+
+    // NRIC validation
+    const nric = document.querySelector('[asp-for="csic"]').value;
+    const nricPattern = /^\d{6}-\d{2}-\d{4}$/;
+    if (!nricPattern.test(nric)) {
+      valid = false;
+      alert('Invalid NRIC format. Expected format: xxxxxx-xx-xxxx');
+    }
+
+    // Age validation
+    const age = document.querySelector('[asp-for="csAge"]').value;
+    if (isNaN(age) || age <= 0) {
+      valid = false;
+      alert('Age must be a positive number.');
+    }
+
+    // Email validation
+    const email = document.querySelector('[asp-for="csEmail"]').value;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      valid = false;
+      alert('Invalid email format.');
+    }
+
+    // Address validation
+    const address = document.querySelector('[asp-for="csAddress"]').value;
+    if (address.trim() === '') {
+      valid = false;
+      alert('Address is required.');
+    }
+
+    // Phone number validation
+    const phone = document.querySelector('[asp-for="csPhoneNum"]').value;
+    const phonePattern = /^\d{3} \d{3} \d{4}$/;
+    if (!phonePattern.test(phone)) {
+      valid = false;
+      alert('Invalid phone number format. Expected format: 658 799 8941');
+    }
+
+    // Prevent form submission if validation fails
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
 })();
 
 // select2 (jquery)
