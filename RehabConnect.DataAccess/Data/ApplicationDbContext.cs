@@ -33,6 +33,9 @@ namespace RehabConnect.DataAccess.Data
         public DbSet<CustomerSupport> CustomerSupports { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<Roadmap> Roadmap { get; set; }
+        
+        
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
