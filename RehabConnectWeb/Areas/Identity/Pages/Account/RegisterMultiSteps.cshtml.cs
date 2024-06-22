@@ -1,27 +1,30 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
+using RehabConnect.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
-using System.Linq;
 
-namespace RehabConnectWeb.Areas.Parent.Controllers
+namespace RehabConnectWeb.Areas.Identity.Pages.Account
 {
-  [Area("Parent")]
   //[Authorize(Roles = SD.Role_Parent)]
-  public class ParentDetailController : Controller
+  public class RegisterMultiSteps: Controller
   {
     private readonly IUnitOfWork _unitOfWork;
-
-    public ParentDetailController(IUnitOfWork unitOfWork)
+    public RegisterMultiSteps(IUnitOfWork unitOfWork)
     {
       _unitOfWork = unitOfWork;
     }
-
     public IActionResult Index()
     {
-      var objParentDetailList = _unitOfWork.ParentDetail.GetAll().ToList();
+      List<ParentDetail> objParentDetailList = _unitOfWork.ParentDetail.GetAll().ToList();
       return View(objParentDetailList);
+
     }
 
     public IActionResult Create()
@@ -32,20 +35,15 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     [HttpPost]
     public IActionResult Create(ParentDetail obj)
     {
+      // Retrieve the user ID (assuming you're using ASP.NET Core Identity)
       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       obj.UserId = userId; // Set the user ID
 
-      if (ModelState.IsValid)
-      {
-        _unitOfWork.ParentDetail.Add(obj);
-        _unitOfWork.Save();
-        TempData["success"] = "ParentDetail created successfully";
-        return RedirectToAction("Index", "Home", new { Area = "Parent" });
-      }
-      else
-      {
-        return View(obj);
-      }
+
+      _unitOfWork.ParentDetail.Add(obj);
+      _unitOfWork.Save();
+      TempData["success"] = "ParentDetail created successfully";
+      return RedirectToAction("Index");
     }
 
     public IActionResult Edit(int? parentid)
@@ -54,33 +52,30 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       {
         return NotFound();
       }
+      ParentDetail? ParentDetailFromDb = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
+      //ParentDetail? ParentDetailFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
+      //ParentDetail? ParentDetailFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
-      var parentDetailFromDb = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
-      if (parentDetailFromDb == null)
+      if (ParentDetailFromDb == null)
       {
         return NotFound();
       }
-
-      return View(parentDetailFromDb);
+      return View(ParentDetailFromDb);
     }
 
     [HttpPost]
     public IActionResult Edit(ParentDetail obj)
     {
+
+      // Retrieve the user ID (assuming you're using ASP.NET Core Identity)
       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       obj.UserId = userId; // Set the user ID
 
-      if (ModelState.IsValid)
-      {
-        _unitOfWork.ParentDetail.Update(obj);
-        _unitOfWork.Save();
-        TempData["success"] = "ParentDetail updated successfully";
-        return RedirectToAction("Index");
-      }
-      else
-      {
-        return View(obj);
-      }
+      _unitOfWork.ParentDetail.Update(obj);
+      _unitOfWork.Save();
+      TempData["success"] = "ParentDetail updated successfully";
+      return RedirectToAction("Index");
+
     }
 
     public IActionResult Delete(int? parentid)
@@ -89,25 +84,23 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       {
         return NotFound();
       }
+      ParentDetail? ParentDetailFromDb = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
 
-      var parentDetailFromDb = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
-      if (parentDetailFromDb == null)
+      if (ParentDetailFromDb == null)
       {
         return NotFound();
       }
-
-      return View(parentDetailFromDb);
+      return View(ParentDetailFromDb);
     }
 
     [HttpPost, ActionName("Delete")]
     public IActionResult DeletePOST(int? parentid)
     {
-      var obj = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
+      ParentDetail? obj = _unitOfWork.ParentDetail.Get(u => u.ParentID == parentid);
       if (obj == null)
       {
         return NotFound();
       }
-
       _unitOfWork.ParentDetail.Remove(obj);
       _unitOfWork.Save();
       TempData["success"] = "ParentDetail deleted successfully";
@@ -115,3 +108,4 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     }
   }
 }
+

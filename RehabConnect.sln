@@ -10,11 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RehabConnectWeb", "RehabCon
 		{4F648038-DB35-462D-982D-7647A2A43FFC} = {4F648038-DB35-462D-982D-7647A2A43FFC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.DataAccess", "RehabConnect.DataAccess\RehabConnect.DataAccess.csproj", "{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RehabConnect.DataAccess", "RehabConnect.DataAccess\RehabConnect.DataAccess.csproj", "{D7AA5652-7155-4FCF-8805-D4E0065EC8BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.Models", "RehabConnect.Models\RehabConnect.Models.csproj", "{44230432-3C2E-4C49-8766-FE3241119B6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RehabConnect.Models", "RehabConnect.Models\RehabConnect.Models.csproj", "{44230432-3C2E-4C49-8766-FE3241119B6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RehabConnect.Utility", "RehabConnect.Utility\RehabConnect.Utility.csproj", "{4F648038-DB35-462D-982D-7647A2A43FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RehabConnect.Utility", "RehabConnect.Utility\RehabConnect.Utility.csproj", "{4F648038-DB35-462D-982D-7647A2A43FFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

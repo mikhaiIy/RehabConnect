@@ -1,98 +1,126 @@
-﻿@model CustomerSupport
+@model CustomerSupport
 
-<div class="card shadow border-0 my-4">
-    <div class="card header bg-secondary bg-gradient mt-0 py-3">
-        <div class="row">
-        <div class="col-12 text-center">
-            <h2 class="text-white py-2"> @(Model.CSID != 0? "Update":"Create") Customer Support</h2>
-        </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
+@{
+    ViewData["Title"] = "Horizontal Form - Form Layouts";
+}
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/form-layouts.js"></script>
+}
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
 
-        <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="CSID" hidden />
-            <div class="row">
-                <div class="col-12">
-                    <div class="border p-3">
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.CSID != 0) ? "Update" : "Create") Therapist</h4>
 
-                        @*<div asp-validation-summary="ModelOnly"></div>*@
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSName" class="form-control border-0 shadow" />
-                            <label asp-for="CSName" class="ms-2"></label>
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Customer Support Form</h5> <small class="text-muted float-end">Default label</small>
+            </div>
+            <div class="card-body">
+                <form method="post" class="row" enctype="multipart/form-data" asp-antiforgery="true">
+                    <input asp-for="CSID" hidden />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row mb-3">
+                        <label asp-for="CSName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="CSName" class="form-control" placeholder="John Doe" />
                             <span asp-validation-for="CSName" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSIC" class="form-control border-0 shadow" />
-                            <label asp-for="CSIC" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSIC" class="col-sm-2 col-form-label">NRIC</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="CSIC" class="form-control" placeholder="xxxxxx-xx-xxxx" />
                             <span asp-validation-for="CSIC" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSAge" class="form-control border-0 shadow" />
-                            <label asp-for="CSAge" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSAge" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                            <input asp-for="CSAge" class="form-control" />
                             <span asp-validation-for="CSAge" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSSex" class="form-control border-0 shadow" />
-                            <label asp-for="CSSex" class="ms-2"></label>
-                            <span asp-validation-for="CSSex" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSSex" class="col-sm-2 col-form-label">Sex</label>
+                        <div class="col-sm-9">
+                            <select asp-for="CSSex" class="form-select" data-allow-clear="true">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSReligion" class="form-control border-0 shadow" />
-                            <label asp-for="CSReligion" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSReligion" class="col-sm-2 col-form-label">Religion</label>
+                        <div class="col-sm-10">
+                            <input asp-for="CSReligion" class="form-control" />
                             <span asp-validation-for="CSReligion" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSNationality" class="form-control border-0 shadow" />
-                            <label asp-for="CSNationality" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSNationality" class="col-sm-2 col-form-label">Nationality</label>
+                        <div class="col-sm-10">
+                            <input asp-for="CSNationality" class="form-control" />
                             <span asp-validation-for="CSNationality" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSPhoneNum" class="form-control border-0 shadow" />
-                            <label asp-for="CSPhoneNum" class="ms-2"></label>
-                            <span asp-validation-for="CSPhoneNum" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSAddress" class="form-control border-0 shadow" />
-                            <label asp-for="CSAddress" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="CSAddress" class="form-control" placeholder="1456, Mall Road, Jackson, 658468, Alabama"></textarea>
                             <span asp-validation-for="CSAddress" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="CSEmail" class="form-control border-0 shadow" />
-                            <label asp-for="CSEmail" class="ms-2"></label>
-                            <span asp-validation-for="CSEmail" class="text-danger"></span>
-                        </div>
-
-                        <div class="row pt-2">
-                            <div class="col-6 col-md-3">
-                                @if (Model.CSID != 0)
-                                {
-                                    <button type="submit" class="btn btn-primary form-control">Update</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn btn-primary form-control">Create</button>
-                                }
-                            </div>
-
-                            <div class="col-6 col-md-3">
-                                <a asp-controller="CustomerSupport" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
-                            </div>
-                        </div>
-
-
-
                     </div>
-                </div>
-            </div>
-            
-        </form>
+                    <div class="row mb-3">
+                        <label asp-for="CSEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="CSEmail" type="text" class="form-control" placeholder="john.doe" />
+                                <span asp-validation-for="CSEmail" class="input-group-text">johndoe@example.com</span>
+                            </div>
+                            <div class="form-text"> You can use letters, numbers & periods </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="CSPhoneNum" class="col-sm-2 col-form-label">Phone No</label>
+                        <div class="col-sm-10">
+                            <input asp-for="CSPhoneNum" type="text" class="form-control phone-mask" placeholder="658 799 8941" />
+                            <span asp-validation-for="CSPhoneNum" class="text-danger"></span>
+                        </div>
+                    </div>
 
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary">
+                                        @(Model.CSID != 0 ? "Update" : "Create")
+                                    </button>
+                                    <button class="btn btn-label-secondary"><a asp-controller="CustomerSupport" asp-action="Index">Back to List</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}

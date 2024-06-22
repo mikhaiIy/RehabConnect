@@ -22,6 +22,36 @@
 
 @section PageScripts {
 <script src="~/js/pages-auth.js"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
+                var selection = $('#Input_Role Option:Selected').text();
+                if (selection == 'Therapist') {
+                    $('#Input_TherapistID').show();
+                }
+                else {
+                    $('#Input_TherapistID').hide();
+                }
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
+                var selection = $('#Input_Role Option:Selected').text();
+                if (selection == 'Customer Support') {
+                    $('#Input_CSID').show();
+                }
+                else {
+                    $('#Input_CSID').hide();
+                }
+            })
+        })
+    </script>
+
 }
 @* ************** Content ************** *@
 
@@ -127,3 +157,5 @@
     </div>
   </div>
 </div>
+
+

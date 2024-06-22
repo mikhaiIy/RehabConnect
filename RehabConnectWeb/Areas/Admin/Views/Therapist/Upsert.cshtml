@@ -1,80 +1,121 @@
-﻿@model Therapist
+@model Therapist
 
-<div class="card shadow border-0 my-4">
-    <div class="card header bg-secondary bg-gradient mt-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">@((Model.TherapistID != 0) ? "Update" : "Create") Therapist</h2>
+@{
+    ViewData["Title"] = "Horizontal Form - Form Layouts";
+}
+@section VendorStyles {
+
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/form-layouts.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.TherapistID != 0) ? "Update" : "Create") Therapist</h4>
+
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Therapist Form</h5> <small class="text-muted float-end">Default label</small>
             </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="TherapistID" hidden />
-            <div class="row">
-                <div class="col-12">
-                    <div class="border p-3">
-                        @*<div asp-validation-summary="ModelOnly"></div>*@
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistName" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistName" class="ms-2"></label>
+            <div class="card-body">
+                <form method="post" class="row" enctype="multipart/form-data">
+                    <input asp-for="TherapistID" hidden />
+                    <div class="row mb-3">
+                        <label asp-for="TherapistName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="TherapistName" class="form-control" placeholder="John Doe" />
                             <span asp-validation-for="TherapistName" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistIC" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistIC" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistIC" class="col-sm-2 col-form-label">NRIC</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="TherapistIC" class="form-control" placeholder="xxxxxx-xx-xxxx" />
                             <span asp-validation-for="TherapistIC" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistAge" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistAge" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistAge" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                            <input asp-for="TherapistAge" class="form-control"/>
                             <span asp-validation-for="TherapistAge" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistSex" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistSex" class="ms-2"></label>
-                            <span asp-validation-for="TherapistSex" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistSex" class="col-sm-2 col-form-label">Sex</label>
+                        <div class="col-sm-9">
+                            <select asp-for="TherapistSex" class="form-select" data-allow-clear="true">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistReligion" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistReligion" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistReligion" class="col-sm-2 col-form-label">Religion</label>
+                        <div class="col-sm-10">
+                            <input asp-for="TherapistReligion" class="form-control" />
                             <span asp-validation-for="TherapistReligion" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistNationality" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistNationality" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistNationality" class="col-sm-2 col-form-label">Nationality</label>
+                        <div class="col-sm-10">
+                            <input asp-for="TherapistNationality" class="form-control" />
                             <span asp-validation-for="TherapistNationality" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistPhoneNum" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistPhoneNum" class="ms-2"></label>
-                            <span asp-validation-for="TherapistPhoneNum" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistAddress" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistAddress" class="ms-2"></label>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="TherapistAddress" class="form-control" placeholder="1456, Mall Road, Jackson, 658468, Alabama"></textarea>
                             <span asp-validation-for="TherapistAddress" class="text-danger"></span>
                         </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="TherapistEmail" class="form-control border-0 shadow" />
-                            <label asp-for="TherapistEmail" class="ms-2"></label>
-                            <span asp-validation-for="TherapistEmail" class="text-danger"></span>
-                        </div>
-
-                        <div class="row pt-2">
-                            <div class="col-6 col-md-3">
-                                <button type="submit" class="btn btn-primary form-control">
-                                    @(Model.TherapistID != 0 ? "Update" : "Create")
-                                </button>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="TherapistEmail" type="text" class="form-control" placeholder="john.doe"/>
+                                <span asp-validation-for="TherapistEmail" class="input-group-text">johndoe@example.com</span>
                             </div>
+                            <div class="form-text"> You can use letters, numbers & periods </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistPhoneNum" class="col-sm-2 col-form-label">Phone No</label>
+                        <div class="col-sm-10">
+                            <input asp-for="TherapistPhoneNum" type="text" class="form-control phone-mask" placeholder="658 799 8941"/>
+                            <span asp-validation-for="TherapistPhoneNum" class="text-danger"></span>
+                        </div>
+                    </div>
 
-                            <div class="col-6 col-md-3">
-                                <a asp-controller="Therapist" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary">
+                                        @(Model.TherapistID != 0 ? "Update" : "Create")
+                                    </button>
+                                    <button class="btn btn-label-secondary"><a asp-controller="Therapist" asp-action="Index">Back to List</a></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>

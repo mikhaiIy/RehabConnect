@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Therapist List - Pages";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/js/app-user-list.js"></script>
+}
+
+
+@* ************** Content ************** *@
+<!-- Users List Table -->
+
+<div class="card shadow border-0 my-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Therapist List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+
+            </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Therapist" asp-action="Upsert" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i>Create New Therapist
+                    </a>
+                </div>
+        </div>
+        <div class="card-datatable table-responsive">
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>NRIC</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Religion</th>
+                    <th>Nationality</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+        </table>
+        </div>
+    </div>
+</div>
+
+
+@section PageScripts
+{
+<script src="~/js/therapist.js"></script>
+}
+}

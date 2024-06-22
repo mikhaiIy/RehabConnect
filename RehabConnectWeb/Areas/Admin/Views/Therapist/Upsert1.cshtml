@@ -1,0 +1,80 @@
+﻿@model Therapist
+
+<div class="card shadow border-0 my-4">
+    <div class="card header bg-secondary bg-gradient mt-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@((Model.TherapistID != 0) ? "Update" : "Create") Therapist</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="TherapistID" hidden />
+            <div class="row">
+                <div class="col-12">
+                    <div class="border p-3">
+                        @*<div asp-validation-summary="ModelOnly"></div>*@
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistName" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistName" class="ms-2"></label>
+                            <span asp-validation-for="TherapistName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistIC" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistIC" class="ms-2"></label>
+                            <span asp-validation-for="TherapistIC" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistAge" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistAge" class="ms-2"></label>
+                            <span asp-validation-for="TherapistAge" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistSex" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistSex" class="ms-2"></label>
+                            <span asp-validation-for="TherapistSex" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistReligion" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistReligion" class="ms-2"></label>
+                            <span asp-validation-for="TherapistReligion" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistNationality" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistNationality" class="ms-2"></label>
+                            <span asp-validation-for="TherapistNationality" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistPhoneNum" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistPhoneNum" class="ms-2"></label>
+                            <span asp-validation-for="TherapistPhoneNum" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistAddress" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistAddress" class="ms-2"></label>
+                            <span asp-validation-for="TherapistAddress" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="TherapistEmail" class="form-control border-0 shadow" />
+                            <label asp-for="TherapistEmail" class="ms-2"></label>
+                            <span asp-validation-for="TherapistEmail" class="text-danger"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                <button type="submit" class="btn btn-primary form-control">
+                                    @(Model.TherapistID != 0 ? "Update" : "Create")
+                                </button>
+                            </div>
+
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Therapist" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

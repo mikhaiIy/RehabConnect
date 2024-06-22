@@ -80,6 +80,27 @@
         </ul>
       </li>
 
+            <!-- Payments -->
+            <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+                    <div data-i18n="Payments">Manage Child</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
+                        <a asp-area="Parent" asp-controller="Student" asp-action="Index" class="menu-link">
+                            <div data-i18n="Make Payments">Make Payments</div>
+                        </a>
+                    </li>
+                  <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+                        <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-map"></i>
+                            <div data-i18n="Leaflet Maps">Leaflet Maps</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
       <!-- Academics -->
       <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -147,6 +168,21 @@
           </li>
         </ul>
       </li>
+            <!-- Child Details -->
+            <li class='menu-item@(currentPage.StartsWith("/Student") ? "active" : "")'>
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+                    <div data-i18n="Manage Child">Manage Child</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class='menu-item@(currentPage == "/Student/Index" ? " active" : "")'>
+                        <a asp-area="Parent" asp-controller="Student" asp-action="Index" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-map"></i>
+                            <div data-i18n="Child Details">Child Details</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
     </ul>
