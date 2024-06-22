@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
       }).on('core.form.valid', function () {
         // You can submit the form
-        // stepsValidationForm.submit()
+         multiStepsValidationForm.submit()
         // or send the form data to server via an Ajax request
         // To make the demo simple, I just placed an alert
         alert('Submitted..!!');
