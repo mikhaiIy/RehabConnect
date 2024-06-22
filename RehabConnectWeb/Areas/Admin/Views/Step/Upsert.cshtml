@@ -1,65 +1,76 @@
 @model StepVM
 
-<!DOCTYPE html>
+@{
+ViewData["Title"] = "Steps";
+}
+@section VendorStyles{
+}
+@section VendorScripts {
+}
+@section PageScripts {
+<script>
+  function toggleDiv() {
+    const checkbox = document.getElementById("pricingCheck");
+    checkbox.addEventListener("change", toggleDiv);
+    const div = document.getElementById("pricingDiv");
+    div.style.display = checkbox.checked ? "block" : "none";
+  }
+</script>
+}
 
-<html>
-<head>
-    <title>Create New Step</title>
-</head>
-<body>
-<div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                @* <h2 class="text-black py-2"> @(Model.Step.StepId!=0?"Update":"Create New") Step</h2> *@
-                <h2 class="text-black py-2"> Create/Edit Step</h2>
-            </div>
+<div class="col-xl">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Create new Step</h5>
+      <h5 class="mb-0">@Model.Roadmap.Name</h5>
+      <small class="text-muted float-end">Merged input group</small>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row">
+        <input asp-for="Step.RoadmapId" value="@Model.Roadmap.RoadmapId" hidden/>
+        @if (Model.Step?.StepId is not null)
+        {
+          <input asp-for="Step.StepId" value="@Model.Step.StepId" hidden/>
+        }
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="Step.Title" class="form-label" for="multicol-step-name">Title</label>
+            <input asp-for="Step.Title" type="text" id="multicol-step-name" class="form-control" placeholder="Screening & Consultation"/>
+          </div>
         </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <input asp-for="Step.StepId" hidden> 
-            <div class="border p-3">
-                <div asp-validation-summary="ModelOnly"></div>
-                 <div class="form-floating py-2 col-12">
-                     <select asp-for="@Model.Step.Roadmap.RoadmapId" asp-items="@Model.RoadmapList" class="form-control border-0 shadow">
-                         <option disabled selected>--Select Category--</option>
-                     </select>
-                     <label asp-for="Step.Roadmap.RoadmapId" class="ms-2"></label>
-                     <span asp-validation-for="Step.Roadmap.RoadmapId" class="text-danger"></span>
-                 </div>
-                 <div class="form-floating py-2 col-12">
-                     <input asp-for="Step.Title" class="form-control border-0 shadow"/>
-                     <label asp-for="Step.Title" class="ms-2"></label>
-                     <span asp-validation-for="Step.Title" class="text-danger"></span>
-                 </div>
-                 <div class="form-floating py-2 col-12">
-                     <input asp-for="Step.StepNo" class="form-control border-0 shadow"/>
-                     <label asp-for="Step.StepNo" class="ms-2"></label>
-                     <span asp-validation-for="Step.StepNo" class="text-danger"></span>
-                 </div>
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        @* @if (Model.Step.StepId != 0) *@
-                        @* { *@
-                        @* <button type="submit" class="btn btn-primary form-control">Edit</button> *@
-                        @* } *@
-                        @* else *@
-                        @* { *@
-                        @* <button type="submit" class="btn btn-primary form-control">Create</button> *@
-                        @* } *@
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Roadmap" asp-action="Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
-                        </a>
-                    </div>
-                </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="Step.StepNo" class="form-label" for="multicol-step-number">Step Number</label>
+            <input asp-for="Step.StepNo" type="number" id="multicol-step-number" class="form-control" placeholder="1"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-check mt-3 pb-4">
+            <input asp-for="Step.CombinedPricing" class="form-check-input" type="checkbox" id="pricingCheck" onclick="toggleDiv()"/>
+            <label class="form-check-label" for="pricingCheck">
+              Combined Pricing
+            </label>
+          </div>
+        </div>
+        <div id="pricingDiv" style="display: none">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="multicol-first-name">Price Weekday</label>
+              <input asp-for="Step.PriceWeekday" type="number" id="multicol-first-name" class="form-control" placeholder="100"/>
             </div>
-        </form>
+            <div class="col-md-6">
+              <label class="form-label" for="multicol-last-name">Price Weekend</label>
+              <input asp-for="Step.PriceWeekend" type="number" id="multicol-last-name" class="form-control" placeholder="100"/>
+            </div>
+          </div>
+        </div>
+        <div class="pt-4">
+          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+          <button  class="btn btn-label-secondary"><a asp-controller="Step" asp-action="Index"></a>Cancel</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-</body>
-</html>
+
 

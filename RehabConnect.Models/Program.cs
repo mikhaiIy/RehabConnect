@@ -11,7 +11,7 @@ namespace RehabConnect.Models
     public class Program
     {
         [Key]
-        public int SessionID { get; set; }
+        public int ProgramID { get; set; }
 
         [Required]
         public string ProgramName { get; set; }

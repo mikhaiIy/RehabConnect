@@ -1,44 +1,26 @@
 @model Roadmap
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Create Roadmap</title>
-</head>
-<body>
-<div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-black py-2"> Create Roadmap</h2>
-            </div>
+<div class="col-xl">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Create new Program</h5>
+      <small class="text-muted float-end">Merged input group</small>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row">
+        <input asp-for="RoadmapId" hidden>
+        <div class="mb-3">
+          <label asp-for="Name" class="form-label" for="basic-icon-default-fullname">Name</label>
+          <div class="input-group input-group-merge">
+            <span id="basic-icon-default-fullname2" class="input-group-text"><i class="ti ti-user"></i></span>
+            <input asp-for="Name" type="text" class="form-control" id="basic-icon-default-fullname" placeholder="Idzmir Hub Roadmap" aria-label="Idzmir Hub Roadmap" aria-describedby="basic-icon-default-fullname2"/>
+          </div>
         </div>
+        <div class="pt-4">
+          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+          <button type="reset" class="btn btn-label-secondary"><a asp-controller="Roadmap" asp-action="Index"></a>Cancel</button>
+        </div>
+      </form>
     </div>
-    <div class="card-body p-4">
-        <form method="post" class="row">
-            <input asp-for="RoadmapId" hidden>
-            <div class="border p-3">
-                @*<div asp-validation-summary="ModelOnly"></div>*@
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Name" class="form-control border-0 shadow"/>
-                    <label asp-for="Name" class="ms-2"></label>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Roadmap" asp-action="Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+  </div>
 </div>
-</body>
-</html>
-

@@ -1,0 +1,51 @@
+@model StepVM
+
+@{
+  ViewData["Title"] = "Program";
+}
+
+<div class="col-xl">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Create New Program</h5>
+      <h5 class="mb-0">@Model.Step.Title</h5>
+      <small class="text-muted float-end">Merged input group</small>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row">
+        <input asp-for="Program.StepId" value="@Model.Step.StepId" hidden/>
+        @if (Model.Program?.ProgramID is not null)
+        {
+          <input asp-for="Program.ProgramID" value="@Model.Program.ProgramID" hidden/>
+        }
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="Program.ProgramName" class="form-label" for="multicol-step-name">Title</label>
+            <input asp-for="Program.ProgramName" type="text" id="multicol-step-name" class="form-control" placeholder="Consultation"/>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label asp-for="Program.NumOfSession" class="form-label" for="multicol-step-number">Number of Session</label>
+            <input asp-for="Program.NumOfSession" type="number" id="multicol-step-number" class="form-control" placeholder="4"/>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="multicol-first-name">Price Weekday</label>
+            <input asp-for="Program.PriceWeekday" type="number" id="multicol-first-name" class="form-control" placeholder="100"/>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="multicol-last-name">Price Weekend</label>
+            <input asp-for="Program.PriceWeekend" type="number" id="multicol-last-name" class="form-control" placeholder="100"/>
+          </div>
+        </div>
+        <div class="pt-4">
+          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+          <button class="btn btn-label-secondary"><a asp-controller="Program" asp-action="Index"></a>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -34,17 +34,41 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
           return View(stepProgramVm);
         }
 
-        public IActionResult Upsert(int? id, int? roadmap)
+        public IActionResult Create(int? id, int? roadmap)
         {
           StepVM stepVm = new();
 
 
+          if (id is null or 0)
+          {
+            // Create New Step
+            stepVm.Roadmap = _unitOfWork.Roadmap.Get(u=>u.RoadmapId==roadmap);
+            return View(stepVm);
+          }
+          else
+          {
+            // Update Step
+            stepVm.Step = _unitOfWork.Step.Get(u => u.StepId == id);
+            stepVm.Roadmap = _unitOfWork.Roadmap.Get(u=>u.RoadmapId==roadmap);
+            return View(stepVm);
+          }
+
+        }
+
+        public IActionResult Upsert(int? id, int? roadmap)
+        {
+          StepVM stepVm = new();
+          stepVm.Roadmap = _unitOfWork.Roadmap.Get(u=>u.RoadmapId==roadmap);
+
             if (id is null or 0)
             {
+              // Create New Step
+
                 return View(stepVm);
             }
             else
             {
+              // Update Step
                 stepVm.Step = _unitOfWork.Step.Get(u => u.StepId == id);
                 return View(stepVm);
             }
@@ -54,6 +78,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Upsert(StepVM obj)
         {
+          var roadmapId = obj.Step.RoadmapId;
 
             if (ModelState.IsValid)
             {
@@ -68,24 +93,49 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
                 _unitOfWork.Save(); //hey now do it.
                 TempData["success"] = "Step Created Successfully";
-                return RedirectToAction("Index", "Step"); //go to the Step controller, Index page.
+                return RedirectToAction("Index", "Step", new{id = roadmapId}); //go to the Step controller, Index page.
             }
             else
             {
                 //populating the input with the data previously entered, and not gives out the ugly exception.
-                obj.RoadmapList = _unitOfWork.Roadmap.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.RoadmapId.ToString()
-                });
                 return View(obj);
             }
 
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
-            return View();
+          if (id is null or 0)
+          {
+            return NotFound();
+          }
+
+          Step? stepFromDb = _unitOfWork.Step.Get(u => u.StepId == id);
+          if (stepFromDb == null)
+          {
+            return NotFound();
+          }
+
+          return View(stepFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id) /*since the name and parameters is the same as above, cannot have the same name*/
+        {
+          Step? obj = _unitOfWork.Step.Get(u => u.StepId == id);
+
+          var roadmapId = obj.RoadmapId;
+
+          if (obj == null)
+          {
+            return NotFound();
+          }
+
+          _unitOfWork.Step.Remove(obj);
+          _unitOfWork.Save(); //hey now do it.
+          TempData["success"] = "Step Deleted Successfully";
+          return RedirectToAction("Index", "Step", new{id = roadmapId}); //go to the Step controller, Index page.
+
         }
     }
 }

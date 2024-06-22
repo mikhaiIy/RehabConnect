@@ -5,8 +5,11 @@ namespace RehabConnect.Models.ViewModel;
 
 public class StepVM
 {
-    public Step Step { get; set; }
+    [ValidateNever]
+    public Step? Step { get; set; }
+    [ValidateNever]
+    public Program? Program { get; set; }
     
     [ValidateNever]
-    public IEnumerable<SelectListItem> RoadmapList { get; set; }
+    public Roadmap? Roadmap { get; set; }
 }

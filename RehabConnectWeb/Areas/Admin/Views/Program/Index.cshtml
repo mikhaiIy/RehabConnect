@@ -8,7 +8,7 @@
         <h4 class="card-header m-0">Programs</h4>
       </div>
       <div class="row-auto">
-        <a asp-controller="Program" asp-action="Upsert" class="btn btn-primary float-end">
+        <a asp-controller="Program" asp-action="Upsert" asp-route-step="@Model.FirstOrDefault()!.StepId" class="btn btn-primary float-end">
           <i class="bi bi-plus-circle"></i> Add New Program
         </a>
       </div>
@@ -38,9 +38,9 @@
             <td>@obj.ProgramName</td>
             <td> @obj.NumOfSession Session</td>
             <td class="text-nowrap">
-              <a asp-controller="Program" asp-action="Upsert" asp-route-id="@obj.SessionID"
+              <a asp-controller="Program" asp-action="Upsert" asp-route-id="@obj.ProgramID"  asp-route-step="@obj.StepId"
                  class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
-              <a asp-controller="Program" asp-action="Delete" asp-route-id="@obj.SessionID"
+              <a asp-controller="Program" asp-action="Delete" asp-route-id="@obj.ProgramID"
                  class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
             </td>
           </tr>

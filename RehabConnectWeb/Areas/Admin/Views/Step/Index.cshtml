@@ -1,5 +1,62 @@
 ﻿@model StepProgramVM
 
+
+@section PageStyles {
+  <style>
+    .toggle {
+      display: none;
+    }
+    table.test-table a.toggle-children {
+      color: #7367f0; /* Your primary color */
+    }
+    table.test-table a.toggle-children:hover {
+      color: #8a85ff; /* Darker shade of your primary color for hover state */
+    }
+    table.test-table a.toggle-children:active {
+      color: #5a52c6; /* Another color for when it's clicked/active */
+    }
+    table.test-table tr.toggle {
+      background-color: #ceceff; /* Lighter than the parent row */
+    }
+
+    .parent-row {
+      background-color: #e6e6ff; /* Your primary color or any unique color */
+    }
+
+    .parent-row.has-children {
+      background-color: #ceceff; /* Your primary color or any unique color */
+    }
+
+  </style>
+}
+
+@section PageScripts {
+  <script>
+  $(document).ready(function(){
+    // Your JavaScript code goes here
+    $(".test-table td a").click(function(){
+      // Find the closest parent row
+      var parentRow = $(this).closest("tr");
+
+      // Assuming each group of child rows has a unique class or data attribute related to the parent
+      // For example, if you use a data attribute like data-parent-id
+      var parentId = parentRow.data("step-id");
+
+      // Now toggle all child rows with the same data-parent-id
+      $("tr[data-parent-id='" + parentId + "']").toggle();
+    });
+
+    $(".parent-row").each(function() {
+      var stepId = $(this).data("step-id");
+      var childRows = $("tr[data-parent-id='" + stepId + "']");
+      if (childRows.length > 0) {
+        $(this).addClass('has-children');
+      }
+    });
+  });
+</script>
+}
+
 @* Steps Table *@
 <div class="card">
   <div class="container-fluid p-3">
@@ -8,8 +65,13 @@
         <h4 class="card-header m-0">Steps</h4>
       </div>
       <div class="row-auto">
-        <a asp-controller="Step" asp-action="Upsert" class="btn btn-primary float-end">
+        <a asp-controller="Step" asp-action="Upsert" asp-route-roadmap="@Model.Step.FirstOrDefault()!.RoadmapId" class="btn btn-primary float-end">
           <i class="bi bi-plus-circle"></i> Add New Step
+        </a>
+      </div>
+      <div class="row-auto" style="display: none">
+        <a asp-controller="Step" asp-action="Create" asp-route-roadmap="@Model.Step.FirstOrDefault()!.RoadmapId" class="btn btn-primary float-end">
+          <i class="bi bi-plus-circle"></i> Create New Step
         </a>
       </div>
     </div>
@@ -33,9 +95,10 @@
       {
         @foreach (var obj in Model.Step)
         {
+          var stepId = obj.StepId; // Unique identifier for each step
           @if (obj.CombinedPricing)
-          {
-            <tr>
+          { // -- For Combined Pricing ==
+            <tr class="parent-row">
               <td></td>
               <td>Step @obj.StepNo</td>
               <td><a asp-controller="Program" asp-action="Index" asp-route-id="@obj.StepId"> @obj.Title</a></td>
@@ -49,7 +112,7 @@
               <td>@obj.PriceWeekday</td>
               <td>@obj.PriceWeekend</td>
               <td class="text-nowrap">
-                <a asp-controller="Step" asp-action="Upsert" asp-route-id="@obj.StepId"
+                <a asp-controller="Step" asp-action="Upsert" asp-route-id="@obj.StepId" asp-route-roadmap="@obj.RoadmapId"
                    class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
                 <a asp-controller="Step" asp-action="Delete" asp-route-id="@obj.StepId"
                    class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
@@ -57,24 +120,24 @@
             </tr>
           }
           else
-          {
-            <tr>
-              <td><a>open</a></td>
+          { // -- For Seperate Pricing; Each Program has its own Price==
+            <tr data-step-id="@stepId" class="parent-row">
+              <td><a class="toggle-children">open</a></td>
               <td>Step @obj.StepNo</td>
               <td><a asp-controller="Program" asp-action="Index" asp-route-id="@obj.StepId"> @obj.Title</a></td>
               <td></td>
               <td></td>
               <td></td>
               <td class="text-nowrap">
-                <a asp-controller="Step" asp-action="Upsert" asp-route-id="@obj.StepId"
+                <a asp-controller="Step" asp-action="Upsert" asp-route-id="@obj.StepId" asp-route-roadmap="@obj.RoadmapId"
                    class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
                 <a asp-controller="Step" asp-action="Delete" asp-route-id="@obj.StepId"
                    class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
               </td>
             </tr>
             @foreach (var prog in Model.Program.Where(p => p.StepId == obj.StepId))
-            {
-              <tr class="toggle">
+            { // -- Child row Data --
+              <tr class="toggle" data-parent-id="@stepId">
                 <td></td>
                 <td></td>
                 <td></td>
@@ -85,7 +148,6 @@
               </tr>
             }
           }
-
         }
       }
       </tbody>
@@ -93,9 +155,3 @@
   </div>
 </div>
 
-<script>
-    // Your JavaScript code goes here
-    $(".test-table td a").click(function(){
-        $(this).closest("tr").next().toggle();
-    });
-</script>
