@@ -1,58 +1,71 @@
-/**
- * DataTables Advanced (jquery)
- */
+var dataTable;
 
-'use strict';
-
-$(function () {
-  var dt_ajax_table = $('.datatables-ajax');
-
-  if (dt_ajax_table.length) {
-    dt_ajax_table.DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: {
-        url: '/Admin/Schedule/GetAll',
-        type: 'GET',
-        data: function (d) {
-          d.draw = d.draw || 1;
-          d.start = d.start || 0;
-          d.length = d.length || 10;
-          d.search = { value: $('#searchInput').val() }; // Example: Global search input value
-          // Add other search inputs if needed
-        }
-      },
-      columns: [
-        { data: 'date' },
-        { data: 'startTime' },
-        { data: 'endTime' },
-        { data: 'duration' },
-        {
-          data: null,
-          render: function (data, type, full, meta) {
-            return '<div class="btn-group">' +
-              '<button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Actions</button>' +
-              '<ul class="dropdown-menu">' +
-              '<li><a class="dropdown-item" href="#">Details</a></li>' +
-              '<li><a class="dropdown-item" href="#">Archive</a></li>' +
-              '<li><a class="dropdown-item text-danger delete-record" href="#">Delete</a></li>' +
-              '</ul></div>';
-          },
-          orderable: false,
-          searchable: false
-        }
-      ],
-      order: [[0, 'asc']], // Default sorting by date ascending
-      dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>><"table-responsive"t><"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>'
-    });
-  }
+$(document).ready(function () {
+  loadDataTable();
 });
 
+function loadDataTable() {
+  dataTable = $('#tblData').DataTable({
+    "ajax": { url: '/admin/schedule/getall' },
+    "columns": [
+      { "data": 'date', "width": '20%' },
+      { "data": 'startTime', "width": '20%' },
+      { "data": 'endTime', "width": '20%' },
+      { "data": 'duration', "width": '20%' },
+      {
+        "data": 'scheduleID',
+        "render": function (data) {
+          return `
+            <div class="text-center">
+              <a onclick="deleteConfirmation('${data}')" class="btn btn-danger text-white" style="cursor:pointer; width:100px;">
+                <i class="bi bi-trash-fill"></i> Delete
+              </a>
+            </div>`;
+        },
+        "width": "20%"
+      }
+    ]
+  });
+}
 
-
-
-
-
-
-
-
+function deleteConfirmation(id) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: '/Admin/Schedule/Delete/' + id,
+        success: function (data) {
+          if (data.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Slots have been deleted.",
+              icon: "success"
+            });
+            dataTable.ajax.reload();
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: data.message,
+              icon: "error"
+            });
+          }
+        },
+        error: function () {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to delete schedule.",
+            icon: "error"
+          });
+        }
+      });
+    }
+  });
+}

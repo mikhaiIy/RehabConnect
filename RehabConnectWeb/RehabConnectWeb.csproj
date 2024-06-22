@@ -245,5 +245,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
+    <Content Remove="wwwroot\js\schedule.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\schedule.js" />
   </ItemGroup>
 </Project>

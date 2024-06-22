@@ -97,82 +97,14 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
     #region API CALLS
     [HttpGet]
-    public IActionResult GetAll(int draw, int start, int length,
-            [FromQuery(Name = "order[0][column]")] int orderColumnIndex,
-            [FromQuery(Name = "order[0][dir]")] string orderDir,
-            [FromQuery(Name = "columns[0][search][value]")] string dateFilter,
-            [FromQuery(Name = "columns[1][search][value]")] string startTimeFilter,
-            [FromQuery(Name = "columns[2][search][value]")] string endTimeFilter,
-            [FromQuery(Name = "search[value]")] string searchValue)
+    public IActionResult GetAll()
     {
-      try
-      {
-        var allSchedules = _unitOfWork.Schedule.GetAll();
-
-        // Filtering by Date
-        if (!string.IsNullOrEmpty(dateFilter))
-        {
-          DateOnly filterDateOnly;
-          if (DateOnly.TryParse(dateFilter, out filterDateOnly))
-          {
-            allSchedules = allSchedules.Where(s => s.Date == filterDateOnly);
-          }
-          else
-          {
-            // Handle invalid date filter scenario if needed
-          }
-        }
-
-        //Search
-        if (!string.IsNullOrEmpty(searchValue))
-        {
-          allSchedules = allSchedules.Where(s =>
-              // Add conditions based on your table columns where you want to apply search
-              s.Date.ToString().Contains(searchValue) ||
-              s.StartTime.ToString().Contains(searchValue) ||
-              s.EndTime.ToString().Contains(searchValue)
-                // Add more columns as needed
-                // Example: s.Duration.ToString().Contains(searchValue)
-          );
-        }
-
-        // Sorting
-        switch (orderColumnIndex)
-        {
-          case 0:
-            if (orderDir == "asc")
-              allSchedules = allSchedules.OrderBy(s => s.Date);
-            else
-              allSchedules = allSchedules.OrderByDescending(s => s.Date);
-            break;
-          // Add more cases for other columns if needed
-          default:
-            allSchedules = allSchedules.OrderBy(s => s.Date);
-            break;
-        }
-
-        int recordsTotal = allSchedules.Count();
-        var data = allSchedules.Skip(start).Take(length).ToList();
-
-        var response = new
-        {
-          draw = draw,
-          recordsTotal = recordsTotal,
-          recordsFiltered = recordsTotal,
-          data = data
-        };
-
-        return Json(response);
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine($"Error in GetAll: {ex.Message}");
-        return StatusCode(500, "Internal server error");
-      }
+      var allSchedules = _unitOfWork.Schedule.GetAll();
+      return Json(new { data = allSchedules });
     }
 
-    [HttpDelete]
-    public IActionResult Delete(int? id)
+    [HttpPost]
+    public IActionResult Delete(int id)
     {
       var ScheduleToBeDeleted = _unitOfWork.Schedule.Get(u => u.ScheduleID == id);
       if (ScheduleToBeDeleted == null)
