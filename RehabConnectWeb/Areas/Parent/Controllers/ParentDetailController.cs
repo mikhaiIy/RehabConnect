@@ -20,7 +20,8 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
 
     public IActionResult Index()
     {
-      var objParentDetailList = _unitOfWork.ParentDetail.GetAll().ToList();
+      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      var objParentDetailList = _unitOfWork.ParentDetail.GetAll(u => u.UserId == userId).ToList();
       return View(objParentDetailList);
     }
 
@@ -40,7 +41,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
         _unitOfWork.ParentDetail.Add(obj);
         _unitOfWork.Save();
         TempData["success"] = "ParentDetail created successfully";
-        return RedirectToAction("Index", "Home", new { Area = "Parent" });
+        return RedirectToAction("Index");
       }
       else
       {

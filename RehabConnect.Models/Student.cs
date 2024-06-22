@@ -59,7 +59,6 @@ namespace RehabConnect.Models
 
         public string? UserId { get; set; }
 
-        public string ApprovalStatus { get; set; }
 
         // Navigation properties
 

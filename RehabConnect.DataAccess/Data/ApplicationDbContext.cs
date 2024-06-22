@@ -136,7 +136,6 @@ namespace RehabConnect.DataAccess.Data
                     SpeechTheoryPlace = "Speech Clinic H",
                     OthersUnitPlace = "Unit I",
                     UserId = "user789",
-                    ApprovalStatus = "Accept"
                 }
             );
 

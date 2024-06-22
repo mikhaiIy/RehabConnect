@@ -19,6 +19,16 @@ namespace RehabConnect.DataAccess.Repository
             _db = db;
         }
 
+        public IEnumerable<ParentDetail> GetAll(Expression<Func<ParentDetail, bool>> filter = null)
+        {
+            IQueryable<ParentDetail> query = _db.ParentDetails;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return query.ToList();
+        }
+
         public void Update(ParentDetail obj)
         {
             _db.ParentDetails.Update(obj);

@@ -1,118 +1,201 @@
-﻿@model List<ParentDetail>
+@model List<ParentDetail>
 
-<div class="card shadow border-0 mt-4">
-    <div class="card header bg-secondary bg-gradient mt-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">Parent Details</h2>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-body p-4">
-        <div class="row pb-3">
-            <div class="col-6">
-
-            </div>
-                <div class="col-6 text-end">
-                    <a asp-controller="ParentDetail" asp-action="Create" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i>Register Form
-                    </a>
-            </div>
-            <div class="w-75 btn-group" role="group">
-                
-            </div>
-
-        </div>
-        
-        @foreach (var parent in Model)
-        {
-
-            <div class="parent-detail">
-                <button class="accordion">@parent.FatherName & @parent.MotherName's Family</button>
-                <div class="panel">
-                    <p><i class="fas fa-user-tie"></i> <strong>Father's Name:</strong> @parent.FatherName</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Phone:</strong> @parent.FatherPhoneNum</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's NRIC:</strong> @parent.FatherIC</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Race:</strong> @parent.FatherRace</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Occupation:</strong> @parent.FatherOccupation</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Email:</strong> @parent.FatherEmail</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Address:</strong> @parent.FatherAddress</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Postcode:</strong> @parent.FatherPostcode</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's City:</strong> @parent.FatherCity</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Country:</strong> @parent.FatherCountry</p>
-                    <p><i class="fas fa-phone"></i> <strong>Father's Work Address:</strong> @parent.FatherWorkAddress</p>
-                    <!-- ... other father details ... -->
-                    <p><i class="fas fa-user-tie"></i> <strong>Mother's Name:</strong> @parent.MotherName</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Phone:</strong> @parent.MotherPhoneNum</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's NRIC:</strong> @parent.MotherIC</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Race:</strong> @parent.MotherRace</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Occupation:</strong> @parent.MotherOccupation</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Email:</strong> @parent.MotherEmail</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Address:</strong> @parent.MotherAddress</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Postcode:</strong> @parent.MotherPostcode</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's City:</strong> @parent.MotherCity</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Country:</strong> @parent.MotherCountry</p>
-                    <p><i class="fas fa-phone"></i> <strong>Mother's Work Address:</strong> @parent.MotherWorkAddress</p>
-                    <!-- ... other mother details ... -->
-                    <p><i class="fas fa-home"></i> <strong>Household Income:</strong> @parent.HouseholdIncome</p>
-                    <a asp-controller="ParentDetail" asp-action="Edit" asp-route-parentid="@parent.ParentID" class="btn btn-primary mx-2">
-                        <i class="bi bi-pencil-square"></i>Edit
-                    </a>
-                    <a asp-controller="ParentDetail" asp-action="Delete" asp-route-parentid="@parent.ParentID" class="btn btn-danger mx-2">
-                        <i class="bi bi-trash-fill"></i>Delete
-                    </a>
-                </div>
-                
-                
-            </div>
-        }
-
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
-    </script>
+@{
+    ViewData["Title"] = "Multi-Steps Register - Pages";
 }
 
+@section VendorStyles {
+    <!-- Vendor -->
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
 
-<style>
-    .accordion {
-        background-color: #eee;
-        color: #444;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
-    }
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
 
-        .active, .accordion:hover {
-            background-color: #ccc;
-        }
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
 
-    .panel {
-        padding: 0 18px;
-        display: none;
-        background-color: white;
-        overflow: hidden;
-    }
-</style>
+@section PageScripts {
+    <script src="~/js/form-wizard-numbered-parent.js"></script>
+}
+
+<h4 class="py-3 mb-4">Parent Details</h4>
+
+<div class="authentication-wrapper authentication-cover authentication-bg">
+    <div class="authentication-inner row">
+        <!-- Multi Steps Registration -->
+        <div class="d-flex col-lg-8 align-items-center justify-content-center p-sm-5 p-3">
+            <div class="w-px-700">
+                <div class="bs-stepper wizard-numbered shadow-none">
+                    <div class="bs-stepper-header border-bottom-0">
+                        <div class="step" data-target="#account-details">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Father</span>
+                                    <span class="bs-stepper-subtitle">Father's Details</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="line">
+                            <i class="ti ti-chevron-right"></i>
+                        </div>
+                        <div class="step" data-target="#personal-info">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Mother</span>
+                                    <span class="bs-stepper-subtitle">Mother's Details</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bs-stepper-content">
+                        <form method="post">
+                            @if (Model.Count > 0)
+                            {
+                                <!-- Father Information -->
+                                <div id="account-details" class="content">
+                                    <div class="content-header mb-4">
+                                        <h3 class="mb-1">Father's Information</h3>
+                                        <p>Enter The Father's Details</p>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <label class="ms-2">Father's Name</label>
+                                            <input value="@Model[0].FatherName" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Phone Number</label>
+                                            <input value="@Model[0].FatherPhoneNum" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">NRIC</label>
+                                            <input value="@Model[0].FatherIC" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Race</label>
+                                            <input value="@Model[0].FatherRace" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Occupation</label>
+                                            <input value="@Model[0].FatherOccupation" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Email</label>
+                                            <input value="@Model[0].FatherEmail" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Street Address</label>
+                                            <input value="@Model[0].FatherAddress" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Postcode</label>
+                                            <input value="@Model[0].FatherPostcode" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">City</label>
+                                            <input value="@Model[0].FatherCity" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Country</label>
+                                            <input value="@Model[0].FatherCountry" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Work Address</label>
+                                            <input value="@Model[0].FatherWorkAddress" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- Mother Information -->
+                                <div id="personal-info" class="content">
+                                    <div class="content-header mb-4">
+                                        <h3 class="mb-1">Mother's Information</h3>
+                                        <p>Enter The Mother's Details</p>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <label class="ms-2">Mother's Name</label>
+                                            <input value="@Model[0].MotherName" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Phone Number</label>
+                                            <input value="@Model[0].MotherPhoneNum" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">NRIC</label>
+                                            <input value="@Model[0].MotherIC" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Race</label>
+                                            <input value="@Model[0].MotherRace" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Occupation</label>
+                                            <input value="@Model[0].MotherOccupation" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Email</label>
+                                            <input value="@Model[0].MotherEmail" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Street Address</label>
+                                            <input value="@Model[0].MotherAddress" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Postcode</label>
+                                            <input value="@Model[0].MotherPostcode" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">City</label>
+                                            <input value="@Model[0].MotherCity" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Country</label>
+                                            <input value="@Model[0].MotherCountry" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Work Address</label>
+                                            <input value="@Model[0].MotherWorkAddress" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="ms-2">Household Income</label>
+                                            <input value="@Model[0].HouseholdIncome" class="form-control border-0 shadow" disabled />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <a asp-controller="ParentDetail" asp-action="Edit" asp-route-parentid="@Model[0].ParentID" class="btn btn-primary mx-2">
+                                            <i class="bi bi-pencil-square"></i>Edit
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @* <a asp-controller="Student" asp-action="Delete" asp-route-childid="@child.StudentID" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i>Delete
+                                    </a> *@
+                                    </div>
+                                </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Multi Steps Registration -->
+    </div>
+</div>

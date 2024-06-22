@@ -117,13 +117,18 @@
                             <label class="form-label">Others Unit Place</label>
                             <input value="@child.OthersUnitPlace" disabled class="form-control border-0 shadow" />
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <a asp-controller="Student" asp-action="Edit" asp-route-childid="@child.StudentID" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i>Edit
-                            </a>
-                            <a asp-controller="Student" asp-action="Delete" asp-route-childid="@child.StudentID" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>Delete
-                            </a>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <a asp-controller="Student" asp-action="Edit" asp-route-childid="@child.StudentID" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                @* <a asp-controller="Student" asp-action="Delete" asp-route-childid="@child.StudentID" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash-fill"></i>Delete
+                            </a> *@
+                            </div>
                         </div>
                     </form>
                 </div>
