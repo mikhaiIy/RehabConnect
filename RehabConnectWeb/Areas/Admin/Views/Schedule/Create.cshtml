@@ -1,0 +1,44 @@
+@{
+  ViewData["Title"] = "Create Schedule";
+}
+
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+}
+
+@section PageScripts {
+<script src="~/js/forms-pickers.js"></script>
+}
+@* ************** Content ************** *@
+<h4 class="py-3 mb-0">
+    <span class="text-muted fw-light">RehabConnect /</span><span class="fw-medium"> Create Schedule</span>
+</h4>
+
+<div class="row">
+  <!-- Flat Picker -->
+  <div class="col-12 mb-4">
+    <div class="card">
+      <h5 class="card-header">Create Schedule</h5>
+      <div class="card-body">
+        <form method="post">
+          <div class="row">
+             <!-- Multiple Dates Picker-->
+              <div class="col-md-6 col-12 mb-4">
+              <label for="flatpickr-multi" class="form-label">Pick following date and time:</label>
+              <input type="text" class="form-control" placeholder="YYYY-MM-DD HH:MM" id="flatpickr-multi" name="dt"/>
+              </div>
+             <!-- /Multiple Dates Picker-->
+          </div>
+          <div class="row pt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>   
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

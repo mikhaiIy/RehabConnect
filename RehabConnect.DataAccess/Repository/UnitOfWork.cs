@@ -19,6 +19,7 @@ namespace RehabConnect.DataAccess.Repository
         public ICustomerSupportRepository CustomerSupport { get; private set; }
         public IParentDetailRepository ParentDetail { get; private set; }
         public IStudentRepository Student { get; private set; }
+        public IScheduleRepository Schedule { get; }
 
 
         public UnitOfWork(ApplicationDbContext db)
@@ -31,6 +32,7 @@ namespace RehabConnect.DataAccess.Repository
             CustomerSupport = new CustomerSupportRepository(_db);
             ParentDetail = new ParentDetailRepository(_db);
             Student = new StudentRepository(_db);
+            Schedule = new ScheduleRepository(_db);
 
         }
 

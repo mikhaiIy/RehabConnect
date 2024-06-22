@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Schedule";
+}
+
+@section VendorStyles {
+    @* <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css"> *@
+    @* <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" /> *@
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
+}
+
+@section VendorScripts {@* 
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>  *@
+    <!-- Flat Picker -->
+    @* <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script> *@
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+
+@section PageScripts {
+    <script src="~/js/schedule.js"></script>
+}
+
+<h4 class="py-3 mb-4">
+    Schedule List
+</h4>
+
+<div class="card">
+    <div class="card-datatable table-responsive pt-0">
+        <table id="tblData" class="datatables-basic table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Duration</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
