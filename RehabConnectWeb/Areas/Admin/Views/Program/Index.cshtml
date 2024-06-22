@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Program>
+@model IEnumerable<Program>
 
 @* Program Table *@
 <div class="card">
@@ -46,6 +46,10 @@
           </tr>
           counter++;
         }
+      }else{
+        <tr>
+        <td colspan="5">No Data in the database.</td>
+       </tr>
       }
       </tbody>
     </table>
