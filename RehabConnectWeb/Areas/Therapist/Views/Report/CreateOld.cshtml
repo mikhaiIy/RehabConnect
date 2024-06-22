@@ -1,0 +1,794 @@
+@{
+    ViewData["Title"] = "Therapist - Report";
+
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/js/form-wizard-numbered.js"></script>
+    <script src="~/js/form-wizard-validation.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">Report/</span> Form
+</h4>
+<!-- Default -->
+
+<div class="row">
+    <div class="col-12">
+        <h5>Student Performance Assessment Form</h5>
+    </div>
+
+    <!-- Default Wizard -->
+    <div class="col-12 mb-4">
+        <small class="text-light fw-medium">Fill in the details</small>
+        <div class="bs-stepper wizard-numbered mt-2">
+            <div class="bs-stepper-header">
+                <div class="step" data-target="#account-details">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Report Details</span>
+                            <span class="bs-stepper-subtitle">Enter Report Basic Details</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="line">
+                    <i class="ti ti-chevron-right"></i>
+                </div>
+                <div class="step" data-target="#personal-info">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Subjective Assessment</span>
+                            <span class="bs-stepper-subtitle">Report for S-Subjective Assessment</span>
+                        </span>
+
+                    </button>
+                </div>
+                <div class="line">
+                    <i class="ti ti-chevron-right"></i>
+                </div>
+                <div class="step" data-target="#objective-assessment">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Objective Assessment</span>
+                            <span class="bs-stepper-subtitle">Report for O-Objective Assessment</span>
+                        </span>
+
+                    </button>
+                </div>
+                <div class="line">
+                    <i class="ti ti-chevron-right"></i>
+                </div>
+                <div class="step" data-target="#academic-performance">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">4</span>
+                        <span class="bs-stepper-label">
+                            <span class="bs-stepper-title">Academic Performance</span>
+                            <span class="bs-stepper-subtitle">Report for Academic Performance and Goals</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="bs-stepper-content">
+                <form onSubmit="return false">
+                    <!-- Account Details -->
+                    <div id="account-details" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Report Details</h6>
+                            <small>Enter Student Report Details.</small>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-sm-3">
+                                <label class="form-label" for="username">No. of Session Attended</label>
+                                <input type="number" id="username" class="form-control" placeholder="#" />
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label" for="email">Date of the Report  </label>
+                                <input type="datetime-local" placeholder="2021-06-18T12:30:00" id="datetime" />
+                            </div>
+                            <label class="form-label">Treatment Provided: </label>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Individual Therapy
+                                </label>
+                            </div>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Group Therapy
+                                </label>
+                            </div>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Early Intervention
+                                </label>
+                            </div>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Behavior Management
+                                </label>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-label-secondary btn-prev" disabled>
+                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Personal Info -->
+                    <div id="personal-info" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Subjective Assessment</h6>
+                            <small>Check the box if Yes for the S-Subjective Assessment</small>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Can Enter by Self
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    With Prompting
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Difficulties Separate With Parents
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    With Crying And Refuse
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Greeting With Prompt
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Greeting By Self
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Mute
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Refuse To Enter
+                                </label>
+                            </div>
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Subjective Assessment Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-label-secondary btn-prev">
+                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Objective Assessment -->
+                    <div id="objective-assessment" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Objective Assessment</h6>
+                            <small>Check the box if Yes for the O-Objective Assessment</small>
+                        </div>
+                        <div class="row g-3">
+                            <b>Motor & Praxis Skills</b>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Upper Range Of Motion
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Muscle Tone
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Muscle Strength
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Joint Mobility
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Trunk control & balance
+                                </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Gross Motor function: </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Standing
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    b) Crawling
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Walking
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Jumping
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    e) Broad Jump
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    f) Kick ball
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    g) Throw ball
+                                </label>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label class="form-label">Fine Motor function: </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Grasp & release
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    b) Reaching
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Put Block in a cup
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Scribbles
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    e)  Tower of cubes
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    f)  Mature pencil grasping
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    g) Immature pencil grasping
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    g) Immature pencil grasping
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    h) imitate verticle line
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" /> 
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    i) Copying Square, Triangle, Rhombus
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Motor & Praxis Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+
+                            <hr class="container-m-nx mb-5">
+                            <!--new section-->
+                            <b>Sensory Regulation Skills</b>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Tactile
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Auditory
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Visual
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Otoctory
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Gustatory
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Vestibular
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Proprioception
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Sensory Regulation Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+
+                            <hr class="container-m-nx mb-5">
+                            <!--new section-->
+                            <b>Cognitive Regulation Skills</b>
+                            <div class="col-sm-12">
+                                <label class="form-label">Basic Concept: </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Alphabet
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    b) Numbers
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Shapes
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Colors
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Memory function
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Attention
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="concentration">Concentration</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="poor">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="concentration">Problem Solving</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="poor">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Writing skill
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Cognitive Regulation Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+
+                            <hr class="container-m-nx mb-5">
+                            <!--new section-->
+                            <b>Occupational Performance</b>
+                            <div class="col-sm-12">
+                                <label class="form-label">Activity Daily Living (ADL): </label>
+                            </div>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Independent with no helper
+                                </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label" for="concentration">b) With supervision</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="all the time">all the time</option>
+                                    <option value="most of the time">most of the time</option>
+                                    <option value="sometimes">sometimes</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Maximum assistance
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Toilet trained
+                                </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Instrumental Activity Daily Living (IADL): </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Money Management
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    b) Time concept
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c)  Simple house hold activities: Folding clothes
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Simple house hold activities: Hanging clothes
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    e) Simple house hold activities: Sweep floor
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    f)  Simple domestic activites: Making drinks
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    g) Simple domestic activites: Prepare simple food
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    h) Simple domestic activites: Use phone
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Occupational Performance Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+
+                            <hr class="container-m-nx mb-5">
+                            <!--new section-->
+                            <b>Emotional Regulation Skills</b>
+                            <div class="col-sm-12">
+                                <label class="form-label">Behaviour: </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Tempered Tantrum
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    b) Manipulative
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Easily distracted
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    c) Toilet trained
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    d) Passive
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    e) Cooperative
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    f) Isolation
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    g) Reluctant
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Emotional Regulation Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+                            <hr class="container-m-nx mb-5">
+                            <!--new section-->
+                            <b>Communication & Social Skills</b>
+                            <div class="col-sm-12">
+                                <label class="form-label">Following Instruction: </label>
+                            </div>
+                            <div class="col-sm-12 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    a) Repetitive prompting
+                                </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label" for="concentration">b) Verbal prompting</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="min">min</option>
+                                    <option value="moderate">moderate</option>
+                                    <option value="max">max</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label" for="concentration">c) Physical prompting</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="min">min</option>
+                                    <option value="moderate">moderate</option>
+                                    <option value="max">max</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Eye Contact: </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="concentration">a) Person</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="poor">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="concentration">b) Object</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="good">Good</option>
+                                    <option value="fair">Fair</option>
+                                    <option value="poor">Poor</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Initiate answer question
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Verbal respond
+                                </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label" for="concentration">Voice clarity</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="clear">Clear</option>
+                                    <option value="slurred">Slurred</option>
+                                    <option value="imitate last vowel sound">imitate last vowel sound</option>
+                                    <option value="no speech">No speech</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Facial expressions
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Body language
+                                </label>
+                            </div>
+                                <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    taking turn
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                   Sharing
+                                </label>
+                            </div>
+                            <div class="col-sm-6 form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="IndividualTherapy" />
+                                <label class="form-check-label" for="IndividualTherapy">
+                                    Stay in group
+                                </label>
+                            </div>
+                            
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Communication & Social Progress Note</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-label-secondary btn-prev">
+                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- academic-performance -->
+                    <div id="academic-performance" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Academics Performance</h6>
+                            <small>Fill in the details for the Academics Section</small>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-sm-12">
+                                <label class="form-label" for="concentration">Academics Grades</label>
+                                <select class="form-select" id="concentration">
+                                    <option value="Good">Good</option>
+                                    <option value="Average">Average</option>
+                                    <option value="Fair">Fair</option>
+                                    <option value="Unable to follow">Unable to follow</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">A - Analysis Problem</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="4"></textarea>
+                            </div>
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">A - Short Term Goals</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="4"></textarea>
+                            </div>
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">A - Long Term Goals</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="4"></textarea>
+                            </div>
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">P - Tx PLAN</label>
+                                <textarea class="form-control" id="SubjectiveAssessmentNotes" rows="2"></textarea>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button class="btn btn-label-secondary btn-prev">
+                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-success btn-submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Default Wizard -->
+
+
+</div>
+

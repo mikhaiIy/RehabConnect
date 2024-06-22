@@ -110,7 +110,63 @@ namespace RehabConnect.DataAccess.Data
                 }
             );
 
-                    // Seed Invoice
+            modelBuilder.Entity<Student>().HasData(
+                new Student
+                {
+                    StudentID = 1,
+                    ChildName = "Alice Johnson",
+                    ChildIC = "192837465",
+                    ChildAge = 8,
+                    ChildDOB = new DateTime(2016, 3, 10),
+                    ChildPassportNo = "C19283746",
+                    ChildNationality = "British",
+                    ChildRace = "African",
+                    ChildBirthPlace = "London, UK",
+                    ChildSex = "Female",
+                    ChildAddress = "789 Oak St",
+                    ChildPostcode = "E1 6AN",
+                    ChildCity = "London",
+                    ChildCountry = "UK",
+                    Pediatricians = "Dr. White",
+                    HospReccommendation = "Royal Hospital",
+                    DiagnosisOrCondition = "Autism",
+                    OccupationalTheraphyPlace = "Therapy Center G",
+                    SpeechTheoryPlace = "Speech Clinic H",
+                    OthersUnitPlace = "Unit I",
+                    UserId = "user789",
+                    ApprovalStatus = "Accept"
+                }
+            );
+
+           modelBuilder.Entity<Report>().HasData(
+           new Report
+           {
+               ReportID = 1,
+               StudentID = 1,
+               DateReport = DateTime.Now,
+               IndividualTherapy = true,
+               GroupTherapy = false,
+               EarlyIntervention = true,
+               BehaviorManagement = false,
+               CanEnterSelf = true,
+               WithPrompting = false,
+               SubjectiveAssessmentNotes = "The child entered without any issues.",
+               MotorPraxisSkillsNotes = "Good motor skills.",
+               SensoryRegulationSkillsNotes = "No issues observed.",
+               CognitiveRegulationSkillsNotes = "Good attention span.",
+               OccupationalPerformanceNotes = "Independent in ADL.",
+               EmotionalRegulationSkillsNotes = "Cooperative behavior.",
+               CommunicationSocialSkillsNotes = "Good eye contact.",
+               AcademicPerformance = "Good",
+               AcademicPerformanceNotes = "Performs well academically.",
+               AnalysisProblem = "No significant problems.",
+               ShortTermGoal = "Maintain current progress.",
+               LongTermGoal = "Achieve higher academic performance.",
+               TxPlan = "Regular therapy sessions."
+           }
+       );
+
+            // Seed Invoice
             modelBuilder.Entity<Invoice>().HasData(
                 new Invoice
                 {

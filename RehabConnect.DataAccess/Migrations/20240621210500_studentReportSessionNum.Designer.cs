@@ -12,8 +12,8 @@ using RehabConnect.DataAccess.Data;
 namespace RehabConnect.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240619161309_initial")]
-    partial class initial
+    [Migration("20240621210500_studentReportSessionNum")]
+    partial class studentReportSessionNum
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -335,7 +335,7 @@ namespace RehabConnect.DataAccess.Migrations
                         new
                         {
                             InvoiceID = 1,
-                            DateIssued = new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741),
+                            DateIssued = new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9552),
                             ParentID = 1,
                             TotalAmount = 1000m
                         });
@@ -604,34 +604,416 @@ namespace RehabConnect.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportID"));
 
-                    b.Property<int>("CSID")
+                    b.Property<bool>("ADLIndependent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ADLMaxAssistance")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ADLSupervision")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ADLToiletTrained")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AcademicPerformance")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AcademicPerformanceNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Alphabet")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AnalysisProblem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Attention")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Auditory")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("BehaviorManagement")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("BodyLanguage")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("BroadJump")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEnterSelf")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CognitiveRegulationSkillsNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Colors")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CommunicationSocialSkillsNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Concentration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Cooperative")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CopyRhombus")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CopySquare")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CopyTriangle")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Crawling")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("CustomerSupportCSID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
+                    b.Property<DateTime>("DateReport")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("DifficultiesSeparateWithParents")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EarlyIntervention")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EasilyDistracted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EmotionalRegulationSkillsNotes")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EyeContactObject")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SessionID")
+                    b.Property<string>("EyeContactPerson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FacialExpressions")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("GraspRelease")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("GreetingBySelf")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("GreetingWithPrompt")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("GroupTherapy")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Gustatory")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLFoldingClothes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLHangingClothes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLMakingDrinks")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLMoneyManagement")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLPrepareSimpleFood")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLSweepFloor")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLTimeConcept")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IADLUsePhone")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImitateVerticalLine")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ImmaturePencilGrasp")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IndividualTherapy")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("InitiateAnswerQuestion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Isolation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("JointMobility")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Jumping")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("KickBall")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LongTermGoal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Manipulative")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MaturePencilGrasp")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MemoryFunction")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MotorPraxisSkillsNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("MuscleStrength")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MuscleTone")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Mute")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NoSession")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Numbers")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OccupationalPerformanceNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Otectomy")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Passive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhysicalPrompting")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProblemSolving")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Proprioception")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PutBlockInCup")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RangeOfMotion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Reaching")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RefuseToEnter")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Reluctant")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RepetitivePrompting")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Scribbles")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SensoryRegulationSkillsNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Shapes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Sharing")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ShortTermGoal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Standing")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("StayInGroup")
+                        .HasColumnType("bit");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TherapistID")
+                    b.Property<string>("SubjectiveAssessmentNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Tactile")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TakingTurn")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TemperedTantrum")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("TherapistID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("ThrowBall")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TowerOfCubes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TrunkControlBalance")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TxPlan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerbalPrompting")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("VerbalRespond")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Vestibular")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Visual")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("VoiceClarity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Walking")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WithCryingAndRefuse")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WithPrompting")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WritingSkill")
+                        .HasColumnType("bit");
 
                     b.HasKey("ReportID");
 
-                    b.HasIndex("CSID");
+                    b.HasIndex("CustomerSupportCSID");
 
                     b.HasIndex("StudentID");
 
                     b.HasIndex("TherapistID");
 
                     b.ToTable("Reports");
+
+                    b.HasData(
+                        new
+                        {
+                            ReportID = 1,
+                            ADLIndependent = false,
+                            ADLMaxAssistance = false,
+                            ADLToiletTrained = false,
+                            AcademicPerformance = "Good",
+                            AcademicPerformanceNotes = "Performs well academically.",
+                            Alphabet = false,
+                            AnalysisProblem = "No significant problems.",
+                            Attention = false,
+                            Auditory = false,
+                            BehaviorManagement = false,
+                            BodyLanguage = false,
+                            BroadJump = false,
+                            CanEnterSelf = true,
+                            CognitiveRegulationSkillsNotes = "Good attention span.",
+                            Colors = false,
+                            CommunicationSocialSkillsNotes = "Good eye contact.",
+                            Cooperative = false,
+                            CopyRhombus = false,
+                            CopySquare = false,
+                            CopyTriangle = false,
+                            Crawling = false,
+                            DateReport = new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9495),
+                            DifficultiesSeparateWithParents = false,
+                            EarlyIntervention = true,
+                            EasilyDistracted = false,
+                            EmotionalRegulationSkillsNotes = "Cooperative behavior.",
+                            FacialExpressions = false,
+                            GraspRelease = false,
+                            GreetingBySelf = false,
+                            GreetingWithPrompt = false,
+                            GroupTherapy = false,
+                            Gustatory = false,
+                            IADLFoldingClothes = false,
+                            IADLHangingClothes = false,
+                            IADLMakingDrinks = false,
+                            IADLMoneyManagement = false,
+                            IADLPrepareSimpleFood = false,
+                            IADLSweepFloor = false,
+                            IADLTimeConcept = false,
+                            IADLUsePhone = false,
+                            ImitateVerticalLine = false,
+                            ImmaturePencilGrasp = false,
+                            IndividualTherapy = true,
+                            InitiateAnswerQuestion = false,
+                            Isolation = false,
+                            JointMobility = false,
+                            Jumping = false,
+                            KickBall = false,
+                            LongTermGoal = "Achieve higher academic performance.",
+                            Manipulative = false,
+                            MaturePencilGrasp = false,
+                            MemoryFunction = false,
+                            MotorPraxisSkillsNotes = "Good motor skills.",
+                            MuscleStrength = false,
+                            MuscleTone = false,
+                            Mute = false,
+                            NoSession = 0,
+                            Numbers = false,
+                            OccupationalPerformanceNotes = "Independent in ADL.",
+                            Otectomy = false,
+                            Passive = false,
+                            Proprioception = false,
+                            PutBlockInCup = false,
+                            RangeOfMotion = false,
+                            Reaching = false,
+                            RefuseToEnter = false,
+                            Reluctant = false,
+                            RepetitivePrompting = false,
+                            Scribbles = false,
+                            SensoryRegulationSkillsNotes = "No issues observed.",
+                            Shapes = false,
+                            Sharing = false,
+                            ShortTermGoal = "Maintain current progress.",
+                            Standing = false,
+                            StayInGroup = false,
+                            StudentID = 1,
+                            SubjectiveAssessmentNotes = "The child entered without any issues.",
+                            Tactile = false,
+                            TakingTurn = false,
+                            TemperedTantrum = false,
+                            ThrowBall = false,
+                            TowerOfCubes = false,
+                            TrunkControlBalance = false,
+                            TxPlan = "Regular therapy sessions.",
+                            VerbalRespond = false,
+                            Vestibular = false,
+                            Visual = false,
+                            Walking = false,
+                            WithCryingAndRefuse = false,
+                            WithPrompting = false,
+                            WritingSkill = false
+                        });
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Roadmap", b =>
@@ -942,6 +1324,33 @@ namespace RehabConnect.DataAccess.Migrations
                     b.HasIndex("ParentDetailParentID");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            StudentID = 1,
+                            ApprovalStatus = "Accept",
+                            ChildAddress = "789 Oak St",
+                            ChildAge = 8,
+                            ChildBirthPlace = "London, UK",
+                            ChildCity = "London",
+                            ChildCountry = "UK",
+                            ChildDOB = new DateTime(2016, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ChildIC = "192837465",
+                            ChildName = "Alice Johnson",
+                            ChildNationality = "British",
+                            ChildPassportNo = "C19283746",
+                            ChildPostcode = "E1 6AN",
+                            ChildRace = "African",
+                            ChildSex = "Female",
+                            DiagnosisOrCondition = "Autism",
+                            HospReccommendation = "Royal Hospital",
+                            OccupationalTheraphyPlace = "Therapy Center G",
+                            OthersUnitPlace = "Unit I",
+                            Pediatricians = "Dr. White",
+                            SpeechTheoryPlace = "Speech Clinic H",
+                            UserId = "user789"
+                        });
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Therapist", b =>
@@ -1095,11 +1504,9 @@ namespace RehabConnect.DataAccess.Migrations
 
             modelBuilder.Entity("RehabConnect.Models.Report", b =>
                 {
-                    b.HasOne("RehabConnect.Models.CustomerSupport", "CustomerSupport")
+                    b.HasOne("RehabConnect.Models.CustomerSupport", null)
                         .WithMany("Reports")
-                        .HasForeignKey("CSID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerSupportCSID");
 
                     b.HasOne("RehabConnect.Models.Student", "Student")
                         .WithMany("Reports")
@@ -1107,17 +1514,11 @@ namespace RehabConnect.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RehabConnect.Models.Therapist", "Therapist")
+                    b.HasOne("RehabConnect.Models.Therapist", null)
                         .WithMany("Reports")
-                        .HasForeignKey("TherapistID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomerSupport");
+                        .HasForeignKey("TherapistID");
 
                     b.Navigation("Student");
-
-                    b.Navigation("Therapist");
                 });
 
             modelBuilder.Entity("RehabConnect.Models.Session", b =>

@@ -23,6 +23,7 @@ namespace RehabConnect.DataAccess.Repository
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IInvoiceRepository Invoice { get; private set; }
         public IBillingRepository Billing { get; private set; }
+        public IReportRepository Report { get; private set; }
 
 
 
@@ -30,6 +31,7 @@ namespace RehabConnect.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+            Report = new ReportRepository(_db);
             Billing = new BillingRepository(_db);
             Invoice = new InvoiceRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);

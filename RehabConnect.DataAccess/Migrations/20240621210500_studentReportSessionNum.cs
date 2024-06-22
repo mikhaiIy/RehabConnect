@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RehabConnect.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class studentReportSessionNum : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -306,21 +306,115 @@ namespace RehabConnect.DataAccess.Migrations
                     ReportID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentID = table.Column<int>(type: "int", nullable: false),
-                    TherapistID = table.Column<int>(type: "int", nullable: false),
-                    CSID = table.Column<int>(type: "int", nullable: false),
-                    SessionID = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    NoSession = table.Column<int>(type: "int", nullable: false),
+                    DateReport = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IndividualTherapy = table.Column<bool>(type: "bit", nullable: false),
+                    GroupTherapy = table.Column<bool>(type: "bit", nullable: false),
+                    EarlyIntervention = table.Column<bool>(type: "bit", nullable: false),
+                    BehaviorManagement = table.Column<bool>(type: "bit", nullable: false),
+                    CanEnterSelf = table.Column<bool>(type: "bit", nullable: false),
+                    WithPrompting = table.Column<bool>(type: "bit", nullable: false),
+                    DifficultiesSeparateWithParents = table.Column<bool>(type: "bit", nullable: false),
+                    WithCryingAndRefuse = table.Column<bool>(type: "bit", nullable: false),
+                    GreetingWithPrompt = table.Column<bool>(type: "bit", nullable: false),
+                    GreetingBySelf = table.Column<bool>(type: "bit", nullable: false),
+                    Mute = table.Column<bool>(type: "bit", nullable: false),
+                    RefuseToEnter = table.Column<bool>(type: "bit", nullable: false),
+                    SubjectiveAssessmentNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RangeOfMotion = table.Column<bool>(type: "bit", nullable: false),
+                    MuscleTone = table.Column<bool>(type: "bit", nullable: false),
+                    MuscleStrength = table.Column<bool>(type: "bit", nullable: false),
+                    JointMobility = table.Column<bool>(type: "bit", nullable: false),
+                    TrunkControlBalance = table.Column<bool>(type: "bit", nullable: false),
+                    Standing = table.Column<bool>(type: "bit", nullable: false),
+                    Crawling = table.Column<bool>(type: "bit", nullable: false),
+                    Walking = table.Column<bool>(type: "bit", nullable: false),
+                    Jumping = table.Column<bool>(type: "bit", nullable: false),
+                    BroadJump = table.Column<bool>(type: "bit", nullable: false),
+                    KickBall = table.Column<bool>(type: "bit", nullable: false),
+                    ThrowBall = table.Column<bool>(type: "bit", nullable: false),
+                    GraspRelease = table.Column<bool>(type: "bit", nullable: false),
+                    Reaching = table.Column<bool>(type: "bit", nullable: false),
+                    PutBlockInCup = table.Column<bool>(type: "bit", nullable: false),
+                    Scribbles = table.Column<bool>(type: "bit", nullable: false),
+                    TowerOfCubes = table.Column<bool>(type: "bit", nullable: false),
+                    MaturePencilGrasp = table.Column<bool>(type: "bit", nullable: false),
+                    ImmaturePencilGrasp = table.Column<bool>(type: "bit", nullable: false),
+                    ImitateVerticalLine = table.Column<bool>(type: "bit", nullable: false),
+                    CopySquare = table.Column<bool>(type: "bit", nullable: false),
+                    CopyTriangle = table.Column<bool>(type: "bit", nullable: false),
+                    CopyRhombus = table.Column<bool>(type: "bit", nullable: false),
+                    MotorPraxisSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tactile = table.Column<bool>(type: "bit", nullable: false),
+                    Auditory = table.Column<bool>(type: "bit", nullable: false),
+                    Visual = table.Column<bool>(type: "bit", nullable: false),
+                    Otectomy = table.Column<bool>(type: "bit", nullable: false),
+                    Gustatory = table.Column<bool>(type: "bit", nullable: false),
+                    Vestibular = table.Column<bool>(type: "bit", nullable: false),
+                    Proprioception = table.Column<bool>(type: "bit", nullable: false),
+                    SensoryRegulationSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Alphabet = table.Column<bool>(type: "bit", nullable: false),
+                    Numbers = table.Column<bool>(type: "bit", nullable: false),
+                    Shapes = table.Column<bool>(type: "bit", nullable: false),
+                    Colors = table.Column<bool>(type: "bit", nullable: false),
+                    MemoryFunction = table.Column<bool>(type: "bit", nullable: false),
+                    Attention = table.Column<bool>(type: "bit", nullable: false),
+                    Concentration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProblemSolving = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WritingSkill = table.Column<bool>(type: "bit", nullable: false),
+                    CognitiveRegulationSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ADLIndependent = table.Column<bool>(type: "bit", nullable: false),
+                    ADLSupervision = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ADLMaxAssistance = table.Column<bool>(type: "bit", nullable: false),
+                    ADLToiletTrained = table.Column<bool>(type: "bit", nullable: false),
+                    IADLMoneyManagement = table.Column<bool>(type: "bit", nullable: false),
+                    IADLTimeConcept = table.Column<bool>(type: "bit", nullable: false),
+                    IADLFoldingClothes = table.Column<bool>(type: "bit", nullable: false),
+                    IADLHangingClothes = table.Column<bool>(type: "bit", nullable: false),
+                    IADLSweepFloor = table.Column<bool>(type: "bit", nullable: false),
+                    IADLMakingDrinks = table.Column<bool>(type: "bit", nullable: false),
+                    IADLPrepareSimpleFood = table.Column<bool>(type: "bit", nullable: false),
+                    IADLUsePhone = table.Column<bool>(type: "bit", nullable: false),
+                    OccupationalPerformanceNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TemperedTantrum = table.Column<bool>(type: "bit", nullable: false),
+                    Manipulative = table.Column<bool>(type: "bit", nullable: false),
+                    EasilyDistracted = table.Column<bool>(type: "bit", nullable: false),
+                    Passive = table.Column<bool>(type: "bit", nullable: false),
+                    Cooperative = table.Column<bool>(type: "bit", nullable: false),
+                    Isolation = table.Column<bool>(type: "bit", nullable: false),
+                    Reluctant = table.Column<bool>(type: "bit", nullable: false),
+                    EmotionalRegulationSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RepetitivePrompting = table.Column<bool>(type: "bit", nullable: false),
+                    VerbalPrompting = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhysicalPrompting = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EyeContactPerson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EyeContactObject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InitiateAnswerQuestion = table.Column<bool>(type: "bit", nullable: false),
+                    VerbalRespond = table.Column<bool>(type: "bit", nullable: false),
+                    VoiceClarity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacialExpressions = table.Column<bool>(type: "bit", nullable: false),
+                    BodyLanguage = table.Column<bool>(type: "bit", nullable: false),
+                    TakingTurn = table.Column<bool>(type: "bit", nullable: false),
+                    Sharing = table.Column<bool>(type: "bit", nullable: false),
+                    StayInGroup = table.Column<bool>(type: "bit", nullable: false),
+                    CommunicationSocialSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AcademicPerformance = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AcademicPerformanceNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnalysisProblem = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShortTermGoal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LongTermGoal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TxPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerSupportCSID = table.Column<int>(type: "int", nullable: true),
+                    TherapistID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reports", x => x.ReportID);
                     table.ForeignKey(
-                        name: "FK_Reports_CustomerSupports_CSID",
-                        column: x => x.CSID,
+                        name: "FK_Reports_CustomerSupports_CustomerSupportCSID",
+                        column: x => x.CustomerSupportCSID,
                         principalTable: "CustomerSupports",
-                        principalColumn: "CSID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CSID");
                     table.ForeignKey(
                         name: "FK_Reports_Students_StudentID",
                         column: x => x.StudentID,
@@ -331,8 +425,7 @@ namespace RehabConnect.DataAccess.Migrations
                         name: "FK_Reports_Therapists_TherapistID",
                         column: x => x.TherapistID,
                         principalTable: "Therapists",
-                        principalColumn: "TherapistID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TherapistID");
                 });
 
             migrationBuilder.CreateTable(
@@ -532,9 +625,19 @@ namespace RehabConnect.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Students",
+                columns: new[] { "StudentID", "ApprovalStatus", "ChildAddress", "ChildAge", "ChildBirthPlace", "ChildCity", "ChildCountry", "ChildDOB", "ChildIC", "ChildName", "ChildNationality", "ChildPassportNo", "ChildPostcode", "ChildRace", "ChildSex", "DeadlineDiagnose", "DiagnosisOrCondition", "HospReccommendation", "OccupationalTheraphyPlace", "OthersUnitPlace", "ParentDetailParentID", "Pediatricians", "SpeechTheoryPlace", "UserId" },
+                values: new object[] { 1, "Accept", "789 Oak St", 8, "London, UK", "London", "UK", new DateTime(2016, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "192837465", "Alice Johnson", "British", "C19283746", "E1 6AN", "African", "Female", null, "Autism", "Royal Hospital", "Therapy Center G", "Unit I", null, "Dr. White", "Speech Clinic H", "user789" });
+
+            migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "InvoiceID", "DateIssued", "ParentID", "TotalAmount" },
-                values: new object[] { 1, new DateTime(2024, 6, 20, 0, 13, 8, 383, DateTimeKind.Local).AddTicks(6741), 1, 1000m });
+                values: new object[] { 1, new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9552), 1, 1000m });
+
+            migrationBuilder.InsertData(
+                table: "Reports",
+                columns: new[] { "ReportID", "ADLIndependent", "ADLMaxAssistance", "ADLSupervision", "ADLToiletTrained", "AcademicPerformance", "AcademicPerformanceNotes", "Alphabet", "AnalysisProblem", "Attention", "Auditory", "BehaviorManagement", "BodyLanguage", "BroadJump", "CanEnterSelf", "CognitiveRegulationSkillsNotes", "Colors", "CommunicationSocialSkillsNotes", "Concentration", "Cooperative", "CopyRhombus", "CopySquare", "CopyTriangle", "Crawling", "CustomerSupportCSID", "DateReport", "DifficultiesSeparateWithParents", "EarlyIntervention", "EasilyDistracted", "EmotionalRegulationSkillsNotes", "EyeContactObject", "EyeContactPerson", "FacialExpressions", "GraspRelease", "GreetingBySelf", "GreetingWithPrompt", "GroupTherapy", "Gustatory", "IADLFoldingClothes", "IADLHangingClothes", "IADLMakingDrinks", "IADLMoneyManagement", "IADLPrepareSimpleFood", "IADLSweepFloor", "IADLTimeConcept", "IADLUsePhone", "ImitateVerticalLine", "ImmaturePencilGrasp", "IndividualTherapy", "InitiateAnswerQuestion", "Isolation", "JointMobility", "Jumping", "KickBall", "LongTermGoal", "Manipulative", "MaturePencilGrasp", "MemoryFunction", "MotorPraxisSkillsNotes", "MuscleStrength", "MuscleTone", "Mute", "NoSession", "Numbers", "OccupationalPerformanceNotes", "Otectomy", "Passive", "PhysicalPrompting", "ProblemSolving", "Proprioception", "PutBlockInCup", "RangeOfMotion", "Reaching", "RefuseToEnter", "Reluctant", "RepetitivePrompting", "Scribbles", "SensoryRegulationSkillsNotes", "Shapes", "Sharing", "ShortTermGoal", "Standing", "StayInGroup", "StudentID", "SubjectiveAssessmentNotes", "Tactile", "TakingTurn", "TemperedTantrum", "TherapistID", "ThrowBall", "TowerOfCubes", "TrunkControlBalance", "TxPlan", "VerbalPrompting", "VerbalRespond", "Vestibular", "Visual", "VoiceClarity", "Walking", "WithCryingAndRefuse", "WithPrompting", "WritingSkill" },
+                values: new object[] { 1, false, false, null, false, "Good", "Performs well academically.", false, "No significant problems.", false, false, false, false, false, true, "Good attention span.", false, "Good eye contact.", null, false, false, false, false, false, null, new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9495), false, true, false, "Cooperative behavior.", null, null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, "Achieve higher academic performance.", false, false, false, "Good motor skills.", false, false, false, 0, false, "Independent in ADL.", false, false, null, null, false, false, false, false, false, false, false, false, "No issues observed.", false, false, "Maintain current progress.", false, false, 1, "The child entered without any issues.", false, false, false, null, false, false, false, "Regular therapy sessions.", null, false, false, false, null, false, false, false, false });
 
             migrationBuilder.InsertData(
                 table: "Steps",
@@ -633,9 +736,9 @@ namespace RehabConnect.DataAccess.Migrations
                 column: "StepId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reports_CSID",
+                name: "IX_Reports_CustomerSupportCSID",
                 table: "Reports",
-                column: "CSID");
+                column: "CustomerSupportCSID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_StudentID",
