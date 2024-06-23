@@ -73,7 +73,7 @@ namespace RehabConnect.Models
         public bool Tactile { get; set; }
         public bool Auditory { get; set; }
         public bool Visual { get; set; }
-        public bool Octectomy { get; set; }
+        public bool Otectomy { get; set; }
         public bool Gustatory { get; set; }
         public bool Vestibular { get; set; }
         public bool Proprioception { get; set; }
@@ -117,7 +117,7 @@ namespace RehabConnect.Models
         public bool Cooperative { get; set; }
         public bool Isolation { get; set; }
         public bool Reluctant { get; set; }
-        public string EmotionalRegulationSkillsNotes { get; set; }
+        public string? EmotionalRegulationSkillsNotes { get; set; }
 
         // Communication & Social Skills
         public bool RepetitivePrompting { get; set; }

@@ -31,6 +31,7 @@
     <ProjectReference Include="..\RehabConnect.Utility\RehabConnect.Utility.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\_Partials\_Macros.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
@@ -259,6 +260,37 @@
     <Folder Include="Areas\Admin\Views\Student\" />
   </ItemGroup>
   <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />
+
+    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\AddNew.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Index.cshtml" />
+    <AdditionalFiles Include="Views\Shared\_Partials\_Macros.cshtml" />
+    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <Content Remove="wwwroot\js\schedule.js" />
+    <Content Remove="Areas\Parent\Views\ParentDetail\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\schedule.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Student\" />
+    <None Include="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
+    <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />
   </ItemGroup>
 </Project>

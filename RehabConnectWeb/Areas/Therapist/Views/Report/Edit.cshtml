@@ -72,7 +72,8 @@
                 </div>
             </div>
             <div class="bs-stepper-content">
-                <form asp-controller="Report" asp-action="Create" method="post" id="ParentDetailForm">
+                <form asp-controller="Report" asp-action="Edit" method="post" id="ParentDetailForm">
+                    <input asp-for="ReportID" hidden />
                     <!-- Account Details -->
                     <div id="accountDetailsValidation" class="content">
                         <div class="content-header mb-4">
@@ -759,7 +760,7 @@
                                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button type="submit" class="btn btn-success btn-next btn-submit">Submit</button>
+                                <button type="submit" class="btn btn-success btn-next btn-submit">Edit</button>
                             </div>
                         </div>
                     </div>
