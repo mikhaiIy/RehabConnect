@@ -15,13 +15,7 @@ namespace RehabConnect.Models
 
         [Required]
         public int StudentID { get; set; }
-
-        [Required]
-        public int TherapistID { get; set; }
-
-        [Required]
-        public int CSID { get; set; }
-
+        
         [Required]
         public int ProgramID { get; set; }
 
@@ -34,12 +28,6 @@ namespace RehabConnect.Models
         // Navigation properties
         [ForeignKey("StudentID")]
         public Student Student { get; set; }
-
-        [ForeignKey("TherapistID")]
-        public Therapist Therapist { get; set; }
-
-        [ForeignKey("CSID")]
-        public CustomerSupport CustomerSupport { get; set; }
 
         [ForeignKey("ProgramID")]
         public Program Program { get; set; }

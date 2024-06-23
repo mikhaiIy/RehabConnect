@@ -250,6 +250,7 @@
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
     <Content Remove="wwwroot\js\schedule.js" />
+    <Content Remove="Areas\Parent\Views\ParentDetail\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\schedule.js" />
