@@ -14,34 +14,42 @@
 
       <!-- Home -->
       <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link ">
+          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <div data-i18n="Home">Home</div>
+        </a>
+      </li>
+
+      <!-- Academics -->
+      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-          <div data-i18n="Charts & Maps">Charts & Maps</div>
+          <div data-i18n="Academic">Academic</div>
         </a>
         <ul class="menu-sub">
+          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
+            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-map"></i>
+              <div data-i18n="Overview">Overview</div>
+            </a>
+          </li>
           <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-              <div data-i18n="Charts">Charts</div>
+              <div data-i18n="Session">Session</div>
             </a>
             <ul class="menu-sub">
               <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
-                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
-                  <div data-i18n="Apex Charts">Apex Charts</div>
+                <a asp-area="Parent" asp-controller="Session" asp-action="Index" class="menu-link">
+                  <div data-i18n="Reserve Slot">Reserve Slot</div>
                 </a>
               </li>
               <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
                 <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
-                  <div data-i18n="ChartJS">ChartJS</div>
+                  <div data-i18n="Session Report">Session Report</div>
                 </a>
               </li>
             </ul>
-          </li>
-          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
-            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-map"></i>
-              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
-            </a>
           </li>
         </ul>
       </li>
@@ -60,7 +68,7 @@
             </a>
             <ul class="menu-sub">
               <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
-                <a asp-area="Parent"asp-controller="CheckOut" asp-action="Index" class="menu-link">
+                <a asp-area="Parent "asp-controller="CheckOut" asp-action="Index" class="menu-link">
                   <div data-i18n="Make Payments">Make Payments</div>
                 </a>
               </li>
@@ -80,93 +88,27 @@
         </ul>
       </li>
 
-            <!-- Payments -->
-            <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-                    <div data-i18n="Payments">Manage Child</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
-                        <a asp-area="Parent" asp-controller="Student" asp-action="Index" class="menu-link">
-                            <div data-i18n="Make Payments">Make Payments</div>
-                        </a>
-                    </li>
-                  <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
-                        <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-map"></i>
-                            <div data-i18n="Leaflet Maps">Leaflet Maps</div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-      <!-- Academics -->
-      <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
-        <a href="javascript:void(0)" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-          <div data-i18n="Academic">Academic</div>
-        </a>
-        <ul class="menu-sub">
-          <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-              <div data-i18n="Charts">Charts</div>
-            </a>
-            <ul class="menu-sub">
-              <li class='menu-item@(currentPage == "/Charts/Apex" ? " active" : "")'>
-                <a asp-controller="Charts" asp-action="Apex" class="menu-link">
-                  <div data-i18n="Apex Charts">Apex Charts</div>
-                </a>
-              </li>
-              <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
-                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
-                  <div data-i18n="ChartJS">ChartJS</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class='menu-item@(currentPage == "/Maps/Leaflet" ? " active" : "")'>
-            <a asp-controller="Maps" asp-action="Leaflet" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-map"></i>
-              <div data-i18n="Leaflet Maps">Leaflet Maps</div>
-            </a>
-          </li>
-        </ul>
-      </li>
-
       <!-- Profile -->
-            <li class='menu-item@(currentPage.StartsWith("/ParentDetail") ? "active" : "")'>
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-                    <div data-i18n="Parent Details">Parent Details</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class='menu-item@(currentPage == "/ParentDetail/Index" ? " active" : "")'>
-                        <a asp-area="Parent" asp-controller="ParentDetail" asp-action="Index" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-map"></i>
-                            <div data-i18n="Your Details">Your Details</div>
-                        </a>
-                    </li>
-                </ul>
+      <li class='menu-item@(currentPage.StartsWith("/ParentDetail") ? "active" : "")'>
+          <a href="javascript:void(0)" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+              <div data-i18n="Parent & Child">Parent & Child</div>
+          </a>
+          <ul class="menu-sub">
+            <li class='menu-item@(currentPage == "/ParentDetail/Index" ? " active" : "")'>
+              <a asp-area="Parent" asp-controller="ParentDetail" asp-action="Index" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-map"></i>
+                <div data-i18n="Your Details">Your Details</div>
+              </a>
             </li>
-            <!-- Child Details -->
-            <li class='menu-item@(currentPage.StartsWith("/Student") ? "active" : "")'>
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-                    <div data-i18n="Manage Child">Manage Child</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class='menu-item@(currentPage == "/Student/Index" ? " active" : "")'>
-                        <a asp-area="Parent" asp-controller="Student" asp-action="Index" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-map"></i>
-                            <div data-i18n="Child Details">Child Details</div>
-                        </a>
-                    </li>
-                </ul>
+            <li class='menu-item@(currentPage == "/Student/Index" ? " active" : "")'>
+              <a asp-area="Parent" asp-controller="Student" asp-action="Index" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-map"></i>
+                <div data-i18n="Manage Child">Manage Child</div>
+              </a>
             </li>
-
-
+          </ul>
+      </li>
     </ul>
   </div>
 </aside>

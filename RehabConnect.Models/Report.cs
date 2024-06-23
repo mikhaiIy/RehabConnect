@@ -73,7 +73,7 @@ namespace RehabConnect.Models
         public bool Tactile { get; set; }
         public bool Auditory { get; set; }
         public bool Visual { get; set; }
-        public bool Otectomy { get; set; }
+        public bool Olfactory { get; set; }
         public bool Gustatory { get; set; }
         public bool Vestibular { get; set; }
         public bool Proprioception { get; set; }

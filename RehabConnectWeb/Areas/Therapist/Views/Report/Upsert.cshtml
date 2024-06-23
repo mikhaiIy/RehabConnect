@@ -83,9 +83,7 @@ ViewData["Title"] = "Therapist - Report";
             <div class="row g-3">
               <div class="col-sm-12">
                 <label class="form-label" asp-for="StudentID">Choose Student: </label>
-                <select class="form-select" asp-for="StudentID">
-                  <option value="1">Alice Johnson Binti William Butcher</option>
-                </select>
+                <select class="form-select" asp-for="StudentID" asp-items="ViewBag.Student"></select>
                 <span asp-validation-for="StudentID" class="text-danger"></span>
               </div>
               <div class="col-sm-3">

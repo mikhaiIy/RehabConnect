@@ -41,9 +41,9 @@ ViewData["Title"] = "Therapist - Report";
           <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">1</span>
             <span class="bs-stepper-label">
-            <span class="bs-stepper-title">Report Details</span>
-            <span class="bs-stepper-subtitle">Enter Report Basic Details</span>
-            </span>
+                            <span class="bs-stepper-title">Report Details</span>
+                            <span class="bs-stepper-subtitle">Enter Report Basic Details</span>
+                        </span>
           </button>
         </div>
         <div class="line">
@@ -53,9 +53,9 @@ ViewData["Title"] = "Therapist - Report";
           <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">2</span>
             <span class="bs-stepper-label">
-            <span class="bs-stepper-title">Subjective Assessment</span>
-            <span class="bs-stepper-subtitle">Report for S-Subjective Assessment</span>
-            </span>
+                            <span class="bs-stepper-title">Subjective Assessment</span>
+                            <span class="bs-stepper-subtitle">Report for S-Subjective Assessment</span>
+                        </span>
           </button>
         </div>
         <div class="line">
@@ -65,14 +65,14 @@ ViewData["Title"] = "Therapist - Report";
           <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">3</span>
             <span class="bs-stepper-label">
-            <span class="bs-stepper-title">Objective Assessment</span>
-            <span class="bs-stepper-subtitle">Report for O-Objective Assessment</span>
-            </span>
+                            <span class="bs-stepper-title">Objective Assessment</span>
+                            <span class="bs-stepper-subtitle">Report for O-Objective Assessment</span>
+                        </span>
           </button>
         </div>
       </div>
       <div class="bs-stepper-content">
-        <form method="post" id="ParentDetailForm">
+        <form asp-controller="Report" asp-action="Edit" method="post" id="ParentDetailForm">
           <input asp-for="ReportID" hidden />
           <!-- Account Details -->
           <div id="accountDetailsValidation" class="content">

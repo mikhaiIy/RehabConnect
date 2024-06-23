@@ -1,10 +1,160 @@
-
-
 @{
 ViewData["Title"] = "Horizontal layout - Layouts";
+}
 
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+<link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/apex-charts/apex-charts.css" />
+}
+
+
+
+@section VendorScripts {
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+<script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+<script src="~/vendor/libs/apex-charts/apexcharts.js"></script>
+}
+
+@section PageScripts {
+<script src="~/js/form-wizard-icons.js"></script>
+<script src="~/js/app-academy-dashboard.js"></script>
 }
 
 @* ************** Content ************** *@
 
-<h4 class="p-4">Horizontal Layout</h4>
+<!-- Hour chart  -->
+<div class="card bg-transparent shadow-none my-4 border-0">
+  <div class="card-body row p-0 pb-3">
+    <div class="col-12 col-md-8 card-separator">
+      <h3>Welcome back, [Parent Name] 👋🏻 </h3>
+      <div class="col-12 col-lg-7">
+        <p>Your child [ChildName] progress this week is Awesome. let's keep it up!</p>
+      </div>
+      <div class="d-flex justify-content-between flex-wrap gap-3 me-5">
+        <div class="d-flex align-items-center gap-3 me-4 me-sm-0">
+          <span class="bg-label-primary p-2 rounded">
+            <i class='ti ti-device-laptop ti-xl'></i>
+          </span>
+          <div class="content-right">
+            <p class="mb-0">Hours Spent</p>
+            <h4 class="text-primary mb-0">[34h]</h4>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <span class="bg-label-warning p-2 rounded">
+            <i class='ti ti-discount-check ti-xl'></i>
+          </span>
+          <div class="content-right">
+            <p class="mb-0">Sessions Completed </p>
+            <h4 class="text-warning mb-0">[14]</h4>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <span class="bg-label-info p-2 rounded">
+            <i class='ti ti-bulb ti-xl'></i>
+          </span>
+          <div class="content-right">
+            <p class="mb-0">Reports Completed</p>
+            <h4 class="text-info mb-0">[14]</h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-12 col-md-4 ps-md-3 ps-lg-4 pt-3 pt-md-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div>
+            <h5 class="mb-2">Time Spendings</h5>
+            <p class="mb-5">Weekly report</p>
+          </div>
+          <div class="time-spending-chart">
+            <h3 class="mb-2">231<span class="text-muted">h</span> 14<span class="text-muted">m</span> </h3>
+            <span class="badge bg-label-success">+18.4%</span>
+          </div>
+        </div>
+        <div id="leadsReportChart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hour chart End  -->
+
+<div class="col-12 mb-4">
+
+  <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
+    <h5 class="p-4">[ChildName] Journey</h5>
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#account-details">
+        <button type="button" class="step-trigger">
+          <span class="bs-stepper-icon">
+            <svg viewBox="0 0 54 54">
+              <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
+            </svg>
+          </span>
+          <span class="bs-stepper-label">Step 1</span>
+        </button>
+      </div>
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      <div class="step" data-target="#personal-info">
+        <button type="button" class="step-trigger">
+          <span class="bs-stepper-icon">
+            <svg viewBox="0 0 58 54">
+              <use xlink:href='/svg/icons/form-wizard-personal.svg#wizardPersonal'></use>
+            </svg>
+          </span>
+          <span class="bs-stepper-label">Step 2</span>
+        </button>
+      </div>
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      <div class="step" data-target="#address">
+        <button type="button" class="step-trigger">
+          <span class="bs-stepper-icon">
+            <svg viewBox="0 0 54 54">
+              <use xlink:href='/svg/icons/form-wizard-address.svg#wizardAddress'></use>
+            </svg>
+          </span>
+          <span class="bs-stepper-label">Step 3</span>
+        </button>
+      </div>
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      <div class="step" data-target="#social-links">
+        <button type="button" class="step-trigger">
+          <span class="bs-stepper-icon">
+            <svg viewBox="0 0 54 54">
+              <use xlink:href='/svg/icons/form-wizard-social-link.svg#wizardSocialLink'></use>
+            </svg>
+          </span>
+          <span class="bs-stepper-label">Step 4</span>
+        </button>
+      </div>
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      <div class="step" data-target="#review-submit">
+        <button type="button" class="step-trigger">
+          <span class="bs-stepper-icon">
+            <svg viewBox="0 0 54 54">
+              <use xlink:href='/svg/icons/form-wizard-submit.svg#wizardSubmit'></use>
+            </svg>
+          </span>
+          <span class="bs-stepper-label">Step 5</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
