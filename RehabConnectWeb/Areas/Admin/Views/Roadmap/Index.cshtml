@@ -37,7 +37,7 @@
             <td><a asp-controller="Step" asp-action="Index" asp-route-id="@obj.RoadmapId">@obj.Name</a></td>
             <td class="text-nowrap">
               <a asp-controller="Roadmap" asp-action="Upsert" asp-route-id="@obj.RoadmapId" class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
-              <a a asp-controller="Roadmap" asp-action="Delete" asp-route-id="@obj.RoadmapId" class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
+              <a asp-controller="Roadmap" asp-action="Delete" asp-route-id="@obj.RoadmapId" class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
             </td>
           </tr>
           counter++;
