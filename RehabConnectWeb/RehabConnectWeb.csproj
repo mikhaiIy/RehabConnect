@@ -32,6 +32,7 @@
     <ProjectReference Include="..\RehabConnect.Utility\RehabConnect.Utility.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\_Partials\_Macros.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
@@ -246,9 +247,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
+    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Areas\Therapist\Views\Report\Edit.cshtml" />
     <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
     <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
   </ItemGroup>
 </Project>

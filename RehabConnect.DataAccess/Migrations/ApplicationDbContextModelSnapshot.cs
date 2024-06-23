@@ -332,7 +332,7 @@ namespace RehabConnect.DataAccess.Migrations
                         new
                         {
                             InvoiceID = 1,
-                            DateIssued = new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9552),
+                            DateIssued = new DateTime(2024, 6, 23, 18, 18, 30, 731, DateTimeKind.Local).AddTicks(1729),
                             ParentID = 1,
                             TotalAmount = 1000m
                         });
@@ -686,7 +686,6 @@ namespace RehabConnect.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("EmotionalRegulationSkillsNotes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EyeContactObject")
@@ -940,7 +939,7 @@ namespace RehabConnect.DataAccess.Migrations
                             CopySquare = false,
                             CopyTriangle = false,
                             Crawling = false,
-                            DateReport = new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9495),
+                            DateReport = new DateTime(2024, 6, 23, 18, 18, 30, 731, DateTimeKind.Local).AddTicks(1661),
                             DifficultiesSeparateWithParents = false,
                             EarlyIntervention = true,
                             EasilyDistracted = false,

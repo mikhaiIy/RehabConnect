@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RehabConnect.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class studentReportSessionNum : Migration
+    public partial class siuuuMigrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -383,7 +383,7 @@ namespace RehabConnect.DataAccess.Migrations
                     Cooperative = table.Column<bool>(type: "bit", nullable: false),
                     Isolation = table.Column<bool>(type: "bit", nullable: false),
                     Reluctant = table.Column<bool>(type: "bit", nullable: false),
-                    EmotionalRegulationSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmotionalRegulationSkillsNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RepetitivePrompting = table.Column<bool>(type: "bit", nullable: false),
                     VerbalPrompting = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhysicalPrompting = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -632,12 +632,12 @@ namespace RehabConnect.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "InvoiceID", "DateIssued", "ParentID", "TotalAmount" },
-                values: new object[] { 1, new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9552), 1, 1000m });
+                values: new object[] { 1, new DateTime(2024, 6, 23, 18, 18, 30, 731, DateTimeKind.Local).AddTicks(1729), 1, 1000m });
 
             migrationBuilder.InsertData(
                 table: "Reports",
                 columns: new[] { "ReportID", "ADLIndependent", "ADLMaxAssistance", "ADLSupervision", "ADLToiletTrained", "AcademicPerformance", "AcademicPerformanceNotes", "Alphabet", "AnalysisProblem", "Attention", "Auditory", "BehaviorManagement", "BodyLanguage", "BroadJump", "CanEnterSelf", "CognitiveRegulationSkillsNotes", "Colors", "CommunicationSocialSkillsNotes", "Concentration", "Cooperative", "CopyRhombus", "CopySquare", "CopyTriangle", "Crawling", "CustomerSupportCSID", "DateReport", "DifficultiesSeparateWithParents", "EarlyIntervention", "EasilyDistracted", "EmotionalRegulationSkillsNotes", "EyeContactObject", "EyeContactPerson", "FacialExpressions", "GraspRelease", "GreetingBySelf", "GreetingWithPrompt", "GroupTherapy", "Gustatory", "IADLFoldingClothes", "IADLHangingClothes", "IADLMakingDrinks", "IADLMoneyManagement", "IADLPrepareSimpleFood", "IADLSweepFloor", "IADLTimeConcept", "IADLUsePhone", "ImitateVerticalLine", "ImmaturePencilGrasp", "IndividualTherapy", "InitiateAnswerQuestion", "Isolation", "JointMobility", "Jumping", "KickBall", "LongTermGoal", "Manipulative", "MaturePencilGrasp", "MemoryFunction", "MotorPraxisSkillsNotes", "MuscleStrength", "MuscleTone", "Mute", "NoSession", "Numbers", "OccupationalPerformanceNotes", "Otectomy", "Passive", "PhysicalPrompting", "ProblemSolving", "Proprioception", "PutBlockInCup", "RangeOfMotion", "Reaching", "RefuseToEnter", "Reluctant", "RepetitivePrompting", "Scribbles", "SensoryRegulationSkillsNotes", "Shapes", "Sharing", "ShortTermGoal", "Standing", "StayInGroup", "StudentID", "SubjectiveAssessmentNotes", "Tactile", "TakingTurn", "TemperedTantrum", "TherapistID", "ThrowBall", "TowerOfCubes", "TrunkControlBalance", "TxPlan", "VerbalPrompting", "VerbalRespond", "Vestibular", "Visual", "VoiceClarity", "Walking", "WithCryingAndRefuse", "WithPrompting", "WritingSkill" },
-                values: new object[] { 1, false, false, null, false, "Good", "Performs well academically.", false, "No significant problems.", false, false, false, false, false, true, "Good attention span.", false, "Good eye contact.", null, false, false, false, false, false, null, new DateTime(2024, 6, 22, 5, 4, 59, 857, DateTimeKind.Local).AddTicks(9495), false, true, false, "Cooperative behavior.", null, null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, "Achieve higher academic performance.", false, false, false, "Good motor skills.", false, false, false, 0, false, "Independent in ADL.", false, false, null, null, false, false, false, false, false, false, false, false, "No issues observed.", false, false, "Maintain current progress.", false, false, 1, "The child entered without any issues.", false, false, false, null, false, false, false, "Regular therapy sessions.", null, false, false, false, null, false, false, false, false });
+                values: new object[] { 1, false, false, null, false, "Good", "Performs well academically.", false, "No significant problems.", false, false, false, false, false, true, "Good attention span.", false, "Good eye contact.", null, false, false, false, false, false, null, new DateTime(2024, 6, 23, 18, 18, 30, 731, DateTimeKind.Local).AddTicks(1661), false, true, false, "Cooperative behavior.", null, null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, "Achieve higher academic performance.", false, false, false, "Good motor skills.", false, false, false, 0, false, "Independent in ADL.", false, false, null, null, false, false, false, false, false, false, false, false, "No issues observed.", false, false, "Maintain current progress.", false, false, 1, "The child entered without any issues.", false, false, false, null, false, false, false, "Regular therapy sessions.", null, false, false, false, null, false, false, false, false });
 
             migrationBuilder.InsertData(
                 table: "Steps",
