@@ -12,6 +12,7 @@ namespace RehabConnect.DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -33,6 +34,8 @@ namespace RehabConnect.DataAccess.Data
         public DbSet<CustomerSupport> CustomerSupports { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<Roadmap> Roadmap { get; set; }
+        
+        public DbSet<StudentProgram> StudentPrograms { get; set; }
         
         
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }

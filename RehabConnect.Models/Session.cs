@@ -12,25 +12,17 @@ namespace RehabConnect.Models
     {
         [Key]
         public int SessionID { get; set; }
-
-        [Required]
-        public int StudentID { get; set; }
         
         [Required]
-        public int ProgramID { get; set; }
+        public int StudentProgramId { get; set; }
 
         [Required]
         public int ScheduleID { get; set; }
-
-        [Required]
-        public string Status { get; set; }
+        
 
         // Navigation properties
-        [ForeignKey("StudentID")]
-        public Student Student { get; set; }
-
-        [ForeignKey("ProgramID")]
-        public Program Program { get; set; }
+        [ForeignKey("StudentProgramId")]
+        public StudentProgram StudentProgram { get; set; }
 
         [ForeignKey("ScheduleID")]
         public Schedule Schedule { get; set; }

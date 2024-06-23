@@ -15,7 +15,13 @@ public class StudentProgram
     [ForeignKey("ProgramID")]
     public Program Program { get; set; }
     
-    public string status { get; set; }
-    
+    public StudentStatus Status { get; set; }
+}
 
+public enum StudentStatus
+{
+    Ongoing,
+    Completed,
+    OnLeave,
+    PaymentPending
 }

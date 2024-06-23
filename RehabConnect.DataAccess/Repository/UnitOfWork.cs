@@ -26,6 +26,8 @@ namespace RehabConnect.DataAccess.Repository
         public IInvoiceRepository Invoice { get; private set; }
         public IBillingRepository Billing { get; private set; }
         public IReportRepository Report { get; private set; }
+        
+        public IStudentProgramRepository  StudentProgram { get; private set; }
 
 
 
@@ -45,6 +47,7 @@ namespace RehabConnect.DataAccess.Repository
             ParentDetail = new ParentDetailRepository(_db);
             Student = new StudentRepository(_db);
             Schedule = new ScheduleRepository(_db);
+            StudentProgram = new StudentProgramRepository(_db);
 
         }
 

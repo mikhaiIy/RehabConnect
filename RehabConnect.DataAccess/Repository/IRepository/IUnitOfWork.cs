@@ -13,6 +13,8 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         ICustomerSupportRepository CustomerSupport { get; }
         IParentDetailRepository ParentDetail { get; }
         IStudentRepository Student { get; }
+        
+        IStudentProgramRepository StudentProgram { get; }
 
         //Program
         IStepRepository Step { get; }

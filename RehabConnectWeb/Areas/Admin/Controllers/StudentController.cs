@@ -55,6 +55,9 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         if (student.StudentID == 0)
         {
           _unitOfWork.Student.Add(student);
+
+          // populating StudentProgram instance
+
         }
         else
         {
