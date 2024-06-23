@@ -43,7 +43,7 @@ $(function () {
         { data: 'childAge' },
         { data: 'childRace' },
         { data: 'childSex' },
-        { data: 'therapistID' },
+        { data: 'therapist.therapistName' },
         {
           data: 'studentID',
           render: function (data, type, full, meta) {
@@ -119,12 +119,12 @@ $(function () {
             return '<span class="fw-medium">' + $sex + '</span>';
           }
         },
-        
+
         {
           // Therapist
           targets: 5,
           render: function (data, type, full, meta) {
-            var $therapist = full['therapistID'];
+            var $therapist = full['therapist']['therapistName'];
             return '<span class="fw-medium">' + $therapist + '</span>';
           }
         }
