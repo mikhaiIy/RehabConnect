@@ -1,0 +1,138 @@
+@model List<Student>
+
+@{
+    ViewData["Title"] = "Vertical Form - Form Layouts";
+}
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/form-layouts.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4">Child Details</h4>
+
+<div class="col-12 text-end">
+    <a asp-controller="Student" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i>Register Form
+    </a>
+</div>
+
+<div class="row">
+    @foreach (var child in Model)
+    {
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@child.ChildName's Details</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-6">
+                            <label class="form-label">Full Name</label>
+                            <input value="@child.ChildName" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">NRIC</label>
+                            <input value="@child.ChildIC" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Age</label>
+                            <input value="@child.ChildAge" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Date Of Birth</label>
+                            <input value="@child.ChildDOB.ToString("yyyy-MM-dd")" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Passport No.</label>
+                            <input value="@child.ChildPassportNo" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Nationality</label>
+                            <input value="@child.ChildNationality" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Race</label>
+                            <input value="@child.ChildRace" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Birth Place</label>
+                            <input value="@child.ChildBirthPlace" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Sex</label>
+                            <input value="@child.ChildSex" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Address</label>
+                            <input value="@child.ChildAddress" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Postcode</label>
+                            <input value="@child.ChildPostcode" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">City</label>
+                            <input value="@child.ChildCity" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Country</label>
+                            <input value="@child.ChildCountry" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Pediatricians</label>
+                            <input value="@child.Pediatricians" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Hospital Recommendation</label>
+                            <input value="@child.HospReccommendation" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Deadline Diagnose</label>
+                            <input value="@child.DeadlineDiagnose" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Diagnosis Or Condition</label>
+                            <input value="@child.DiagnosisOrCondition" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Occupational Therapy Place</label>
+                            <input value="@child.OccupationalTheraphyPlace" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Speech Therapy Place</label>
+                            <input value="@child.SpeechTheoryPlace" disabled class="form-control border-0 shadow" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label">Others Unit Place</label>
+                            <input value="@child.OthersUnitPlace" disabled class="form-control border-0 shadow" />
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <a asp-controller="Student" asp-action="Edit" asp-route-childid="@child.StudentID" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                @* <a asp-controller="Student" asp-action="Delete" asp-route-childid="@child.StudentID" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash-fill"></i>Delete
+                            </a> *@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
