@@ -1,0 +1,154 @@
+@model RehabConnectWeb.Areas.Admin.Controllers.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Invoice - List";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/js/app-invoice-list.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">Invoice /</span> List
+</h4>
+
+<!-- Invoice List Widget -->
+
+<div class="card mb-4">
+    <div class="card-widget-separator-wrapper">
+        <div class="card-body card-widget-separator">
+            <div class="row gy-4 gy-sm-1">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                        <div>
+                            <h3 class="mb-1">@Model.ParentsCount</h3>
+                            <p class="mb-0">Parents</p>
+                        </div>
+                        <span class="avatar me-sm-4">
+                            <span class="avatar-initial bg-label-secondary rounded"><i class="ti ti-user ti-md"></i></span>
+                        </span>
+                    </div>
+                    <hr class="d-none d-sm-block d-lg-none me-4">
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                        <div>
+                            <h3 class="mb-1">@Model.InvoicesCount</h3>
+                            <p class="mb-0">Invoices</p>
+                        </div>
+                        <span class="avatar me-lg-4">
+                            <span class="avatar-initial bg-label-secondary rounded"><i class="ti ti-file-invoice ti-md"></i></span>
+                        </span>
+                    </div>
+                    <hr class="d-none d-sm-block d-lg-none">
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
+                        <div>
+                            <h3 class="mb-1">RM @Model.TotalPaid.ToString("N2")</h3>
+                            <p class="mb-0">Paid</p>
+                        </div>
+                        <span class="avatar me-sm-4">
+                            <span class="avatar-initial bg-label-secondary rounded"><i class="ti ti-checks ti-md"></i></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h3 class="mb-1">RM @Model.TotalUnpaid.ToString("N2")</h3>
+                            <p class="mb-0">Unpaid</p>
+                        </div>
+                        <span class="avatar">
+                            <span class="avatar-initial bg-label-secondary rounded"><i class="ti ti-circle-off ti-md"></i></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invoice List Table -->
+<div class="card">
+    <div class="card-datatable table-responsive">
+        @* <table class="invoice-list-table table border-top"> *@
+        <table class="table border-top">
+            <div class="row pb-3">
+                <div class="col-6">
+                  
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Invoice" asp-action="Add" class="btn btn-primary">
+                        <i data-feather='file-plus'>+ Invoice</i>
+                    </a>
+                </div>
+            </div>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>#ID</th>
+                    <th><i class='ti ti-trending-up text-secondary'></i></th>
+                    <th>Parent</th>
+                    <th>Total</th>
+                    <th class="text-truncate">Issued Date</th>
+                    <th>Balance</th>
+                    <th>Invoice Status</th>
+                    <th class="cell-fit">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var invoice in Model.Invoices)
+                {
+                    <tr>
+                        <td>
+                            @* @if (invoice.avatar_image)
+                            {
+                                <img src="path/to/avatar/image.jpg" alt="Avatar" class="avatar-image" />
+                            } *@
+                        </td>
+                        <td>@invoice.InvoiceID</td>
+                        <td>
+                            @if (invoice.ParentDetail.FatherName == "John Doe")
+                            {
+                                <i class='ti ti-check text-success'></i>
+                            }
+                            else if (invoice.ParentDetail.FatherName == "Past Due")
+                            {
+                                <i class='ti ti-alert text-danger'></i>
+                            }
+                            else
+                            {
+                                <i class='ti ti-trending-up text-secondary'></i>
+                            }
+                        </td>
+                        <td>@invoice.ParentDetail.FatherName</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.TotalAmount</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-secondary">Preview</a>
+                                <a href="@Url.Action("Print", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-info">Print</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
