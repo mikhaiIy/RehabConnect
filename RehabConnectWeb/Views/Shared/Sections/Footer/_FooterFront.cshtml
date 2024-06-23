@@ -6,7 +6,7 @@
         <div class="col-lg-5">
           <a asp-controller="Dashboards" asp-action="Index" class="app-brand-link mb-4">
             <span class="app-brand-logo demo">
-              @await Html.PartialAsync("../_Partials/_Macros")
+              @await Html.PartialAsync("_Partials/_Macros")
             </span>
             <span class="app-brand-text demo footer-link fw-bold ms-2 ps-1">@TempData.Peek("appName")</span>
           </a>

@@ -209,18 +209,25 @@ namespace RehabConnectWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-            if (User.IsInRole(SD.Role_Admin))
-            {
-              TempData["success"] = "New user has been created succesfully.";
-            return LocalRedirect(returnUrl);
-          }
-            else
-          {
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Create", "ParentDetail", new { Area = "Parent" });
+                      if (User.IsInRole(SD.Role_Admin))
+                      {
+                        TempData["success"] = "New user has been created succesfully.";
+                        if(Input.Role == SD.Role_Therapist)
+                        {
+                          return RedirectToAction("Index", "Therapist", new { Area = "Admin" });
+                        }
+                        if (Input.Role == SD.Role_CustomerSupport)
+                        {
+                          return RedirectToAction("Index", "CustomerSupport", new { Area = "Admin" });
+                        }
+                      }
+                      else
+                      {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Create", "ParentDetail", new { Area = "Parent" });
 
-          }
-        }
+                      }
+                    }
                 }
                 foreach (var error in result.Errors)
                 {

@@ -12,7 +12,7 @@
     class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
     <a asp-controller="Dashboards" asp-action="Index" class="app-brand-link">
       <span class="app-brand-logo demo">
-        @await Html.PartialAsync("../_Partials/_Macros")
+        @await Html.PartialAsync("_Partials/_Macros")
       </span>
       <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1" style="font-size: 19px;">@TempData.Peek("appName")</span>
     </a>
@@ -250,10 +250,10 @@
       </a>
       <ul class='menu-sub'>
         <li class='menu-item@(currentPage.StartsWith("/Invoice/Preview") ? " active open" : "")'>
-          <a asp-controller="Invoice" asp-action="Preview" class='menu-link'>
+          <a class='menu-link'>
             <div data-i18n='Overview'>Preview</div>
           </a>
-          <a asp-controller="Invoice" asp-action="Edit" class='menu-link'>
+          <a class='menu-link'>
             <div data-i18n='Manage Billing'>Manage Billing</div>
           </a>
         </li>
@@ -266,10 +266,10 @@
       </a>
       <ul class='menu-sub'>
         <li class='menu-item@(currentPage.StartsWith("/Ecommerce/Product") ? " active open" : "")'>
-          <a href='javascript:void(0);' class='menu-link'>
+          <a asp-controller="Invoice" asp-action="Preview"   class='menu-link'>
             <div data-i18n='Overview'>Overview</div>
           </a>
-          <a href='javascript:void(0);' class='menu-link'>
+          <a asp-controller="Invoice" asp-action="Edit" class='menu-link'>
             <div data-i18n='Manage Invoice'>Manage Invoice</div>
           </a>
         </li>

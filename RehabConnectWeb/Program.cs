@@ -62,7 +62,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
   name: "default",
-  pattern: "{controller=FrontPages}/{action=LandingPage}/{id?}"
+  pattern: "{area=LandingPage}/{controller=FrontPages}/{action=LandingPage}/{id?}"
 );
 
 app.Run();

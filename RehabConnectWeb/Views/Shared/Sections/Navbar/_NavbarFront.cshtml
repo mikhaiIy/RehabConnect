@@ -16,7 +16,7 @@
       <!-- Mobile menu toggle: End-->
       <a href="/FrontPages/LandingPage" class="app-brand-link">
         <span class="app-brand-logo demo">
-          @await Html.PartialAsync("../_Partials/_Macros")
+          @await Html.PartialAsync("_Partials/_Macros")
         </span>
         <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">@TempData.Peek("appName")</span>
       </a>
@@ -32,29 +32,17 @@
         <li class="nav-item">
           <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingHero">Home</a>
         </li>
-        @* <li class="nav-item"> *@
-        @*   <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingFeatures">Features</a> *@
-        @* </li> *@
-        @* <li class="nav-item"> *@
-        @*   <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingTeam">Team</a> *@
-        @* </li> *@
-        @* <li class="nav-item"> *@
-        @*   <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingFAQ">FAQ</a> *@
-        @* </li> *@
-        @* <li class="nav-item"> *@
-        @*   <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingContact">Contact us</a> *@
-        @* </li> *@
         <li class="nav-item">
-          <a class="nav-link fw-medium" asp-area="Admin" asp-controller="Home" asp-action="Index" target="_blank">Admin</a>
+          <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingFeatures">Features</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-medium" asp-area="Parent" asp-controller="Home" asp-action="Index" target="_blank">Parent</a>
+          <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingTeam">Team</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-medium" asp-area="CustomerSupport" asp-controller="Home" asp-action="Index" target="_blank">Customer Support</a>
+          <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingFAQ">FAQ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-medium" asp-area="Therapist" asp-controller="TDashboards" asp-action="Index" target="_blank">Therapist</a>
+          <a class="nav-link fw-medium" asp-controller="FrontPages" asp-action="LandingPage" asp-fragment="landingContact">Contact us</a>
         </li>
       </ul>
     </div>
