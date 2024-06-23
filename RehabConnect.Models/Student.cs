@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RehabConnect.Models
 {
@@ -59,6 +61,13 @@ namespace RehabConnect.Models
 
         public string? UserId { get; set; }
 
+
+        // Foreign key for Therapist
+        public int? TherapistID { get; set; }
+
+        // Navigation property for Therapist
+        [ForeignKey("TherapistID")]
+        public Therapist? Therapist { get; set; }
 
         // Navigation properties
 

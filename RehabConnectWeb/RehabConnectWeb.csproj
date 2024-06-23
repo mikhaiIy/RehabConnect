@@ -250,7 +250,4 @@
   <ItemGroup>
     <None Include="wwwroot\js\schedule.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Student\" />
-  </ItemGroup>
 </Project>

@@ -1,0 +1,203 @@
+@model Student
+
+@{
+    ViewData["Title"] = "Horizontal Form - Form Layouts";
+}
+@section VendorStyles {
+
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/form-layouts.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.StudentID != 0) ? "Update" : "Create") Therapist</h4>
+
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Student Form</h5> <small class="text-muted float-end">Default label</small>
+            </div>
+            <div class="card-body">
+                <form method="post" class="row" enctype="multipart/form-data">
+                    <input asp-for="StudentID" hidden />
+                    <div class="row mb-3">
+                        <label asp-for="ChildName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="ChildName" class="form-control" placeholder="John Doe" />
+                            <span asp-validation-for="ChildName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildIC" class="col-sm-2 col-form-label">NRIC</label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="ChildIC" class="form-control" placeholder="xxxxxx-xx-xxxx" />
+                            <span asp-validation-for="ChildIC" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildAge" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildAge" class="form-control" />
+                            <span asp-validation-for="ChildAge" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildDOB" class="col-sm-2 col-form-label">Date of Birth</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildDOB" class="form-control" type="date" />
+                            <span asp-validation-for="ChildDOB" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildPassportNo" class="col-sm-2 col-form-label">Passport No.</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildPassportNo" class="form-control" />
+                            <span asp-validation-for="ChildPassportNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildNationality" class="col-sm-2 col-form-label">Nationality</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildNationality" class="form-control" />
+                            <span asp-validation-for="ChildNationality" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildRace" class="col-sm-2 col-form-label">Race</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildRace" class="form-control" />
+                            <span asp-validation-for="ChildRace" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildBirthPlace" class="col-sm-2 col-form-label">Birth Place</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildBirthPlace" class="form-control" />
+                            <span asp-validation-for="ChildBirthPlace" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildSex" class="col-sm-2 col-form-label">Sex</label>
+                        <div class="col-sm-9">
+                            <select asp-for="ChildSex" class="form-select" data-allow-clear="true">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildAddress" class="form-control" />
+                            <span asp-validation-for="ChildAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildPostcode" class="col-sm-2 col-form-label">Postcode</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildPostcode" class="form-control" />
+                            <span asp-validation-for="ChildPostcode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildCity" class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildCity" class="form-control" />
+                            <span asp-validation-for="ChildCity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ChildCountry" class="col-sm-2 col-form-label">Country</label>
+                        <div class="col-sm-10">
+                            <input asp-for="ChildCountry" class="form-control" />
+                            <span asp-validation-for="ChildCountry" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="Pediatricians" class="col-sm-2 col-form-label">Pediatricians</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Pediatricians" class="form-control" />
+                            <span asp-validation-for="Pediatricians" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="HospReccommendation" class="col-sm-2 col-form-label">Hospital Reccommendation</label>
+                        <div class="col-sm-10">
+                            <input asp-for="HospReccommendation" class="form-control" />
+                            <span asp-validation-for="HospReccommendation" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="DeadlineDiagnose" class="col-sm-2 col-form-label">Deadline Diagnose</label>
+                        <div class="col-sm-10">
+                            <input asp-for="DeadlineDiagnose" class="form-control" />
+                            <span asp-validation-for="DeadlineDiagnose" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="DiagnosisOrCondition" class="col-sm-2 col-form-label">Diagnosis Or Condition</label>
+                        <div class="col-sm-10">
+                            <input asp-for="DiagnosisOrCondition" class="form-control" />
+                            <span asp-validation-for="DiagnosisOrCondition" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="OccupationalTheraphyPlace" class="col-sm-2 col-form-label">Occupational Theraphy Place</label>
+                        <div class="col-sm-10">
+                            <input asp-for="OccupationalTheraphyPlace" class="form-control" />
+                            <span asp-validation-for="OccupationalTheraphyPlace" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="SpeechTheoryPlace" class="col-sm-2 col-form-label">Speech Theory Place</label>
+                        <div class="col-sm-10">
+                            <input asp-for="SpeechTheoryPlace" class="form-control" />
+                            <span asp-validation-for="SpeechTheoryPlace" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="OthersUnitPlace" class="col-sm-2 col-form-label">Others Unit Place</label>
+                        <div class="col-sm-10">
+                            <input asp-for="OthersUnitPlace" class="form-control" />
+                            <span asp-validation-for="OthersUnitPlace" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="TherapistID" class="col-sm-2 col-form-label">Select Therapist</label>
+                        <div class="col-sm-10">
+                            <select asp-for="TherapistID" class="form-control" asp-items="ViewBag.Therapists"></select>
+                            <span asp-validation-for="TherapistID" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary">
+                                        @(Model.StudentID != 0 ? "Assign" : "Create")
+                                    </button>
+                                    <button class="btn btn-label-secondary"><a asp-controller="Student" asp-action="Index">Back to List</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
