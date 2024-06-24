@@ -417,3 +417,7 @@ ASALocalRun/
 # wal and shm files - SQLite
 *-wal
 *-shm
+/RehabConnect.DataAccess/Migrations/20240624063209_initial.cs
+/RehabConnect.DataAccess/Migrations
+/RehabConnectWeb/appsettings.json
+/RehabConnectWeb/appsettings.json

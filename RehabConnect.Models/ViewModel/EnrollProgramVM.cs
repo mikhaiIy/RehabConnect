@@ -18,5 +18,7 @@ namespace RehabConnect.Models.ViewModel
         public Step? Steps { get; set; }
 
         public IEnumerable<Program> ProgramList { get; set; }
+
+        public string ScheduleDataJson { get; set; }
     }
 }
