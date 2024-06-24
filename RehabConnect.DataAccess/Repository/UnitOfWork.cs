@@ -27,6 +27,7 @@ namespace RehabConnect.DataAccess.Repository
         public IBillingRepository Billing { get; private set; }
         public IReportRepository Report { get; private set; }
         
+        public ISessionRepository Session { get; private set; }
         public IStudentProgramRepository  StudentProgram { get; private set; }
 
 
