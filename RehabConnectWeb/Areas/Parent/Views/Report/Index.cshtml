@@ -1,7 +1,7 @@
 @model List<Report>
 
 @{
-    ViewData["Title"] = "Therapist - Report";
+    ViewData["Title"] = "Parent - Report";
 
 }
 
@@ -129,24 +129,14 @@
         </div>
     </div>
     <div class="card-datatable table-responsive">
-        <div class="row pb-3">
-            <div class="col-6">
-            </div>
-            <div class="col-6 text-end">
-                <a asp-controller="Report" asp-action="Upsert" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i>Create New Report
-                </a>
-            </div>
-        </div>
+
         <table class="table">
             <thead class="border-top">
                 <tr>
                     <th>Report ID</th>
-                    <th>Student ID</th>
-                    <th>Student Name</th>
-                    <th>IC</th>
-                    <th>Age</th>
-                    <th>Nationality</th>
+                    <th>Child Name</th>
+                    <th></th>
+                    <th></th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -155,18 +145,16 @@
                 {
                     <tr>
                         <td>@obj.ReportID</td>
-                        <td>@obj.Student.StudentID</td>
                         <td>@obj.Student.ChildName</td>
                         <td>@obj.Student.ChildIC</td>
                         <td>@obj.Student.ChildAge</td>
-                        <td>@obj.Student.ChildNationality</td>
                         <td>
                             <div class="w-75 btn-group" >
-                                <a asp-controller="Report" asp-action="Upsert" asp-route-id="@obj.ReportID" class="btn btn-primary mx-2">
-                                    <i class="bi bi-pencil-square"></i>Edit
+                                <a asp-controller="Report" asp-action="Info" asp-route-id="@obj.ReportID" class="btn btn-primary mx-2">
+                                    Info
                                 </a>
-                                <a asp-controller="Report" asp-action="Delete" asp-route-id="@obj.ReportID" class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash-fill"></i>Delete
+                                <a asp-controller="Report" asp-action="Print" asp-route-id="@obj.ReportID" class="btn btn-secondary mx-2" target="_blank">
+                                    Print
                                 </a>
                             </div>
                         </td>
