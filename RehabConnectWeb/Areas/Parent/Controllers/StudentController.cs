@@ -40,7 +40,20 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       obj.UserId = userId; // Set the user ID
 
       _unitOfWork.Student.Add(obj);
+
       _unitOfWork.Save();
+
+      var studentProgram = new StudentProgram
+      {
+        StudentID = obj.StudentID,
+        ProgramID = 1, // Assuming StudentId is the foreign key
+        Status = StudentStatus.Ongoing // Set the status using the enum value
+      };
+
+      _unitOfWork.StudentProgram.Add(studentProgram);
+
+      _unitOfWork.Save();
+
       TempData["success"] = "Student created successfully";
       return RedirectToAction("Index");
     }

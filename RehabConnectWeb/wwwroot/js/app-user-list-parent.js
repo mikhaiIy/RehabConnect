@@ -35,21 +35,21 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: { url: '/admin/student/getall' },
+      ajax: { url: '/admin/parentdetail/getall' },
       columns: [
         // columns according to JSON
         { data: '' },
-        { data: 'childName' },
-        { data: 'childAge' },
-        { data: 'childRace' },
-        { data: 'childSex' },
-        { data: 'therapistName' }, // Updated to use therapistName directly
+        { data: 'fatherName' },
+        { data: 'motherName' },
+        { data: 'fatherOccupation' },
+        { data: 'motherOccupation' },
+        { data: 'householdIncome' },
         {
-          data: 'studentID',
+          data: 'parentID',
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="/admin/student/upsert?studentID=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="/admin/parentdetail/upsert?parentID=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
               '<a href="javascript:void(0);" class="text-body delete-record" data-id="' + data + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '</div>'
             );
@@ -73,8 +73,8 @@ $(function () {
           targets: 1,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            var $name = full['childName'],
-              $ic = full['childIC'],
+            var $name = full['fatherName'],
+              $email = full['fatherEmail'],
               $row_output =
                 '<div class="d-flex justify-content-start align-items-center user-name">' +
                 '<div class="avatar-wrapper">' +
@@ -88,7 +88,7 @@ $(function () {
                 $name +
                 '</span></a>' +
                 '<small class="text-muted">' +
-                $ic +
+                $email +
                 '</small>' +
                 '</div>' +
                 '</div>';
@@ -98,33 +98,52 @@ $(function () {
         {
           // User Age
           targets: 2,
+          responsivePriority: 4,
           render: function (data, type, full, meta) {
-            var $age = full['childAge'];
-            return '<span class="fw-medium">' + $age + '</span>';
-          }
-        },
-        {
-          // Race
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var $race = full['childRace'];
-            return '<span class="fw-medium">' + $race + '</span>';
+            var $name = full['motherName'],
+              $email = full['motherEmail'],
+              $row_output =
+                '<div class="d-flex justify-content-start align-items-center user-name">' +
+                '<div class="avatar-wrapper">' +
+                '<div class="avatar me-3">' +
+                '</div>' +
+                '</div>' +
+                '<div class="d-flex flex-column">' +
+                '<a href="' +
+                userView +
+                '" class="text-body text-truncate"><span class="fw-medium">' +
+                $name +
+                '</span></a>' +
+                '<small class="text-muted">' +
+                $email +
+                '</small>' +
+                '</div>' +
+                '</div>';
+            return $row_output;
           }
         },
         {
           // Sex
-          targets: 4,
+          targets: 3,
           render: function (data, type, full, meta) {
-            var $sex = full['childSex'];
-            return '<span class="fw-medium">' + $sex + '</span>';
+            var $fatherOcc = full['fatherOccupation'];
+            return '<span class="fw-medium">' + $fatherOcc + '</span>';
           }
         },
         {
-          // Therapist
+          // Religion
+          targets: 4,
+          render: function (data, type, full, meta) {
+            var $motherOcc = full['motherOccupation'];
+            return '<span class="fw-medium">' + $motherOcc + '</span>';
+          }
+        },
+        {
+          // Nationality
           targets: 5,
           render: function (data, type, full, meta) {
-            var $therapist = full['therapistName'] || 'No Therapist Assigned';
-            return '<span class="fw-medium">' + $therapist + '</span>';
+            var $income = full['householdIncome'];
+            return '<span class="fw-medium">' + $income + '</span>';
           }
         }
       ],
@@ -286,10 +305,10 @@ $(function () {
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Student</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Parent</span>',
           className: 'add-new btn btn-primary waves-effect waves-light',
           attr: {
-            onclick: 'window.location.href="/admin/student/upsert"'
+            onclick: 'window.location.href="/admin/parentdetail/upsert"'
           }
         }
       ],
@@ -299,7 +318,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data();
-              return 'Details of ' + data['childName'];
+              return 'Details of ' + data['FatherName'];
             }
           }),
           type: 'column',
@@ -405,10 +424,10 @@ $(function () {
 
   // Delete Record
   $('.datatables-users tbody').on('click', '.delete-record', function () {
-    var studentID = $(this).data('id');
+    var parentID = $(this).data('id');
     if (confirm("Are you sure you want to delete this record?")) {
       $.ajax({
-        url: '/admin/student/delete/' + studentID,
+        url: '/admin/parentdetail/delete/' + parentID,
         type: 'DELETE',
         success: function (result) {
           alert('Record deleted successfully.');

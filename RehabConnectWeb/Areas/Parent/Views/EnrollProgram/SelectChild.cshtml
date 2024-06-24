@@ -1,0 +1,33 @@
+@model SelectChildVM
+
+@{
+    ViewData["Title"] = "";
+}
+
+@section PageScripts {
+    <script src="~/js/form-basic-inputs.js"></script>
+}
+
+<div class="col-md-6">
+    <div class="card mb-4">
+        <h5 class="card-header">Select your child</h5>
+        <div class="card-body">
+            <form method="post" asp-action="SelectChild" asp-controller="EnrollProgram">
+                <div class="mb-3">
+                    <label for="defaultSelect" asp-for="Students" class="form-label">Select your child name :D</label>
+                    <select id="defaultSelect" asp-for="Students" class="form-select">
+                        <option>Select your child name :3</option>
+                        @foreach (var student in Model.StudentList)
+                        {
+                            <option value="@student.StudentID">@student.ChildName</option>
+                        }
+                    </select>
+                    <div class="pt-3">
+                        <button type="submit" class="btn btn-success btn-submit me-2">Next</button>
+                    </div>
+                </div>
+          </form>   
+        </div>
+    </div>
+</div>
+
