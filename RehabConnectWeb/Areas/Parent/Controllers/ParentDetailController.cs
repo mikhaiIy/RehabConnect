@@ -4,11 +4,13 @@ using RehabConnect.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers
 {
   [Area("Parent")]
-  //[Authorize(Roles = SD.Role_Parent)]
+  [Authorize(Roles = SD.Role_Parent)]
   public class ParentDetailController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;
