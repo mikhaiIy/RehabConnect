@@ -27,6 +27,11 @@ namespace RehabConnect.Models
         //[ForeignKey("CSID")]
         //public CustomerSupport CustomerSupport { get; set; }
         // END Navigation properties
+
+        // Additional properties for Customer Support confirmation
+        public bool CustomerSupportConfirmation { get; set; }
+
+        // Personal Info
         public int NoSession {  get; set; }
         public DateTime DateReport { get; set; }
         public bool IndividualTherapy { get; set; }

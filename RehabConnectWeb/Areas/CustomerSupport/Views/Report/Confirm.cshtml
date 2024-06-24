@@ -1,7 +1,7 @@
 @model ReportVM
 
 @{
-    ViewData["Title"] = "Therapist - Delete Report";
+    ViewData["Title"] = "Customer Support - Confirm Report";
 }
 
 @section VendorStyles {
@@ -30,6 +30,12 @@
     @* <script src="~/js/pages-auth-multisteps.js"></script> *@
     <script src="~/js/form-wizard-numbered-therapist.js"></script>
 }
+
+<style>
+    .font-italic {
+        font-style: italic;
+    }
+</style>
 
 @* ************** Content ************** *@
 
@@ -760,12 +766,23 @@
                                 </div>
                             </div>
 
+                            <hr />
+                            <div class="d-flex justify-content-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="Report.CustomerSupportConfirmation" id="CustomerSupportConfirmation">
+                                    <label class="form-check-label font-italic" asp-for="Report.CustomerSupportConfirmation">
+                                        I Acknowledge and Confirm this Report
+                                    </label>
+                                </div>
+                            </div>
+                            <hr />
+
                             <div class="col-12 d-flex justify-content-between mt-4">
                                 <button type="button" class="btn btn-label-secondary btn-prev">
                                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button type="submit" class="btn btn-danger btn-next btn-submit">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-next btn-submit">Confirm Report</button>
                             </div>
                         </div>
                     </div>

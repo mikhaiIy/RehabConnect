@@ -61,9 +61,10 @@ ViewData["containerNav"] ??= "container-fluid";
         <ul class="menu-sub">
           <!-- Front Pages -->
           <li class='menu-item@(currentPage.StartsWith("/Report") ? " active open" : "")'>
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='menu-icon tf-icons ti ti-report'></i>
+            <a asp-controller="Report" asp-action="Index" class="menu-link">
+              <i class='menu-icon tf-icons ti ti-book'></i>
               <div data-i18n="Manage Report">Manage Report</div>
+            </a>
             </a>
           </li>
         </ul>

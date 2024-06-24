@@ -74,6 +74,24 @@
           </ul>
       </li>
 
+      <!-- Pages -->
+      <li class='menu-item@((currentPage.StartsWith("/Report") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-report"></i>
+          <div data-i18n="Report">Report</div>
+        </a>
+        <ul class="menu-sub">
+          <!-- Front Pages -->
+          <li class='menu-item@(currentPage.StartsWith("/Report") ? " active open" : "")'>
+            <a asp-controller="Report" asp-action="Index" class="menu-link">
+              <i class='menu-icon tf-icons ti ti-book'></i>
+              <div data-i18n="Manage Report">Manage Report</div>
+            </a>
+            </a>
+          </li>
+        </ul>
+      </li>
+
       <!-- Apps -->
       <li class='menu-item@((currentPage.StartsWith("/Apps") || currentPage.StartsWith("/Access") || currentPage.StartsWith("/Users") || currentPage.StartsWith("/Ecommerce") || currentPage.StartsWith("/Academy") || currentPage.StartsWith("/Logistics") || currentPage.StartsWith("/Invoice") || currentPage.StartsWith("/Transactions")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
