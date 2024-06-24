@@ -129,6 +129,48 @@ namespace RehabConnectWeb.Areas.Therapist.Controllers
       }
     }
 
+    public IActionResult Delete(int? id)
+    {
+      if (id == null || id == 0)
+      {
+        return NotFound();
+      }
+
+      var report = _unitOfWork.Report.Get(u => u.ReportID == id);
+      if (report == null)
+      {
+        return NotFound();
+      }
+
+      ReportVM reportVM = new()
+      {
+        Report = report,
+        StudentList = _unitOfWork.Student.GetAll().Select(u => new SelectListItem
+        {
+          Text = u.ChildName,
+          Value = u.StudentID.ToString()
+        })
+      };
+
+      return View(reportVM);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeletePOST(int? id)
+    {
+      var report = _unitOfWork.Report.Get(u => u.ReportID == id);
+      if (report == null)
+      {
+        return NotFound();
+      }
+
+      _unitOfWork.Report.Remove(report);
+      _unitOfWork.Save();
+      TempData["success"] = "Report deleted successfully";
+      return RedirectToAction("Index");
+    }
+
     //public IActionResult Upsert(int? id)
     //{
     //  if (id == null || id == 0)

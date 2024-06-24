@@ -45,8 +45,9 @@
                 </a>
               </li>
               <li class='menu-item@(currentPage == "/Charts/Chartjs" ? " active" : "")'>
-                <a asp-controller="Charts" asp-action="Chartjs" class="menu-link">
-                  <div data-i18n="Session Report">Session Report</div>
+                <a asp-area="Parent" asp-controller="Report" asp-action="Index" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-file"></i>
+                  <div data-i18n="Report">Report</div>
                 </a>
               </li>
             </ul>
