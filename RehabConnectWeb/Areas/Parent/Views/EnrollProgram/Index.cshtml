@@ -22,9 +22,37 @@
 
 @section PageScripts {
     <script src="~/js/enrollprogram.js"></script>
+    <script>
+        // Schedule data from the model
+        var scheduleData = @Html.Raw(Model.ScheduleDataJson);
+
+        // Initialize flatpickr
+        flatpickr("#schedule-date", {
+            dateFormat: "Y-m-d",
+            enable: scheduleData.map(schedule => {
+                return new Date(schedule.Date);
+            }),
+            onChange: function (selectedDates, dateStr, instance) {
+                populateTimeDropdown(dateStr);
+            }
+        });
+
+        function populateTimeDropdown(selectedDate) {
+            var timeDropdown = document.getElementById('schedule-time');
+            timeDropdown.innerHTML = ''; // Clear the dropdown
+            var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
+            availableTimes.forEach(schedule => {
+                var option = document.createElement('option');
+                option.value = schedule.ScheduleID; // Ensure this maps to ScheduleID
+                option.text = schedule.StartTime;
+                timeDropdown.appendChild(option);
+            });
+        }
+    </script>
 }
 
-@* ************** Content ************** *@
+
+<!-- Your HTML content -->
 <h4 class="py-3 mb-4">
     <span class="text-muted fw-light">RehabConnect /</span> Booking Session
 </h4>
@@ -33,7 +61,6 @@
     <!-- Default Icons Wizard -->
     <div class="col-12 mb-4">
         <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
-
             <div class="bs-stepper-header">
                 <div class="step" data-target="#step1">
                     <button type="button" class="step-trigger">
@@ -98,9 +125,9 @@
                     </button>
                 </div> *@
             </div>
+
             <div class="bs-stepper-content">
-                <form onSubmit="return false">
-                    <!-- STEP 1 -->
+                <form asp-action="BookSession" method="post">
                     <div id="step1" class="content">
                         <div class="content-header mb-3">
                             <h6 class="mb-0">Account Details</h6>
@@ -109,15 +136,15 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
-                                <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control"/>                           
+                                <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control" />
                             </div>
                             <div class="col-sm-6">
                                 <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
-                                <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control"/>
+                                <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control" />
                             </div>
                             <div class="col-sm-6">
-                                <label asp-for="StudentProgram.Student.ChildAge"  class="form-label">Children Age (Years Old)</label>
-                                <input asp-for="StudentProgram.Student.ChildAge"  disabled class="form-control"/>
+                                <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
+                                <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control" />
                             </div>
                         </div>
                         <div class="content-header mb-3 pt-3">
@@ -127,7 +154,7 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label asp-for="StudentProgram" class="form-label">Program Name</label>
-                                <select asp-for="StudentProgram" class="form-control">
+                                <select asp-for="StudentProgram" class="form-control" name="studentProgramId">
                                     <option value="">Select a program</option>
                                     @foreach (var program in Model.ProgramList)
                                     {
@@ -145,280 +172,21 @@
                                 <input type="date" id="schedule-date" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
                             </div>
                             <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Time:</label>
-                                <input type="email" id="email" class="form-control" placeholder="10.00 AM" aria-label="10.00 AM" />
+                                <label class="form-label" for="schedule-time">Select Time:</label>
+                                <select id="schedule-time" class="form-control" name="scheduleId">
+                                    <option value="">Select a time</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-between pt-2">
-                            @* <button class="btn btn-label-secondary btn-prev" disabled>
-                                <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button> *@
                             <div>
-                                <button class="btn btn-success btn-submit me-2">Submit</button>
-                                @* <button class="btn btn-primary btn-next">
-                                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                    <i class="ti ti-arrow-right"></i>
-                                </button> *@
+                                <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
                             </div>
                         </div>
                     </div>
                 </form>
-@*                 <form onSubmit="return false">
-                    <!-- STEP 2 -->
-                    <div id="step2" class="content">
-                        <div class="content-header mb-3">
-                            <h6 class="mb-0">Account Details</h6>
-                            <small>Review Your Children Details.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="username">Children Name</label>
-                                <input disabled type="text" id="username" class="form-control" placeholder="johndoe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children IC</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="020419023042" aria-label="john.doe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children Age (Years Old)</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="5" aria-label="john.doe" />
-                            </div>
-                        </div>
-                        <div class="content-header mb-3 pt-2">
-                            <h6 class="mb-0">Program and Session Details</h6>
-                            <small>Select wisely.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Program Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Screening and Consultation" aria-label="Screening and Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Session Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Consultation" aria-label="Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Date:</label>
-                                <input type="email" id="email" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Status</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="On-Going" aria-label="On-Going" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Time:</label>
-                                <input type="email" id="email" class="form-control" placeholder="10.00 AM" aria-label="10.00 AM" />
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between pt-2">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <div>
-                                <button class="btn btn-success btn-submit me-2">Submit</button>
-                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <form onSubmit="return false">
-                    <!-- STEP 3 -->
-                    <div id="step3" class="content">
-                        <div class="content-header mb-3">
-                            <h6 class="mb-0">Account Details</h6>
-                            <small>Review Your Children Details.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="username">Children Name</label>
-                                <input disabled type="text" id="username" class="form-control" placeholder="johndoe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children IC</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="020419023042" aria-label="john.doe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children Age (Years Old)</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="5" aria-label="john.doe" />
-                            </div>
-                        </div>
-                        <div class="content-header mb-3 pt-2">
-                            <h6 class="mb-0">Program and Session Details</h6>
-                            <small>Select wisely.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Program Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Screening and Consultation" aria-label="Screening and Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Session Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Consultation" aria-label="Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Date:</label>
-                                <input type="email" id="email" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Status</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="On-Going" aria-label="On-Going" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Time:</label>
-                                <input type="email" id="email" class="form-control" placeholder="10.00 AM" aria-label="10.00 AM" />
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between pt-2">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <div>
-                                <button class="btn btn-success btn-submit me-2">Submit</button>
-                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <form onSubmit="return false">
-                    <!-- STEP 4 -->
-                    <div id="step4" class="content">
-                        <div class="content-header mb-3">
-                            <h6 class="mb-0">Account Details</h6>
-                            <small>Review Your Children Details.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="username">Children Name</label>
-                                <input disabled type="text" id="username" class="form-control" placeholder="johndoe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children IC</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="020419023042" aria-label="john.doe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children Age (Years Old)</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="5" aria-label="john.doe" />
-                            </div>
-                        </div>
-                        <div class="content-header mb-3 pt-2">
-                            <h6 class="mb-0">Program and Session Details</h6>
-                            <small>Select wisely.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Program Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Screening and Consultation" aria-label="Screening and Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Session Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Consultation" aria-label="Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Date:</label>
-                                <input type="email" id="email" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Status</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="On-Going" aria-label="On-Going" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Time:</label>
-                                <input type="email" id="email" class="form-control" placeholder="10.00 AM" aria-label="10.00 AM" />
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between pt-2">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <div>
-                                <button class="btn btn-success btn-submit me-2">Submit</button>
-                                <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <form onSubmit="return false">
-                    <!-- STEP 5 -->
-                    <div id="step5" class="content">
-                        <div class="content-header mb-3">
-                            <h6 class="mb-0">Account Details</h6>
-                            <small>Review Your Children Details.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="username">Children Name</label>
-                                <input disabled type="text" id="username" class="form-control" placeholder="johndoe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children IC</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="020419023042" aria-label="john.doe" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Children Age (Years Old)</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="5" aria-label="john.doe" />
-                            </div>
-                        </div>
-                        <div class="content-header mb-3 pt-2">
-                            <h6 class="mb-0">Program and Session Details</h6>
-                            <small>Select wisely.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Program Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Screening and Consultation" aria-label="Screening and Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Session Name</label>
-                                <input type="email" id="email" class="form-control" placeholder="Consultation" aria-label="Consultation" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Date:</label>
-                                <input type="email" id="email" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Status</label>
-                                <input disabled type="email" id="email" class="form-control" placeholder="On-Going" aria-label="On-Going" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Select Time:</label>
-                                <input type="email" id="email" class="form-control" placeholder="10.00 AM" aria-label="10.00 AM" />
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between pt-2">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <button class="btn btn-success btn-submit">Submit</button>
-                        </div>
-                    </div>
-                </form> *@
             </div>
         </div>
     </div>
-    <!-- /Default Icons Wizard -->
-    <script>
-        // Array of unavailable dates from your Schedule table
-        var unavailableDates = ["2024-08-01", "2024-08-02", "2024-08-03"];
+</div>
 
-        // Function to format date to 'YYYY-MM-DD'
-        function formatDate(date) {
-            return date.toISOString().split('T')[0];
-        }
-
-        // Event listener for date input changes
-        document.getElementById('schedule-date').addEventListener('change', function (e) {
-            var selectedDate = formatDate(e.target.valueAsDate);
-            if (unavailableDates.includes(selectedDate)) {
-                alert('This date is not available. Please select another date.');
-                e.target.value = ''; // Clear the selected date
-            }
-        });
-
-        // Optionally, disable past dates and unavailable dates in the date picker
-        document.getElementById('schedule-date').setAttribute('min', formatDate(new Date()));
-    </script>
