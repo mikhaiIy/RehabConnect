@@ -10,7 +10,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
 {
     public interface IParentDetailRepository : IRepository<ParentDetail>
     {
-        IEnumerable<ParentDetail> GetAll(Expression<Func<ParentDetail, bool>> filter = null);
         void Update(ParentDetail obj);
+        IEnumerable<ParentDetail> GetAll(Expression<Func<ParentDetail, bool>> filter = null, string includeProperties = null);
     }
 }

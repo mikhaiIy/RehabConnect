@@ -55,9 +55,6 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         if (student.StudentID == 0)
         {
           _unitOfWork.Student.Add(student);
-
-          // populating StudentProgram instance
-
         }
         else
         {
@@ -84,7 +81,18 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     [HttpGet]
     public IActionResult GetAll()
     {
-      var objStudentList = _unitOfWork.Student.GetAll(includeProperties: "Therapist").ToList();
+      var objStudentList = _unitOfWork.Student.GetAll(includeProperties: "Therapist")
+          .Select(s => new
+          {
+            s.StudentID,
+            s.ChildName,
+            s.ChildAge,
+            s.ChildRace,
+            s.ChildSex,
+            s.ChildIC,
+            TherapistName = s.Therapist != null ? s.Therapist.TherapistName : "No Therapist Assigned"
+          }).ToList();
+
       return Json(new { data = objStudentList });
     }
 
