@@ -56,42 +56,22 @@
       <li class='menu-item@(currentPage.StartsWith("/LayoutExamples") ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
-          <div data-i18n="Layouts">Layouts</div>
+                    <div data-i18n="User Management">User Management</div>
         </a>
 
         <ul class="menu-sub">
 
           <li class='menu-item@(currentPage == "/LayoutExamples/WithoutMenu" ? " active" : "")'>
-            <a asp-controller="LayoutExamples" asp-action="WithoutMenu" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-menu-2"></i>
-              <div data-i18n="Without menu">Without menu</div>
+                        <a asp-controller="Student" asp-action="Index" class="menu-link">
+                            <div data-i18n="Assign Therapist">Assign Therapist</div>
             </a>
           </li>
           <li class='menu-item@(currentPage == "/LayoutExamples/ContentNavbar" ? " active" : "")'>
-            <a asp-controller="LayoutExamples" asp-action="ContentNavbar" class="menu-link" target="_blank">
-              <i class="menu-icon tf-icons ti ti-layout-distribute-vertical"></i>
-              <div data-i18n="Vertical">Vertical</div>
+                        <a asp-controller='ParentDetail' asp-action='Index' class="menu-link" target="_blank">
+                            <div data-i18n="Manage Parent">Manage Parent</div>
             </a>
           </li>
-          <li class='menu-item@(currentPage == "/LayoutExamples/Fluid" ? " active" : "")'>
-            <a asp-controller="LayoutExamples" asp-action="Fluid" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-maximize"></i>
-              <div data-i18n="Fluid">Fluid</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/LayoutExamples/Container" ? " active" : "")'>
-            <a asp-controller="LayoutExamples" asp-action="Container" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-arrows-maximize"></i>
-              <div data-i18n="Container">Container</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/LayoutExamples/Blank" ? " active" : "")'>
-            <a asp-controller="LayoutExamples" asp-action="Blank" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-square"></i>
-              <div data-i18n="Blank">Blank</div>
-            </a>
-          </li>
-        </ul>
+          </ul>
       </li>
 
       <!-- Apps -->

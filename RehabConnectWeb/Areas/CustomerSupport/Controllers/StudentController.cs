@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace RehabConnectWeb.Areas.Admin.Controllers
+namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 {
-  [Area("Admin")]
+  [Area("CustomerSupport")]
   public class StudentController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

@@ -1,4 +1,4 @@
-@model Report
+@model ReportVM
 
 @{
 ViewData["Title"] = "Therapist - Report";
@@ -73,7 +73,8 @@ ViewData["Title"] = "Therapist - Report";
       </div>
       <div class="bs-stepper-content">
         <form method="post" id="ParentDetailForm">
-          <input asp-for="ReportID" hidden />
+          @Html.AntiForgeryToken()
+          <input asp-for="Report.ReportID" hidden />
           <!-- Account Details -->
           <div id="accountDetailsValidation" class="content">
             <div class="content-header mb-4">
@@ -82,42 +83,44 @@ ViewData["Title"] = "Therapist - Report";
             </div>
             <div class="row g-3">
               <div class="col-sm-12">
-                <label class="form-label" asp-for="StudentID">Choose Student: </label>
-                <select class="form-select" asp-for="StudentID" asp-items="ViewBag.Student"></select>
-                <span asp-validation-for="StudentID" class="text-danger"></span>
+                                <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
+                                <select asp-for="@Model.Report.StudentID" asp-items="@Model.StudentList" class="form-select border-0 shadow">
+                                    <option disabled selected>--Choose Student--</option>
+                                </select>
+                @* <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
+                <select class="form-select" asp-for="Report.StudentID" asp-items="ViewBag.Student"></select>
+                <span asp-validation-for="Report.StudentID" class="text-danger"></span> *@
               </div>
               <div class="col-sm-3">
-                <label class="form-label" asp-for="NoSession">No. of Session Attended</label>
-                <input asp-for="NoSession" type="number" class="form-control" placeholder="#" />
-                <span asp-validation-for="NoSession" class="text-danger"></span>
+                <label class="form-label" asp-for="Report.NoSession">No. of Session Attended</label>
+                <input asp-for="Report.NoSession" type="number" class="form-control" placeholder="#" />
               </div>
               <div class="col-sm-12">
-                <label class="form-label" asp-for="DateReport">Date of the Report:  </label>
-                <input asp-for="DateReport" type="datetime-local" class="form-control" />
-                <span asp-validation-for="DateReport" class="text-danger"></span>
+                <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label>
+                <input asp-for="Report.DateReport" type="datetime-local" class="form-control" />
               </div>
               <label class="form-label">Treatment Provided:</label>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="IndividualTherapy" />
-                <label class="form-check-label" asp-for="IndividualTherapy">
+                <input class="form-check-input" type="checkbox" asp-for="Report.IndividualTherapy" />
+                <label class="form-check-label" asp-for="Report.IndividualTherapy">
                   Individual Therapy
                 </label>
               </div>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="GroupTherapy" />
-                <label class="form-check-label" asp-for="GroupTherapy">
+                <input class="form-check-input" type="checkbox" asp-for="Report.GroupTherapy" />
+                <label class="form-check-label" asp-for="Report.GroupTherapy">
                   Group Therapy
                 </label>
               </div>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="EarlyIntervention" />
-                <label class="form-check-label" asp-for="EarlyIntervention">
+                <input class="form-check-input" type="checkbox" asp-for="Report.EarlyIntervention" />
+                <label class="form-check-label" asp-for="Report.EarlyIntervention">
                   Early Intervention
                 </label>
               </div>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="BehaviorManagement" />
-                <label class="form-check-label" asp-for="BehaviorManagement">
+                <input class="form-check-input" type="checkbox" asp-for="Report.BehaviorManagement" />
+                <label class="form-check-label" asp-for="Report.BehaviorManagement">
                   Behavior Management
                 </label>
               </div>
@@ -141,60 +144,59 @@ ViewData["Title"] = "Therapist - Report";
             </div>
             <div class="row g-3">
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="CanEnterSelf" />
-                <label class="form-check-label" asp-for="CanEnterSelf">
+                <input class="form-check-input" type="checkbox" asp-for="Report.CanEnterSelf" />
+                <label class="form-check-label" asp-for="Report.CanEnterSelf">
                   Can Enter by Self
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="WithPrompting" />
-                <label class="form-check-label" asp-for="WithPrompting">
+                <input class="form-check-input" type="checkbox" asp-for="Report.WithPrompting" />
+                <label class="form-check-label" asp-for="Report.WithPrompting">
                   With Prompting
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="DifficultiesSeparateWithParents" />
-                <label class="form-check-label" asp-for="DifficultiesSeparateWithParents">
+                <input class="form-check-input" type="checkbox" asp-for="Report.DifficultiesSeparateWithParents" />
+                <label class="form-check-label" asp-for="Report.DifficultiesSeparateWithParents">
                   Difficulties Separate With Parents
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="WithCryingAndRefuse" />
-                <label class="form-check-label" asp-for="WithCryingAndRefuse">
+                <input class="form-check-input" type="checkbox" asp-for="Report.WithCryingAndRefuse" />
+                <label class="form-check-label" asp-for="Report.WithCryingAndRefuse">
                   With Crying And Refuse
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="GreetingWithPrompt" />
-                <label class="form-check-label" asp-for="GreetingWithPrompt">
+                <input class="form-check-input" type="checkbox" asp-for="Report.GreetingWithPrompt" />
+                <label class="form-check-label" asp-for="Report.GreetingWithPrompt">
                   Greeting With Prompt
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="GreetingBySelf" />
-                <label class="form-check-label" asp-for="GreetingBySelf">
+                <input class="form-check-input" type="checkbox" asp-for="Report.GreetingBySelf" />
+                <label class="form-check-label" asp-for="Report.GreetingBySelf">
                   Greeting By Self
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="Mute" />
-                <label class="form-check-label" asp-for="Mute">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Mute" />
+                <label class="form-check-label" asp-for="Report.Mute">
                   Mute
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="RefuseToEnter" />
-                <label class="form-check-label" asp-for="RefuseToEnter">
+                <input class="form-check-input" type="checkbox" asp-for="Report.RefuseToEnter" />
+                <label class="form-check-label" asp-for="Report.RefuseToEnter">
                   Refuse To Enter
                 </label>
               </div>
               <div>
-                <label for="SubjectiveAssessmentNotes" class="form-label" asp-for="SubjectiveAssessmentNotes">Subjective Assessment Progress Note</label>
-                <textarea class="form-control" asp-for="SubjectiveAssessmentNotes" rows="3"></textarea>
-                <span asp-validation-for="SubjectiveAssessmentNotes" class="text-danger"></span>
+                <label  for="Report.SubjectiveAssessmentNotes" class="form-label" asp-for="Report.SubjectiveAssessmentNotes">Subjective Assessment Progress Note</label>
+                <textarea class="form-control" asp-for="Report.SubjectiveAssessmentNotes" rows="3"></textarea>
               </div>
               <div class="col-12 d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-label-secondary btn-prev" disabled>
+                <button type="button" class="btn btn-label-secondary btn-prev">
                   <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                   <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>
@@ -212,406 +214,413 @@ ViewData["Title"] = "Therapist - Report";
               <p>Check the box if Yes for the O-Objective Assessment</p>
             </div>
             <div class="row g-3">
+              
               <b>Motor & Praxis Skills</b>
+
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="RangeOfMotion" />
-                <label class="form-check-label" for="RangeOfMotion">
+                <input class="form-check-input" type="checkbox" asp-for="Report.RangeOfMotion" />
+                <label class="form-check-label" asp-for="Report.RangeOfMotion">
                   Upper Range Of Motion
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="MuscleTone" />
-                <label class="form-check-label" for="MuscleTone">
+                <input class="form-check-input" type="checkbox" asp-for="Report.MuscleTone" />
+                <label class="form-check-label" asp-for="Report.MuscleTone">
                   Muscle Tone
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="MuscleStrength" />
-                <label class="form-check-label" for="MuscleStrength">
+                <input class="form-check-input" type="checkbox" asp-for="Report.MuscleStrength" />
+                <label class="form-check-label" asp-for="Report.MuscleStrength">
                   Muscle Strength
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="JointMobility" />
-                <label class="form-check-label" for="JointMobility">
+                <input class="form-check-input" type="checkbox" asp-for="Report.JointMobility" />
+                <label class="form-check-label" asp-for="Report.JointMobility">
                   Joint Mobility
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="TrunkControlBalance" />
-                <label class="form-check-label" for="TrunkControlBalance">
+                <input class="form-check-input" type="checkbox" asp-for="Report.TrunkControlBalance" />
+                <label class="form-check-label" asp-for="Report.TrunkControlBalance">
                   Trunk control & balance
                 </label>
               </div>
+
               <div class="col-sm-12">
-                <label class="form-label">Gross Motor function: </label>
+                <label class="form-label">Gross Motor function:</label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Standing" />
-                <label class="form-check-label" for="Standing">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Standing" />
+                <label class="form-check-label" asp-for="Report.Standing">
                   a) Standing
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Crawling" />
-                <label class="form-check-label" for="Crawling">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Crawling" />
+                <label class="form-check-label" asp-for="Report.Crawling">
                   b) Crawling
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Walking" />
-                <label class="form-check-label" for="Walking">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Walking" />
+                <label class="form-check-label" asp-for="Report.Walking">
                   c) Walking
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Jumping" />
-                <label class="form-check-label" for="Jumping">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Jumping" />
+                <label class="form-check-label" asp-for="Report.Jumping">
                   d) Jumping
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="BroadJump" />
-                <label class="form-check-label" for="BroadJump">
+                <input class="form-check-input" type="checkbox" asp-for="Report.BroadJump" />
+                <label class="form-check-label" asp-for="Report.BroadJump">
                   e) Broad Jump
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="KickBall" />
-                <label class="form-check-label" for="KickBall">
+                <input class="form-check-input" type="checkbox" asp-for="Report.KickBall" />
+                <label class="form-check-label" asp-for="Report.KickBall">
                   f) Kick ball
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="ThrowBall" />
-                <label class="form-check-label" for="ThrowBall">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ThrowBall" />
+                <label class="form-check-label" asp-for="Report.ThrowBall">
                   g) Throw ball
                 </label>
               </div>
 
               <div class="col-sm-12">
-                <label class="form-label">Fine Motor function: </label>
+                <label class="form-label">Fine Motor function:</label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="GraspRelease" />
-                <label class="form-check-label" for="GraspRelease">
+                <input class="form-check-input" type="checkbox" asp-for="Report.GraspRelease" />
+                <label class="form-check-label" asp-for="Report.GraspRelease">
                   a) Grasp & release
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Reaching" />
-                <label class="form-check-label" for="Reaching">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Reaching" />
+                <label class="form-check-label" asp-for="Report.Reaching">
                   b) Reaching
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="PutBlockInCup" />
-                <label class="form-check-label" for="PutBlockInCup">
+                <input class="form-check-input" type="checkbox" asp-for="Report.PutBlockInCup" />
+                <label class="form-check-label" asp-for="Report.PutBlockInCup">
                   c) Put Block in a cup
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Scribbles" />
-                <label class="form-check-label" for="Scribbles">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Scribbles" />
+                <label class="form-check-label" asp-for="Report.Scribbles">
                   d) Scribbles
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="TowerOfCubes" />
-                <label class="form-check-label" for="TowerOfCubes">
+                <input class="form-check-input" type="checkbox" asp-for="Report.TowerOfCubes" />
+                <label class="form-check-label" asp-for="Report.TowerOfCubes">
                   e) Tower of cubes
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="MaturePencilGrasp" />
-                <label class="form-check-label" for="MaturePencilGrasp">
+                <input class="form-check-input" type="checkbox" asp-for="Report.MaturePencilGrasp" />
+                <label class="form-check-label" asp-for="Report.MaturePencilGrasp">
                   f) Mature pencil grasping
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="ImmaturePencilGrasp" />
-                <label class="form-check-label" for="ImmaturePencilGrasp">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ImmaturePencilGrasp" />
+                <label class="form-check-label" asp-for="Report.ImmaturePencilGrasp">
                   g) Immature pencil grasping
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="ImitateVerticalLine" />
-                <label class="form-check-label" for="ImitateVerticalLine">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ImitateVerticalLine" />
+                <label class="form-check-label" asp-for="Report.ImitateVerticalLine">
                   h) Imitate vertical line
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="CopySquare" />
-                <label class="form-check-label" for="CopySquare">
+                <input class="form-check-input" type="checkbox" asp-for="Report.CopySquare" />
+                <label class="form-check-label" asp-for="Report.CopySquare">
                   i) Copying Square, Triangle, Rhombus
                 </label>
               </div>
 
               <div>
-                <label for="MotorPraxisProgressNote" class="form-label">Motor & Praxis Progress Note</label>
-                <textarea class="form-control" id="MotorPraxisSkillsNotes" rows="3"></textarea>
+                <label  for="Report.MotorPraxisProgressNotes" class="form-label">Motor & Praxis Progress Note</label>
+                <textarea class="form-control" asp-for="Report.MotorPraxisSkillsNotes" rows="3"></textarea>
               </div>
 
               <hr class="container-m-nx mb-5">
               <!--new section-->
               <b>Sensory Regulation Skills</b>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Tactile" />
-                <label class="form-check-label" for="Tactile">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Tactile" />
+                <label class="form-check-label" asp-for="Report.Tactile">
                   Tactile
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Auditory" />
-                <label class="form-check-label" for="Auditory">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Auditory" />
+                <label class="form-check-label" asp-for="Report.Auditory">
                   Auditory
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Visual" />
-                <label class="form-check-label" for="Visual">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Visual" />
+                <label class="form-check-label" asp-for="Report.Visual">
                   Visual
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Olfactory" />
-                <label class="form-check-label" for="Olfactory">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Olfactory" />
+                <label class="form-check-label" asp-for="Report.Olfactory">
                   Olfactory
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Gustatory" />
-                <label class="form-check-label" for="Gustatory">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Gustatory" />
+                <label class="form-check-label" asp-for="Report.Gustatory">
                   Gustatory
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Vestibular" />
-                <label class="form-check-label" for="Vestibular">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Vestibular" />
+                <label class="form-check-label" asp-for="Report.Vestibular">
                   Vestibular
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="Proprioception" />
-                <label class="form-check-label" for="Proprioception">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Proprioception" />
+                <label class="form-check-label" asp-for="Report.Proprioception">
                   Proprioception
                 </label>
               </div>
-
               <div>
-                <label for="SensoryRegulationProgressNote" class="form-label">Sensory Regulation Progress Notes</label>
-                <textarea class="form-control" id="SensoryRegulationSkillsNotes" rows="3"></textarea>
+                <label class="form-label" asp-for="Report.SensoryRegulationSkillsNotes">Sensory Regulation Progress Notes</label>
+                <textarea class="form-control" asp-for="Report.SensoryRegulationSkillsNotes" rows="3"></textarea>
               </div>
 
               <hr class="container-m-nx mb-5">
               <!--new section-->
               <b>Cognitive Regulation Skills</b>
               <div class="col-sm-12">
-                <label class="form-label">Basic Concept: </label>
+                <label class="form-label">Basic Concept:</label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Alphabet" />
-                <label class="form-check-label" for="Alphabet">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Alphabet" />
+                <label class="form-check-label" asp-for="Report.Alphabet">
                   a) Alphabet
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Numbers" />
-                <label class="form-check-label" for="Numbers">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Numbers" />
+                <label class="form-check-label" asp-for="Report.Numbers">
                   b) Numbers
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Shapes" />
-                <label class="form-check-label" for="Shapes">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Shapes" />
+                <label class="form-check-label" asp-for="Report.Shapes">
                   c) Shapes
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Colors" />
-                <label class="form-check-label" for="Colors">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Colors" />
+                <label class="form-check-label" asp-for="Report.Colors">
                   d) Colors
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="MemoryFunction" />
-                <label class="form-check-label" for="MemoryFunction">
+                <input class="form-check-input" type="checkbox" asp-for="Report.MemoryFunction" />
+                <label class="form-check-label" asp-for="Report.MemoryFunction">
                   Memory function
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Attention" />
-                <label class="form-check-label" for="Attention">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Attention" />
+                <label class="form-check-label" asp-for="Report.Attention">
                   Attention
                 </label>
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="Concentration">Concentration</label>
-                <select class="form-select" asp-for="Concentration">
+                <label class="form-label" asp-for="Report.Concentration">Concentration</label>
+                <select class="form-select" asp-for="Report.Concentration">
                   <option value="Good">Good</option>
                   <option value="Fair">Fair</option>
                   <option value="Poor">Poor</option>
                 </select>
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="ProblemSolving">Problem Solving</label>
-                <select class="form-select" asp-for="ProblemSolving">
+                <label class="form-label" asp-for="Report.ProblemSolving">Problem Solving</label>
+                <select class="form-select" asp-for="Report.ProblemSolving">
                   <option value="Good">Good</option>
                   <option value="Fair">Fair</option>
                   <option value="Poor">Poor</option>
                 </select>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="WritingSkill" />
-                <label class="form-check-label" for="WritingSkill">
+                <input class="form-check-input" type="checkbox" asp-for="Report.WritingSkill" />
+                <label class="form-check-label" asp-for="Report.WritingSkill">
                   Writing skill
                 </label>
               </div>
+
               <div>
-                <label for="CognitiveRegulationSkillsNotes" class="form-label">Cognitive Regulation Progress Note</label>
-                <textarea class="form-control" asp-for="CognitiveRegulationSkillsNotes" rows="3"></textarea>
+                <label  for="Report.CognitiveRegulationSkillsNotes" class="form-label">Cognitive Regulation Progress Note</label>
+                <textarea class="form-control" asp-for="Report.CognitiveRegulationSkillsNotes" rows="3"></textarea>
               </div>
               <hr class="container-m-nx mb-5">
               <!--new section-->
               <b>Occupational Performance</b>
+
               <div class="col-sm-12">
-                <label class="form-label">Activity Daily Living (ADL): </label>
+                <label class="form-label">Activity Daily Living (ADL):</label>
               </div>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" asp-for="ADLIndependent" />
-                <label class="form-check-label" for="ADLIndependent">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ADLIndependent" />
+                <label class="form-check-label" asp-for="Report.ADLIndependent">
                   a) Independent with no helper
                 </label>
               </div>
               <div class="col-sm-12">
-                <label class="form-label" for="ADLSupervision">b) With supervision</label>
-                <select class="form-select" asp-for="ADLSupervision">
+                <label class="form-label" asp-for="Report.ADLSupervision">b) With supervision</label>
+                <select class="form-select" asp-for="Report.ADLSupervision">
                   <option value="all the time">all the time</option>
                   <option value="most of the time">most of the time</option>
                   <option value="sometimes">sometimes</option>
                 </select>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="ADLMaxAssistance" />
-                <label class="form-check-label" for="ADLMaxAssistance">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ADLMaxAssistance" />
+                <label class="form-check-label" asp-for="Report.ADLMaxAssistance">
                   c) Maximum assistance
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="ADLToiletTrained" />
-                <label class="form-check-label" for="ADLToiletTrained">
+                <input class="form-check-input" type="checkbox" asp-for="Report.ADLToiletTrained" />
+                <label class="form-check-label" asp-for="Report.ADLToiletTrained">
                   d) Toilet trained
                 </label>
               </div>
+
               <div class="col-sm-12">
-                <label class="form-label">Instrumental Activity Daily Living (IADL): </label>
+                <label class="form-label">Instrumental Activity Daily Living (IADL):</label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLMoneyManagement" />
-                <label class="form-check-label" for="IADLMoneyManagement">
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLMoneyManagement" />
+                <label class="form-check-label" asp-for="Report.IADLMoneyManagement">
                   a) Money Management
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLTimeConcept" />
-                <label class="form-check-label" for="IADLTimeConcept">
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLTimeConcept" />
+                <label class="form-check-label" asp-for="Report.IADLTimeConcept">
                   b) Time concept
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLFoldingClothes" />
-                <label class="form-check-label" for="IADLFoldingClothes">
-                  c) Simple house hold activities: Folding clothes
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLFoldingClothes" />
+                <label class="form-check-label" asp-for="Report.IADLFoldingClothes">
+                  c) Simple household activities: Folding clothes
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLHangingClothes" />
-                <label class="form-check-label" for="IADLHangingClothes">
-                  d) Simple house hold activities: Hanging clothes
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLHangingClothes" />
+                <label class="form-check-label" asp-for="Report.IADLHangingClothes">
+                  d) Simple household activities: Hanging clothes
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLSweepFloor" />
-                <label class="form-check-label" for="IADLSweepFloor">
-                  e) Simple house hold activities: Sweep floor
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLSweepFloor" />
+                <label class="form-check-label" asp-for="Report.IADLSweepFloor">
+                  e) Simple household activities: Sweep floor
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLMakingDrinks" />
-                <label class="form-check-label" for="IADLMakingDrinks">
-                  f) Simple domestic activites: Making drinks
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLMakingDrinks" />
+                <label class="form-check-label" asp-for="Report.IADLMakingDrinks">
+                  f) Simple domestic activities: Making drinks
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLPrepareSimpleFood" />
-                <label class="form-check-label" for="IADLPrepareSimpleFood">
-                  g) Simple domestic activites: Prepare simple food
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLPrepareSimpleFood" />
+                <label class="form-check-label" asp-for="Report.IADLPrepareSimpleFood">
+                  g) Simple domestic activities: Prepare simple food
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="IADLUsePhone" />
-                <label class="form-check-label" for="IADLUsePhone">
-                  h) Simple domestic activites: Use phone
+                <input class="form-check-input" type="checkbox" asp-for="Report.IADLUsePhone" />
+                <label class="form-check-label" asp-for="Report.IADLUsePhone">
+                  h) Simple domestic activities: Use phone
                 </label>
               </div>
 
+
               <div>
-                <label for="OccupationalPerformanceNotes" class="form-label">Occupational Performance Progress Note</label>
-                <textarea class="form-control" asp-for="OccupationalPerformanceNotes" rows="3"></textarea>
+                <label  for="Report.OccupationalPerformanceNotes" class="form-label">Occupational Performance Progress Note</label>
+                <textarea class="form-control" asp-for="Report.OccupationalPerformanceNotes" rows="3"></textarea>
               </div>
 
               <hr class="container-m-nx mb-5">
               <!--new section-->
               <b>Emotional Regulation Skills</b>
+
               <div class="col-sm-12">
-                <label class="form-label">Behaviour: </label>
+                <label class="form-label">Behaviour:</label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="TemperedTantrum" />
-                <label class="form-check-label" for="TemperedTantrum">
+                <input class="form-check-input" type="checkbox" asp-for="Report.TemperedTantrum" />
+                <label class="form-check-label" asp-for="Report.TemperedTantrum">
                   a) Tempered Tantrum
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Manipulative" />
-                <label class="form-check-label" for="Manipulative">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Manipulative" />
+                <label class="form-check-label" asp-for="Report.Manipulative">
                   b) Manipulative
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="EasilyDistracted" />
-                <label class="form-check-label" for="EasilyDistracted">
+                <input class="form-check-input" type="checkbox" asp-for="Report.EasilyDistracted" />
+                <label class="form-check-label" asp-for="Report.EasilyDistracted">
                   c) Easily distracted
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Passive" />
-                <label class="form-check-label" for="Passive">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Passive" />
+                <label class="form-check-label" asp-for="Report.Passive">
                   d) Passive
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Cooperative" />
-                <label class="form-check-label" for="Cooperative">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Cooperative" />
+                <label class="form-check-label" asp-for="Report.Cooperative">
                   e) Cooperative
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Isolation" />
-                <label class="form-check-label" for="Isolation">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Isolation" />
+                <label class="form-check-label" asp-for="Report.Isolation">
                   f) Isolation
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" asp-for="Reluctant" />
-                <label class="form-check-label" for="Reluctant">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Reluctant" />
+                <label class="form-check-label" asp-for="Report.Reluctant">
                   g) Reluctant
                 </label>
               </div>
 
               <div>
-                <label for="EmotionalRegulationSkillsNotes" class="form-label">Emotional Regulation Progress Note</label>
-                <textarea class="form-control" asp-for="EmotionalRegulationSkillsNotes" rows="3"></textarea>
+                <label  for="Report.EmotionalRegulationSkillsNotes" class="form-label">Emotional Regulation Progress Note</label>
+                <textarea class="form-control" asp-for="Report.EmotionalRegulationSkillsNotes" rows="3"></textarea>
               </div>
 
               <hr class="container-m-nx mb-5">
@@ -621,22 +630,22 @@ ViewData["Title"] = "Therapist - Report";
                 <label class="form-label">Following Instruction: </label>
               </div>
               <div class="col-sm-12 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="RepetitivePrompting" />
-                <label class="form-check-label" for="RepetitivePrompting">
+                <input class="form-check-input" type="checkbox" asp-for="Report.RepetitivePrompting" />
+                <label class="form-check-label"  for="Report.RepetitivePrompting">
                   a) Repetitive prompting
                 </label>
               </div>
               <div class="col-sm-12">
-                <label class="form-label" for="VerbalPrompting">b) Verbal prompting</label>
-                <select class="form-select" id="VerbalPrompting" asp-for="VerbalPrompting">
+                <label class="form-label"  for="Report.VerbalPrompting">b) Verbal prompting</label>
+                <select class="form-select" id="VerbalPrompting" asp-for="Report.VerbalPrompting">
                   <option value="min">min</option>
                   <option value="moderate">moderate</option>
                   <option value="max">max</option>
                 </select>
               </div>
               <div class="col-sm-12">
-                <label class="form-label" for="PhysicalPrompting">c) Physical prompting</label>
-                <select class="form-select" id="PhysicalPrompting" asp-for="PhysicalPrompting">
+                <label class="form-label"  for="Report.PhysicalPrompting">c) Physical prompting</label>
+                <select class="form-select" id="PhysicalPrompting" asp-for="Report.PhysicalPrompting">
                   <option value="min">min</option>
                   <option value="moderate">moderate</option>
                   <option value="max">max</option>
@@ -646,36 +655,36 @@ ViewData["Title"] = "Therapist - Report";
                 <label class="form-label">Eye Contact: </label>
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="EyeContactPerson">a) Person</label>
-                <select class="form-select" id="EyeContactPerson" asp-for="EyeContactPerson">
+                <label class="form-label"  for="Report.EyeContactPerson">a) Person</label>
+                <select class="form-select" id="EyeContactPerson" asp-for="Report.EyeContactPerson">
                   <option value="good">Good</option>
                   <option value="fair">Fair</option>
                   <option value="poor">Poor</option>
                 </select>
               </div>
               <div class="col-sm-6">
-                <label class="form-label" for="EyeContactObject">b) Object</label>
-                <select class="form-select" id="EyeContactObject" asp-for="EyeContactObject">
+                <label class="form-label"  for="Report.EyeContactObject">b) Object</label>
+                <select class="form-select" id="EyeContactObject" asp-for="Report.EyeContactObject">
                   <option value="good">Good</option>
                   <option value="fair">Fair</option>
                   <option value="poor">Poor</option>
                 </select>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="InitiateAnswerQuestion" />
-                <label class="form-check-label" for="InitiateAnswerQuestion">
+                <input class="form-check-input" type="checkbox" asp-for="Report.InitiateAnswerQuestion" />
+                <label class="form-check-label"  for="Report.InitiateAnswerQuestion">
                   Initiate answer question
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="VerbalRespond" />
-                <label class="form-check-label" for="VerbalRespond">
+                <input class="form-check-input" type="checkbox" asp-for="Report.VerbalRespond" />
+                <label class="form-check-label"  for="Report.VerbalRespond">
                   Verbal respond
                 </label>
               </div>
               <div class="col-sm-12">
-                <label class="form-label" for="VoiceClarity">Voice clarity</label>
-                <select class="form-select" id="VoiceClarity" asp-for="VoiceClarity">
+                <label class="form-label"  for="Report.VoiceClarity">Voice clarity</label>
+                <select class="form-select" id="VoiceClarity" asp-for="Report.VoiceClarity">
                   <option value="clear">Clear</option>
                   <option value="slurred">Slurred</option>
                   <option value="imitate last vowel sound">imitate last vowel sound</option>
@@ -683,39 +692,39 @@ ViewData["Title"] = "Therapist - Report";
                 </select>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="FacialExpressions" />
-                <label class="form-check-label" for="FacialExpressions">
+                <input class="form-check-input" type="checkbox" asp-for="Report.FacialExpressions" />
+                <label class="form-check-label"  for="Report.FacialExpressions">
                   Facial expressions
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="BodyLanguage" />
-                <label class="form-check-label" for="BodyLanguage">
+                <input class="form-check-input" type="checkbox" asp-for="Report.BodyLanguage" />
+                <label class="form-check-label"  for="Report.BodyLanguage">
                   Body language
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="TakingTurn" />
-                <label class="form-check-label" for="TakingTurn">
+                <input class="form-check-input" type="checkbox" asp-for="Report.TakingTurn" />
+                <label class="form-check-label"  for="Report.TakingTurn">
                   taking turn
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="Sharing" />
-                <label class="form-check-label" for="Sharing">
+                <input class="form-check-input" type="checkbox" asp-for="Report.Sharing" />
+                <label class="form-check-label"  for="Report.Sharing">
                   Sharing
                 </label>
               </div>
               <div class="col-sm-6 form-check">
-                <input class="form-check-input" type="checkbox" asp-for="StayInGroup" />
-                <label class="form-check-label" for="StayInGroup">
+                <input class="form-check-input" type="checkbox" asp-for="Report.StayInGroup" />
+                <label class="form-check-label"  for="Report.StayInGroup">
                   Stay in group
                 </label>
               </div>
 
               <div>
-                <label for="CommunicationSocialSkillsNotes" class="form-label">Communication & Social Progress Note</label>
-                <textarea class="form-control" id="CommunicationSocialSkillsNotes" rows="3" asp-for="CommunicationSocialSkillsNotes"></textarea>
+                <label  for="Report.CommunicationSocialSkillsNotes" class="form-label">Communication & Social Progress Note</label>
+                <textarea class="form-control" id="CommunicationSocialSkillsNotes" rows="3" asp-for="Report.CommunicationSocialSkillsNotes"></textarea>
               </div>
 
               <hr class="container-m-nx mb-5">
@@ -725,8 +734,8 @@ ViewData["Title"] = "Therapist - Report";
               </div>
               <div class="row g-3">
                 <div class="col-sm-12">
-                  <label class="form-label" for="AcademicPerformance">Academics Grades</label>
-                  <select class="form-select" id="AcademicPerformance" asp-for="AcademicPerformance">
+                  <label class="form-label"  for="Report.AcademicPerformance">Academics Grades</label>
+                  <select class="form-select" id="AcademicPerformance" asp-for="Report.AcademicPerformance">
                     <option value="Good">Good</option>
                     <option value="Average">Average</option>
                     <option value="Fair">Fair</option>
@@ -734,20 +743,20 @@ ViewData["Title"] = "Therapist - Report";
                   </select>
                 </div>
                 <div>
-                  <label for="AnalysisProblem" class="form-label">A - Analysis Problem</label>
-                  <textarea class="form-control" id="AnalysisProblem" rows="4" asp-for="AnalysisProblem"></textarea>
+                  <label  for="Report.AnalysisProblem" class="form-label">A - Analysis Problem</label>
+                  <textarea class="form-control" id="AnalysisProblem" rows="4" asp-for="Report.AnalysisProblem"></textarea>
                 </div>
                 <div>
-                  <label for="ShortTermGoal" class="form-label">A - Short Term Goals</label>
-                  <textarea class="form-control" id="ShortTermGoal" rows="4" asp-for="ShortTermGoal"></textarea>
+                  <label  for="Report.ShortTermGoal" class="form-label">A - Short Term Goals</label>
+                  <textarea class="form-control" id="ShortTermGoal" rows="4" asp-for="Report.ShortTermGoal"></textarea>
                 </div>
                 <div>
-                  <label for="LongTermGoal" class="form-label">A - Long Term Goals</label>
-                  <textarea class="form-control" id="LongTermGoal" rows="4" asp-for="LongTermGoal"></textarea>
+                  <label  for="Report.LongTermGoal" class="form-label">A - Long Term Goals</label>
+                  <textarea class="form-control" id="LongTermGoal" rows="4" asp-for="Report.LongTermGoal"></textarea>
                 </div>
                 <div>
-                  <label for="TxPlan" class="form-label">P - Tx PLAN</label>
-                  <textarea class="form-control" id="TxPlan" rows="2" asp-for="TxPlan"></textarea>
+                  <label  for="Report.TxPlan" class="form-label">P - Tx PLAN</label>
+                  <textarea class="form-control" id="TxPlan" rows="2" asp-for="Report.TxPlan"></textarea>
                 </div>
               </div>
 
@@ -756,7 +765,15 @@ ViewData["Title"] = "Therapist - Report";
                   <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                   <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>
-                <button type="submit" class="btn btn-success btn-next btn-submit">Edit</button>
+                <button type="submit" class="btn btn-success btn-next btn-submit">Submit</button>
+                @* @if (Model.Report.ReportID != 0)
+                 {
+                      <button type="submit" class="btn btn-success btn-next btn-submit">Update</button>
+                 }
+                 else
+                 {
+                      <button type="submit" class="btn btn-success btn-next btn-submit">Submit</button>
+                 } *@
               </div>
             </div>
           </div>

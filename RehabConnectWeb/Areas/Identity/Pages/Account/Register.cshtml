@@ -2,8 +2,14 @@
 @model RegisterModel
 
 @{
-  Layout = "_BlankLayout";
-  ViewData["Title"] = "Register Basic - Pages";
+    if (User.IsInRole(SD.Role_Admin)){
+        Layout = "_ContentNavbarLayout";
+    }
+    else
+    {
+        Layout = "_BlankLayout";
+    }
+    ViewData["Title"] = "Register Basic - Pages";
 }
 
 @section VendorStyles {
@@ -81,14 +87,14 @@
             </div>
             <div class="mb-3 form-password-toggle">
               <label asp-for="Input.Password" class="ms-2 text-muted">Password</label>
-              <div class="input-group input-group-merge">
+              <div class="mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
               </div>
             </div>
             <div class="mb-3 form-password-toggle">
               <label asp-for="Input.ConfirmPassword" class="ms-2 text-muted">Confirm Password</label>
-              <div class="input-group input-group-merge">
+              <div class="mb-3">
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
               </div>
@@ -96,17 +102,18 @@
 
             @* User Role assignment *@
             @if(User.IsInRole(SD.Role_Admin)){
-            <div class="form-floating mb-3 col-md-6">
+            <div class="mb-3">
+              <label asp-for="Input.Role" class="ms-2 text-muted">Role</label>
               <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
                 <option disabled selected>-Select Role-</option>
               </select>
             </div>
-            <div class="form-floating mb-3 col-md-6">
+            <div class="mb-3">
               <select asp-for="Input.TherapistID" style="display:none;" asp-items="@Model.Input.TherapistList" class="form-select">
                 <option disabled selected>-Select Therapist-</option>
               </select>
             </div>
-            <div class="form-floating mb-3 col-md-6">
+            <div class="mb-3">
               <select asp-for="Input.CSID" style="display:none;" asp-items="@Model.Input.CustomerSupportList" class="form-select">
                 <option disabled selected>-Select Customer Support-</option>
               </select>
@@ -122,24 +129,34 @@
                 </label>
               </div>
             </div>
+                        @if (!User.IsInRole(SD.Role_Admin)){
             <button id="registerSubmit" type="submit" class="btn btn-primary d-grid w-100">
               Sign up
-            </button>
-          </form>
+                            </button>
+                        }
+                        else
+                        {
+                            <button id="registerSubmit" type="submit" class="btn btn-primary d-grid w-100">
+                                Register New User
+                            </button>
+                        }
+                    </form>
 
-          <p class="text-center">
-            <span>Already have an account?</span>
-            <a asp-area="Identity"asp-page="/Account/Login">
-              <span>Sign in instead</span>
-            </a>
-          </p>
+                    @if (!User.IsInRole(SD.Role_Admin))
+                    {
+                        <p class="text-center">
+                            <span>Already have an account?</span>
+                            <a asp-area="Identity"asp-page="/Account/Login">
+                                <span>Sign in instead</span>
+                            </a>
+                        </p>
 
-          <div class="divider my-4">
-            <div class="divider-text">or</div>
-          </div>
+                        <div class="divider my-4">
+                            <div class="divider-text">or</div>
+                        </div>
 
-          <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
               <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
             </a>
 
@@ -151,6 +168,7 @@
               <i class="tf-icons fa-brands fa-twitter fs-5"></i>
             </a>
           </div>
+          }
         </div>
       </div>
       <!-- Register Card -->

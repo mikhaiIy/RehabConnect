@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RehabConnect.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace RehabConnect.Models
 {
@@ -17,6 +18,7 @@ namespace RehabConnect.Models
         // Navigation properties
         public int StudentID { get; set; }
         [ForeignKey("StudentID")]
+        [ValidateNever]
         public Student Student { get; set; }
         //public int TherapistID { get; set; }
         //[ForeignKey("TherapistID")]

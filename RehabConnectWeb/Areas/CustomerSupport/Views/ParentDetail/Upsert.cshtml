@@ -1,0 +1,229 @@
+@model ParentDetail
+
+@{
+    ViewData["Title"] = "Multi-Steps Register - Pages";
+}
+
+@section VendorStyles {
+    <!-- Vendor -->
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
+
+@section PageScripts {
+    @* <script src="~/js/pages-auth-multisteps.js"></script> *@
+    <script src="~/js/form-wizard-numbered-parent.js"></script>
+}
+
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.ParentID != 0) ? "Update" : "Create") Parent</h4>
+
+<div class="authentication-wrapper authentication-cover authentication-bg">
+    <div class="authentication-inner row">
+
+        <!-- Multi Steps Registration -->
+        <div class="d-flex col-lg-8 align-items-center justify-content-center p-sm-5 p-3">
+            <div class="w-px-700">
+                <div class="bs-stepper wizard-numbered shadow-none">
+                    <div class="bs-stepper-header border-bottom-0">
+                        <div class="step" data-target="#account-details">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Father</span>
+                                    <span class="bs-stepper-subtitle">Father's Details</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="line">
+                            <i class="ti ti-chevron-right"></i>
+                        </div>
+                        <div class="step" data-target="#personal-info">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Mother</span>
+                                    <span class="bs-stepper-subtitle">Mother's Details</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bs-stepper-content">
+                        <form method="post" id="ParentDetailForm" enctype="multipart/form-data">
+                            <input asp-for="ParentID" hidden />
+                            <!-- Father Information -->
+                            <div id="account-details" class="content">
+                                <div class="content-header mb-4">
+                                    <h3 class="mb-1">Father's Information</h3>
+                                    <p>Enter The Father's Details</p>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label asp-for="FatherName" class="ms-2">Father's Name</label>
+                                        <input asp-for="FatherName" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherPhoneNum" class="ms-2">Phone Number</label>
+                                        <input asp-for="FatherPhoneNum" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherPhoneNum" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherIC" class="ms-2">NRIC</label>
+                                        <input asp-for="FatherIC" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherIC" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherRace" class="ms-2">Race</label>
+                                        <input asp-for="FatherRace" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherRace" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherOccupation" class="ms-2">Occupation</label>
+                                        <input asp-for="FatherOccupation" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherOccupation" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherEmail" class="ms-2">Email</label>
+                                        <input asp-for="FatherEmail" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherEmail" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherAddress" class="ms-2">Street Address</label>
+                                        <input asp-for="FatherAddress" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherPostcode" class="ms-2">Postcode</label>
+                                        <input asp-for="FatherPostcode" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherPostcode" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherCity" class="ms-2">City</label>
+                                        <input asp-for="FatherCity" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherCity" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherCountry" class="ms-2">Country</label>
+                                        <input asp-for="FatherCountry" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherCountry" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="FatherWorkAddress" class="ms-2">Work Address</label>
+                                        <input asp-for="FatherWorkAddress" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="FatherWorkAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-4">
+                                        <button type="button" class="btn btn-label-secondary btn-prev" disabled>
+                                            <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-next">
+                                            <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
+                                            <i class="ti ti-arrow-right ti-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mother Information -->
+                            <div id="personal-info" class="content">
+                                <div class="content-header mb-4">
+                                    <h3 class="mb-1">Mother's Information</h3>
+                                    <p>Enter The Mother's Details</p>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label asp-for="MotherName" class="ms-2">Mother's Name</label>
+                                        <input asp-for="MotherName" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherPhoneNum" class="ms-2">Phone Number</label>
+                                        <input asp-for="MotherPhoneNum" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherPhoneNum" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherIC" class="ms-2">NRIC</label>
+                                        <input asp-for="MotherIC" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherIC" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherRace" class="ms-2">Race</label>
+                                        <input asp-for="MotherRace" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherRace" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherOccupation" class="ms-2">Occupation</label>
+                                        <input asp-for="MotherOccupation" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherOccupation" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherEmail" class="ms-2">Email</label>
+                                        <input asp-for="MotherEmail" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherEmail" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherAddress" class="ms-2">Street Address</label>
+                                        <input asp-for="MotherAddress" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherPostcode" class="ms-2">Postcode</label>
+                                        <input asp-for="MotherPostcode" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherPostcode" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherCity" class="ms-2">City</label>
+                                        <input asp-for="MotherCity" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherCity" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherCountry" class="ms-2">Country</label>
+                                        <input asp-for="MotherCountry" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherCountry" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="MotherWorkAddress" class="ms-2">Work Address</label>
+                                        <input asp-for="MotherWorkAddress" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="MotherWorkAddress" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="HouseholdIncome" class="ms-2">Household Income</label>
+                                        <input asp-for="HouseholdIncome" class="form-control border-0 shadow" />
+                                        <span asp-validation-for="HouseholdIncome" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-between mt-4">
+                                        <button type="button" class="btn btn-label-secondary btn-prev">
+                                            <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            @(Model.ParentID != 0 ? "Update" : "Create")
+                                        </button>
+                                        <button class="btn btn-label-secondary"><a asp-controller="ParentDetail" asp-action="Index">Back to List</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Multi Steps Registration -->
+    </div>
+</div>
