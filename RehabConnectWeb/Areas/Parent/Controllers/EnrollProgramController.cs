@@ -69,7 +69,8 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
           .Select(s => new
           {
             Date = s.Date.ToString("yyyy-MM-dd"),
-            StartTime = s.StartTime.ToString(@"hh\:mm")
+            StartTime = s.StartTime.ToString(@"hh\:mm"),
+            ScheduleID = s.ScheduleID
           })
           .ToList();
 
@@ -86,16 +87,30 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     }
 
     [HttpPost]
-    public IActionResult BookSession(int studentProgramId, int scheduleId, int programId, int studentId)
+    public IActionResult BookSession(int studentProgramId, int scheduleId)
     {
+      Console.WriteLine("Received StudentProgramId: " + studentProgramId);
+      Console.WriteLine("Received ScheduleId: " + scheduleId);
+
       if (ModelState.IsValid)
       {
+        // Verify the existence of related entities if needed
+        var studentProgram = _unitOfWork.StudentProgram.Find(sp => sp.StudentProgramId == studentProgramId).FirstOrDefault();
+        var schedule = _unitOfWork.Schedule.Find(s => s.ScheduleID == scheduleId).FirstOrDefault();
+
+        if (studentProgram == null || schedule == null)
+        {
+          // Handle the case where related entities are not found
+          ModelState.AddModelError("", "Invalid student program or schedule.");
+          return View("Index");
+        }
+
         var session = new Session
         {
           StudentProgramId = studentProgramId,
           ScheduleID = scheduleId,
-          //ProgramID = programId,
-          //StudentID = studentId
+          StudentProgram = _unitOfWork.StudentProgram.Get(s => s.StudentProgramId == studentProgramId), // Optionally set navigation properties
+          Schedule = _unitOfWork.Schedule.Get(z => z.ScheduleID == scheduleId) // Optionally set navigation properties
         };
 
         _unitOfWork.Session.Add(session);
@@ -106,7 +121,6 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
 
       return View("Index");
     }
-
 
   }
 }

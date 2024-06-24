@@ -38,9 +38,11 @@
         });
 
         function populateTimeDropdown(selectedDate) {
+            console.log("Selected Date: ", selectedDate);
             var timeDropdown = document.getElementById('schedule-time');
             timeDropdown.innerHTML = ''; // Clear the dropdown
             var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
+            console.log("Available Times: ", availableTimes);
             availableTimes.forEach(schedule => {
                 var option = document.createElement('option');
                 option.value = schedule.ScheduleID; // Ensure this maps to ScheduleID
@@ -126,66 +128,64 @@
                 </div> *@
             </div>
 
-            <div class="bs-stepper-content">
-                <form asp-action="BookSession" method="post">
-                    <div id="step1" class="content">
-                        <div class="content-header mb-3">
-                            <h6 class="mb-0">Account Details</h6>
-                            <small>Review Your Children Details.</small>
+            <form asp-action="BookSession" method="post">
+                <div id="step1" class="content">
+                    <div class="content-header mb-3">
+                        <h6 class="mb-0">Account Details</h6>
+                        <small>Review Your Children Details.</small>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
+                            <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control" />
                         </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
-                                <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
-                                <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
-                                <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control" />
-                            </div>
+                        <div class="col-sm-6">
+                            <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
+                            <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control" />
                         </div>
-                        <div class="content-header mb-3 pt-3">
-                            <h6 class="mb-0">Program and Session Details</h6>
-                            <small>Select wisely.</small>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label asp-for="StudentProgram" class="form-label">Program Name</label>
-                                <select asp-for="StudentProgram" class="form-control" name="studentProgramId">
-                                    <option value="">Select a program</option>
-                                    @foreach (var program in Model.ProgramList)
-                                    {
-                                        <option value="@program.ProgramID">@program.ProgramName</option>
-                                    }
-                                </select>
-                                <span asp-validation-for="StudentProgram" class="text-danger"></span>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Status</label>
-                                <input disabled class="form-control" value="@Model.StudentProgram.Status" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="schedule-date">Select Date:</label>
-                                <input type="date" id="schedule-date" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="schedule-time">Select Time:</label>
-                                <select id="schedule-time" class="form-control" name="scheduleId">
-                                    <option value="">Select a time</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between pt-2">
-                            <div>
-                                <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
-                            </div>
+                        <div class="col-sm-6">
+                            <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
+                            <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control" />
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="content-header mb-3 pt-3">
+                        <h6 class="mb-0">Program and Session Details</h6>
+                        <small>Select wisely.</small>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="StudentProgram" class="form-label">Program Name</label>
+                            <select asp-for="StudentProgram" class="form-control" name="studentProgramId">
+                                <option value="">Select a program</option>
+                                @foreach (var program in Model.ProgramList)
+                                {
+                                    <option value="@program.ProgramID">@program.ProgramName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="StudentProgram" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label">Status</label>
+                            <input disabled class="form-control" value="@Model.StudentProgram.Status" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label" for="schedule-date">Select Date:</label>
+                            <input type="date" id="schedule-date" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label" for="schedule-time">Select Time:</label>
+                            <select id="schedule-time" class="form-control" name="scheduleId">
+                                <option value="">Select a time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between pt-2">
+                        <div>
+                            <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

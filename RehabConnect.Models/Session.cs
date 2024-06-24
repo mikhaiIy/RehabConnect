@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,9 +23,11 @@ namespace RehabConnect.Models
 
         // Navigation properties
         [ForeignKey("StudentProgramId")]
-        public StudentProgram StudentProgram { get; set; }
+        [ValidateNever]
+        public StudentProgram? StudentProgram { get; set; }
 
         [ForeignKey("ScheduleID")]
-        public Schedule Schedule { get; set; }
+        [ValidateNever]
+        public Schedule? Schedule { get; set; }
     }
 }
