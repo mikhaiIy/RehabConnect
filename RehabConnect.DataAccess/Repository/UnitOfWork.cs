@@ -49,6 +49,7 @@ namespace RehabConnect.DataAccess.Repository
             Student = new StudentRepository(_db);
             Schedule = new ScheduleRepository(_db);
             StudentProgram = new StudentProgramRepository(_db);
+            Session = new SessionRepository(_db);
 
         }
 

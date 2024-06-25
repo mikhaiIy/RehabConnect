@@ -9,16 +9,48 @@ namespace RehabConnect.Models
     public class Invoice
     {
         [Key]
-        public int InvoiceID { get; set; }
-
-        public decimal TotalAmount { get; set; }
+        public int InvoiceId { get; set; }
+        
+        [Required]
+        public DateOnly DateIssued { get; set; }
+        [Required]
+        public DateOnly DueDate { get; set; }
+        [Required]
+        public string ParentNames { get; set; }
+        [Required]
+        public string Address1 { get; set; }
+        [Required]
+        public string Address2 { get; set; }
+        [Required]
+        public string PhoneNum { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string PICNames { get; set; }
+        
+        [Required]
+        public string ShortNote { get; set; }
+        
+        [Required]
+        public string LongNote { get; set; }
+        
+        [Required]
+        public decimal Subtotal { get; set; }
+        
+        [Required]
+        public decimal Discount { get; set; }
+        
+        [Required]
+        public decimal Tax { get; set; }
+        
+        [Required]
+        public decimal Total { get; set; }
 
         public int ParentID { get; set; }
         [ForeignKey("ParentID")]
         [ValidateNever]
         public ParentDetail ParentDetail { get; set; }  // Changed to ParentDetail
 
-        public DateTime DateIssued { get; set; }
-        public DateTime DueDate { get; set; }
+        
     }
 }

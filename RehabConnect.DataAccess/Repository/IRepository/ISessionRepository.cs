@@ -9,6 +9,6 @@ namespace RehabConnect.DataAccess.Repository.IRepository
 {
     public interface ISessionRepository : IRepository<Session>
     {
-        void Update(Schedule obj);
+        void Update(Session obj);
     }
 }

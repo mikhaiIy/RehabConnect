@@ -28,7 +28,7 @@ namespace RehabConnect.Models
         [ForeignKey("StepId")]
         public Step Step { get; set; }
 
-        // Navigation properties
-        public ICollection<Session> Sessions { get; set; }
+        // // Navigation properties
+        // public ICollection<Session> Sessions { get; set; }
     }
 }

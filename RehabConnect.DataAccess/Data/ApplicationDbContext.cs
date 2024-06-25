@@ -182,15 +182,15 @@ namespace RehabConnect.DataAccess.Data
        );
 
             // Seed Invoice
-            modelBuilder.Entity<Invoice>().HasData(
-                new Invoice
-                {
-                    InvoiceID = 1,
-                    TotalAmount = 1000,
-                    ParentID = 1,  // Reference existing ParentID
-                    DateIssued = DateTime.Now
-                }
-            );
+            // modelBuilder.Entity<Invoice>().HasData(
+            //     new Invoice
+            //     {
+            //         InvoiceId = 1,
+            //         Total = 1000,
+            //         ParentID = 1,  // Reference existing ParentID
+            //         DateIssued = DateTime.Now
+            //     }
+            // );
 
             base.OnModelCreating(modelBuilder);
 

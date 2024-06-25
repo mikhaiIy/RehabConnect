@@ -50,8 +50,8 @@ namespace RehabConnect.Models
         public string CSEmail { get; set; }
 
 
-        // Navigation properties
-        public ICollection<Session>? Sessions { get; set; }
-        public ICollection<Report>? Reports { get; set; }
+        // // Navigation properties
+        // public ICollection<Session>? Sessions { get; set; }
+        // public ICollection<Report>? Reports { get; set; }
     }
 }

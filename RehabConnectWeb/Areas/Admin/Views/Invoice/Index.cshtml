@@ -119,7 +119,7 @@
                                 <img src="path/to/avatar/image.jpg" alt="Avatar" class="avatar-image" />
                             } *@
                         </td>
-                        <td>@invoice.InvoiceID</td>
+                        <td>@invoice.InvoiceId</td>
                         <td>
                             @if (invoice.ParentDetail.FatherName == "John Doe")
                             {
@@ -135,15 +135,15 @@
                             }
                         </td>
                         <td>@invoice.ParentDetail.FatherName</td>
-                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.Total</td>
                         <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
-                        <td>@invoice.TotalAmount</td>
-                        <td>@invoice.TotalAmount</td>
+                        <td>@invoice.Total</td>
+                        <td>@invoice.Total</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-primary">Edit</a>
-                                <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-secondary">Preview</a>
-                                <a href="@Url.Action("Print", "Invoice", new { id = invoice.InvoiceID })" class="btn btn-sm btn-info">Print</a>
+                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-secondary">Preview</a>
+                                <a href="@Url.Action("Print", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-info">Print</a>
                             </div>
                         </td>
                     </tr>

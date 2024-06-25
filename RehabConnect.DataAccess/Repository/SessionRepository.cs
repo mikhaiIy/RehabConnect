@@ -23,9 +23,9 @@ namespace RehabConnect.DataAccess.Repository
             _db.SaveChanges();
         }
 
-        public void Update(Schedule obj)
+        public void Update(Session obj)
         {
-            throw new NotImplementedException();
+            _db.Sessions.Update(obj);
         }
     }
 }

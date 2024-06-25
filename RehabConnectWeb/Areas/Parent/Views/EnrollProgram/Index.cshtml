@@ -1,192 +1,152 @@
 @model EnrollProgramVM
 
 @{
-    ViewData["Title"] = "Wizard Icons - Form Wizards";
+ViewData["Title"] = "Wizard Icons - Form Wizards";
 }
 
 @section VendorStyles {
-    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
-    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
-    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
-
+  <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+  <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+  <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+  <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
 }
 
 @section VendorScripts {
-    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
-    <script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-    <script src="~/vendor/libs/select2/select2.js"></script>
-    <script src="~/vendor/libs/moment/moment.js"></script>
-    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+  <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+  <script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+  <script src="~/vendor/libs/select2/select2.js"></script>
+  <script src="~/vendor/libs/moment/moment.js"></script>
+  <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
 }
 
 @section PageScripts {
-    <script src="~/js/enrollprogram.js"></script>
-    <script>
-        // Schedule data from the model
-        var scheduleData = @Html.Raw(Model.ScheduleDataJson);
+  <script>
+    var stepIdToActivate = @Model.stepId;
+    // Schedule data from the model
+    var scheduleData = @Html.Raw(Model.ScheduleDataJson);
 
-        // Initialize flatpickr
-        flatpickr("#schedule-date", {
-            dateFormat: "Y-m-d",
-            enable: scheduleData.map(schedule => {
-                return new Date(schedule.Date);
-            }),
-            onChange: function (selectedDates, dateStr, instance) {
-                populateTimeDropdown(dateStr);
-            }
-        });
+    // Initialize flatpickr
+    flatpickr("#schedule-date", {
+      dateFormat: "Y-m-d",
+      enable: scheduleData.map(schedule => {
+        return new Date(schedule.Date);
+      }),
+      onChange: function (selectedDates, dateStr, instance) {
+        populateTimeDropdown(dateStr);
+      }
+    });
 
-        function populateTimeDropdown(selectedDate) {
-            console.log("Selected Date: ", selectedDate);
-            var timeDropdown = document.getElementById('schedule-time');
-            timeDropdown.innerHTML = ''; // Clear the dropdown
-            var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
-            console.log("Available Times: ", availableTimes);
-            availableTimes.forEach(schedule => {
-                var option = document.createElement('option');
-                option.value = schedule.ScheduleID; // Ensure this maps to ScheduleID
-                option.text = schedule.StartTime;
-                timeDropdown.appendChild(option);
-            });
-        }
-    </script>
+    function populateTimeDropdown(selectedDate) {
+      console.log("Selected Date: ", selectedDate);
+      var timeDropdown = document.getElementById('schedule-time');
+      timeDropdown.innerHTML = ''; // Clear the dropdown
+      var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
+      console.log("Available Times: ", availableTimes);
+      availableTimes.forEach(schedule => {
+        var option = document.createElement('option');
+        option.value = schedule.ScheduleID; // Ensure this maps to ScheduleID
+        option.text = schedule.StartTime;
+        timeDropdown.appendChild(option);
+      });
+    }
+  </script>
+  <script src="~/js/enroll-program.js"></script>
 }
 
 
 <!-- Your HTML content -->
 <h4 class="py-3 mb-4">
-    <span class="text-muted fw-light">RehabConnect /</span> Booking Session
+  <span class="text-muted fw-light">RehabConnect /</span> Booking Session
 </h4>
 <!-- Default -->
-<div class="row">
-    <!-- Default Icons Wizard -->
-    <div class="col-12 mb-4">
-        <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
-            <div class="bs-stepper-header">
-                <div class="step" data-target="#step1">
-                    <button type="button" class="step-trigger">
-                        <span class="bs-stepper-icon">
-                            <svg viewBox="0 0 54 54">
-                                <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
-                            </svg>
-                        </span>
-                        <span class="bs-stepper-label">@Model.Steps.Title</span>
-                    </button>
-                </div>
-                @* <div class="line">
-                    <i class="ti ti-chevron-right"></i>
-                </div>
-                <div class="step" data-target="#step2">
-                    <button type="button" class="step-trigger">
-                        <span class="bs-stepper-icon">
-                            <svg viewBox="0 0 58 54">
-                                <use xlink:href='/svg/icons/form-wizard-personal.svg#wizardPersonal'></use>
-                            </svg>
-                        </span>
-                        <span class="bs-stepper-label">Full Assessment</span>
-                    </button>
-                </div>
-                <div class="line">
-                    <i class="ti ti-chevron-right"></i>
-                </div>
-                <div class="step" data-target="#step3">
-                    <button type="button" class="step-trigger">
-                        <span class="bs-stepper-icon">
-                            <svg viewBox="0 0 54 54">
-                                <use xlink:href='/svg/icons/form-wizard-address.svg#wizardAddress'></use>
-                            </svg>
-                        </span>
-                        <span class="bs-stepper-label">Intervention with Consistency</span>
-                    </button>
-                </div>
-                <div class="line">
-                    <i class="ti ti-chevron-right"></i>
-                </div>
-                <div class="step" data-target="#step4">
-                    <button type="button" class="step-trigger">
-                        <span class="bs-stepper-icon">
-                            <svg viewBox="0 0 54 54">
-                                <use xlink:href='/svg/icons/form-wizard-social-link.svg#wizardSocialLink'></use>
-                            </svg>
-                        </span>
-                        <span class="bs-stepper-label">Re-Assessment</span>
-                    </button>
-                </div>
-                <div class="line">
-                    <i class="ti ti-chevron-right"></i>
-                </div>
-                <div class="step" data-target="#step5">
-                    <button type="button" class="step-trigger">
-                        <span class="bs-stepper-icon">
-                            <svg viewBox="0 0 54 54">
-                                <use xlink:href='/svg/icons/form-wizard-submit.svg#wizardSubmit'></use>
-                            </svg>
-                        </span>
-                        <span class="bs-stepper-label">Road to School</span>
-                    </button>
-                </div> *@
-            </div>
-
-            <form asp-action="BookSession" method="post">
-                <div id="step1" class="content">
-                    <div class="content-header mb-3">
-                        <h6 class="mb-0">Account Details</h6>
-                        <small>Review Your Children Details.</small>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
-                            <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
-                            <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
-                            <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control" />
-                        </div>
-                    </div>
-                    <div class="content-header mb-3 pt-3">
-                        <h6 class="mb-0">Program and Session Details</h6>
-                        <small>Select wisely.</small>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label asp-for="StudentProgram" class="form-label">Program Name</label>
-                            <select asp-for="StudentProgram" class="form-control" name="studentProgramId">
-                                <option value="">Select a program</option>
-                                @foreach (var program in Model.ProgramList)
-                                {
-                                    <option value="@program.ProgramID">@program.ProgramName</option>
-                                }
-                            </select>
-                            <span asp-validation-for="StudentProgram" class="text-danger"></span>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label">Status</label>
-                            <input disabled class="form-control" value="@Model.StudentProgram.Status" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="schedule-date">Select Date:</label>
-                            <input type="date" id="schedule-date" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="schedule-time">Select Time:</label>
-                            <select id="schedule-time" class="form-control" name="scheduleId">
-                                <option value="">Select a time</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between pt-2">
-                        <div>
-                            <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="col-12 mb-4">
+  <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
+    <div class="bs-stepper-header" role="tablist">
+      <!-- Loop through your steps here -->
+      @foreach (var step in Model.StepList)
+      {
+      <div class="step" id="step-@step.StepId">
+        <button type="button" class="step-trigger" role="tab" aria-controls="step-content-@step.StepId">
+          <span class="bs-stepper-icon">
+              <svg viewBox="0 0 54 54">
+                  <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
+              </svg>
+          </span>
+          <span class="bs-stepper-label label1">Step @step.StepNo</span>
+          <span class="bs-stepper-label label2">@step.Title</span>
+          <span  class="bs-stepper-label label3"></span>
+        </button>
+      </div>
+      @if (!ReferenceEquals(step, Model.StepList.Last()))
+      {
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      }
+      }
     </div>
+    <div class="bs-stepper-content">
+      <form asp-action="BookSession" method="post">
+        <div >
+          <div class="content-header mb-3">
+            <h6 class="mb-0">Account Details</h6>
+            <small>Review Your Children Details.</small>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
+              <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control"/>
+            </div>
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
+              <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control"/>
+            </div>
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
+              <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control"/>
+            </div>
+          </div>
+          <div class="content-header mb-3 pt-3">
+            <h6 class="mb-0">Program and Session Details</h6>
+            <small>Select wisely.</small>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <input asp-for="StudentProgram.Student.StudentID" name="studentId" hidden/>
+              <label asp-for="StudentProgram" class="form-label">Program Name</label>
+              <select asp-for="StudentProgram" class="form-control" name="studentProgramId">
+                <option value="">Select a program</option>
+                @foreach (var program in Model.ProgramList)
+                {
+                <option value="@program.ProgramID">@program.ProgramName</option>
+                }
+              </select>
+              <span asp-validation-for="StudentProgram" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Status</label>
+              <input disabled class="form-control" value="@Model.StudentProgram.Status"/>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label" for="schedule-date">Select Date:</label>
+              <input type="date" id="schedule-date" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23"/>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label" for="schedule-time">Select Time:</label>
+              <select id="schedule-time" class="form-control" name="scheduleId">
+                <option value="">Select a time</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-between pt-2">
+            <div>
+              <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
 

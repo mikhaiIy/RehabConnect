@@ -24,7 +24,5 @@ namespace RehabConnect.Models
         [Required]
         public TimeSpan Duration { get; set; }
 
-        // Navigation properties
-        public ICollection<Session> Sessions { get; set; }
     }
 }

@@ -82,6 +82,13 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return Json(new { data = invoiceBillingVm });
     }
 
+    [HttpGet]
+    public IActionResult GetParent()
+    {
+      IEnumerable<ParentDetail> parentDetails = _unitOfWork.ParentDetail.GetAll();
+      return Json(new { data = parentDetails });
+    }
+
     #endregion
   }
 

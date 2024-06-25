@@ -56,38 +56,46 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
 
     public IActionResult Index(int? id)
     {
-      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      // we have studentId, from here we can get programId from StudentProgram
+      // but we need to find the programId(Select) for the student with the attribute Status == ongoing(&&)
+      // okay now the problem is that we are getting IEnum<int> of ProgramId, since 1 student could have many ProgramId (FirstOrDefault)
+      var programId = _unitOfWork.StudentProgram.Find(u => u.StudentID == id && u.Status == StudentStatus.Ongoing).Select(p => p.ProgramID).FirstOrDefault();
+      // next from the ProgramId, we'll need to find the single(FirstOrDefault) StepId(Select)
+      var stepId = _unitOfWork.Program.Find(u=> u.ProgramID == programId).Select(a=>a.StepId).FirstOrDefault();
+      // then with the StepId, we find its corresponding RoadmapId
+      var roadmapId = _unitOfWork.Step.Find(u=>u.StepId == stepId).Select(p=>p.RoadmapId).FirstOrDefault();
+
+      // Other
       var student = _unitOfWork.Student
-          .Find(s => s.StudentID == id)
-          .FirstOrDefault();
-      var programs = _db.Programs.ToList();
-      var programid = _unitOfWork.StudentProgram.Get(s => s.Status == StudentStatus.Ongoing);
-      var stepsId = _unitOfWork.Program.Find(z => z.ProgramID == programid.ProgramID).Select(s => s.StepId).ToList();
-      var steps = _unitOfWork.Step.Get(u => u.StepId == programid.Program.StepId);
-
+        .Find(s => s.StudentID == id)
+        .FirstOrDefault();
       var schedules = _unitOfWork.Schedule.GetAll()
-          .Select(s => new
-          {
-            Date = s.Date.ToString("yyyy-MM-dd"),
-            StartTime = s.StartTime.ToString(@"hh\:mm"),
-            ScheduleID = s.ScheduleID
-          })
-          .ToList();
+        .Select(s => new
+        {
+          Date = s.Date.ToString("yyyy-MM-dd"),
+          StartTime = s.StartTime.ToString(@"hh\:mm"),
+          ScheduleID = s.ScheduleID
+        })
+        .ToList();
 
-      EnrollProgramVM enrollProgramVM = new EnrollProgramVM()
+      EnrollProgramVM enrollProgramVm = new EnrollProgramVM()
       {
         StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.UserId == student.UserId),
         Schedule = _unitOfWork.Schedule.GetAll(),
-        ProgramList = _unitOfWork.Program.Find(p => stepsId.Contains(p.StepId)),
-        Steps = steps,
-        ScheduleDataJson = JsonConvert.SerializeObject(schedules)
+        ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId),
+        ScheduleDataJson = JsonConvert.SerializeObject(schedules),
+
+        // -- Header
+        StepList = _unitOfWork.Step.Find(u=>u.RoadmapId==roadmapId),
+        stepId = stepId
       };
 
-      return View(enrollProgramVM);
+
+      return View(enrollProgramVm);
     }
 
     [HttpPost]
-    public IActionResult BookSession(int studentProgramId, int scheduleId)
+    public IActionResult BookSession(int studentProgramId, int scheduleId, int studentId)
     {
       Console.WriteLine("Received StudentProgramId: " + studentProgramId);
       Console.WriteLine("Received ScheduleId: " + scheduleId);
@@ -109,14 +117,12 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
         {
           StudentProgramId = studentProgramId,
           ScheduleID = scheduleId,
-          StudentProgram = _unitOfWork.StudentProgram.Get(s => s.StudentProgramId == studentProgramId), // Optionally set navigation properties
-          Schedule = _unitOfWork.Schedule.Get(z => z.ScheduleID == scheduleId) // Optionally set navigation properties
         };
 
         _unitOfWork.Session.Add(session);
         _unitOfWork.Save();
 
-        return RedirectToAction("Index"); // Redirect to an appropriate action or view
+        return RedirectToAction("Index", new {id = studentId}); // Redirect to an appropriate action or view
       }
 
       return View("Index");
