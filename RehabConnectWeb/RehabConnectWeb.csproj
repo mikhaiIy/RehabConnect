@@ -264,10 +264,6 @@
     <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
-    <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Add.cshtml" />
@@ -283,8 +279,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Student\" />
-    <None Include="Views\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
-    <None Include="Views\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
