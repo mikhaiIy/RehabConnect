@@ -5,44 +5,38 @@
     ViewData["Title"] = "Log out";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Content</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-misc.css">
+}
 
-        .centered-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <header class="centered-content">
-        <div>
-            <h1>@ViewData["Title"]</h1>
-            @{
-                if (User.Identity?.IsAuthenticated ?? false)
-                {
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                        <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
-                    </form>
-                }
-                else
-                {
-                    <p>You have successfully logged out of the application.</p>
-                }
+@* ************** Content ************** *@
+<!--Under Maintenance -->
+<div class="container-xxl container-p-y">
+    <div class="misc-wrapper">
+        <h2 class="mb-1 mx-2">Are you sure you want to log out?</h2>
+        <p class="mb-4 mx-2">
+            Thank you for using our system. Hope to see you again!
+        </p>
+        @{
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="btn btn-primary mb-4">Click here to Logout</button>
+                </form>
             }
+            else
+            {
+                <p>You have successfully logged out of the application.</p>
+            }
+        }
+        <div class="mt-4">
+            <img src="~/img/illustrations/page-misc-under-maintenance.png" alt="page-misc-under-maintenance" width="550" class="img-fluid">
         </div>
-    </header>
-</body>
-</html>
+    </div>
+</div>
+<div class="container-fluid misc-bg-wrapper misc-under-maintenance-bg-wrapper">
+    <img src="~/img/illustrations/bg-shape-image-light.png" alt="page-misc-under-maintenance" data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png">
+</div>
+<!-- /Under Maintenance -->
+
+

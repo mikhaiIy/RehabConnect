@@ -43,7 +43,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
         _unitOfWork.ParentDetail.Add(obj);
         _unitOfWork.Save();
         TempData["success"] = "ParentDetail created successfully";
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", "Student", new { Area = "Parent" });
       }
       else
       {

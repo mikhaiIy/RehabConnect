@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CustomerSupportController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -56,14 +56,18 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
                     if(CustomerSupportObj.CSID == 0)
                     {
                         _unitOfWork.CustomerSupport.Add(CustomerSupportObj);
-                    }
+          _unitOfWork.Save();
+          TempData["success"] = "Customer Support created successfully";
+          return RedirectToAction("Register", "Account", new { Area = "Identity" });
+        }
                     else
                     {
                         _unitOfWork.CustomerSupport.Update(CustomerSupportObj);
-                    }
-                    _unitOfWork.Save();
-                    TempData["success"] = "Customer Support created successfully";
-                    return RedirectToAction("Index");
+          _unitOfWork.Save();
+          TempData["success"] = "Customer Support updated successfully";
+          return RedirectToAction("Index");
+        }
+                    
           }
           else
           {

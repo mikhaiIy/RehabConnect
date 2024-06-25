@@ -428,10 +428,20 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" asp-controller="Pages" asp-action="ProfileUser">
-                <i class="ti ti-user-check me-2 ti-sm"></i>
-                <span class="align-middle">My Profile</span>
-              </a>
+                    @if (User.IsInRole(SD.Role_Parent))
+                    {
+                        <a class="dropdown-item" asp-controller="ParentDetail" asp-action="Index">
+                            <i class="ti ti-user-check me-2 ti-sm"></i>
+                            <span class="align-middle">My Profile</span>
+                        </a>
+                    }
+                    else{
+                        <a class="dropdown-item" asp-controller="Pages" asp-action="ProfileUser">
+                            <i class="ti ti-user-check me-2 ti-sm"></i>
+                            <span class="align-middle">My Profile</span>
+                        </a>
+                    }
+                    
             </li>
             <li>
               <a class="dropdown-item" asp-controller="Pages" asp-action="AccountSettings">

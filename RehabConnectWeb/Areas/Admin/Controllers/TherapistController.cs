@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]
+    [Authorize(Roles = SD.Role_Admin)]
     public class TherapistController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -53,14 +53,18 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
                 if(TherapistObj.TherapistID == 0)
                 {
                     _unitOfWork.Therapist.Add(TherapistObj);
-                }
+                    _unitOfWork.Save();
+                    TempData["success"] = "Therapist created successfully";
+                    return RedirectToAction("Register", "Account", new { Area = "Identity" });
+        }
                 else
                 {
                     _unitOfWork.Therapist.Update(TherapistObj);
-                }
-                _unitOfWork.Save();
-                TempData["success"] = "Therapist created successfully";
-                return RedirectToAction("Index");
+                    _unitOfWork.Save();
+                    TempData["success"] = "Therapist updated successfully successfully";
+                    return RedirectToAction("Index");
+        }
+                
       }
       else
       {
