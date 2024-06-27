@@ -139,7 +139,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
           {
             StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.UserId == student.UserId),
             Schedule = _unitOfWork.Schedule.GetAll(),
-            ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId),
+            ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId && p.ProgramID == programId),
             ScheduleDataJson = JsonConvert.SerializeObject(schedules),
             StepList = _unitOfWork.Step.Find(u => u.RoadmapId == roadmapId),
             stepId = stepId
