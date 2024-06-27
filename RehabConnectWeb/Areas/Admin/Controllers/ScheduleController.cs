@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
+using RehabConnect.Models.ViewModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
@@ -25,12 +26,20 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
     public IActionResult Create()
     {
-      return View();
+      ScheduleViewModel vm = new ScheduleViewModel()
+      {
+        ProgramList = _unitOfWork.Program.GetAll().ToList()
+      };
+
+      return View(vm);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(string dt)
+    public async Task<IActionResult> Create(string dt, int idprog)
     {
+
+      var program = _unitOfWork.Program.Get(u => u.ProgramID == idprog);
+
       if (!string.IsNullOrEmpty(dt))
       {
         var dateTimes = dt.Split(',').Select(d => d.Trim()).ToList();
@@ -44,7 +53,9 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
               Date = DateOnly.FromDateTime(parsedDateTime),
               StartTime = parsedDateTime.TimeOfDay,
               EndTime = parsedDateTime.TimeOfDay + TimeSpan.FromHours(1),
-              Duration = TimeSpan.FromHours(1)
+              Duration = TimeSpan.FromHours(1),
+              ProgramID = idprog,
+              Program = program
             };
 
             _unitOfWork.Schedule.Add(schedule);

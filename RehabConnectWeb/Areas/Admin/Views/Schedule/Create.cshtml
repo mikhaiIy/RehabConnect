@@ -1,3 +1,5 @@
+@model ScheduleViewModel
+
 @{
   ViewData["Title"] = "Create Schedule";
 }
@@ -33,6 +35,17 @@
               <input type="text" class="form-control" placeholder="YYYY-MM-DD HH:MM" id="flatpickr-multi" name="dt"/>
               </div>
              <!-- /Multiple Dates Picker-->
+             <div class="col-md-6 col-12 mb-4">
+             <label  asp-for="Program" class="form-label">Select program</label>
+             <select asp-for="Program" class="form-select"  name="idprog">
+                <option>Select program</option>
+                @foreach (var obj in Model.ProgramList)
+                 {
+                    <option value="@obj.ProgramID">@obj.ProgramName</option>
+                 }
+             </select>
+             <span asp-validation-for="Program" class="text-danger"></span>
+             </div> 
           </div>
           <div class="row pt-3">
             <button type="submit" class="btn btn-primary">Submit</button>
