@@ -6,8 +6,12 @@ $(document).ready(function () {
 
 function loadDataTable() {
   dataTable = $('#tblData').DataTable({
-    "ajax": { url: '/admin/schedule/getall' },
+    "ajax": {
+      url: '/admin/schedule/getall',
+      dataSrc: 'data'
+    },
     "columns": [
+      /*{ "data": 'programID', "width": '20%' },*/
       { "data": 'date', "width": '20%' },
       { "data": 'startTime', "width": '20%' },
       { "data": 'endTime', "width": '20%' },
@@ -27,6 +31,7 @@ function loadDataTable() {
     ]
   });
 }
+
 
 function deleteConfirmation(id) {
   Swal.fire({

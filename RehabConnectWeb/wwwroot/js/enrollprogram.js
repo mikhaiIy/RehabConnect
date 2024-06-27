@@ -1,5 +1,5 @@
 /**
- *  Form Wizard
+ * Form Wizard
  */
 
 'use strict';
@@ -128,7 +128,7 @@ $(function () {
     }
   }
 
-  // Icons Modern Wizard
+  // Icons Modern Wizard Vertical
   // --------------------------------------------------------------------
   const wizardIconsModernVertical = document.querySelector('.wizard-modern-vertical-icons-example');
 

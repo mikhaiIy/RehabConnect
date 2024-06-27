@@ -10,6 +10,10 @@ namespace RehabConnect.Models.ViewModel
     {
         public string Day { get; set; }
         public List<PeriodViewModel> Periods { get; set; }
+
+        public IEnumerable<Program>? ProgramList { get; set; }
+
+        public Program? Program { get; set; }
     }
 
     public class PeriodViewModel
