@@ -89,6 +89,28 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return Json(new { data = parentDetails });
     }
 
+    [HttpGet]
+    public IActionResult GetProgramList(int? parentId)
+    {
+      var userId = _unitOfWork.ParentDetail.Find(u => u.ParentID == parentId).Select(i => i.UserId).FirstOrDefault();
+      var childId = _unitOfWork.Student.Find(u => u.UserId == userId).Select(i => i.StudentID).FirstOrDefault();
+      var programIds = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId && z.Status == StudentStatus.Ongoing).Select(o => o.ProgramID).FirstOrDefault();
+      var stepId = _unitOfWork.Program.Find(u => u.ProgramID == programIds).Select(i => i.StepId).FirstOrDefault();
+      var programs = _unitOfWork.Program.Find(u => u.StepId == stepId).ToList();
+      //var programs = _unitOfWork.Program.GetA(l => programIds.Contains(l.ProgramID)).ToList();
+
+      //cari step
+      //if combinepricing, amik price dari step, else amik price dari program based on progid
+
+      InvoiceVM vm = new InvoiceVM()
+      {
+        ProgramList = programs,
+        Steps = _unitOfWork.Step.Find(v => v.StepId == stepId).ToList(),
+      };
+
+      return Json(new { data = vm });
+    }
+
     #endregion
   }
 
