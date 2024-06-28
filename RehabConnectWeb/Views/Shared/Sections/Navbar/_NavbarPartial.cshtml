@@ -1,3 +1,4 @@
+@using System.Security.Claims
  @* ! Brand demo (display only for navbar-full and hide on below xl) *@
     @if (ViewData["navbarFull"] != null)
     {
@@ -435,6 +436,14 @@
                             <span class="align-middle">My Profile</span>
                         </a>
                     }
+                    @if (User.IsInRole(SD.Role_CustomerSupport))
+                    {
+                        <a class="dropdown-item" asp-area="CustomerSupport" asp-controller="CustomerSupport" asp-action="Index" asp-route-CSID="@(User.FindFirstValue(ClaimTypes.NameIdentifier))">
+                            <i class="ti ti-user-check me-2 ti-sm"></i>
+                            <span class="align-middle">My Profile</span>
+                        </a>
+                    }
+
                     else{
                         <a class="dropdown-item" asp-controller="Pages" asp-action="ProfileUser">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
