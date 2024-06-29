@@ -81,26 +81,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var schedule in Model)
-                    {
-                        <tr>
-                            <td class="highlight"><b>@schedule.Day</b></td>
-                            @for (int i = 0; i < 7; i++)
-                            {
-                                var period = schedule.Periods.ElementAtOrDefault(i);
-                                <td>
-                                    @if (period != null)
-                                    {
-                                        @period.Subject
-                                    }
-                                </td>
-                            }
-                            @if (schedule.Day == "Monday" || schedule.Day == "Tuesday" || schedule.Day == "Thursday" || schedule.Day == "Friday")
-                            {
-                                <td rowspan="6" class="special"><b>LUNCH</b></td>
-                            }
-                        </tr>
-                    }
+
                 </tbody>
             </table>
         </div>

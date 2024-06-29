@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const bsAddEventSidebar = new bootstrap.Offcanvas(addEventSidebar);
 
     //! TODO: Update Event label and guest code to JS once select removes jQuery dependency
-    // Event Label (select2)
+    // Event Label/Type (select2)
     if (eventLabel.length) {
       function renderBadges(option) {
         if (!option.id) {
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // --------------------------------------------------------------------------------------------------
     function fetchEvents(info, successCallback) {
       // Fetch Events from API endpoint reference
-      /* $.ajax(
+       $.ajax(
         {
           url: '../../../app-assets/data/app-calendar-events.js',
           type: 'GET',
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(error);
           }
         }
-      ); */
+      );
 
       let calendars = selectedCalendars();
       // We are reading event object from app-calendar-events.js file directly by including that file above app-calendar file.
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
       eventClassNames: function ({ event: calendarEvent }) {
         const colorName = calendarsColor[calendarEvent._def.extendedProps.calendar];
         // Background Color
-        return ['fc-event-' + colorName];
+        return ['fc-event-' + colorName]
       },
       dateClick: function (info) {
         let date = moment(info.date).format('YYYY-MM-DD');

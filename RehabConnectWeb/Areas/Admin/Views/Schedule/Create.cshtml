@@ -5,52 +5,271 @@
 }
 
 @section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/fullcalendar/fullcalendar.css" />
 <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/quill/editor.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
 }
 
 @section VendorScripts {
-<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/fullcalendar/fullcalendar.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
 <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="~/vendor/libs/moment/moment.js"></script>
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/app-calendar.css" />
 }
 
 @section PageScripts {
-<script src="~/js/forms-pickers.js"></script>
+  <script src="~/js/calendar-admin.js"></script>
+  <script src="~/js/schedule-admin.js"></script>
 }
 @* ************** Content ************** *@
 <h4 class="py-3 mb-0">
     <span class="text-muted fw-light">RehabConnect /</span><span class="fw-medium"> Create Schedule</span>
 </h4>
 
-<div class="row">
-  <!-- Flat Picker -->
-  <div class="col-12 mb-4">
-    <div class="card">
-      <h5 class="card-header">Create Schedule</h5>
-      <div class="card-body">
-        <form method="post">
-          <div class="row">
-             <!-- Multiple Dates Picker-->
-              <div class="col-md-6 col-12 mb-4">
-              <label for="flatpickr-multi" class="form-label">Pick following date and time:</label>
-              <input type="text" class="form-control" placeholder="YYYY-MM-DD HH:MM" id="flatpickr-multi" name="dt"/>
-              </div>
-             <!-- /Multiple Dates Picker-->
-             <div class="col-md-6 col-12 mb-4">
-             <label  asp-for="Program" class="form-label">Select program</label>
-             <select asp-for="Program" class="form-select"  name="idprog">
-                <option>Select program</option>
-                @foreach (var obj in Model.ProgramList)
-                 {
-                    <option value="@obj.ProgramID">@obj.ProgramName</option>
-                 }
-             </select>
-             <span asp-validation-for="Program" class="text-danger"></span>
-             </div> 
+@* <div class="row g-3"> *@
+@*   <!-- Flat Picker --> *@
+@*   <div class="col-12 mb-4"> *@
+@*     <div class="card"> *@
+@*       <h5 class="card-header">Create Schedule</h5> *@
+@*       <div class="card-body"> *@
+@*         <form method="post"> *@
+@*             <div class="row g-3"> *@
+@*               <div class="col-md-4"> *@
+@*                 <label class="col-form-label">Choose Roadmap</label> *@
+@*                 <div class="col-sm-10"> *@
+@*                   <select class="form-control" id="roadmapSelect" name="roadmap"> *@
+@*                     <option disabled selected>--Select Roadmap--</option> *@
+@*                   </select> *@
+@*                 </div> *@
+@*               </div> *@
+@*               <div class="col-md-4"> *@
+@*                 <label class="col-form-label">Choose Step</label> *@
+@*                 <div class="col-sm-10"> *@
+@*                   <select class="form-control" id="stepSelect" name="step"> *@
+@*                     <option disabled selected>--Select Step--</option> *@
+@*                   </select> *@
+@*                 </div> *@
+@*               </div> *@
+@*               <div class="col-md-4"> *@
+@*                 <label class="col-form-label">Choose Program Session</label> *@
+@*                 <div class="col-sm-10"> *@
+@*                   <select class="form-control" id="programSelect" name="programId"> *@
+@*                     <option disabled selected>--Select Session--</option> *@
+@*                   </select> *@
+@*                 </div> *@
+@*               </div> *@
+@*             </div> *@
+@*             <div class="row mb-3"> *@
+@*               <div class="col-md-4"> *@
+@*                 <label class="col-sm-2 col-form-label">Capacity: </label> *@
+@*                 <input type="number" class="form-control" placeholder="How many Slots per Session Available" name="capacity"/> *@
+@*               </div> *@
+@* *@
+@*             </div> *@
+@*             <div class="row mb-3"> *@
+@*               <label class="switch"> *@
+@*                 <input type="checkbox" class="switch-input" id="dateType"/> *@
+@*                 <span class="switch-label">Weekend</span> *@
+@*                 <span class="switch-toggle-slider"> *@
+@*                   <span class="switch-on"> *@
+@*                     <i class="ti ti-check"></i> *@
+@*                   </span> *@
+@*                   <span class="switch-off"> *@
+@*                     <i class="ti ti-check"></i> *@
+@*                   </span> *@
+@*                 </span> *@
+@*                 <span class="switch-label">Weekday</span> *@
+@*               </label> *@
+@*             </div> *@
+@*           <!-- START - Multiple Dates Picker--> *@
+@*           <div class="row"> *@
+@*             <div class="col-md-6 col-6 mb-4"> *@
+@*               <label for="flatpickr-multi" class="form-label">Date</label> *@
+@*               <input type="text" class="form-control mb-1" placeholder="Select one or more Dates" id="flatpickr-multi" name="startDt"/> *@
+@*             </div> *@
+@*             <div class="col-md-6 col-6 mb-4"> *@
+@*               <label  class="col-form-label">Session Start </label> *@
+@*               <input type="time" class="form-control" placeholder=""  name="startTime"/> *@
+@*             </div> *@
+@*             <div class="col-md-6 col-6 mb-4"> *@
+@*               <label  class="col-form-label">Session End</label> *@
+@*               <input type="time" class="form-control" placeholder=""  name="endTime"/> *@
+@*             </div> *@
+@*           </div> *@
+@*           <!-- END - Multiple Dates Picker--> *@
+@*           <div class="row pt-3"> *@
+@*             <button type="submit" class="btn btn-primary">Submit</button> *@
+@*           </div> *@
+@*         </form> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@* </div> *@
+
+@* ************* Calendar ************** *@
+
+<div class="card app-calendar-wrapper">
+  <div class="row g-0">
+    <!-- Calendar Sidebar -->
+    <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+      <div class="border-bottom p-4 my-sm-0 mb-3">
+        <div class="d-grid">
+          <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+            <i class="ti ti-plus me-1"></i>
+            <span class="align-middle">Add Schedule</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-3">
+        <!-- inline calendar (flatpicker) -->
+        <div class="inline-calendar"></div>
+
+        <hr class="container-m-nx mb-4 mt-3">
+
+        <!-- Filter -->
+        <div class="mb-3 ms-3">
+          <small class="text-small text-muted text-uppercase align-middle">Filter</small>
+        </div>
+
+        <div class="form-check mb-2 ms-3">
+          <input class="form-check-input select-all" type="checkbox" id="selectAll" data-value="all" checked>
+          <label class="form-check-label" for="selectAll">View All</label>
+        </div>
+
+        <div class="app-calendar-events-filter ms-3">
+          <div class="form-check form-check-danger mb-2">
+            <input class="form-check-input input-filter" type="checkbox" id="select-personal" data-value="consultation" checked>
+            <label class="form-check-label" for="select-personal">Consultation</label>
           </div>
-          <div class="row pt-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>   
-        </form>
+          <div class="form-check mb-2">
+            <input class="form-check-input input-filter" type="checkbox" id="select-business" data-value="assessment" checked>
+            <label class="form-check-label" for="select-business">Assessment</label>
+          </div>
+          <div class="form-check form-check-warning mb-2">
+            <input class="form-check-input input-filter" type="checkbox" id="select-family" data-value="report" checked>
+            <label class="form-check-label" for="select-family">Full Development Report</label>
+          </div>
+          <div class="form-check form-check-success mb-2">
+            <input class="form-check-input input-filter" type="checkbox" id="select-holiday" data-value="program" checked>
+            <label class="form-check-label" for="select-holiday">Programs</label>
+          </div>
+          <div class="form-check form-check-info">
+            <input class="form-check-input input-filter" type="checkbox" id="select-etc" data-value="school" checked>
+            <label class="form-check-label" for="select-etc">Road to School</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Calendar Sidebar -->
+    <!-- Calendar & Modal -->
+    <div class="col app-calendar-content">
+      <div class="card shadow-none border-0">
+        <div class="card-body pb-0">
+          <!-- FullCalendar -->
+          <div id="calendar"></div>
+        </div>
+      </div>
+      <div class="app-overlay"></div>
+      <!-- FullCalendar Offcanvas -->
+      <div class="offcanvas offcanvas-end event-sidebar" tabindex="-1" id="addEventSidebar" aria-labelledby="addEventSidebarLabel">
+        <div class="offcanvas-header my-1">
+          <h5 class="offcanvas-title" id="addEventSidebarLabel">Add Schedule</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body pt-0">
+          <form method="post" id="eventForm">
+            <div class="mb-3" id="eventRoadmap">
+              <label class="form-label" for="roadmapSelect">Choose Roadmap</label>
+              <select class="form-select" id="roadmapSelect" name="roadmap">
+                <option disabled selected>--Select Roadmap--</option>
+              </select>
+            </div>
+            <div class="mb-3" id="eventStep">
+              <label class="form-label" for="stepSelect">Choose Step</label>
+              <select class="form-select" id="stepSelect" name="step">
+                <option disabled selected>--Select Step--</option>
+              </select>
+            </div>
+            <div class="mb-3" id="eventProgram">
+              <label class="form-label" for="programSelect">Choose Program Session</label>
+              <select class="form-select" id="programSelect" name="programId">
+                <option disabled selected>--Select Session--</option>
+              </select>
+            </div>
+            <div class="mb-3 d-none" id="eventTitle" name="eventTitle">
+              <label class="form-label" for="eventTitleInfo">Title</label>
+              <input type="text" class="form-control" id="eventTitleInfo" name="eventTitle" placeholder="Event Title" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="capacity">Capacity: </label>
+              <input type="number" class="form-control" placeholder="How many Slots per Session Available" id="capacity" name="capacity"/>
+            </div>
+            <div class="mb-3 d-none" id="eventRegistered">
+              <label class="form-label" for="registered">Registered Student: </label>
+              <input type="number" class="form-control" placeholder="How many Students have Registered" id="registered" name="registered"/>
+            </div>
+            <div class="mb-3" id="eventType">
+              <label class="form-label">Session type: </label>
+              <label class="switch">
+                <input type="checkbox" class="switch-input" id="dateType"/>
+                <span class="switch-label">Weekend</span>
+                <span class="switch-toggle-slider">
+                  <span class="switch-on">
+                    <i class="ti ti-check"></i>
+                  </span>
+                  <span class="switch-off">
+                    <i class="ti ti-check"></i>
+                  </span>
+                </span>
+                <span class="switch-label">Weekday</span>
+              </label>
+            </div>
+            <div class="mb-3" id="eventDate">
+              <label for="flatpickr-multi" class="form-label">Date</label>
+              <input type="text" class="form-control mb-1" placeholder="Select one or more Dates" id="flatpickr-multi" name="startDt"/>
+            </div>
+            <div class="mb-3 d-none" id="eventDateInfo">
+              <label for="eventDateInfo1" class="form-label">Date</label>
+              <input type="text" id="eventDateInfo1" class="form-control mb-1" placeholder="yy MM DD"/>
+            </div>
+            <div class="row" id="eventTime">
+              <div class="mb-3">
+                <label  class="col-form-label">Session Start </label>
+                <input type="time" class="form-control" placeholder=""  name="startTime"/>
+              </div>
+              <div class="mb-3">
+                <label  class="col-form-label">Session End</label>
+                <input type="time" class="form-control" placeholder=""  name="endTime"/>
+              </div>
+            </div>
+            <div class="row d-none" id="eventTimeInfo">
+              <div class="mb-3">
+                <label  class="col-form-label" for="eventTimeInfo1">Session Start </label>
+                <input type="text" id="eventTimeInfo1" class="form-control" placeholder="XX:XX" name="eventTimeInfo1"/>
+              </div>
+              <div class="mb-3">
+                <label  class="col-form-label" for="eventTimeInfo2">Session End</label>
+                <input type="text" id="eventTimeInfo2" class="form-control"  placeholder="XX:XX" name="eventTimeInfo2"/>
+              </div>
+            </div>
+            <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+              <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="reset" class="btn btn-label-secondary btn-cancel me-sm-0 me-1" data-bs-dismiss="offcanvas">Cancel</button>
+              </div>
+              <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

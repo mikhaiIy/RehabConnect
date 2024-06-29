@@ -630,7 +630,8 @@ html:not([dir=rtl]) .flatpickr-weekwrapper .flatpickr-weeks .flatpickr-weeks {
   color: #5d596c;
 }
 .light-style .flatpickr-day {
-  color: #6f6b7d;
+  /*changed*/
+  color: #7367f0;
   border-radius: 50rem;
 }
 .light-style .flatpickr-day:hover, .light-style .flatpickr-day:focus, .light-style .flatpickr-day.prevMonthDay:hover, .light-style .flatpickr-day.nextMonthDay:hover, .light-style .flatpickr-day.today:hover, .light-style .flatpickr-day.prevMonthDay:focus, .light-style .flatpickr-day.nextMonthDay:focus, .light-style .flatpickr-day.today:focus {

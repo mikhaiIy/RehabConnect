@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,15 +17,20 @@ namespace RehabConnect.Models
 
         [Required]
         public DateOnly Date { get; set; }
-
+        
         [Required]
-        public TimeSpan StartTime { get; set; }
-
+        [DisplayName("Session Start")]
+        public TimeOnly StartTime { get; set; }
+        
         [Required]
-        public TimeSpan EndTime { get; set; }
-
+        [DisplayName("Session End")]
+        public TimeOnly EndDTime { get; set; }
+        
         [Required]
-        public TimeSpan Duration { get; set; }
+        public int Capacity { get; set; }
+        
+        [Required]
+        public int Registered { get; set; }
 
         public int? ProgramID { get; set; }
 
