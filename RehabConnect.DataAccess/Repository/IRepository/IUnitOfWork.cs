@@ -32,6 +32,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         IReportRepository Report { get; }
 
         ISessionRepository Session { get; }
+        IAnnouncementRepository Announcement { get; }
         void Save();
     }
 }
