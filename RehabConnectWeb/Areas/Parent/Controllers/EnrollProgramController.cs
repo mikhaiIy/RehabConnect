@@ -69,21 +69,15 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       var student = _unitOfWork.Student
         .Find(s => s.StudentID == id)
         .FirstOrDefault();
-      var schedules = _unitOfWork.Schedule.GetAll()
-        .Select(s => new
-        {
-          Date = s.Date.ToString("yyyy-MM-dd"),
-          StartTime = s.StartTime.ToString(@"hh\:mm"),
-          ScheduleID = s.ScheduleID
-        })
-        .ToList();
+
+
 
       EnrollProgramVM enrollProgramVm = new EnrollProgramVM()
       {
         StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.UserId == student.UserId),
         Schedule = _unitOfWork.Schedule.GetAll(),
         ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId && p.ProgramID == programId),
-        ScheduleDataJson = JsonConvert.SerializeObject(schedules),
+
 
         // -- Header
         StepList = _unitOfWork.Step.Find(u=>u.RoadmapId==roadmapId),
@@ -116,13 +110,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       var student = _unitOfWork.Student.Find(s => s.StudentID == studentId).FirstOrDefault();
 
       // Fetch schedules
-      var schedules = _unitOfWork.Schedule.GetAll()
-                                          .Select(s => new
-                                          {
-                                            Date = s.Date.ToString("yyyy-MM-dd"),
-                                            StartTime = s.StartTime.ToString(@"hh\:mm"),
-                                            ScheduleID = s.ScheduleID
-                                          }).ToList();
+
 
       if (ModelState.IsValid)
       {
@@ -140,7 +128,6 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
             StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.UserId == student.UserId),
             Schedule = _unitOfWork.Schedule.GetAll(),
             ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId && p.ProgramID == programId),
-            ScheduleDataJson = JsonConvert.SerializeObject(schedules),
             StepList = _unitOfWork.Step.Find(u => u.RoadmapId == roadmapId),
             stepId = stepId
           });

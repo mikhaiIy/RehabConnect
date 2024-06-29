@@ -27,7 +27,9 @@ ViewData["Title"] = "Invoice - Create";
 }
 
 <h6 class="mb-4">Invoice To:</h6>
-<select id="parentSelect" name="parent"></select>
+<div class="col pb-2">
+    <select id="parentSelect" name="parent"></select>
+</div>
 @* ************** Content ************** *@
 <div class="row invoice-edit">
   <!-- Invoice Edit-->
@@ -117,46 +119,42 @@ ViewData["Title"] = "Invoice - Create";
           </div>
 
           <hr class="my-3 mx-n4"/>
-
+          <!--Select program-->
           <div class="source-item pt-4 px-0 px-sm-4">
             <div class="mb-3" data-repeater-list="group-a">
               <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
                 <div class="d-flex border rounded position-relative pe-0">
                   <div class="row w-100 p-3">
                     <div class="col-md-6 col-12 mb-md-0 mb-3">
-                      <p class="mb-2 repeater-title">Item</p>
-                      <select class="form-select item-details mb-3">
-                        <option selected disabled>Select Item</option>
-                        <option value="App Design">App Design</option>
-                        <option value="App Customization">App Customization</option>
-                        <option value="ABC Template">ABC Template</option>
-                        <option value="App Development">App Development</option>
+                      <p class="mb-2 repeater-title">Program</p>
+                      <select class="form-select item-details mb-3" id="ProgramSelect">
+                        <option selected disabled>Select Program</option>
                       </select>
                       <textarea class="form-control" rows="2" placeholder="Item Information"></textarea>
                     </div>
-                    <div class="col-md-3 col-12 mb-md-0 mb-3">
+                    @* <div class="col-md-3 col-12 mb-md-0 mb-3">
                       <p class="mb-2 repeater-title">Cost</p>
                       <input type="number" class="form-control invoice-item-price mb-3" placeholder="00" min="12"/>
-                      <div>
+                      @* <div>
                         <span>Discount:</span>
                         <span class="discount me-2">0%</span>
                         <span class="tax-1 me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 1">0%</span>
                         <span class="tax-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 2">0%</span>
                       </div>
-                    </div>
-                    <div class="col-md-2 col-12 mb-md-0 mb-3">
+                    </div> *@
+                    @* <div class="col-md-2 col-12 mb-md-0 mb-3">
                       <p class="mb-2 repeater-title">Qty</p>
                       <input type="number" class="form-control invoice-item-qty" placeholder="1" min="1" max="50"/>
-                    </div>
-                    <div class="col-md-1 col-12 pe-0">
+                    </div> *@
+                    <div class="col-md-2 col-12 pe-0">
                       <p class="mb-2 repeater-title">Price</p>
-                      <p class="mb-0">$24.00</p>
+                      <p class="mb-0 price-display"></p>
                     </div>
                   </div>
                   <div class="d-flex flex-column align-items-center justify-content-between border-start p-2">
                     <i class="ti ti-x cursor-pointer" data-repeater-delete></i>
                     <div class="dropdown">
-                      <i class="ti ti-settings ti-xs cursor-pointer more-options-dropdown" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                      @* <i class="ti ti-settings ti-xs cursor-pointer more-options-dropdown" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                       </i>
                       <div class="dropdown-menu dropdown-menu-end w-px-300 p-3" aria-labelledby="dropdownMenuButton">
 
@@ -188,7 +186,7 @@ ViewData["Title"] = "Invoice - Create";
                         </div>
                         <div class="dropdown-divider my-3"></div>
                         <button type="button" class="btn btn-label-primary btn-apply-changes">Apply</button>
-                      </div>
+                      </div> *@
                     </div>
                   </div>
                 </div>
@@ -215,20 +213,16 @@ ViewData["Title"] = "Invoice - Create";
               <div class="invoice-calculations">
                 <div class="d-flex justify-content-between mb-2">
                   <span class="w-px-100">Subtotal:</span>
-                  <span class="fw-medium">$5000.25</span>
+                  <span class="fw-medium" id="subtotal">$00.00</span>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="w-px-100">Discount:</span>
-                  <span class="fw-medium">$00.00</span>
-                </div>
-                <div class="d-flex justify-content-between mb-2">
-                  <span class="w-px-100">Tax:</span>
-                  <span class="fw-medium">$100.00</span>
+                  <span class="fw-medium" >$00.00</span>
                 </div>
                 <hr/>
                 <div class="d-flex justify-content-between">
                   <span class="w-px-100">Total:</span>
-                  <span class="fw-medium">$5100.25</span>
+                  <span class="fw-medium" id="total">$00.00</span>
                 </div>
               </div>
             </div>
