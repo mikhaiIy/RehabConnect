@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Collections.Generic;
+using RehabConnect.Models.ViewModel;
 
 namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 {
@@ -21,6 +22,11 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
     {
       var objStudentList = _unitOfWork.Student.GetAll(includeProperties: "Therapist").ToList();
       return View(objStudentList);
+    }
+
+    public IActionResult StudentProgram()
+    {
+      return View();
     }
 
     public IActionResult Upsert(int? Studentid)
@@ -114,6 +120,37 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
     }
 
     #region API CALLS
+
+    [HttpGet]
+    public IActionResult GetStudentProgram()
+    {
+      // Getting all Students Details
+      var studentList = _unitOfWork.Student.GetAll(includeProperties: "Therapist");
+      var studentPrograms = new List<StudentProgramVM>();
+
+      foreach (var obj in studentList)
+      {
+        var student = _unitOfWork.Student.Get(u => u.StudentID == obj.StudentID);
+        var studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentID == student.StudentID && u.Status==StudentStatus.Ongoing);
+        var program = _unitOfWork.Program?.Get(u => u.ProgramID == studentProgram.ProgramID);
+        var step = _unitOfWork.Step.Get(u => u.StepId == program.StepId);
+        var roadmap = _unitOfWork.Roadmap.Get(u => u.RoadmapId == step.RoadmapId);
+
+        var studentProgramVm = new StudentProgramVM
+        {
+          StudentId = student.StudentID,
+          StudentName = student.ChildName,
+          RoadmapName = roadmap.Name,
+          StepName = step.Title,
+          ProgramName = program.ProgramName,
+          Status = studentProgram.Status.ToString()
+        };
+
+        studentPrograms.Add(studentProgramVm);
+      }
+      return Json(new { data = studentPrograms });
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {

@@ -54,9 +54,19 @@ namespace RehabConnect.DataAccess.Repository
             return query.ToList();
         }
         
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public IEnumerable<T> Find(Expression<Func<T, bool>> expression, string? includeProperties = null)
         {
-            return dbSet.Where(expression);
+            IQueryable<T> query = dbSet;
+            query = query.Where(expression);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                             .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query;
         }
 
         public int Count()

@@ -35,21 +35,21 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: { url: '/customersupport/student/getall' },
+      ajax: { url: '/customersupport/student/GetStudentProgram' },
       columns: [
         // columns according to JSON
         { data: '' },
-        { data: 'childName' },
-        { data: 'childAge' },
-        { data: 'childRace' },
-        { data: 'childSex' },
-        { data: 'therapistName' }, // Updated to use therapistName directly
+        { data: 'studentName' },
+        { data: 'roadmapName' },
+        { data: 'stepName' },
+        { data: 'programName' },
+        { data: 'status' }, // Updated to use therapistName directly
         {
-          data: 'studentID',
+          data: 'studentId',
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="/customersupport/student/upsert?studentID=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="/customersupport/student/upsert?studentId=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
               '<a href="javascript:void(0);" class="text-body delete-record" data-id="' + data + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '</div>'
             );
@@ -73,8 +73,7 @@ $(function () {
           targets: 1,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            var $name = full['childName'],
-              $ic = full['childIC'],
+            var $name = full['studentName'],
               $row_output =
                 '<div class="d-flex justify-content-start align-items-center user-name">' +
                 '<div class="avatar-wrapper">' +
@@ -87,11 +86,7 @@ $(function () {
                 '" class="text-body text-truncate"><span class="fw-medium">' +
                 $name +
                 '</span></a>' +
-                '<small class="text-muted">' +
-                $ic +
-                '</small>' +
-                '</div>' +
-                '</div>';
+                '<small class="text-muted">'
             return $row_output;
           }
         },
@@ -99,7 +94,7 @@ $(function () {
           // User Age
           targets: 2,
           render: function (data, type, full, meta) {
-            var $age = full['childAge'];
+            var $age = full['roadmapName'];
             return '<span class="fw-medium">' + $age + '</span>';
           }
         },
@@ -107,7 +102,7 @@ $(function () {
           // Race
           targets: 3,
           render: function (data, type, full, meta) {
-            var $race = full['childRace'];
+            var $race = full['stepName'];
             return '<span class="fw-medium">' + $race + '</span>';
           }
         },
@@ -115,7 +110,7 @@ $(function () {
           // Sex
           targets: 4,
           render: function (data, type, full, meta) {
-            var $sex = full['childSex'];
+            var $sex = full['programName'];
             return '<span class="fw-medium">' + $sex + '</span>';
           }
         },
@@ -123,7 +118,7 @@ $(function () {
           // Therapist
           targets: 5,
           render: function (data, type, full, meta) {
-            var $therapist = full['therapistName'] || 'No Therapist Assigned';
+            var $therapist = full['status'];
             return '<span class="fw-medium">' + $therapist + '</span>';
           }
         }
@@ -285,13 +280,6 @@ $(function () {
             }
           ]
         },
-        {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Student</span>',
-          className: 'add-new btn btn-primary waves-effect waves-light',
-          attr: {
-            onclick: 'window.location.href="/customersupport/student/upsert"'
-          }
-        }
       ],
       // For responsive popup
       responsive: {
@@ -299,7 +287,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data();
-              return 'Details of ' + data['childName'];
+              return 'Details of ' + data['studentName'];
             }
           }),
           type: 'column',

@@ -10,6 +10,8 @@ ViewData["Title"] = "Wizard Icons - Form Wizards";
   <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
   <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
   <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="~/vendor/libs/animate-css/animate.css" />
+<link rel="stylesheet" href="~/vendor/libs/sweetalert2/sweetalert2.css" />
 }
 
 @section VendorScripts {
@@ -18,10 +20,38 @@ ViewData["Title"] = "Wizard Icons - Form Wizards";
   <script src="~/vendor/libs/select2/select2.js"></script>
   <script src="~/vendor/libs/moment/moment.js"></script>
   <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="~/vendor/libs/sweetalert2/sweetalert2.js"></script>
 }
 
 @section PageScripts {
-    <script src="~/js/enrollprogram.js"></script>
+<script>
+
+  $(function () {
+    var sweetAlertType = "@ViewBag.AlertType";
+    var sweetAlertMessage = "@ViewBag.AlertMessage";
+    console.log("alertype: ", sweetAlertType);
+    console.log("alertmsg: ", sweetAlertMessage);
+
+
+    if (sweetAlertType && sweetAlertMessage) {
+      Swal.fire({
+        title: "Warning!",
+        text: sweetAlertMessage,
+        icon: sweetAlertType,
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    }
+  });
+</script>
+<script>
+  var stepIdToActivate = @Model.stepId;
+  // Schedule data from the model
+  var scheduleData = @Html.Raw(Model.ScheduleDataJson);
+</script>
+<script src="~/js/enroll-program.js"></script>
 <script>
     $(document).ready(function () {
         var programz = @Html.Raw(JsonConvert.SerializeObject(Model.ProgramList));
@@ -169,5 +199,3 @@ ViewData["Title"] = "Wizard Icons - Form Wizards";
         </div>
     </div>
 </div>
-
-

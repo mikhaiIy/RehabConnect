@@ -31,7 +31,7 @@ namespace RehabConnect.DataAccess.Repository
 
         public void Update(Schedule obj)
         {
-            throw new NotImplementedException();
+            _db.Schedules.Update(obj);
         }
     }
 }
