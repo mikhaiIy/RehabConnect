@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace RehabConnect.DataAccess.Repository.IRepository
 {
-    public interface IScheduleRepository : IRepository<Schedule>
+    public interface IAnnouncementRepository : IRepository<Announcement>
     {
-        void AddRange(IEnumerable<Schedule> schedules);
-        void Update(Schedule obj);
+        void Update(Announcement obj);
     }
 }

@@ -22,6 +22,12 @@ namespace RehabConnect.DataAccess.Repository
         {
             _db.SaveChanges();
         }
+        
+        public void AddRange(IEnumerable<Schedule> schedules)
+        {
+            _db.Schedules.AddRange(schedules);
+            _db.SaveChanges();
+        }
 
         public void Update(Schedule obj)
         {

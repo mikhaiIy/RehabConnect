@@ -39,6 +39,7 @@ namespace RehabConnect.DataAccess.Data
         
         
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
 
