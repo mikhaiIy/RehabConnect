@@ -15,16 +15,7 @@ namespace RehabConnect.Models
         public DateOnly DateIssued { get; set; }
         [Required]
         public DateOnly DueDate { get; set; }
-        [Required]
-        public string ParentNames { get; set; }
-        [Required]
-        public string Address1 { get; set; }
-        [Required]
-        public string Address2 { get; set; }
-        [Required]
-        public string PhoneNum { get; set; }
-        [Required]
-        public string Email { get; set; }
+        
         [Required]
         public string PICNames { get; set; }
         
@@ -41,17 +32,25 @@ namespace RehabConnect.Models
         public decimal Discount { get; set; }
         
         [Required]
-        public decimal Tax { get; set; }
-        
-        [Required]
         public decimal Total { get; set; }
         public string? Status { get; set; }
+
+        [Required]
 
         public int ParentID { get; set; }
         [ForeignKey("ParentID")]
         [ValidateNever]
-        public ParentDetail ParentDetail { get; set; }  // Changed to ParentDetail
+        public ParentDetail ParentDetail { get; set; }  // Changed to ParentDetail       
 
-        
     }
+    //[Required]
+    //public string ParentNames { get; set; }
+    //[Required]
+    //public string Address1 { get; set; }
+    //[Required]
+    //public string Address2 { get; set; }
+    //[Required]
+    //public string PhoneNum { get; set; }
+    //[Required]
+    //public string Email { get; set; }
 }

@@ -9,6 +9,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
 {
     public interface IScheduleRepository : IRepository<Schedule>
     {
+        void AddRange(IEnumerable<Schedule> schedules);
         void Update(Schedule obj);
     }
 }

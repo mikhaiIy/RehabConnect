@@ -1,0 +1,117 @@
+@model Announcement
+
+@{
+    ViewData["Title"] = "Announcement";
+}
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/moment/moment.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+    <script src="~/js/form-layouts.js"></script>
+}
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('announcementForm').addEventListener('submit', function (event) {
+                var fileInput = document.getElementById('fileInput');
+                var file = fileInput.files[0];
+
+                if (file) {
+                    // Validate file extension
+                    var validExtensions = ['.jpg', '.jpeg', '.png'];
+                    var fileExtension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+                    if (!validExtensions.includes(fileExtension)) {
+                        alert('Only .jpg, .jpeg, and .png files are allowed.');
+                        event.preventDefault(); // Prevent the form from submitting
+                        return;
+                    }
+
+                    // Validate image dimensions
+                    var img = new Image();
+                    img.onload = function () {
+                        if (this.width !== 1920 || this.height !== 1080) {
+                            alert('The image dimensions must be 1920px width and 1080px height.');
+                            event.preventDefault(); // Prevent the form from submitting
+                        } else {
+                            // Proceed with the form submission
+                            document.getElementById('announcementForm').submit();
+                        }
+                    };
+                    img.src = URL.createObjectURL(file);
+                    event.preventDefault(); // Prevent the form from submitting to allow the image to load
+                }
+            });
+        });
+    </script>
+}
+
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.AnnouncementID != 0) ? "Update" : "Create") Announcement</h4>
+
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <!-- Basic Layout -->
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Announcement Form</h5> <small class="text-muted float-end">Default label</small>
+            </div>
+            <div class="card-body">
+                <form id="announcementForm" method="post" class="row" enctype="multipart/form-data">
+                    <input asp-for="AnnouncementID" hidden />
+                    <input asp-for="ImageUrl" hidden />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Display validation errors -->
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Title</label>
+                        <input type="text" asp-for="Title" class="form-control" placeholder="Free Therapy" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id semper nisi, ac luctus ex. In condimentum vehicula tortor eu finibus. In hac habitasse platea dictumst."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Upload Image</label>
+                        <input id="fileInput" type="file" name="file" class="form-control" accept=".png, .jpg, .jpeg" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span> <!-- Display file validation error -->
+                    </div>
+
+                    @* Display image preview if editing existing announcement *@
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="mb-3 form-group">
+                            <img src="@Model.ImageUrl" class="img-thumbnail" style="max-width: 960px; max-height: 540px;" />
+                        </div>
+                    }
+                    <div class="row mt-3">
+                        <div class="col-6 col-md-3">
+                            @if (Model.AnnouncementID != 0)
+                            {
+                                <button type="submit" class="btn btn-primary form-control">Update</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary form-control">Create</button>
+                            }
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="Announcement" asp-action="Index" class="btn btn-outline-primary border form-control">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

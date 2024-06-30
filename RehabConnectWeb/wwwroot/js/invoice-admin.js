@@ -1,89 +1,170 @@
-// Assuming you have already fetched parent data and populated the <select> element
-const apiUrl = '/Admin/Invoice/GetParent';
+$(document).ready(function () {
+  const apiUrl = '/Admin/Invoice/GetParent';
+  const programApiUrl = '/Admin/Invoice/GetProgramList';
 
-fetch(apiUrl)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(userData => {
-    const parentDetails = userData.data; // Assuming 'data' is the key in your response
-    const parents = parentDetails.map(parent => {
-      const fatherName = parent.fatherName || '';
-      const motherName = parent.motherName || '';
-      const combinedName = `${fatherName} & ${motherName}`;
-      const parentIds = parent.parentID;
-      const address1 = parent.fatherAddress;
-      const postcode = parent.fatherPostcode;
-      const city = parent.fatherCity;
-      const country = parent.fatherCountry;
-      const address2 = `${postcode} ${city}, ${country}`;
-      const phoneNum = parent.fatherPhoneNum;
-      const email = parent.fatherEmail;
-      return { parentIds, combinedName, address1, address2, phoneNum, email };
-    });
+  // Select elements
+  const parentSelect = document.getElementById('parentSelect');
+  const parentIDInput = document.getElementById('ParentID');
+  const programSelect = document.querySelector('.program-select');
+  const priceDisplay = document.querySelector('.price-display');
+  const priceInput = document.querySelector('.invoice-item-price');
+  const subtotalDisplay = document.getElementById('subtotal-display');
+  const subtotalInput = document.getElementById('subtotal-input');
+  const totalDisplay = document.getElementById('total-display');
+  const totalInput = document.getElementById('total-input');
 
-    // Now you have an array of objects with parentId and combinedName
-    console.log(parents); // Optional: You can log it here if needed
-
-    // Get the <select> element
-    const selectElement = document.getElementById('parentSelect');
-
-    // Populate the options
-    parents.forEach(parent => {
-      const optionElement = document.createElement('option');
-      optionElement.value = parent.parentIds;
-      optionElement.textContent = parent.combinedName;
-      selectElement.appendChild(optionElement);
-    });
-
-    // Get references to the address elements
-    const nameElement = document.querySelector('.mb-1:nth-child(2)');
-    const address1Element = document.querySelector('.mb-1:nth-child(3)');
-    const address2Element = document.querySelector('.mb-1:nth-child(4)');
-    const phoneElement = document.querySelector('.mb-1:nth-child(5)');
-    const emailElement = document.querySelector('.mb-1:nth-child(6)');
-
-    // Set default text for address elements
-    nameElement.innerText = 'Name';
-    address1Element.innerText = 'Address1';
-    address2Element.innerText = 'Address2';
-    phoneElement.innerText = 'Phone Number';
-    emailElement.innerText = 'Email';
-
-    // Listen for changes in the <select> element
-    selectElement.addEventListener('change', () => {
-      const selectedParentId = selectElement.value;
-      console.log('Selected Parent ID:', selectedParentId); // Log the selected ID
-
-      // Convert selectedParentId to a number (if needed)
-      const numericParentId = parseInt(selectedParentId, 10); // Assuming parentIds are integers
-
-      const selectedParent = parents.find(parent => parent.parentIds === numericParentId);
-
-      console.log('Selected Parent:', selectedParent); // Log the selected parent object
-
-
-      // Update address elements
-      if (selectedParent) {
-        nameElement.innerText = selectedParent.combinedName;
-        address1Element.innerText = selectedParent.address1;
-        address2Element.innerText = selectedParent.address2;
-        phoneElement.innerText = selectedParent.phoneNum;
-        emailElement.innerText = selectedParent.email;
-      } else {
-        // Handle the case when no parent is selected (optional)
-        nameElement.innerText = 'FatherName';
-        address1Element.innerText = 'FAddress1';
-        address2Element.innerText = 'FAddress2';
-        phoneElement.innerText = 'FPhone Number';
-        emailElement.innerText = 'email';
+  // Fetch parent data and populate the select element
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      return response.json();
+    })
+    .then(userData => {
+      const parents = userData.data;
 
+      parents.forEach(parent => {
+        const optionElement = document.createElement('option');
+        optionElement.value = parent.parentID;
+        optionElement.textContent = `${parent.fatherName || ''} & ${parent.motherName || ''}`;
+        parentSelect.appendChild(optionElement);
+      });
+
+      // Event listener for parent selection change
+      parentSelect.addEventListener('change', () => {
+        const selectedParentId = parseInt(parentSelect.value, 10);
+        const selectedParent = parents.find(parent => parent.parentID === selectedParentId);
+
+        if (selectedParent) {
+          document.querySelector('.mb-1:nth-child(2)').innerText = selectedParent.fatherName + " & " + selectedParent.motherName;
+          document.querySelector('.mb-1:nth-child(3)').innerText = selectedParent.fatherAddress;
+          document.querySelector('.mb-1:nth-child(4)').innerText = `${selectedParent.fatherPostcode} ${selectedParent.fatherCity}, ${selectedParent.fatherCountry}`;
+          document.querySelector('.mb-1:nth-child(5)').innerText = selectedParent.fatherPhoneNum;
+          document.querySelector('.mb-1:nth-child(6)').innerText = selectedParent.fatherEmail;
+
+          parentIDInput.value = selectedParentId;
+
+          fetchProgramsForParent(selectedParentId); // Fetch programs for the selected parent
+        } else {
+          resetDisplayValues(); // Reset display values if no parent is selected
+          parentIDInput.value = '';
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching parent data:', error);
     });
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+
+  // Function to fetch programs for a selected parent
+  function fetchProgramsForParent(parentId) {
+    const url = `${programApiUrl}?parentId=${parentId}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(programData => {
+        const programs = programData.data.programList;
+        const steps = programData.data.steps;
+
+        populateProgramSelect(programs, steps);
+      })
+      .catch(error => {
+        console.error('Error fetching program data:', error);
+      });
+  }
+
+  // Function to populate the program select dropdown
+  function populateProgramSelect(programs, steps) {
+    programSelect.innerHTML = '<option selected disabled>Select Program</option>';
+
+    const addedPrograms = new Set();
+
+    programs.forEach(program => {
+      const selectedStep = steps.find(step => step.stepId === program.stepId);
+
+      if (selectedStep && selectedStep.combinedPricing) {
+        const combinedPrograms = programs.filter(p => p.stepId === selectedStep.stepId).map(p => p.programName).join(' & ');
+
+        if (!addedPrograms.has(combinedPrograms)) {
+          const optionElement = document.createElement('option');
+          optionElement.value = selectedStep.stepId; // Use stepId or another appropriate value as the ID
+          optionElement.textContent = combinedPrograms; // Display combined program names
+          programSelect.appendChild(optionElement);
+
+          addedPrograms.add(combinedPrograms);
+        }
+      } else {
+        if (!addedPrograms.has(program.programName)) {
+          const optionElement = document.createElement('option');
+          optionElement.value = program.programID; // Use programID as the ID
+          optionElement.textContent = program.programName; // Display each program name separately
+          programSelect.appendChild(optionElement);
+
+          addedPrograms.add(program.programName);
+        }
+      }
+    });
+
+    programSelect.addEventListener('change', () => {
+      const selectedProgramID = programSelect.value;
+      const selectedProgram = programs.find(program => program.programID === parseInt(selectedProgramID));
+      const selectedStep = steps.find(step => step.stepId === selectedProgram.stepId);
+
+      if (selectedProgram) {
+        let price = 'Price not available';
+
+        if (selectedStep && selectedStep.combinedPricing) {
+          price = selectedStep.priceWeekday ? `$${selectedStep.priceWeekday.toFixed(2)}` : 'Price not available';
+          priceInput.value = selectedStep.priceWeekday ? selectedStep.priceWeekday.toFixed(2) : '';
+        } else {
+          price = selectedProgram.priceWeekday ? `$${selectedProgram.priceWeekday.toFixed(2)}` : 'Price not available';
+          priceInput.value = selectedProgram.priceWeekday ? selectedProgram.priceWeekday.toFixed(2) : '';
+        }
+
+        priceDisplay.textContent = price;
+        calculateSubtotalAndTotal();
+      } else {
+        priceDisplay.textContent = 'Price not available';
+        priceInput.value = '';
+        calculateSubtotalAndTotal();
+      }
+    });
+
+  }
+
+  // Function to calculate subtotal and total based on selected programs
+  function calculateSubtotalAndTotal() {
+    let subtotal = parseFloat(priceInput.value);
+
+    if (!isNaN(subtotal)) { // Ensure subtotal is a valid number
+      // Update subtotal display
+      subtotalDisplay.innerText = `$${subtotal.toFixed(2)}`;
+      subtotalInput.value = subtotal.toFixed(2); // Optional: Store subtotal in hidden input field
+
+      // Update total display (assuming no taxes or additional fees for simplicity)
+      totalDisplay.innerText = `$${subtotal.toFixed(2)}`;
+      totalInput.value = subtotal.toFixed(2); // Optional: Store total in hidden input field
+    } else {
+      // Display default or error message for subtotal and total
+      subtotalDisplay.innerText = 'Subtotal not available';
+      totalDisplay.innerText = 'Total not available';
+      subtotalInput.value = '';
+      totalInput.value = '';
+    }
+  }
+
+
+  // Function to reset display values when no parent is selected
+  function resetDisplayValues() {
+    document.querySelector('.mb-1:nth-child(2)').innerText = '';
+    document.querySelector('.mb-1:nth-child(3)').innerText = '';
+    document.querySelector('.mb-1:nth-child(4)').innerText = '';
+    document.querySelector('.mb-1:nth-child(5)').innerText = '';
+    document.querySelector('.mb-1:nth-child(6)').innerText = '';
+  }
+});

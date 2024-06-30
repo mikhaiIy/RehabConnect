@@ -1,3 +1,10 @@
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
  @* ! Brand demo (display only for navbar-full and hide on below xl) *@
     @if (ViewData["navbarFull"] != null)
     {
@@ -405,21 +412,20 @@
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="~/img/avatars/1.png" alt class="h-auto rounded-circle">
+              <img src="~/img/avatars/donut.png" alt class="h-auto rounded-circle">
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" asp-controller="Pages" asp-action="AccountSettings">
-                <div class="d-flex">
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                        <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="~/img/avatars/1.png" alt class="h-auto rounded-circle">
+                      <img src="~/img/avatars/donut.png" alt class="h-auto rounded-circle">
                     </div>
                   </div>
                   <div class="flex-grow-1">
-                    <span class="fw-medium d-block">John Doe</span>
-                    <small class="text-muted">Admin</small>
+                                <span class="fw-medium d-block">@UserManager.GetUserName(User)</span>
                   </div>
                 </div>
               </a>
@@ -427,23 +433,16 @@
             <li>
               <div class="dropdown-divider"></div>
             </li>
-            <li>
-                    @if (User.IsInRole(SD.Role_Parent))
-                    {
+                @if (User.IsInRole(SD.Role_Parent))
+                {
+                    <li>
                         <a class="dropdown-item" asp-controller="ParentDetail" asp-action="Index">
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">My Profile</span>
-                        </a>
-                    }
-                    else{
-                        <a class="dropdown-item" asp-controller="Pages" asp-action="ProfileUser">
-                            <i class="ti ti-user-check me-2 ti-sm"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
-                    }
-                    
+                        </a>      
             </li>
-            <li>
+                }
+                <li>
               <a class="dropdown-item" asp-controller="Pages" asp-action="AccountSettings">
                 <i class="ti ti-settings me-2 ti-sm"></i>
                 <span class="align-middle">Settings</span>

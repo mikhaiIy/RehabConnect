@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.ObjectModelRemoting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
+using RehabConnect.Models.ViewModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
@@ -29,39 +32,36 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(string dt)
+    public async Task<IActionResult> Create(string startDt, TimeOnly startTime,TimeOnly endTime , int programId, int capacity)
     {
-      if (!string.IsNullOrEmpty(dt))
+      if (!string.IsNullOrEmpty(startDt))
       {
-        var dateTimes = dt.Split(',').Select(d => d.Trim()).ToList();
+        var dates = startDt
+          .Split(',').Select(DateTime.Parse)
+          .ToList();
 
-        foreach (var dtString in dateTimes)
+        var schedules = new List<Schedule>();
+
+        foreach (var date in dates)
         {
-          if (DateTime.TryParse(dtString, out DateTime parsedDateTime))
+          var schedule = new Schedule
           {
-            var schedule = new Schedule
-            {
-              Date = DateOnly.FromDateTime(parsedDateTime),
-              StartTime = parsedDateTime.TimeOfDay,
-              EndTime = parsedDateTime.TimeOfDay + TimeSpan.FromHours(1),
-              Duration = TimeSpan.FromHours(1)
-            };
-
-            _unitOfWork.Schedule.Add(schedule);
-          }
-          else
-          {
-            return View();
-          }
+            Date = DateOnly.FromDateTime(date),
+            StartTime = startTime,
+            EndDTime = endTime,
+            Capacity = capacity,
+            ProgramID = programId,
+            Registered = 0
+          };
+          schedules.Add(schedule);
         }
 
+        _unitOfWork.Schedule.AddRange(schedules);
         _unitOfWork.Save();
         return RedirectToAction("Create");
       }
-      else
-      {
-        return View();
-      }
+
+      return View();
     }
 
     public IActionResult Edit(int? id)
@@ -96,6 +96,77 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     }
 
     #region API CALLS
+
+    // -- Get Schedule for Admin Calendar --
+    [HttpGet]
+    public IActionResult GetSchedule()
+    {
+      var schedulesList = _unitOfWork.Schedule.GetAll(includeProperties:"Program").ToList();
+
+      var schedules = new List<CalendarVM>();
+
+      foreach (var obj in schedulesList)
+      {
+        // Checking StepId
+        string category = "";
+
+        if (obj.Program.ProgramName == "Consultation")
+        {
+          category = "Consultation";
+        }
+        if (obj.Program.ProgramName == "Assessment")
+        {
+          category = "Assessment";
+        }
+        if (obj.Program.ProgramName == "Full Development Report")
+        {
+          category = "Report";
+        }
+        if (obj.Program.ProgramName.Contains("Program"))
+        {
+          category = "Program";
+        }
+        if (obj.Program.ProgramName.Contains("Ready to School"))
+        {
+          category = "School";
+        }
+
+        var schedule = new CalendarVM
+        {
+          id = obj.ScheduleID,
+          title = _unitOfWork.Program.Find(p=>p.ProgramID==obj.ProgramID).Select(p=>p.ProgramName).FirstOrDefault(),
+          start = obj.Date.ToDateTime(obj.StartTime),
+          end = obj.Date.ToDateTime(obj.EndDTime),
+          ExtendedProps = new ExtendedProps
+          {
+            Calendar = category,
+            Capacity = obj.Capacity,
+            Registered = obj.Registered
+          }
+        };
+        schedules.Add(schedule);
+      }
+      return Json(new {events = schedules});
+    }
+
+
+
+
+    // -- Get Roadmap, Step & Program/Session List --
+    [HttpGet]
+    public IActionResult GetProgram()
+    {
+
+      ScheduleViewModel scheduleViewModel = new ScheduleViewModel()
+      {
+        RoadmapList = _unitOfWork.Roadmap.GetAll().ToList(),
+        StepList = _unitOfWork.Step.GetAll().ToList(),
+        ProgramList = _unitOfWork.Program.GetAll().ToList()
+      };
+
+      return Json(new { data = scheduleViewModel });
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -117,9 +188,11 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         _unitOfWork.Save();
         return Json(new { success = true, message = "Delete Successful" });
       }
+
     }
 
     #endregion
   }
+
 
 }

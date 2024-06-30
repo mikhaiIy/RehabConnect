@@ -47,19 +47,54 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public IActionResult Upsert(Student student)
     {
       if (ModelState.IsValid)
       {
-        if (student.StudentID == 0)
+        Student existingStudent = null;
+
+        if (student.StudentID != 0)
         {
-          _unitOfWork.Student.Add(student);
+          // Retrieve the existing student from the context
+          existingStudent = _unitOfWork.Student.Get(u => u.StudentID == student.StudentID, includeProperties: "Therapist");
+          if (existingStudent == null)
+          {
+            return NotFound();
+          }
+
+          // Update existing student entity with new values
+          existingStudent.ChildName = student.ChildName;
+          existingStudent.ChildIC = student.ChildIC;
+          existingStudent.ChildAge = student.ChildAge;
+          existingStudent.ChildDOB = student.ChildDOB;
+          existingStudent.ChildPassportNo = student.ChildPassportNo;
+          existingStudent.ChildNationality = student.ChildNationality;
+          existingStudent.ChildRace = student.ChildRace;
+          existingStudent.ChildBirthPlace = student.ChildBirthPlace;
+          existingStudent.ChildSex = student.ChildSex;
+          existingStudent.ChildAddress = student.ChildAddress;
+          existingStudent.ChildPostcode = student.ChildPostcode;
+          existingStudent.ChildCity = student.ChildCity;
+          existingStudent.ChildCountry = student.ChildCountry;
+          existingStudent.Pediatricians = student.Pediatricians;
+          existingStudent.HospReccommendation = student.HospReccommendation;
+          existingStudent.DeadlineDiagnose = student.DeadlineDiagnose;
+          existingStudent.DiagnosisOrCondition = student.DiagnosisOrCondition;
+          existingStudent.OccupationalTheraphyPlace = student.OccupationalTheraphyPlace;
+          existingStudent.SpeechTheoryPlace = student.SpeechTheoryPlace;
+          existingStudent.OthersUnitPlace = student.OthersUnitPlace;
+          existingStudent.TherapistID = student.TherapistID;
         }
         else
         {
-          _unitOfWork.Student.Update(student);
+          // New student, ensure UserId is set appropriately
+          // For example, if Parent is logged in, set the UserId
+          // Otherwise, ensure it's properly set from the logged-in user's context
+          // student.UserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Example of setting UserId based on current user
+
+          _unitOfWork.Student.Add(student);
         }
+
         _unitOfWork.Save();
         TempData["success"] = "Student saved successfully";
         return RedirectToAction("Index");
@@ -70,6 +105,7 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
         return View(student);
       }
     }
+
 
     private void PopulateTherapistDropDownList(object selectedTherapist = null)
     {

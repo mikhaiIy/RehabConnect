@@ -1,8 +1,59 @@
-@{
-ViewData["Title"] = "Horizontal layout - Layouts";
+@model List<Announcement>
 
+@{
+    ViewData["Title"] = "Customer Support";
 }
 
-@* ************** Content ************** *@
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="~/vendor/libs/swiper/swiper.css" />
+}
 
-<h4 class="p-4">Horizontal Layout</h4>
+@section VendorScripts {
+    <script src="~/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="~/vendor/libs/swiper/swiper.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/cards-advance.css" />
+}
+
+@section PageScripts {
+    <script src="~/js/dashboards-analytics.js"></script>
+    <script src="~/js/ui-carousel.js"></script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4 shadow">
+            <h4 class="p-4">Announcement</h4>
+            <div class="card-body text-center">
+                
+                <div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@i" class="@((i == 0) ? "active" : "")" aria-current="true" aria-label="Slide @i"></button>
+                        }
+                    </div>
+                    <div class="carousel-inner">
+                        @foreach (var announcement in Model)
+                        {
+                            <div class="carousel-item @(announcement == Model.First() ? "active" : "")">
+                                <img class="d-block w-100" src="@announcement.ImageUrl" alt="@announcement.Title" />
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

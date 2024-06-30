@@ -28,6 +28,9 @@ namespace RehabConnect.DataAccess.Repository
         
         public ISessionRepository Session { get; private set; }
         public IStudentProgramRepository  StudentProgram { get; private set; }
+        public IAnnouncementRepository Announcement { get; private set; }
+
+        public IInvoiceItemRepository InvoiceItem { get; private set; }
 
 
 
@@ -48,6 +51,8 @@ namespace RehabConnect.DataAccess.Repository
             Schedule = new ScheduleRepository(_db);
             StudentProgram = new StudentProgramRepository(_db);
             Session = new SessionRepository(_db);
+            Announcement = new AnnouncementRepository(_db);
+            InvoiceItem = new InvoiceItemRepository(_db);
 
         }
 

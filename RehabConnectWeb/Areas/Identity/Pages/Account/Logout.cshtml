@@ -13,20 +13,25 @@
 <!--Under Maintenance -->
 <div class="container-xxl container-p-y">
     <div class="misc-wrapper">
-        <h2 class="mb-1 mx-2">Are you sure you want to log out?</h2>
-        <p class="mb-4 mx-2">
-            Thank you for using our system. Hope to see you again!
-        </p>
+        
         @{
             if (User.Identity?.IsAuthenticated ?? false)
             {
+                <h2 class="mb-1 mx-2">Are you sure you want to log out?</h2>
+                <p class="mb-4 mx-2">
+                    Thank you for using our system. Hope to see you again!
+                </p>
+
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                     <button type="submit" class="btn btn-primary mb-4">Click here to Logout</button>
                 </form>
             }
             else
             {
-                <p>You have successfully logged out of the application.</p>
+                <h2 class="mb-1 mx-2">You have successfully logged out of the application.</h2>
+                <p class="mb-4 mx-2">
+                    Thank you for using our system. Hope to see you again!
+                </p>
             }
         }
         <div class="mt-4">
