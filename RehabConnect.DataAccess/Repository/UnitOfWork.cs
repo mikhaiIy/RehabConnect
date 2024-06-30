@@ -21,7 +21,6 @@ namespace RehabConnect.DataAccess.Repository
         public IParentDetailRepository ParentDetail { get; private set; }
         public IStudentRepository Student { get; private set; }
         public IScheduleRepository Schedule { get; }
-        public IShoppingCartRepository ShoppingCart { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IInvoiceRepository Invoice { get; private set; }
         public IBillingRepository Billing { get; private set; }
@@ -39,7 +38,6 @@ namespace RehabConnect.DataAccess.Repository
             Billing = new BillingRepository(_db);
             Invoice = new InvoiceRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
-            ShoppingCart = new ShoppingCartRepository(_db);
             Step = new StepRepository(_db);
             Roadmap = new RoadmapRepository(_db);
             Program = new ProgramRepository(_db);

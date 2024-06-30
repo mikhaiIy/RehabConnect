@@ -45,6 +45,7 @@ namespace RehabConnect.Models
         
         [Required]
         public decimal Total { get; set; }
+        public string? Status { get; set; }
 
         public int ParentID { get; set; }
         [ForeignKey("ParentID")]

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace RehabConnect.DataAccess.Repository
 {
-    public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private ApplicationDbContext _db;
-        public ShoppingCartRepository(ApplicationDbContext db) : base(db)
+        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
-        public void Update(ShoppingCart obj)
+        public void Update(ApplicationUser obj)
         {
-            _db.ShoppingCarts.Update(obj);
+            _db.ApplicationUsers.Update(obj);
         }
     }
 }

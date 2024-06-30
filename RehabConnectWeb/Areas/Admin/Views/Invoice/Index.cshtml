@@ -104,6 +104,7 @@
                     <th>Parent</th>
                     <th>Total</th>
                     <th class="text-truncate">Issued Date</th>
+                    <th class="text-truncate">Due Date</th>
                     <th>Balance</th>
                     <th>Invoice Status</th>
                     <th class="cell-fit">Actions</th>
@@ -137,10 +138,12 @@
                         <td>@invoice.ParentDetail.FatherName</td>
                         <td>@invoice.Total</td>
                         <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
+                        <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
                         <td>@invoice.Total</td>
-                        <td>@invoice.Total</td>
+                        <td>@invoice.Status</td>
                         <td>
                             <div class="btn-group" role="group">
+                                <a href="@Url.Action("Billing", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-danger">Billing</a>
                                 <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-secondary">Preview</a>
                                 <a href="@Url.Action("Print", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-info">Print</a>

@@ -259,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Student\" />
+    <Folder Include="wwwroot\img\reciept\" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />

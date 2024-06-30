@@ -34,6 +34,17 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return View(model);
     }
 
+    public IActionResult Billing(int? id)
+    {
+      if (id == null || id == 0)
+      {
+        return NotFound();
+      }
+
+      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice").ToList();
+      return View(objBillingList);
+    }
+
     public IActionResult Add()
     {
       return View();
@@ -50,6 +61,37 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         return RedirectToAction("Index");
       }
       return View();
+    }
+
+    public IActionResult Confirm(int id)
+    {
+      var billing = _unitOfWork.Billing.Get(b => b.BillingID == id, includeProperties: "Invoice");
+      if (billing == null)
+      {
+        return NotFound();
+      }
+
+      billing.ConfirmStatus = true;
+      billing.Status = "Paid";
+      _unitOfWork.Billing.Update(billing);
+
+      // Update the invoice total
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == billing.InvoiceID);
+      invoice.Total -= billing.Amount;
+      if (invoice.Total == 0)
+      {
+        // Mark invoice as fully paid
+        invoice.Status = "Fully Paid";
+      }
+      else
+      {
+        // Mark invoice as fully paid
+        invoice.Status = "Partially Paid";
+      }
+      _unitOfWork.Invoice.Update(invoice);
+      _unitOfWork.Save();
+
+      return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
     }
 
 
