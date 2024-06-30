@@ -1,0 +1,213 @@
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-faq.css" />
+}
+
+@* ************** Content ************** *@
+<div class="faq-header d-flex flex-column justify-content-center align-items-center rounded">
+    <h3 class="text-center">Hello, how can we help?</h3>
+    <p class="text-center mb-0 px-3">Or choose a category to quickly find the help you need</p>
+</div>
+
+<div class="row mt-4">
+    <!-- Navigation -->
+    <div class="col-lg-3 col-md-4 col-12 mb-md-0 mb-3">
+        <div class="d-flex justify-content-between flex-column mb-2 mb-md-0">
+            <ul class="nav nav-align-left nav-pills flex-column">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment">
+                        <i class="ti ti-credit-card me-1 ti-sm"></i>
+                        <span class="align-middle fw-medium">Payment</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#delivery">
+                        <i class="ti ti-nurse me-1 ti-sm"></i>
+                        <span class="align-middle fw-medium">Therapy</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="d-none d-md-block mt-4">
+                <img src="~/img/illustrations/girl-sitting-with-laptop.png" class="img-fluid" width="270" alt="FAQ Image">
+            </div>
+        </div>
+    </div>
+    <!-- /Navigation -->
+    <!-- FAQ's -->
+    <div class="col-lg-9 col-md-8 col-12">
+        <div class="tab-content py-0">
+            <div class="tab-pane fade show active" id="payment" role="tabpanel">
+                <div class="d-flex mb-3 gap-3">
+                    <div>
+                        <span class="badge bg-label-primary rounded-2 p-2">
+                            <i class="ti ti-credit-card ti-lg"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="mb-0">
+                            <span class="align-middle">Payment</span>
+                        </h4>
+                        <small>Get help with payment</small>
+                    </div>
+                </div>
+                <div id="accordionPayment" class="accordion">
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#accordionPayment-1" aria-controls="accordionPayment-1">
+                                When is the invoice created?
+                            </button>
+                        </h2>
+                        <div id="accordionPayment-1" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                Invoice is created between 1 - 2 days time after the session is booked. Then the invoice will be created.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionPayment-2" aria-controls="accordionPayment-2">
+                                How do I pay for my invoice?
+                            </button>
+                        </h2>
+                        <div id="accordionPayment-2" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                Pay by going to Make Payments, then you will see the outstanding balance. Go to Pay, scan the QR code bank or transfer to the account, then upload the receipt, input the amount that has been transferred, then wait for admin to approve the payment. The balance will be deducted.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionPayment-3" aria-controls="accordionPayment-3">
+                                What should I do if I'm having trouble placing an order?
+                            </button>
+                        </h2>
+                        <div id="accordionPayment-3" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                For any technical difficulties you are experiencing with our website, please contact us at our
+                                <a href="javascript:void(0);">support portal</a>, or you can call us at
+                                <span class="fw-medium">1-000-000-000</span>, or email us at
+                                <a href="mailto:mikhail@graduate.utm.my">mikhail@graduate.utm.my</a>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="delivery" role="tabpanel">
+                <div class="d-flex mb-3 gap-3">
+                    <div>
+                        <span class="badge bg-label-primary rounded-2 p-2">
+                            <i class="ti ti-nurse ti-lg"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="mb-0">
+                            <span class="align-middle">Therapy</span>
+                        </h4>
+                        <small>Get info about the therapy</small>
+                    </div>
+                </div>
+                <div id="accordionDelivery" class="accordion">
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#accordionDelivery-1" aria-controls="accordionDelivery-1">
+                                How do I register my child for therapy sessions?
+                            </button>
+                        </h2>
+                        <div id="accordionDelivery-1" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                To register your child for therapy sessions, please create an account
+                                on our website and complete the registration form with your child's details.
+                                After submitting the form, our team will review it and contact you to
+                                schedule an initial assessment.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDelivery-2" aria-controls="accordionDelivery-2">
+                                What phases and assessments will my child undergo?
+                            </button>
+                        </h2>
+                        <div id="accordionDelivery-2" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                Your child will undergo several phases and assessments designed to
+                                tailor the therapy program to their specific needs. This includes an
+                                initial assessment, developmental assessments, and periodic evaluations to track progress and adjust the therapy plan as needed.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDelivery-3" aria-controls="accordionDelivery-3">
+                                How do I book and pay for therapy sessions?
+                            </button>
+                        </h2>
+                        <div id="accordionDelivery-3" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                To book and pay for therapy sessions, log into your account,
+                                select the therapist assigned to your child, and choose the available
+                                session slots. Proceed to checkout to pay for the sessions. You can pay by
+                                scanning the provided QR code or via bank transfer. After payment, upload
+                                the receipt and input the transferred amount. Once approved by the admin, the session will be confirmed.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionDelivery-4" aria-controls="accordionDelivery-4">
+                                Who will be my child's therapist?
+                            </button>
+                        </h2>
+                        <div id="accordionDelivery-4" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                Each child will be assigned to a certified therapist who will
+                                work closely with them throughout their therapy journey. The therapist
+                                will conduct all sessions and be involved in all programs tailored to your child's needs.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FAQ's -->
+</div>
+
+<!-- Contact -->
+<div class="row mt-5">
+    <div class="col-12 text-center mb-4">
+        <div class="badge bg-label-primary">Question?</div>
+        <h4 class="my-2">You still have a question?</h4>
+        <p>If you can't find the question in our FAQ, you can contact us. We'll answer you shortly!</p>
+    </div>
+</div>
+<div class="row text-center justify-content-center gap-sm-0 gap-3">
+    <div class="col-sm-6">
+        <div class="py-3 rounded bg-faq-section text-center">
+            <span class="badge bg-label-primary my-3 rounded-2 p-2">
+                <i class="ti ti-phone ti-md"></i>
+            </span>
+            <h4 class="mb-2"><a class="text-body" href="tel:+(60)187623044">+ (60) 1876 2304 4</a></h4>
+            <p>We are always happy to help</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="py-3 rounded bg-faq-section text-center">
+            <span class="badge bg-label-primary my-3 rounded-2 p-2">
+                <i class="ti ti-mail ti-md"></i>
+            </span>
+            <h4 class="mb-2"><a class="text-body" href="mailto:fikri02@graduate.utm.my">fikri02@graduate.utm.my</a></h4>
+            <p>Best way to get a quick answer</p>
+        </div>
+    </div>
+</div>
+<!-- /Contact -->

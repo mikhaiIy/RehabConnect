@@ -32,4 +32,9 @@ public class HomeController : Controller
 
     return View(announcements);
   }
+
+  public IActionResult Faq()
+  {
+    return View();
+  }
 }
