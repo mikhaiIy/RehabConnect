@@ -41,6 +41,8 @@ namespace RehabConnect.DataAccess.Data
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
 
+        public DbSet<InvoiceItem> InvoiceItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //  Program Module
@@ -180,18 +182,24 @@ namespace RehabConnect.DataAccess.Data
                LongTermGoal = "Achieve higher academic performance.",
                TxPlan = "Regular therapy sessions."
            }
-       );
+            );
 
-            // Seed Invoice
-            // modelBuilder.Entity<Invoice>().HasData(
-            //     new Invoice
-            //     {
-            //         InvoiceId = 1,
-            //         Total = 1000,
-            //         ParentID = 1,  // Reference existing ParentID
-            //         DateIssued = DateTime.Now
-            //     }
-            // );
+            //Seed Invoice
+            modelBuilder.Entity<Invoice>().HasData(
+               new Invoice
+               {
+                   InvoiceId = 1,
+                   DateIssued = DateOnly.FromDateTime(DateTime.Now),
+                   DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)),
+                   PICNames = "Jane Doe",
+                   ShortNote = "This is a short note.",
+                   LongNote = "This is a long note providing more detailed information.",
+                   Subtotal = 800.00m,
+                   Discount = 50.00m,
+                   Total = 900.00m,
+                   ParentID = 1  // Reference existing ParentID
+               });
+
 
             base.OnModelCreating(modelBuilder);
 

@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SessionController : Controller
+  [Authorize(Roles = SD.Role_Admin)]
+  public class SessionController : Controller
     {
         
     }

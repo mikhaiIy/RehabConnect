@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 {
     [Area("CustomerSupport")]
-    //[Authorize(Roles = SD.Role_Admin)]
-    public class ParentDetailController : Controller
+  [Authorize(Roles = SD.Role_CustomerSupport)]
+  public class ParentDetailController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public ParentDetailController(IUnitOfWork unitOfWork)

@@ -18,9 +18,10 @@ namespace RehabConnect.Models
         [Key]
         public int StepId { get; set; }
         
-        [Required] public int RoadmapId { get; set; }
+        [Required] 
+        public int RoadmapId { get; set; }
         [ForeignKey("RoadmapId")]
-        public Roadmap? Roadmap { get; set; }
+        public Roadmap Roadmap { get; set; }
         [Required]
         public int StepNo { get; set; }
         [Required]
@@ -33,7 +34,8 @@ namespace RehabConnect.Models
         
         
         // Whether the price of the Step is combined or seperate for each program
-        [Required] public bool CombinedPricing { get; set; }
+        [Required] 
+        public bool CombinedPricing { get; set; }
         
         
     }

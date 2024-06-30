@@ -59,12 +59,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Total Patients</span>
+                        <span>Improvements</span>
                         <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">10</h3>
+                            <h3 class="mb-0 me-2">60%</h3>
                             <p class="text-success mb-0">(+18%)</p>
                         </div>
-                        <p class="mb-0">Number of all Patients </p>
+                        <p class="mb-0">Your Child Improvements</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-danger">
@@ -80,12 +80,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Your Patients</span>
+                        <span>Session Lefts</span>
                         <div class="d-flex align-items-center my-2">
                             <h3 class="mb-0 me-2">@Model.Count()</h3>
                             <p class="text-danger mb-0">(-14%)</p>
                         </div>
-                        <p class="mb-0">Number of your Patients</p>
+                        <p class="mb-0">Number of your Sessions Left</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-success">
@@ -106,7 +106,7 @@
                             <h3 class="mb-0 me-2">@Model.Count()</h3>
                             <p class="text-success mb-0">(+42%)</p>
                         </div>
-                        <p class="mb-0">Total of Your Reports</p>
+                        <p class="mb-0">Total of your Children Reports</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-warning">
@@ -154,7 +154,7 @@
                                     Info
                                 </a>
                                 <a asp-controller="Report" asp-action="Print" asp-route-id="@obj.ReportID" class="btn btn-secondary mx-2" target="_blank">
-                                    Print
+                                    <i class="ti ti-printer me-2"></i>
                                 </a>
                             </div>
                         </td>

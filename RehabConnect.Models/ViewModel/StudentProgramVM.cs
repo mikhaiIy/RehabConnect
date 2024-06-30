@@ -10,7 +10,4 @@ public class StudentProgramVM
     public string Status { get; set; }
 }
 
-public partial class StepProgramVM
-{
     
-}

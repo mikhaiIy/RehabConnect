@@ -10,7 +10,7 @@ namespace RehabConnect.Models
         [Key]
         public int RoadmapId { get; set; }
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
     
 }

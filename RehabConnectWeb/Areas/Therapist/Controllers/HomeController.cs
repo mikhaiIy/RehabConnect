@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RehabConnect.Models;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Therapist.Controllers;
 
 [Area("Therapist")]
+[Authorize(Roles = SD.Role_Therapist)]
 public class HomeController : Controller
 {
   private readonly IWebHostEnvironment _webHostEnvironment;

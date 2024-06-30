@@ -1,0 +1,288 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+     <None Update="AspnetCoreMvcStarterContext.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+     <None Remove="Properties\launchSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RehabConnect.DataAccess\RehabConnect.DataAccess.csproj" />
+    <ProjectReference Include="..\RehabConnect.Models\RehabConnect.Models.csproj" />
+    <ProjectReference Include="..\RehabConnect.Utility\RehabConnect.Utility.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\_Partials\_Macros.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Page2\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Footer\_Footer.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Footer\_FooterFront.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Menu\_HorizontalMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Menu\_VerticalMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Navbar\_Navbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Navbar\_NavbarFront.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\Navbar\_NavbarPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_Scripts.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_ScriptsFront.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_ScriptsIncludes.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_ScriptsIncludesFront.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_Styles.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_StylesFront.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\Sections\_Variables.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_BlankLayout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_CommonMasterLayout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_ContentNavbarLayout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_FrontLayout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_HorizontalLayout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Shared\_ValidationScriptsPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Academy\CourseDetails.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Academy\Dashboard.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Academy\MyCourse.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Access\Permission.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Access\Roles.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Apps\Calendar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Apps\Chat.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Apps\Email.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Apps\Kanban.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\ForgotPasswordBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\ForgotPasswordCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\LoginBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\LoginCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\RegisterBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\RegisterCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\RegisterMultiSteps.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\ResetPasswordBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\ResetPasswordCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\TwoStepsBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\TwoStepsCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\VerifyEmailBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Auth\VerifyEmailCover.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Cards\Actions.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Cards\Advance.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Cards\Analytics.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Cards\Basic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Cards\Statistics.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Charts\Apex.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Charts\Chartjs.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Dashboards\CRM.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Dashboards\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\CustomerAll.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\CustomerDetailsBilling.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\CustomerDetailsNotifications.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\CustomerDetailsOverview.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\CustomerDetailsSecurity.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\Dashboard.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\OrderDetails.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\OrderList.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\ProductAdd.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\ProductCategoryList.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\ProductList.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\Referrals.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\Reviews.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsCheckout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsLocations.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsNotifications.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsPayments.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsShipping.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ecommerce\SettingsStoreDetails.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\Avatar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\BlockUi.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\DragDrop.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\MediaPlayer.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\Misc.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\PerfectScrollbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\StarRatings.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\SweetAlert2.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\TextDivider.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\TimelineBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\TimelineFullScreen.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\Tour.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\ExtendedUi\Treeview.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormLayouts\Horizontal.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormLayouts\Sticky.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormLayouts\Vertical.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\BasicInputs.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\CustomOptions.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Editors.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Extras.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\FileUpload.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\InputGroups.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Pickers.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Selects.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Sliders.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Forms\Switches.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormValidation\Validation.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormWizard\Icons.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FormWizard\Numbered.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\CheckoutPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\HelpCenterArticle.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\HelpCenterLanding.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\LandingPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\PaymentPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\FrontPages\PricingPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Home\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Icons\FontAwesome.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Icons\Tabler.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Invoice\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Invoice\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Invoice\List.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Invoice\Preview.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Invoice\Print.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\Blank.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\CollapsedMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\Container.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\ContentNavbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\ContentNavbarWithSidebar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\Fluid.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\HorizontalMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\WithoutMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\LayoutExamples\WithoutNavbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Logistics\Dashboard.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Logistics\Fleet.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Maps\Leaflet.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Modals\Examples.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\AccountSettings.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\AccountSettingsBilling.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\AccountSettingsConnections.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\AccountSettingsNotifications.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\AccountSettingsSecurity.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\FAQ.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\MiscComingSoon.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\MiscError.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\MiscNotAuthorized.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\MiscUnderMaintenance.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\Pricing.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\ProfileConnections.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\ProfileProjects.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\ProfileTeams.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Pages\ProfileUser.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Tables\Basic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Tables\DatatablesAdvanced.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Tables\DatatablesBasic.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Tables\DatatablesExtensions.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Transactions\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Transactions\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Transactions\Update.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Accordion.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Alerts.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Badges.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Buttons.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Carousel.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Collapse.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Dropdowns.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Footer.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\ListGroups.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Modals.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Navbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Offcanvas.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\PaginationBreadcrumbs.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Progress.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Spinners.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\TabsPills.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Toasts.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\TooltipsPopovers.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Ui\Typography.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\List.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\ViewAccount.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\ViewBilling.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\ViewConnections.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\ViewNotifications.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Users\ViewSecurity.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Wizards\Checkout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Wizards\CreateDeal.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\Wizards\PropertyListing.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\WizardCheckout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Macros.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalAddNewAddress.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalAddNewCc.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalAddPermission.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalAddRole.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalCreateApp.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalEditCc.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalEditPermission.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalEditUser.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalEnableOtp.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalPricing.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalReferEarn.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalSelectPaymentMethods.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalSelectPaymentProviders.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalShareProject.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalTwoFactorAuth.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Modals\ModalUpgradePlan.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Offcanvas\OffcanvasAddPayment.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Template\_Partials\_Offcanvas\OffcanvasSendInvoice.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\AddNew.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Register.cshtml.cs">
+      <DependentUpon>Register.cshtml</DependentUpon>
+    </Compile>
+    <Compile Remove="Areas\Identity\Pages\Account\Register1.cshtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Shared\Sections\Menu\_HorizontalMenuTherapist.cshtml" />
+    <AdditionalFiles Include="Views\Shared\_Partials\_Macros.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\Register1.cshtml" />
+    <Content Remove="wwwroot\js\schedule.js" />
+    <Content Remove="Areas\Parent\Views\ParentDetail\Delete.cshtml" />
+    <Content Update="Areas\Therapist\Views\Report\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\schedule.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Student\" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Add.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\AddNew.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Index.cshtml" />
+    <AdditionalFiles Include="Views\Shared\_Partials\_Macros.cshtml" />
+    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <Content Remove="wwwroot\js\schedule.js" />
+    <Content Remove="Areas\Parent\Views\ParentDetail\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\js\schedule.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Student\" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <UpToDateCheckInput Remove="Views\Page2\Index.cshtml" />
+  </ItemGroup>
+</Project>

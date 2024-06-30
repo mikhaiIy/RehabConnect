@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RoadmapController : Controller
+  [Authorize(Roles = SD.Role_Admin)]
+  public class RoadmapController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 

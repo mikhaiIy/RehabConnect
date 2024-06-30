@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers
 {
   [Area("Parent")]
+  [Authorize(Roles = SD.Role_Parent)]
   public class HomeController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

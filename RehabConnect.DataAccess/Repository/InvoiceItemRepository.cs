@@ -9,12 +9,22 @@ using System.Threading.Tasks;
 
 namespace RehabConnect.DataAccess.Repository
 {
-    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+    public class InvoiceItemRepository : Repository<InvoiceItem>, IInvoiceItemRepository
     {
         private ApplicationDbContext _db;
-        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
+        public InvoiceItemRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
+
+        public void Update(InvoiceItem obj)
+        {
+            _db.InvoiceItems.Update(obj);
         }
     }
 }

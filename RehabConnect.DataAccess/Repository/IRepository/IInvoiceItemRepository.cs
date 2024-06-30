@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace RehabConnect.DataAccess.Repository.IRepository
 {
-    public interface IShoppingCartRepository : IRepository<ShoppingCart>
+    public interface IInvoiceItemRepository : IRepository<InvoiceItem>
     {
-        void Update(ShoppingCart obj);
+        void Update(InvoiceItem obj);
     }
 }

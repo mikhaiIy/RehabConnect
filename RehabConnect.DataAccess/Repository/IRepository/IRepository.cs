@@ -10,6 +10,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll(string? includeProperties = null);
+        IEnumerable<T> report(Expression<Func<T, bool>> filter = null, string includeProperties = null);
         T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
         IEnumerable<T> Find(Expression<Func<T, bool>> expression, string? includeProperties = null);
 

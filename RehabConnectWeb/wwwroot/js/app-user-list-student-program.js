@@ -49,7 +49,7 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="/customersupport/student/UpsertStudentProgram?studentId=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="/customersupport/student/upsertstudentprogram?studentId=' + data + '" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
               '<a href="javascript:void(0);" class="text-body delete-record" data-id="' + data + '"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '</div>'
             );

@@ -10,5 +10,7 @@ namespace RehabConnect.Models.ViewModel
     {
         public IEnumerable<Invoice> Invoice { get; set; }
         public IEnumerable<Billing> Billing { get; set; }
+
+        public IEnumerable<InvoiceItem> Item { get; set; }
     }
 }

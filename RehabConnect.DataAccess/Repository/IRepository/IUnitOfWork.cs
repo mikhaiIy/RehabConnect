@@ -14,7 +14,7 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         ICustomerSupportRepository CustomerSupport { get; }
         IParentDetailRepository ParentDetail { get; }
         IStudentRepository Student { get; }
-        
+        IApplicationUserRepository ApplicationUser { get; }
         IStudentProgramRepository StudentProgram { get; }
 
         //Program
@@ -26,12 +26,13 @@ namespace RehabConnect.DataAccess.Repository.IRepository
         //Billing
         IBillingRepository Billing { get; }
         IInvoiceRepository Invoice { get; }
-        IShoppingCartRepository ShoppingCart { get; }
 
         //Report
         IReportRepository Report { get; }
 
         ISessionRepository Session { get; }
+
+        IInvoiceItemRepository InvoiceItem { get; }
         IAnnouncementRepository Announcement { get; }
         void Save();
     }

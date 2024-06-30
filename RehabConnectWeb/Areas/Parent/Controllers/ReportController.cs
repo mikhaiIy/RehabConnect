@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Utility;
+using System.Security.Claims;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers
 {
@@ -15,9 +16,25 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     {
       _unitOfWork = unitOfWork;
     }
+    //public IActionResult Index()
+    //{
+    //  List<Report> objReportList = _unitOfWork.Report.GetAll(includeProperties: "Student").ToList();
+    //  return View(objReportList);
+    //}
+
     public IActionResult Index()
     {
-      List<Report> objReportList = _unitOfWork.Report.GetAll(includeProperties: "Student").ToList();
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (userId == null)
+      {
+        return NotFound("User ID not found");
+      }
+
+      List<Report> objReportList = _unitOfWork.Report
+          .report(r => r.Student.UserId == userId && r.CustomerSupportConfirmation, includeProperties: "Student")
+          .ToList();
+
       return View(objReportList);
     }
 
