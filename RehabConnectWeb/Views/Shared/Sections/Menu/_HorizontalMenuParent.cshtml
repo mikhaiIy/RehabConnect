@@ -15,7 +15,7 @@
       <!-- Home -->
       <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link ">
-          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <i class="menu-icon tf-icons ti ti-house"></i>
           <div data-i18n="Home">Home</div>
         </a>
       </li>
@@ -23,19 +23,19 @@
       <!-- Academics -->
       <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+          <i class="menu-icon tf-icons ti ti-mortarboard-fill"></i>
           <div data-i18n="Academic">Academic</div>
         </a>
         <ul class="menu-sub">
           <li class='menu-item@(currentPage == "/EnrollProgram/SelectChild" ? " active" : "")'>
             <a asp-area="Parent" asp-controller="EnrollProgram" asp-action="SelectChild" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-map"></i>
+              <i class="menu-icon tf-icons ti ti-calendar3"></i>
               <div data-i18n="Booking Session">Booking Session </div>
             </a>
           </li>
           <li class='menu-item@(currentPage.StartsWith("/Charts") ? " active" : "")'>
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ti ti-chart-pie"></i>
+              <i class="menu-icon tf-icons ti ti-calendar"></i>
               <div data-i18n="Session">Session</div>
             </a>
             <ul class="menu-sub">

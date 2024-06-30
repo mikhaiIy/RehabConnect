@@ -6,13 +6,12 @@ using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
-using Stripe;
 using Invoice = RehabConnect.Models.Invoice;
 using InvoiceItem = RehabConnect.Models.InvoiceItem;
 
-namespace RehabConnectWeb.Areas.Admin.Controllers
+namespace RehabConnectWeb.Areas.Parent.Controllers
 {
-  [Area("Admin")]
+  [Area("Parent")]
   public class InvoiceController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;
@@ -55,28 +54,6 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         _unitOfWork.Save();
 
         obj.Item.InvoiceId = obj.Invoice.InvoiceId;
-
-
-        int nameId = Convert.ToInt32(obj.Item.Name);
-        var userId = _unitOfWork.ParentDetail.Find(i => i.ParentID == obj.Invoice.ParentID).Select(u => u.UserId).FirstOrDefault();
-        var childId = _unitOfWork.Student.Find(z => z.UserId == userId).Select(a => a.StudentID).FirstOrDefault();
-        var programId = _unitOfWork.StudentProgram.Find(y => y.StudentID == childId && y.ProgramID == nameId).FirstOrDefault();
-        var prog = _unitOfWork.Program.Get(y => y.ProgramID == nameId);
-
-        var step = _unitOfWork.Step.Get(b => b.StepId == prog.StepId);
-
-        if (step.CombinedPricing)
-        {
-          //(append the program name where program id that exist in step table)
-          var programs = _unitOfWork.Program.GetAll()
-                         .Where(p => p.StepId == prog.StepId)
-                         .Select(p => p.ProgramName);
-
-          obj.Item.Name = string.Join(", ", programs);
-        }
-        else {
-          obj.Item.Name = prog.ProgramName;
-        }
 
         _unitOfWork.InvoiceItem.Add(obj.Item);
         _unitOfWork.Save();

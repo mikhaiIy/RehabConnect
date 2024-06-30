@@ -1,0 +1,132 @@
+@model InvoicePreviewVM
+
+@{
+  Layout = "_BlankLayout";
+  ViewData["Title"] = "Invoice - Print";
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/app-invoice-print.css" />
+}
+
+@section PageScripts {
+<script src="~/js/app-invoice-print.js"></script>
+}
+
+@* ************** Content ************** *@
+<div class="invoice-print p-5">
+
+  <div class="d-flex justify-content-between flex-row">
+    <div class="mb-4">
+     <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
+        <div class="app-brand-logo demo">
+          @await Html.PartialAsync("_Partials/_Macros")
+        </div>
+        <span class="app-brand-text fw-bold fs-4">
+          @TempData.Peek("appName")
+        </span>
+      </div>
+            <p class="mb-2">Office 423, South Brand Wing A KTDI</p>
+            <p class="mb-2">UTM, 81310 Skudai, Johor, Malaysia</p>
+            <p class="mb-3">+60 12-887 1846, +60 11-2810 3703</p>
+    </div>
+    <div>
+      <h4 class="fw-medium">INVOICE #@Model.Invoice.InvoiceId</h4>
+      <div class="mb-2">
+        <span class="text-muted">Date Issues:</span>
+        <span class="fw-medium">@Model.Invoice.DateIssued.ToShortDateString()</span>
+      </div>
+      <div>
+        <span class="text-muted">Date Due:</span>
+        <span class="fw-medium">@Model.Invoice.DueDate.ToShortDateString()</span>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row d-flex justify-content-between mb-4">
+    <div class="col-sm-6 w-50">
+      <h6>Invoice To:</h6>
+      <p class="mb-1">@Model.Invoice.ParentDetail.FatherName & @Model.Invoice.ParentDetail.MotherName</p>
+      <p class="mb-1">@Model.Invoice.ParentDetail.FatherAddress</p>
+      <p class="mb-1">@Model.Invoice.ParentDetail.FatherPostcode @Model.Invoice.ParentDetail.FatherCity, @Model.Invoice.ParentDetail.FatherCountry</p>
+      <p class="mb-1">@Model.Invoice.ParentDetail.FatherPhoneNum</p>
+      <p class="mb-0">@Model.Invoice.ParentDetail.FatherEmail</p>
+    </div>
+    <div class="col-sm-6 w-50">
+      <h6>Bill To:</h6>
+      <table>
+        <tbody>
+                    <tr>
+                        <td class="pe-4">Company:</td>
+                        <td class="fw-medium">RehabConnect Sdn. Bhd.</td>
+                    </tr>
+                    <tr>
+                        <td class="pe-4">SSM:</td>
+                        <td>199301012242 (266980-X)</td>
+                    </tr>
+                    <tr>
+                        <td class="pe-4">Country:</td>
+                        <td>Malaysia</td>
+                    </tr>
+                    <tr>
+                        <td class="pe-4">Bank name::</td>
+                        <td>Bank Islam</td>
+                    </tr>
+                    <tr>
+                        <td class="pe-4">Bank Account:</td>
+                        <td>10052025606826</td>
+                    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead class="table-light">
+        <tr>
+                    <th>Program</th>
+                    <th>Description</th>
+                    <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+                    <td class="text-nowrap">@Model.Item.Name</td>
+                    <td class="text-nowrap">@Model.Item.Description</td>
+                    <td>@Model.Item.Price</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="align-top px-4 py-3">
+            <p class="mb-2">
+              <span class="me-1 fw-medium">Salesperson:</span>
+              <span>@Model.Invoice.PICNames</span>
+            </p>
+            <span>@Model.Invoice.ShortNote</span>
+          </td>
+          <td class="text-end px-4 py-3">
+            <p class="mb-2">Subtotal:</p>
+            <p class="mb-2">Discount:</p>
+            <p class="mb-0">Total:</p>
+          </td>
+          <td class="px-4 py-3">
+            <p class="fw-medium mb-2">@Model.Invoice.Subtotal</p>
+            <p class="fw-medium mb-2">@Model.Invoice.Discount</p>
+            <p class="fw-medium mb-2">@Model.Invoice.Total</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <span class="fw-medium">Note:</span>
+      <span>
+        @Model.Invoice.LongNote
+      </span>
+    </div>
+  </div>
+</div>
