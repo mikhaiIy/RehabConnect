@@ -17,5 +17,5 @@ public class ExtendedProps
     
     public int Registered { get; set; }
     
-    public int Students { get; set; }
+    public string Students { get; set; }
 }

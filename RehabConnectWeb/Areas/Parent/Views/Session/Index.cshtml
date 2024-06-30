@@ -93,7 +93,7 @@ ViewData["Title"] = "Fullcalendar - Apps";
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body pt-0">
-          <form method="post" id="eventForm" >
+          <form method="post" id="eventForm" onsubmit="return false" >
             <div class="mb-3" id="eventRoadmap">
               <label class="form-label" for="roadmapSelect">Choose Roadmap</label>
               <select class="form-select" id="roadmapSelect" name="roadmap">
@@ -123,6 +123,11 @@ ViewData["Title"] = "Fullcalendar - Apps";
             <div class="mb-3 d-none" id="eventRegistered">
               <label class="form-label" for="registered">Registered Student: </label>
               <input type="number" class="form-control" placeholder="How many Students have Registered" id="registered" name="registered"/>
+            </div>
+            <div class="mb-3 select2-primary">
+              <label class="form-label" for="eventGuests">Student List</label>
+              <select class="select2 select-event-guests form-select" id="eventGuests" name="eventGuests" multiple>
+              </select>
             </div>
             <div class="mb-3" id="eventType">
               <label class="form-label">Session type: </label>
@@ -170,10 +175,9 @@ ViewData["Title"] = "Fullcalendar - Apps";
             </div>
             <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
               <div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button asp-controller="Session" asp-action="SessionEdit" type="submit" class="btn btn-primary">Edit</button>
                 <button type="reset" class="btn btn-label-secondary btn-cancel me-sm-0 me-1" data-bs-dismiss="offcanvas">Cancel</button>
               </div>
-              <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
             </div>
           </form>
         </div>

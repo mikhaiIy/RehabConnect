@@ -30,6 +30,18 @@ public class SessionController : Controller
     return View();
   }
 
+  public IActionResult SessionEdit(int? scheduleId)
+  {
+    ViewBag.scheduleId = scheduleId;
+    return View();
+  }
+
+  [HttpPost]
+  public IActionResult SessionEdit()
+  {
+    return View();
+  }
+
   #region API CALLS
     // -- Get Schedule for Parent Calendar --
       [HttpGet]
@@ -103,6 +115,77 @@ public class SessionController : Controller
           schedules.Add(schedule);
         }
         return Json(new {events = schedules});
+      }
+
+      [HttpGet]
+      public IActionResult GetStudentSchedule()
+      {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        // getting all students related to the userId -> Many
+        var studentList = _unitOfWork.Student.Find(u => u.UserId == userId);
+
+        // Calendar List to be Pass to API
+        var calendars = new List<CalendarVM>();
+        foreach (var obj in studentList)
+        {
+          // Each student -> has Many Sessions
+          var sessions = _unitOfWork.Session.Find(u => u.StudentProgram.StudentID == obj.StudentID);
+
+          // Each Student -> has One StudentProgram
+          var studentPrograms =
+            _unitOfWork.StudentProgram.Get(u => u.StudentID == obj.StudentID && u.Status == StudentStatus.Ongoing, includeProperties:"Program");
+          // We can get Its Program Name here
+          string category = "";
+
+          if (studentPrograms.Program.ProgramName == "Consultation")
+          {
+            category = "Consultation";
+          }
+          if (studentPrograms.Program.ProgramName == "Assessment")
+          {
+            category = "Assessment";
+          }
+          if (studentPrograms.Program.ProgramName == "Full Development Report")
+          {
+            category = "Report";
+          }
+          if (studentPrograms.Program.ProgramName.Contains("Program"))
+          {
+            category = "Program";
+          }
+          if (studentPrograms.Program.ProgramName.Contains("Ready to School"))
+          {
+            category = "School";
+          }
+
+          // Each Student -> could have Many Schedules, since Session many.
+          var schedules = new List<Schedule>();
+
+          //Second Loop Based on Those Many Session
+          foreach (var session in sessions)
+          {
+            // Iterate through every Session, and get its Respective Schedule.
+            var schedule = _unitOfWork.Schedule.Get(u => u.ScheduleID == session.ScheduleID);
+            // schedules.Add(schedule);
+            var calendar = new CalendarVM
+            {
+              id = schedule.ScheduleID,
+              title = _unitOfWork.Program.Find(p=>p.ProgramID==studentPrograms.ProgramID).Select(p=>p.ProgramName).FirstOrDefault(),
+              start = schedule.Date.ToDateTime(schedule.StartTime),
+              end = schedule.Date.ToDateTime(schedule.EndDTime),
+              ExtendedProps = new ExtendedProps
+              {
+                Calendar = category,
+                Capacity = schedule.Capacity,
+                Registered = schedule.Registered,
+                Students = obj.ChildName
+              }
+            };
+            calendars.Add(calendar);
+          }
+        }
+        return Json(new {events = calendars});
       }
   #endregion
 }

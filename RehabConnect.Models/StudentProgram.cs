@@ -16,6 +16,7 @@ public class StudentProgram
     public Program Program { get; set; }
     
     public StudentStatus Status { get; set; }
+    
 }
 
 public enum StudentStatus
@@ -25,3 +26,4 @@ public enum StudentStatus
     OnLeave,
     PaymentPending
 }
+

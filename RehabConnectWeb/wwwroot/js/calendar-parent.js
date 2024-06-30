@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       eventEndDate = document.querySelector('#eventEndDate'),
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
+      eventGuests = $('#eventGuests'), // ! Using jquery vars due to select2 jQuery dependency
       inlineCalendar = document.querySelector('.inline-calendar');
 
 
@@ -80,6 +81,29 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    // Event Guests (select2)
+    // Event Guests (select2)
+    if (eventGuests.length) {
+      function renderGuestName(option) {
+        if (!option.id) {
+          return option.text;
+        }
+        return option.text;
+      }
+
+      eventGuests.wrap('<div class="position-relative"></div>').select2({
+        placeholder: 'Students on this Date',
+        dropdownParent: eventGuests.parent(),
+        closeOnSelect: false,
+        templateResult: renderGuestName, // Use the modified function
+        templateSelection: renderGuestName, // Use the modified function
+        escapeMarkup: function (es) {
+          return es;
+        },
+        // disabled: true, // Make options non-selectable
+      });
+    }
+
     // Event click function
     function eventClick(info) {
       eventToUpdate = info.event;
@@ -91,12 +115,11 @@ document.addEventListener('DOMContentLoaded', function () {
       bsAddEventSidebar.show();
       // For update event set offcanvas title text: Update Event
       if (offcanvasTitle) {
-        offcanvasTitle.innerHTML = 'Session Info';
+        offcanvasTitle.innerHTML = 'Edit Session Info';
       }
       btnSubmit.innerHTML = 'Update';
       btnSubmit.classList.add('btn-update-event');
       btnSubmit.classList.remove('btn-add-event');
-      btnDeleteEvent.classList.remove('d-none');
       eventRoadmap.classList.add('d-none');
       eventStep.classList.add('d-none');
       eventProgram.classList.add('d-none');
@@ -120,30 +143,31 @@ document.addEventListener('DOMContentLoaded', function () {
       eventTitleInfo.value = eventToUpdate.title;
       eventTitleInfo.disabled = true ;
 
+      // Populating Student List
+      // Clear existing options
+      eventGuests.empty();
+
+      // Get the students for the clicked event
+      const students = eventToUpdate.extendedProps.students.split(','); // Assuming students are comma-separated
+      // Populate select options
+      students.forEach((student) => {
+        eventGuests.append($('<option>', {
+          value: student,
+          text: student,
+          disabled: true,
+        }));
+      });
+
+      // btnSubmit redirect to Edit page
+      btnSubmit.addEventListener('click', () => {
+        const scheduleId = eventToUpdate.id;
+        // Redirect to the edit URL
+        window.location.href = `/Parent/Session/SessionEdit/${scheduleId}`;
+      });
+
 
       eventTitle.value = eventToUpdate.title;
-      start.setDate(eventToUpdate.start, true, 'Y-m-d');
-      eventToUpdate.allDay === true ? (allDaySwitch.checked = true) : (allDaySwitch.checked = false);
-      eventToUpdate.end !== null
-        ? end.setDate(eventToUpdate.end, true, 'Y-m-d')
-        : end.setDate(eventToUpdate.start, true, 'Y-m-d');
-      eventLabel.val(eventToUpdate.extendedProps.calendar).trigger('change');
-      eventToUpdate.extendedProps.location !== undefined
-        ? (eventLocation.value = eventToUpdate.extendedProps.location)
-        : null;
-      eventToUpdate.extendedProps.guests !== undefined
-        ? eventGuests.val(eventToUpdate.extendedProps.guests).trigger('change')
-        : null;
-      eventToUpdate.extendedProps.description !== undefined
-        ? (eventDescription.value = eventToUpdate.extendedProps.description)
-        : null;
 
-      // // Call removeEvent function
-      // btnDeleteEvent.addEventListener('click', e => {
-      //   removeEvent(parseInt(eventToUpdate.id));
-      //   // eventToUpdate.remove();
-      //   bsAddEventSidebar.hide();
-      // });
     }
 
     // Modify sidebar toggler
@@ -178,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fetchEvents(info, successCallback) {
       // Fetch Events from API endpoint reference
-      const scheduleApiUrl = `/Parent/Session/GetSchedule/}`;
+      const scheduleApiUrl = `/Parent/Session/GetStudentSchedule/`;
 
       $.ajax(
         {
@@ -193,7 +217,8 @@ document.addEventListener('DOMContentLoaded', function () {
               extendedProps : {
                 calendar : event.extendedProps.calendar,
                 capacity : event.extendedProps.capacity,
-                registered : event.extendedProps.registered
+                registered : event.extendedProps.registered,
+                students: event.extendedProps.students
               }
             }));
 
