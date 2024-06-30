@@ -90,5 +90,15 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       }
     }
 
+    #region API CALLS
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+      List<RehabConnect.Models.Report> objReportList = _unitOfWork.Report.GetAll(includeProperties: "Student.ChildName").ToList();
+      return Json(new { data = objReportList });
+    }
+
+    #endregion
+
   }
 }

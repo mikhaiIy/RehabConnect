@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Text.Json.Serialization;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.DataAccess.Repository;
-using Stripe;
+//using Stripe;
+//using DinkToPdf;
+//using DinkToPdf.Contracts;
+//using RehabConnectWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +34,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
+//builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+//builder.Services.AddTransient<PdfService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,7 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+//StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.UseAuthentication();
 app.UseAuthorization();

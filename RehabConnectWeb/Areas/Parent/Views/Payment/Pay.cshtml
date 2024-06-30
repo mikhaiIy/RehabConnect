@@ -1,0 +1,75 @@
+@model PaymentVM
+
+@{
+    ViewData["Title"] = "Payment - Parent";
+}
+
+@section VendorStyles {
+    <!-- Vendor -->
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
+
+
+<h4 class="py-3 mb-4 text-center">Payment Page</h4>
+
+    <div class="authentication-inner row justify-content-center">
+        <!-- Multi Steps Registration -->
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg">
+                <div class="card-body text-center p-5">
+                    <!-- Image Section -->
+                    <img src="~/img/payment_placeholder.jpg" alt="Payment Image" class="img-fluid mb-4" style="max-width: 350px; border-radius: 10%;">
+
+                    <!-- Bank Details Section -->
+                    <h5 class="mb-3">Bank Account Number: <span class="font-weight-bold">123456789</span></h5>
+                    <p class="mb-4">Account Holder: <span class="font-weight-bold">John Doe</span></p>
+
+                </div>
+                <div class="card-body text-left p-5">
+                    <!-- Payment Form -->
+                    <form asp-action="Pay" method="post" enctype="multipart/form-data" class="text-left">
+                        <input asp-for="InvoiceId" hidden />
+                        <input asp-for="Reciept" hidden />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ParentName" class="form-label">Payer's Name</label>
+                            <input asp-for="ParentName" class="form-control" readonly />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="TotalAmount" class="form-label">Amount Due</label>
+                            <input asp-for="TotalAmount" class="form-control" readonly />
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Amount" class="form-label">Amount to Pay</label>
+                            <input asp-for="Amount" class="form-control" />
+                        </div>
+                        <div class="form-group mb-4">
+                            <input asp-for="Reciept" type="file" name="file" class="form-control" />
+                            <label asp-for="Reciept" class="ms-2">Upload Reciept Here</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Submit Receipt</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- / Multi Steps Registration -->
+    </div>
+

@@ -97,7 +97,7 @@ ViewData["Title"] = "Therapist - Report";
               </div>
               <div class="col-sm-12">
                 <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label>
-                <input asp-for="Report.DateReport" type="datetime-local" class="form-control" />
+                <input asp-for="Report.DateReport" type="datetime-local" class="form-control" value="@Model.Report.DateReport.ToString("yyyy-MM-ddTHH:mm")"/>
               </div>
               <label class="form-label">Treatment Provided:</label>
               <div class="col-sm-12 form-check">

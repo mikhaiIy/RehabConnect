@@ -90,7 +90,7 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
-                                <select disabled asp-for="@Model.Report.StudentID" asp-items="@Model.StudentList" class="form-select border-0 shadow">
+                                <select asp-for="@Model.Report.StudentID" asp-items="@Model.StudentList" class="form-select border-0 shadow">
                                     <option disabled selected>--Choose Student--</option>
                                 </select>
                                 @* <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
