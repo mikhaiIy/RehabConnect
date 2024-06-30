@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RehabConnect.Utility;
 using RehabConnect.DataAccess.Data;
@@ -7,12 +7,14 @@ using RehabConnect.ViewModels;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.Models;
 using RehabConnect.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class StepController : Controller
+  [Authorize(Roles = SD.Role_Admin)]
+  public class StepController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public StepController(IUnitOfWork unitOfWork)

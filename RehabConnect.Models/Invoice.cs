@@ -33,6 +33,7 @@ namespace RehabConnect.Models
         
         [Required]
         public decimal Total { get; set; }
+        public string? Status { get; set; }
 
         [Required]
 

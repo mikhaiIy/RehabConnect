@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
+using RehabConnect.Utility;
 using Stripe;
 using Invoice = RehabConnect.Models.Invoice;
 using InvoiceItem = RehabConnect.Models.InvoiceItem;
@@ -13,6 +15,7 @@ using InvoiceItem = RehabConnect.Models.InvoiceItem;
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
   [Area("Admin")]
+  [Authorize(Roles = SD.Role_Admin)]
   public class InvoiceController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;
@@ -36,6 +39,17 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       model.Item = _unitOfWork.InvoiceItem.GetAll().ToList();
 
       return View(model);
+    }
+
+    public IActionResult Billing(int? id)
+    {
+      if (id == null || id == 0)
+      {
+        return NotFound();
+      }
+
+      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice,Invoice.ParentDetail").ToList();
+      return View(objBillingList);
     }
 
     public IActionResult Add()
@@ -88,6 +102,40 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return View(obj);
     }
 
+    public IActionResult Confirm(int id)
+    {
+      var billing = _unitOfWork.Billing.Get(b => b.BillingID == id, includeProperties: "Invoice");
+      if (billing == null)
+      {
+        return NotFound();
+      }
+
+      billing.ConfirmStatus = true;
+      billing.Status = "Paid";
+      _unitOfWork.Billing.Update(billing);
+
+      // Update the invoice total
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == billing.InvoiceID);
+      invoice.Total -= billing.Amount;
+      if (invoice.Total == 0)
+      {
+        // Mark invoice as fully paid
+        invoice.Status = "Fully Paid";
+      }
+      else
+      {
+        // Mark invoice as fully paid
+        invoice.Status = "Partially Paid";
+      }
+      _unitOfWork.Invoice.Update(invoice);
+      _unitOfWork.Save();
+
+      return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
+    }
+
+    public IActionResult Edit(int id)
+    {
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
     //public IActionResult Edit(int id)
     //{
     //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");

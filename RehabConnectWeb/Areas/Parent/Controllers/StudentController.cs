@@ -3,11 +3,13 @@ using RehabConnect.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers
 {
   [Area("Parent")]
-  //[Authorize(Roles = SD.Role_Parent)]
+  [Authorize(Roles = SD.Role_Parent)]
   public class StudentController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

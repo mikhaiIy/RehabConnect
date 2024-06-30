@@ -183,8 +183,8 @@
                     <th>Parent</th>                  
                     <th class="text-truncate">Date Issued</th>
                     <th class="text-truncate">Due Date</th>
-                    <th>Total</th>
-                    <th>Invoice Status</th>
+                    <th>Total Due</th>
+                    <th>Status</th>
                     <th class="cell-fit">Actions</th>
                 </tr>
             </thead>
@@ -217,9 +217,20 @@
                         <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
                         <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
                         <td>@invoice.Total</td>
-                        <td></td>
+                        <td>
+                            @if (invoice.Status == null)
+                            {
+                                @:Unpaid
+                            }
+                            else
+                            {
+                                @invoice.Status
+                            }
+                        </td>
+                       
                         <td>
                             <div class="btn-group" role="group">
+                                <a href="@Url.Action("Billing", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-warning">Billing</a>
                                 <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-info">Preview</a>
                                 @* <a href="@Url.Action("Delete", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-danger">Delete</a> *@

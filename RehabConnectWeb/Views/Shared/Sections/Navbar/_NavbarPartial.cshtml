@@ -9,7 +9,7 @@
     @if (ViewData["navbarFull"] != null)
     {
       <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-        <a asp-controller="Dashboards" asp-action="Index" class="app-brand-link gap-2">
+        <a asp-controller="Home" asp-action="Index" class="app-brand-link gap-2">
           <span class="app-brand-logo demo">
             @await Html.PartialAsync("_Partials/_Macros")
           </span>
@@ -40,7 +40,7 @@
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
       <!-- Search -->
-    @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() != "True")
+    @* @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() != "True")
     {
       <div class="navbar-nav align-items-center">
         <div class="nav-item navbar-search-wrapper mb-0">
@@ -50,7 +50,7 @@
           </a>
         </div>
       </div>
-     }
+     } *@
       <!-- /Search -->
 
 
@@ -86,7 +86,7 @@
         <!--/ Language -->
 
         <!-- Search -->
-        @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() == "True")
+        @* @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() == "True")
         {
           <li class="navbar-nav align-items-center me-2 me-xl-0">
             <span class="nav-item navbar-search-wrapper mb-0">
@@ -95,8 +95,9 @@
               </a>
             </span>
           </li>
-        }
+        } *@
         <!-- /Search -->
+
         <!-- Style Switcher -->
         <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

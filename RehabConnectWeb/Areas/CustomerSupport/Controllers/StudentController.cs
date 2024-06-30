@@ -4,10 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using RehabConnect.Utility;
+using RehabConnect.Models.ViewModel;
 
 namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 {
   [Area("CustomerSupport")]
+  [Authorize(Roles = SD.Role_CustomerSupport)]
   public class StudentController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

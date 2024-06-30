@@ -1,7 +1,7 @@
-@model List<Report>
+@model List<Invoice>
 
 @{
-    ViewData["Title"] = "Customer Sup - Report";
+    ViewData["Title"] = "Parent - Payment";
 
 }
 
@@ -25,12 +25,12 @@
 }
 
 @section PageScripts {
-    <script src="~/js/app-user-list-report-cs.js"></script>
+    <script src="~/js/app-user-list.js"></script>
 }
 
 @* ************** Content ************** *@
 
-<h4 class="p-4"Report List></h4>
+<h4 class="p-4" Report List></h4>
 
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-3">
@@ -59,12 +59,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Total Patients</span>
+                        <span>Total Due</span>
                         <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">10</h3>
+                            <h3 class="mb-0 me-2">60%</h3>
                             <p class="text-success mb-0">(+18%)</p>
                         </div>
-                        <p class="mb-0">Confirmmed Reports </p>
+                        <p class="mb-0">Your Child Improvements</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-danger">
@@ -80,12 +80,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Your Patients</span>
+                        <span>Session Lefts</span>
                         <div class="d-flex align-items-center my-2">
                             <h3 class="mb-0 me-2">@Model.Count()</h3>
                             <p class="text-danger mb-0">(-14%)</p>
                         </div>
-                        <p class="mb-0">Number of Reports</p>
+                        <p class="mb-0">Number of your Sessions Left</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-success">
@@ -101,12 +101,12 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Total Reports</span>
+                        <span>Paid Session</span>
                         <div class="d-flex align-items-center my-2">
                             <h3 class="mb-0 me-2">@Model.Count()</h3>
                             <p class="text-success mb-0">(+42%)</p>
                         </div>
-                        <p class="mb-0">Total of Therapist</p>
+                        <p class="mb-0">Total of your Children Reports</p>
                     </div>
                     <div class="avatar">
                         <span class="avatar-initial rounded bg-label-warning">
@@ -124,13 +124,16 @@
         <h5 class="card-title mb-3">Search Filter</h5>
     </div>
     <div class="card-datatable table-responsive">
-        <table class="datatables-users table">
+
+        <table class="table">
             <thead class="border-top">
                 <tr>
-                    <th>Report ID</th>
-                    <th>Child Name</th>
-                    <th></th>
-                    <th>Status Confirmation</th>
+                    <th>Invoice ID</th>
+                    <th>Father Name</th>
+                    <th>Date Issued</th>
+                    <th>Due Date</th>
+                    <th>Total Outstanding</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -138,34 +141,30 @@
                 @foreach (var obj in Model)
                 {
                     <tr>
-                        <td>@obj.ReportID</td>
-                        <td>@obj.Student.ChildName</td>
-                        <td>@obj.Student.ChildIC</td>
+                        <td>@obj.InvoiceId</td>
+                        <td>@obj.ParentDetail.FatherName</td>
+                        <td>@obj.DateIssued</td>
+                        <td>@obj.DueDate</td>
+                        <td>@obj.Total</td>
                         <td>
-                            @if (obj.CustomerSupportConfirmation)
+                            @if (obj.Status == null)
                             {
-                                <span class="badge bg-success">Confirmed</span>
+                                @:Unpaid
                             }
                             else
                             {
-                                <span class="badge bg-danger">Unconfirmed</span>
+                                @obj.Status
                             }
                         </td>
                         <td>
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="btn-group mr-2" role="group">
-                                  <a asp-controller="Report" asp-action="Confirm" asp-route-id="@obj.ReportID" class="btn btn-warning">
-                                        Confirm
-                                  </a>
-                                  <a asp-controller="Report" asp-action="Info" asp-route-id="@obj.ReportID" class="btn btn-primary">
-                                        Detail
-                                    </a>
-                                    <a asp-controller="Report" asp-action="Print" asp-route-id="@obj.ReportID" class="btn btn-secondary" target="_blank">
-                                        Print
-                                    </a>
-                                </div>
+                            <div class="w-75 btn-group">
+                                <a asp-controller="Payment" asp-action="History" asp-route-id="@obj.InvoiceId" class="btn btn-secondary">
+                                    History
+                                </a>
+                                <a asp-controller="Payment" asp-action="Pay" asp-route-id="@obj.InvoiceId" class="btn btn-primary">
+                                    Pay
+                                </a>
                             </div>
-
                         </td>
                     </tr>
                 }
