@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +8,14 @@ using RehabConnect.DataAccess.Data;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
+using RehabConnect.Utility;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers
 {
   [Area("Parent")]
+  [Authorize(Roles = SD.Role_Parent)]
   public class EnrollProgramController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

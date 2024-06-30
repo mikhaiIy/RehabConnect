@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using RehabConnect.Models;
+using RehabConnect.Utility;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +10,7 @@ using System.Linq;
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
   [Area("Admin")]
+  [Authorize(Roles = SD.Role_Admin)]
   public class HomeController : Controller
   {
     private readonly IWebHostEnvironment _webHostEnvironment;

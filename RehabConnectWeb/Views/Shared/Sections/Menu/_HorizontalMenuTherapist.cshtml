@@ -12,45 +12,13 @@ ViewData["containerNav"] ??= "container-fluid";
     @* ! Full version menu-items *@
     <ul class="menu-inner">
 
-      <!-- Dashboards -->
-      <li class='menu-item@(currentPage.EndsWith("/") || currentPage.StartsWith("/Dashboards") ? " active" : "")'>
-        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-dashboard"></i>
-          <div data-i18n="Dashboards">Dashboards</div>
-        </a>
-        <ul class="menu-sub">
-          <li class='menu-item@(currentPage == "/" ? " active" : "")'>
-            <a asp-controller="Dashboards" asp-action="Index" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-chart-pie-2"></i>
-              <div data-i18n="Analytics">Analytics</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/Dashboards/CRM" ? " active" : "")'>
-            <a asp-controller="Dashboards" asp-action="CRM" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-3d-cube-sphere"></i>
-              <div data-i18n="CRM">CRM</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/Ecommerce/Dashboard" ? " active" : "")'>
-            <a asp-controller="Ecommerce" asp-action="Dashboard" class="menu-link">
-              <i class='menu-icon tf-icons ti ti-shopping-cart'></i>
-              <div data-i18n="eCommerce">eCommerce</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/Logistics/Dashboard" ? " active" : "")'>
-            <a asp-controller="Logistics" asp-action="Dashboard" class="menu-link">
-              <i class='menu-icon tf-icons ti ti-truck'></i>
-              <div data-i18n="Logistics">Logistics</div>
-            </a>
-          </li>
-          <li class='menu-item@(currentPage == "/Academy/Dashboard" ? " active" : "")'>
-            <a asp-controller="Academy" asp-action="Dashboard" class="menu-link">
-              <i class='menu-icon tf-icons ti ti-book'></i>
-              <div data-i18n="Academy">Academy</div>
-            </a>
-          </li>
-        </ul>
-      </li>
+      <!-- Home -->
+            <li class='menu-item@(currentPage.EndsWith("/") || currentPage.StartsWith("/Dashboards") ? " active" : "")'>
+                <a asp-controller="Home" asp-action="Index" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                    <div data-i18n="Home">Home</div>
+                </a>
+            </li>
 
       <!-- Pages -->
       <li class='menu-item@((currentPage.StartsWith("/Report") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>

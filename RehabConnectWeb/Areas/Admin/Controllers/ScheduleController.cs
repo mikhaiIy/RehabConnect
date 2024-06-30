@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.ObjectModelRemoting;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +8,13 @@ using RehabConnect.DataAccess.Repository;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
+using RehabConnect.Utility;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RehabConnectWeb.Areas.Admin.Controllers
 {
   [Area("Admin")]
+  [Authorize(Roles = SD.Role_Admin)]
   public class ScheduleController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

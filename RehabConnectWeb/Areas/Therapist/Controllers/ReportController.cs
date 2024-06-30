@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Therapist.Controllers
 {
   [Area("Therapist")]
+  [Authorize(Roles = SD.Role_Therapist)]
   public class ReportController : Controller
   {
     private readonly IUnitOfWork _unitOfWork;

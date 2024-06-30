@@ -10,10 +10,14 @@ using RehabConnect.Models.ViewModel;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.Parent.Controllers;
 
 [Area("Parent")]
+[Authorize(Roles = SD.Role_Parent)]
 public class SessionController : Controller
 {
   private readonly IUnitOfWork _unitOfWork;

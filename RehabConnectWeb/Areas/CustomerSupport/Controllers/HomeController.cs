@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RehabConnect.Models;
+using RehabConnect.Utility;
 
 namespace RehabConnectWeb.Areas.CustomerSupport.Controllers;
 
 [Area("CustomerSupport")]
+[Authorize(Roles = SD.Role_CustomerSupport)]
 public class HomeController : Controller
 {
   private readonly IWebHostEnvironment _webHostEnvironment;

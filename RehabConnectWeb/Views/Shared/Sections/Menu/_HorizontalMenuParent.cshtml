@@ -14,7 +14,7 @@
 
       <!-- Home -->
       <li class='menu-item@((currentPage.StartsWith("/Charts") || currentPage.StartsWith("/Maps")) ? " active" : "")'>
-        <a href="javascript:void(0)" class="menu-link ">
+                <a asp-area="Parent" asp-controller="Home" asp-action="Index" class="menu-link">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
           <div data-i18n="Home">Home</div>
         </a>
