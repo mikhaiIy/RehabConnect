@@ -261,7 +261,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Student\" />
     <Folder Include="wwwroot\img\reciept\" />
-    <Folder Include="wwwroot\img\favicon\" />
     <Folder Include="wwwroot\img\announcements\" />
   </ItemGroup>
   <ItemGroup>

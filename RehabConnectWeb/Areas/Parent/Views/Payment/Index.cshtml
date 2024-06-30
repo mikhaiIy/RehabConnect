@@ -146,7 +146,16 @@
                         <td>@obj.DateIssued</td>
                         <td>@obj.DueDate</td>
                         <td>@obj.Total</td>
-                        <td>@obj.Status</td>
+                        <td>
+                            @if (obj.Status == null)
+                            {
+                                @:Unpaid
+                            }
+                            else
+                            {
+                                @obj.Status
+                            }
+                        </td>
                         <td>
                             <div class="w-75 btn-group">
                                 <a asp-controller="Payment" asp-action="History" asp-route-id="@obj.InvoiceId" class="btn btn-secondary">

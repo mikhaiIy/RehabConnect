@@ -191,17 +191,11 @@ namespace RehabConnect.DataAccess.Data
                    InvoiceId = 1,
                    DateIssued = DateOnly.FromDateTime(DateTime.Now),
                    DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30)),
-                   ParentNames = "John Doe",
-                   Address1 = "123 Main St",
-                   Address2 = "Apt 4B",
-                   PhoneNum = "555-1234",
-                   Email = "johndoe@example.com",
                    PICNames = "Jane Doe",
                    ShortNote = "This is a short note.",
                    LongNote = "This is a long note providing more detailed information.",
                    Subtotal = 800.00m,
                    Discount = 50.00m,
-                   Tax = 150.00m,
                    Total = 900.00m,
                    ParentID = 1  // Reference existing ParentID
                });

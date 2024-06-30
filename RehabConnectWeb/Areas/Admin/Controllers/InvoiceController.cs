@@ -42,7 +42,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         return NotFound();
       }
 
-      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice").ToList();
+      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice,Invoice.ParentDetail").ToList();
       return View(objBillingList);
     }
 

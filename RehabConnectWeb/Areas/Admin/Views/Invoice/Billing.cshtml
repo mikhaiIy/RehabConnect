@@ -141,7 +141,7 @@
                 {
                     <tr>
                         <td>@obj.BillingID</td>
-                        <td>@obj.Invoice.ParentNames</td>
+                        <td>@(obj.Invoice?.ParentDetail?.FatherName ?? "N/A")</td>
                         <td>@obj.Amount</td>
                         <td>
                             @if (obj.ConfirmStatus)

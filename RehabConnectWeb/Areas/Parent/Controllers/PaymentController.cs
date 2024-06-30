@@ -37,13 +37,29 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
     //  return View(objInvoiceList);
     //}
 
+    //public IActionResult Index()
+    //{
+    //  var currentUserEmail = User.Identity.Name;
+    //  var objInvoiceList = _unitOfWork.Invoice.GetAll(
+    //      includeProperties: "ParentDetail")
+    //      .Where(i => i.ParentDetail.FatherEmail == currentUserEmail)
+    //      .ToList();
+    //  return View(objInvoiceList);
+    //}
+
     public IActionResult Index()
     {
-      var currentUserEmail = User.Identity.Name;
-      var objInvoiceList = _unitOfWork.Invoice.GetAll(
-          includeProperties: "ParentDetail")
-          .Where(i => i.Email == currentUserEmail)
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (userId == null)
+      {
+        return NotFound("User ID not found");
+      }
+
+      List<Invoice> objInvoiceList = _unitOfWork.Invoice
+          .report(r => r.ParentDetail.UserId == userId, includeProperties: "ParentDetail")
           .ToList();
+
       return View(objInvoiceList);
     }
 
@@ -54,7 +70,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
         return NotFound();
       }
 
-      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice").ToList();
+      var objBillingList = _unitOfWork.Billing.report(b => b.InvoiceID == id, includeProperties: "Invoice,Invoice.ParentDetail").ToList();
       return View(objBillingList);
     }
 
