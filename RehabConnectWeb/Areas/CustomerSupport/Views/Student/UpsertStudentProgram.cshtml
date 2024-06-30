@@ -1,0 +1,109 @@
+@model RehabConnect.Models.ViewModel.StudentProgVM
+
+@{
+ViewData["Title"] = "Upsert Student Program";
+}
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+}
+@section VendorScripts {
+<script src="~/vendor/libs/cleavejs/cleave.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+}
+@section PageScripts {
+<script src="~/js/form-layouts.js"></script>
+}
+
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> @((Model.StudentId != 0) ? "Update" : "Create") Student Program</h4>
+
+<div class="row">
+  <div class="col-xxl">
+    <div class="card mb-4">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="mb-0">Student Program Form</h5>
+        <small class="text-muted float-end">Default label</small>
+      </div>
+      <div class="card-body">
+        <form method="post" class="row" enctype="multipart/form-data">
+          <input asp-for="StudentId" hidden />
+          @if (Model.StudentId != 0)
+          {
+          <div class="row mb-3">
+            <label asp-for="StudentName" class="col-sm-2 col-form-label">Student Name</label>
+            <div class="col-sm-10">
+              <input type="text" asp-for="StudentName" disabled class="form-control" placeholder="John Doe" />
+            </div>
+          </div>
+          }
+          else
+          {
+          <div class="row mb-3">
+            <label asp-for="StudentName" class="col-sm-2 col-form-label">Student Name</label>
+            <div class="col-sm-10">
+              <input type="text" asp-for="StudentName" class="form-control" placeholder="John Doe" />
+              <span asp-validation-for="StudentName" class="text-danger"></span>
+            </div>
+          </div>
+          }
+
+          <div class="row mb-3">
+            <label asp-for="RoadmapId" class="col-sm-2 col-form-label">Roadmap Name</label>
+            <div class="col-sm-10">
+              @if (Model.StudentId != 0)
+              {
+              <input type="text" asp-for="RoadmapId" class="form-control" disabled />
+              }
+              else
+              {
+              <select asp-for="RoadmapId" class="form-select" asp-items="ViewBag.Roadmaps"></select>
+              <span asp-validation-for="RoadmapId" class="text-danger"></span>
+              }
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label asp-for="StepId" class="col-sm-2 col-form-label">Step Name</label>
+            <div class="col-sm-10">
+              <select asp-for="StepId" class="form-select" asp-items="ViewBag.Steps"></select>
+              <span asp-validation-for="StepId" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label asp-for="ProgramId" class="col-sm-2 col-form-label">Program Name</label>
+            <div class="col-sm-10">
+              <select asp-for="ProgramId" class="form-select" asp-items="ViewBag.Programs"></select>
+              <span asp-validation-for="ProgramId" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label asp-for="Status" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+              <select asp-for="Status" class="form-select">
+                <option value="Ongoing">Ongoing</option>
+                <option value="Completed">Completed</option>
+                <option value="OnLeave">On Leave</option>
+                <option value="PaymentPending">Payment Pending</option>
+              </select>
+              <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="row justify-content-end">
+                <div class="col-sm-9">
+                  <button type="submit" class="btn btn-primary">
+                    @(Model.StudentId != 0 ? "Update" : "Create")
+                  </button>
+                  <button class="btn btn-label-secondary"><a asp-controller="Student" asp-action="Index">Back to List</a></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
