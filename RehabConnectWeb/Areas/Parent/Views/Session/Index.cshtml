@@ -25,23 +25,17 @@ ViewData["Title"] = "Fullcalendar - Apps";
 }
 
 @section PageScripts {
-<script src="~/js/app-calendar-events.js"></script>
-<script src="~/js/app-calendar.js"></script>
+<script src="~/js/calendar-parent.js"></script>=
 }
 
 @* ************** Content ************** *@
+@* ************* Calendar ************** *@
+
 <div class="card app-calendar-wrapper">
   <div class="row g-0">
     <!-- Calendar Sidebar -->
     <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-      <div class="border-bottom p-4 my-sm-0 mb-3">
-        <div class="d-grid">
-          <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
-            <i class="ti ti-plus me-1"></i>
-            <span class="align-middle">Add Event</span>
-          </button>
-        </div>
-      </div>
+
       <div class="p-3">
         <!-- inline calendar (flatpicker) -->
         <div class="inline-calendar"></div>
@@ -60,30 +54,29 @@ ViewData["Title"] = "Fullcalendar - Apps";
 
         <div class="app-calendar-events-filter ms-3">
           <div class="form-check form-check-danger mb-2">
-            <input class="form-check-input input-filter" type="checkbox" id="select-personal" data-value="personal" checked>
-            <label class="form-check-label" for="select-personal">Personal</label>
+            <input class="form-check-input input-filter" type="checkbox" id="select-personal" data-value="consultation" checked>
+            <label class="form-check-label" for="select-personal">Consultation</label>
           </div>
           <div class="form-check mb-2">
-            <input class="form-check-input input-filter" type="checkbox" id="select-business" data-value="business" checked>
-            <label class="form-check-label" for="select-business">Business</label>
+            <input class="form-check-input input-filter" type="checkbox" id="select-business" data-value="assessment" checked>
+            <label class="form-check-label" for="select-business">Assessment</label>
           </div>
           <div class="form-check form-check-warning mb-2">
-            <input class="form-check-input input-filter" type="checkbox" id="select-family" data-value="family" checked>
-            <label class="form-check-label" for="select-family">Family</label>
+            <input class="form-check-input input-filter" type="checkbox" id="select-family" data-value="report" checked>
+            <label class="form-check-label" for="select-family">Full Development Report</label>
           </div>
           <div class="form-check form-check-success mb-2">
-            <input class="form-check-input input-filter" type="checkbox" id="select-holiday" data-value="holiday" checked>
-            <label class="form-check-label" for="select-holiday">Holiday</label>
+            <input class="form-check-input input-filter" type="checkbox" id="select-holiday" data-value="program" checked>
+            <label class="form-check-label" for="select-holiday">Programs</label>
           </div>
           <div class="form-check form-check-info">
-            <input class="form-check-input input-filter" type="checkbox" id="select-etc" data-value="etc" checked>
-            <label class="form-check-label" for="select-etc">ETC</label>
+            <input class="form-check-input input-filter" type="checkbox" id="select-etc" data-value="school" checked>
+            <label class="form-check-label" for="select-etc">Road to School</label>
           </div>
         </div>
       </div>
     </div>
     <!-- /Calendar Sidebar -->
-
     <!-- Calendar & Modal -->
     <div class="col app-calendar-content">
       <div class="card shadow-none border-0">
@@ -96,77 +89,99 @@ ViewData["Title"] = "Fullcalendar - Apps";
       <!-- FullCalendar Offcanvas -->
       <div class="offcanvas offcanvas-end event-sidebar" tabindex="-1" id="addEventSidebar" aria-labelledby="addEventSidebarLabel">
         <div class="offcanvas-header my-1">
-          <h5 class="offcanvas-title" id="addEventSidebarLabel">Add Event</h5>
+          <h5 class="offcanvas-title" id="addEventSidebarLabel">Add Schedule</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body pt-0">
-          <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-            <div class="mb-3">
-              <label class="form-label" for="eventTitle">Title</label>
-              <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Event Title" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="eventLabel">Label</label>
-              <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                <option data-label="primary" value="Business" selected>Business</option>
-                <option data-label="danger" value="Personal">Personal</option>
-                <option data-label="warning" value="Family">Family</option>
-                <option data-label="success" value="Holiday">Holiday</option>
-                <option data-label="info" value="ETC">ETC</option>
+          <form method="post" id="eventForm" onsubmit="return false" >
+            <div class="mb-3" id="eventRoadmap">
+              <label class="form-label" for="roadmapSelect">Choose Roadmap</label>
+              <select class="form-select" id="roadmapSelect" name="roadmap">
+                <option disabled selected>--Select Roadmap--</option>
               </select>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="eventStartDate">Start Date</label>
-              <input type="text" class="form-control" id="eventStartDate" name="eventStartDate" placeholder="Start Date" />
+            <div class="mb-3" id="eventStep">
+              <label class="form-label" for="stepSelect">Choose Step</label>
+              <select class="form-select" id="stepSelect" name="step">
+                <option disabled selected>--Select Step--</option>
+              </select>
+            </div>
+            <div class="mb-3" id="eventProgram">
+              <label class="form-label" for="programSelect">Choose Program Session</label>
+              <select class="form-select" id="programSelect" name="programId">
+                <option disabled selected>--Select Session--</option>
+              </select>
+            </div>
+            <div class="mb-3 d-none" id="eventTitle" name="eventTitle">
+              <label class="form-label" for="eventTitleInfo">Title</label>
+              <input type="text" class="form-control" id="eventTitleInfo" name="eventTitle" placeholder="Event Title" />
             </div>
             <div class="mb-3">
-              <label class="form-label" for="eventEndDate">End Date</label>
-              <input type="text" class="form-control" id="eventEndDate" name="eventEndDate" placeholder="End Date" />
+              <label class="form-label" for="capacity">Capacity: </label>
+              <input type="number" class="form-control" placeholder="How many Slots per Session Available" id="capacity" name="capacity"/>
             </div>
-            <div class="mb-3">
-              <label class="switch">
-                <input type="checkbox" class="switch-input allDay-switch" />
-                <span class="switch-toggle-slider">
-                  <span class="switch-on"></span>
-                  <span class="switch-off"></span>
-                </span>
-                <span class="switch-label">All Day</span>
-              </label>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="eventURL">Event URL</label>
-              <input type="url" class="form-control" id="eventURL" name="eventURL" placeholder="https://www.google.com" />
+            <div class="mb-3 d-none" id="eventRegistered">
+              <label class="form-label" for="registered">Registered Student: </label>
+              <input type="number" class="form-control" placeholder="How many Students have Registered" id="registered" name="registered"/>
             </div>
             <div class="mb-3 select2-primary">
-              <label class="form-label" for="eventGuests">Add Guests</label>
+              <label class="form-label" for="eventGuests">Student List</label>
               <select class="select2 select-event-guests form-select" id="eventGuests" name="eventGuests" multiple>
-                <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
               </select>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="eventLocation">Location</label>
-              <input type="text" class="form-control" id="eventLocation" name="eventLocation" placeholder="Enter Location" />
+            <div class="mb-3" id="eventType">
+              <label class="form-label">Session type: </label>
+              <label class="switch">
+                <input type="checkbox" class="switch-input" id="dateType"/>
+                <span class="switch-label">Weekend</span>
+                <span class="switch-toggle-slider">
+                  <span class="switch-on">
+                    <i class="ti ti-check"></i>
+                  </span>
+                  <span class="switch-off">
+                    <i class="ti ti-check"></i>
+                  </span>
+                </span>
+                <span class="switch-label">Weekday</span>
+              </label>
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="eventDescription">Description</label>
-              <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+            <div class="mb-3" id="eventDate">
+              <label for="flatpickr-multi" class="form-label">Date</label>
+              <input type="text" class="form-control mb-1" placeholder="Select one or more Dates" id="flatpickr-multi" name="startDt"/>
+            </div>
+            <div class="mb-3 d-none" id="eventDateInfo">
+              <label for="eventDateInfo1" class="form-label">Date</label>
+              <input type="text" id="eventDateInfo1" class="form-control mb-1" placeholder="yy MM DD"/>
+            </div>
+            <div class="row" id="eventTime">
+              <div class="mb-3">
+                <label  class="col-form-label">Session Start </label>
+                <input type="time" class="form-control" placeholder=""  name="startTime"/>
+              </div>
+              <div class="mb-3">
+                <label  class="col-form-label">Session End</label>
+                <input type="time" class="form-control" placeholder=""  name="endTime"/>
+              </div>
+            </div>
+            <div class="row d-none" id="eventTimeInfo">
+              <div class="mb-3">
+                <label  class="col-form-label" for="eventTimeInfo1">Session Start </label>
+                <input type="text" id="eventTimeInfo1" class="form-control" placeholder="XX:XX" name="eventTimeInfo1"/>
+              </div>
+              <div class="mb-3">
+                <label  class="col-form-label" for="eventTimeInfo2">Session End</label>
+                <input type="text" id="eventTimeInfo2" class="form-control"  placeholder="XX:XX" name="eventTimeInfo2"/>
+              </div>
             </div>
             <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
               <div>
-                <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
+                <button asp-controller="Session" asp-action="SessionEdit" type="submit" class="btn btn-primary">Edit</button>
                 <button type="reset" class="btn btn-label-secondary btn-cancel me-sm-0 me-1" data-bs-dismiss="offcanvas">Cancel</button>
               </div>
-              <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <!-- /Calendar & Modal -->
   </div>
 </div>

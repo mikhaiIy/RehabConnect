@@ -1,0 +1,50 @@
+@{
+  ViewData["Title"] = "Manage Student Program";
+}
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+}
+
+@section PageScripts {
+<script src="~/js/app-user-list-student-program.js"></script>
+}
+
+
+@* ************** Content ************** *@
+  <!-- Student List Table -->
+<div class="card">
+  <div class="card-header border-bottom">
+    <h5 class="card-title mb-3">Student Filter</h5>
+  </div>
+  <div class="card-datatable table-responsive">
+    <table class="datatables-users table">
+      <thead class="border-top">
+      <tr>
+        <th></th>
+        <th>Student Name</th>
+        <th>Roadmap</th>
+        <th>Step</th>
+        <th>Program</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+    </table>
+  </div>
+
+</div>

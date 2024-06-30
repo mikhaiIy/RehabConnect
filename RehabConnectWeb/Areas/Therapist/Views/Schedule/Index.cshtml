@@ -1,7 +1,6 @@
-@model ScheduleViewModel
-
 @{
-  ViewData["Title"] = "Create Schedule";
+  ViewData["Title"] = "Therapist - Report";
+
 }
 
 @section VendorStyles {
@@ -27,15 +26,9 @@
 }
 
 @section PageScripts {
-  <script src="~/js/calendar-admin.js"></script>
-  <script src="~/js/schedule-admin.js"></script>
+<script src="~/js/calendar-therapist.js"></script>
 }
 @* ************** Content ************** *@
-<h4 class="py-3 mb-0">
-    <span class="text-muted fw-light">RehabConnect /</span><span class="fw-medium"> Create Schedule</span>
-</h4>
-
-@* ************* Calendar ************** *@
 
 <div class="card app-calendar-wrapper">
   <div class="row g-0">
@@ -194,3 +187,4 @@
     </div>
   </div>
 </div>
+

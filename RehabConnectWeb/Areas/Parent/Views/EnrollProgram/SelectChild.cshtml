@@ -4,30 +4,84 @@
     ViewData["Title"] = "";
 }
 
-@section PageScripts {
-    <script src="~/js/form-basic-inputs.js"></script>
+@section VendorStyles {
+<link rel="stylesheet" href="~/vendor/libs/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/quill/editor.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+<link rel="stylesheet" href="~/vendor/libs/animate-css/animate.css" />
+<link rel="stylesheet" href="~/vendor/libs/sweetalert2/sweetalert2.css" />
 }
 
+@section VendorScripts {
+<script src="~/vendor/libs/fullcalendar/fullcalendar.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/sweetalert2/sweetalert2.js"></script>
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/app-calendar.css" />
+}
+
+@section PageScripts {
+  <script>
+
+  $(function () {
+    var sweetAlertType = "@ViewBag.AlertType";
+    var sweetAlertMessage = "@ViewBag.AlertMessage";
+    console.log("alertype: ", sweetAlertType);
+    console.log("alertmsg: ", sweetAlertMessage);
+
+
+    if (sweetAlertType && sweetAlertMessage) {
+      Swal.fire({
+      title: "Warning!",
+      text: sweetAlertMessage,
+      icon: sweetAlertType,
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    }
+  });
+</script>
+  <script src="~/js/form-basic-inputs.js"></script>
+}
+
+@* ************** Content ************** *@
+
+
 <div class="col-md-6">
-    <div class="card mb-4">
-        <h5 class="card-header">Select your child</h5>
-        <div class="card-body">
-            <form method="post" asp-action="SelectChild" asp-controller="EnrollProgram">
-                <div class="mb-3">
-                    <label for="defaultSelect" asp-for="Students" class="form-label">Select your child name :D</label>
-                    <select id="defaultSelect" asp-for="Students" class="form-select">
-                        <option>Select your child name :3</option>
-                        @foreach (var student in Model.StudentList)
-                        {
-                            <option value="@student.StudentID">@student.ChildName</option>
-                        }
-                    </select>
-                    <div class="pt-3">
-                        <button type="submit" class="btn btn-success btn-submit me-2">Next</button>
-                    </div>
-                </div>
-          </form>   
+  <div class="card mb-4">
+    <h5 class="card-header">Select your child</h5>
+    <div class="card-body">
+      <form method="post" asp-action="SelectChild" asp-controller="EnrollProgram">
+        <div class="mb-3">
+          <label for="defaultSelect" asp-for="Students" class="form-label">Select your child name :D</label>
+          <select id="defaultSelect" asp-for="Students" class="form-select">
+            <option>Select your child name :3</option>
+            @foreach (var student in Model.StudentList)
+            {
+              <option value="@student.StudentID">@student.ChildName</option>
+            }
+          </select>
+
+          <div class="pt-3">
+            <button type="submit" class="btn btn-success btn-submit me-2">Next</button>
+          </div>
         </div>
+      </form>
     </div>
+  </div>
 </div>
+
+
+
 

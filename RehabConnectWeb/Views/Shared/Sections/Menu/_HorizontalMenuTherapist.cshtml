@@ -23,7 +23,7 @@ ViewData["containerNav"] ??= "container-fluid";
       <!-- Pages -->
       <li class='menu-item@((currentPage.StartsWith("/Report") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>
         <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-report"></i>
+          <i class="menu-icon tf-icons ti ti-report"></i>
           <div data-i18n="Report">Report</div>
         </a>
         <ul class="menu-sub">
@@ -36,6 +36,24 @@ ViewData["containerNav"] ??= "container-fluid";
           </li>
         </ul>
       </li>
+
+      <li class='menu-item@((currentPage.StartsWith("/Report") || currentPage.StartsWith("/Wizards") || currentPage.StartsWith("/Auth") || currentPage.StartsWith("/Modals")) ? " active" : "")'>
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-report"></i>
+          <div data-i18n="Schedule">Schedule</div>
+        </a>
+        <ul class="menu-sub">
+          <!-- Front Pages -->
+          <li class='menu-item@(currentPage.StartsWith("/Report") ? " active open" : "")'>
+            <a asp-controller="Schedule" asp-action="Index" class="menu-link">
+              <i class='menu-icon tf-icons ti ti-book'></i>
+              <div data-i18n="Session Schedule">Session Schedule</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
 
       @* <!-- Layouts -->
       <li class='menu-item@(currentPage.StartsWith("/LayoutExamples") ? " active" : "")'>

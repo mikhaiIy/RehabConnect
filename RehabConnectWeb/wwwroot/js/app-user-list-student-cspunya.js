@@ -60,7 +60,7 @@ $(function () {
         {
           // For Responsive
           className: 'control',
-          searchable: false,
+          searchable: true,
           orderable: false,
           responsivePriority: 2,
           targets: 0,

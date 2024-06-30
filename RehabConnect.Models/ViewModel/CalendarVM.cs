@@ -16,4 +16,6 @@ public class ExtendedProps
     public int Capacity { get; set; }
     
     public int Registered { get; set; }
+    
+    public string Students { get; set; }
 }

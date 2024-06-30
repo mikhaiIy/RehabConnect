@@ -1,0 +1,116 @@
+@using Newtonsoft.Json
+@model EnrollProgramVM
+
+@{
+ViewData["Title"] = "Wizard Icons - Form Wizards";
+}
+
+@section VendorStyles {
+  <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+  <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+  <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+  <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.css" />
+<link rel="stylesheet" href="~/vendor/libs/animate-css/animate.css" />
+<link rel="stylesheet" href="~/vendor/libs/sweetalert2/sweetalert2.css" />
+}
+
+@section VendorScripts {
+  <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+  <script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+  <script src="~/vendor/libs/select2/select2.js"></script>
+  <script src="~/vendor/libs/moment/moment.js"></script>
+  <script src="~/vendor/libs/flatpickr/flatpickr.js"></script>
+<script src="~/vendor/libs/sweetalert2/sweetalert2.js"></script>
+}
+
+@section PageScripts {
+ <script> scheduleId = @ViewBag.scheduleId</script>
+}
+
+
+<!-- Your HTML content -->
+<h4 class="py-3 mb-4">
+  <span class="text-muted fw-light">RehabConnect /</span> Edit Booked Session
+</h4>
+
+<div class="col-12 mb-4">
+  <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
+    <div class="bs-stepper-header" role="tablist">
+      @foreach (var step in Model.StepList)
+      {
+      <div class="step" id="step-@step.StepId">
+        <button type="button" class="step-trigger" role="tab" aria-controls="step-content-@step.StepId">
+                        <span class="bs-stepper-icon">
+                            <svg viewBox="0 0 54 54">
+                                <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
+                            </svg>
+                        </span>
+          <span class="bs-stepper-label label1">Step @step.StepNo</span>
+          <span class="bs-stepper-label label2">@step.Title</span>
+          <span class="bs-stepper-label label3"></span>
+        </button>
+      </div>
+      @if (!ReferenceEquals(step, Model.StepList.Last()))
+      {
+      <div class="line">
+        <i class="ti ti-chevron-right"></i>
+      </div>
+      }
+      }
+    </div>
+    <div class="bs-stepper-content">
+      <form asp-action="BookSession" method="post">
+        <div>
+          <div class="content-header mb-3">
+            <h6 class="mb-0">Account Details</h6>
+            <small>Review Your Children Details.</small>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildName" class="form-label">Children Name</label>
+              <input asp-for="StudentProgram.Student.ChildName" disabled class="form-control" />
+            </div>
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildIC" class="form-label">Children IC</label>
+              <input asp-for="StudentProgram.Student.ChildIC" disabled class="form-control" />
+            </div>
+            <div class="col-sm-6">
+              <label asp-for="StudentProgram.Student.ChildAge" class="form-label">Children Age (Years Old)</label>
+              <input asp-for="StudentProgram.Student.ChildAge" disabled class="form-control" />
+            </div>
+          </div>
+          <div class="content-header mb-3 pt-3">
+            <h6 class="mb-0">Program and Session Details</h6>
+            <small>Select wisely.</small>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <input asp-for="StudentProgram.Student.StudentID" name="studentId" hidden />
+              <label asp-for="StudentProgram" class="form-label">Program Name</label>
+              <select asp-for="StudentProgram" class="form-control" name="ProgramId" id="program-dropdown">
+                <option value="">Select a program</option>
+                @foreach (var program in Model.ProgramList)
+                {
+                <option value="@program.ProgramID">@program.ProgramName</option>
+                }
+              </select>
+              <span asp-validation-for="StudentProgram" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label">Status</label>
+              <input disabled class="form-control" value="@Model.StudentProgram.Status" />
+            </div>
+          </div>
+          <div id="session-container"></div>
+          <div class="col-12 d-flex justify-content-between pt-2">
+            <div>
+              <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

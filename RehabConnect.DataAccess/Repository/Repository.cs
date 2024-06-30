@@ -53,7 +53,21 @@ namespace RehabConnect.DataAccess.Repository
             }
             return query.ToList();
         }
-
+        
+        public IEnumerable<T> Find(Expression<Func<T, bool>> expression, string? includeProperties = null)
+        {
+            IQueryable<T> query = dbSet;
+            query = query.Where(expression);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                             .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query;
+        }
         public IEnumerable<T> report(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
             IQueryable<T> query = dbSet;
@@ -72,11 +86,6 @@ namespace RehabConnect.DataAccess.Repository
             }
 
             return query.ToList();
-        }
-
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
-        {
-            return dbSet.Where(expression);
         }
 
         public int Count()

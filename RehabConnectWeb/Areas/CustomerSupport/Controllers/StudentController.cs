@@ -27,6 +27,11 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       return View(objStudentList);
     }
 
+    public IActionResult StudentProgram()
+    {
+      return View();
+    }
+
     public IActionResult Upsert(int? Studentid)
     {
       Student student = new Student();
@@ -117,7 +122,73 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       ViewBag.Therapists = new SelectList(therapistsQuery, "TherapistID", "TherapistName", selectedTherapist);
     }
 
+    public IActionResult UpsertStudentProgram(int studentid)
+    {
+
+
+      if (studentid == null || studentid == 0)
+      {
+        // create
+        StudentProgVM studentProgramVM = new StudentProgVM();
+        PopulateDropdownLists();
+        return View(studentProgramVM);
+      }
+      else
+      {
+        var StudentProgVm = new StudentProgVM
+        {
+          StudentId = studentid,
+          StudentName = _unitOfWork.Student.Find(u => u.StudentID == studentid).Select(u => u.ChildName).FirstOrDefault(),
+
+
+        };
+        PopulateDropdownLists();
+        return View(StudentProgVm);
+      }
+    }
+
+    private void PopulateDropdownLists(int? selectedRoadmapId = null, int? selectedStepId = null, int? selectedProgramId = null, int? selectedStatus = null)
+    {
+      ViewBag.Roadmaps = new SelectList(_unitOfWork.Roadmap.GetAll(), "RoadmapID", "Name", selectedRoadmapId);
+      ViewBag.Steps = new SelectList(_unitOfWork.Step.GetAll(), "StepID", "Title", selectedStepId);
+      ViewBag.Programs = new SelectList(_unitOfWork.Program.GetAll(), "ProgramID", "ProgramName", selectedProgramId);
+      ViewBag.Statuses = new SelectList(Enum.GetValues(typeof(StudentStatus)).Cast<StudentStatus>(), selectedStatus);
+    }
+
+
+
     #region API CALLS
+
+    [HttpGet]
+    public IActionResult GetStudentProgram()
+    {
+      // Getting all Students Details
+      var studentList = _unitOfWork.Student.GetAll(includeProperties: "Therapist");
+      var studentPrograms = new List<StudentProgramVM>();
+
+      foreach (var obj in studentList)
+      {
+        var student = _unitOfWork.Student.Get(u => u.StudentID == obj.StudentID);
+        var studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentID == student.StudentID && u.Status==StudentStatus.Ongoing);
+        var program = _unitOfWork.Program?.Get(u => u.ProgramID == studentProgram.ProgramID);
+        var step = _unitOfWork.Step.Get(u => u.StepId == program.StepId);
+        var roadmap = _unitOfWork.Roadmap.Get(u => u.RoadmapId == step.RoadmapId);
+
+        var studentProgramVm = new StudentProgramVM
+        {
+          StudentId = student.StudentID,
+          StudentName = student.ChildName,
+          RoadmapName = roadmap.Name,
+          StepName = step.Title,
+          ProgramName = program.ProgramName,
+          Status = studentProgram.Status.ToString()
+        };
+
+        studentPrograms.Add(studentProgramVm);
+      }
+      return Json(new { data = studentPrograms });
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {
