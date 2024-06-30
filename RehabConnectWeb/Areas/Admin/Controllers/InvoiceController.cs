@@ -30,43 +30,89 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       model.TotalUnpaid = _unitOfWork.Billing.Sum();
       model.Invoices = _unitOfWork.Invoice.GetAll(includeProperties: "ParentDetail").ToList();
       model.parentDetails = _unitOfWork.ParentDetail.GetAll().ToList();
+      model.Item = _unitOfWork.InvoiceItem.GetAll().ToList();
 
       return View(model);
     }
 
     public IActionResult Add()
     {
-      return View();
+      var model = new InvoiceAddVM();
+
+      return View(model);
     }
 
     [HttpPost]
-    public IActionResult Add(Invoice obj)
+    public IActionResult CreateInvoice(InvoiceAddVM obj)
     {
       if (ModelState.IsValid)
       {
-        _unitOfWork.Invoice.Add(obj);
+        // Ensure InvoiceItems are added to the Invoice object
+        _unitOfWork.Invoice.Add(obj.Invoice);
         _unitOfWork.Save();
-        TempData["success"] = "Category created successfully";
-        return RedirectToAction("Index");
+
+        obj.Item.InvoiceId = obj.Invoice.InvoiceId;
+
+        _unitOfWork.InvoiceItem.Add(obj.Item);
+        _unitOfWork.Save();
+
+        return RedirectToAction(nameof(Index)); // Redirect to your desired action
       }
-      return View();
+
+      // If ModelState is not valid, return to the view with the invalid invoice object
+      return View(obj);
     }
 
+    public IActionResult Edit(int id)
+    {
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
 
+      InvoiceEditVM obj = new InvoiceEditVM()
+      {
+        Invoice = invoice,
+        Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+      };
 
+      return View(obj);
+    }
+
+    [HttpPost]
     public IActionResult Edit()
     {
+
+
       return View();
     }
 
-    public IActionResult Preview()
+    public IActionResult Preview(int id)
     {
-      return View();
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties: "ParentDetail");
+
+      InvoicePreviewVM vm = new InvoicePreviewVM()
+      {
+        Invoice = invoice,
+        Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+      };
+
+      return View(vm);
     }
 
-    public IActionResult Print()
+    [HttpPost]
+    public IActionResult Delete(int id)
     {
-      return View();
+      var invoiceToBeDeleted = _unitOfWork.Invoice.Get(u => u.InvoiceId == id);
+      if (invoiceToBeDeleted == null)
+      {
+        return Json(new { success = false, message = "Error while deleting" });
+      }
+      else
+      {
+        _unitOfWork.Invoice.Remove(invoiceToBeDeleted);
+        _unitOfWork.Save();
+        return Json(new { success = true, message = "Delete Successful" });
+        return RedirectToAction(nameof(Index));
+      }
+
     }
 
     #region API CALLS
@@ -77,7 +123,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       InvoiceBillingVM invoiceBillingVm = new InvoiceBillingVM()
       {
         Invoice = _unitOfWork.Invoice.GetAll(includeProperties: "ParentDetail").ToList(),
-        Billing = _unitOfWork.Billing.GetAll(includeProperties: "Invoice").ToList()
+        Billing = _unitOfWork.Billing.GetAll(includeProperties: "Invoice").ToList(),
+        Item = _unitOfWork.InvoiceItem.GetAll().ToList()
       };
       return Json(new { data = invoiceBillingVm });
     }
@@ -122,6 +169,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     public decimal TotalUnpaid { get; set; }
     public List<ParentDetail> parentDetails { get; set; }
     public List<Invoice> Invoices { get; set; }
+    public List<InvoiceItem> Item { get; set; }
   }
 }
 
