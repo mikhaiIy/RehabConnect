@@ -123,7 +123,7 @@
         </li>
         <!-- / Style Switcher-->
 
-        <!-- Quick links  -->
+        @* <!-- Quick links  -->
         <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
             data-bs-auto-close="outside" aria-expanded="false">
@@ -407,7 +407,7 @@
             </li>
           </ul>
         </li>
-        <!--/ Notification -->
+        <!--/ Notification --> *@
 
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -442,14 +442,17 @@
                             <span class="align-middle">My Profile</span>
                         </a>      
             </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
                 }
-                <li>
+                @* <li>
               <a class="dropdown-item" asp-controller="Pages" asp-action="AccountSettings">
                 <i class="ti ti-settings me-2 ti-sm"></i>
                 <span class="align-middle">Settings</span>
               </a>
-            </li>
-            <li>
+            </li> *@
+            @* <li>
               <a class="dropdown-item" asp-controller="Pages" asp-action="AccountSettingsBilling">
                 <span class="d-flex align-items-center align-middle">
                   <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
@@ -457,22 +460,20 @@
                   <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20">2</span>
                 </span>
               </a>
-            </li>
-            <li>
-              <div class="dropdown-divider"></div>
-            </li>
+            </li> *@
+            
             <li>
               <a class="dropdown-item" asp-controller="Home" asp-action="Faq">
                 <i class="ti ti-help me-2 ti-sm"></i>
                 <span class="align-middle">FAQ</span>
               </a>
             </li>
-            <li>
+            @* <li>
               <a class="dropdown-item" asp-controller="Pages" asp-action="Pricing">
                 <i class="ti ti-currency-dollar me-2 ti-sm"></i>
                 <span class="align-middle">Pricing</span>
               </a>
-            </li>
+            </li> *@
             <li>
               <div class="dropdown-divider"></div>
             </li>
