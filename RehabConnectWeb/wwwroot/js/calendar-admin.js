@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
       eventRegistered.classList.remove('d-none');
       eventRegisteredInfo.disabled = true;
       eventRegisteredInfo.value = eventToUpdate.extendedProps.registered;
-      eventType.classList.add('d-none');
       eventDate.classList.add('d-none');
       eventDateInfo.classList.remove('d-none');
       eventDateInfo1.value = eventToUpdate.start.toLocaleDateString();
@@ -170,12 +169,49 @@ document.addEventListener('DOMContentLoaded', function () {
       btnDeleteEvent.classList.add('d-none');
       appCalendarSidebar.classList.remove('show');
       appOverlay.classList.remove('show');
+      eventStartDate.value = date;
+      eventEndDate.value = date;
+      eventCapacity.value.remove();
+      eventCapacity.disabled = false;
+      eventRegistered.classList.add('d-none');
+
+      eventRoadmap.classList.remove('d-none');
+      eventStep.classList.remove('d-none');
+      eventProgram.classList.remove('d-none');
+      eventCapacity.value = '';
+      eventCapacity.disabled = false;
+      eventRegistered.classList.add('d-none');
+      eventRegisteredInfo.disabled = false;
+      eventRegisteredInfo.value = '';
+      eventDate.classList.remove('d-none');
+      eventDateInfo.classList.add('d-none');
+      eventTime.classList.remove('d-none');
+      eventTimeInfo.classList.add('d-none');
+      eventTitle.classList.add('d-none');
     });
 
     // Sidebar Toggle Btn
     if (btnToggleSidebar) {
       btnToggleSidebar.addEventListener('click', e => {
         btnCancel.classList.remove('d-none');
+        eventStartDate.value = date;
+        eventEndDate.value = date;
+        eventCapacity.value.remove();
+        eventCapacity.disabled = false;
+        eventRegistered.classList.add('d-none');
+        eventRoadmap.classList.remove('d-none');
+        eventStep.classList.remove('d-none');
+        eventProgram.classList.remove('d-none');
+        eventCapacity.value = '';
+        eventCapacity.disabled = false;
+        eventRegistered.classList.add('d-none');
+        eventRegisteredInfo.disabled = false;
+        eventRegisteredInfo.value = '';
+        eventDate.classList.remove('d-none');
+        eventDateInfo.classList.add('d-none');
+        eventTime.classList.remove('d-none');
+        eventTimeInfo.classList.add('d-none');
+        eventTitle.classList.add('d-none');
       });
     }
 
@@ -259,10 +295,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         btnSubmit.innerHTML = 'Add';
         btnSubmit.classList.remove('btn-update-event');
+        eventRoadmap.classList.remove('d-none');
+        eventStep.classList.remove('d-none');
+        eventProgram.classList.remove('d-none');
         btnSubmit.classList.add('btn-add-event');
         btnDeleteEvent.classList.add('d-none');
         eventStartDate.value = date;
         eventEndDate.value = date;
+        eventCapacity.value.remove();
+        eventCapacity.disabled = false;
+        eventRegistered.classList.add('d-none');
       },
       eventClick: function (info) {
         eventClick(info);

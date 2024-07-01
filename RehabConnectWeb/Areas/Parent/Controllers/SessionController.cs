@@ -33,16 +33,74 @@ public class SessionController : Controller
     return View();
   }
 
-  public IActionResult SessionEdit(int? scheduleId)
+  public IActionResult SessionEdit(int? sessionId)
   {
-    ViewBag.scheduleId = scheduleId;
-    return View();
+
+    // We will get sessionId, it is 1:1
+    var session = _unitOfWork.Session.Get(u => u.SessionID == sessionId, includeProperties:"StudentProgram");
+
+    //
+    var programId = _unitOfWork.StudentProgram.Find(u => u.StudentID == session.StudentProgram.StudentID && u.Status == StudentStatus.Ongoing).Select(p => p.ProgramID).FirstOrDefault();
+    // next from the ProgramId, we'll need to find the single(FirstOrDefault) StepId(Select)
+    var stepId = _unitOfWork.Program.Find(u=> u.ProgramID == programId).Select(a=>a.StepId).FirstOrDefault();
+    // then with the StepId, we find its corresponding RoadmapId
+    var roadmapId = _unitOfWork.Step.Find(u=>u.StepId == stepId).Select(p=>p.RoadmapId).FirstOrDefault();
+
+    // Filtering only Available Schedule slot &&
+    var schedules = _unitOfWork.Schedule.Find(u=>u.ProgramID==programId && u.Registered<u.Capacity)
+      .Select(s => new
+      {
+        Date = s.Date.ToString("yyyy-MM-dd"),
+        StartTime = s.StartTime.ToString(@"hh\:mm"),
+        ScheduleID = s.ScheduleID
+      })
+      .ToList();
+    if (!schedules.Any())
+    {
+      ViewBag.AlertType = "warning";
+      ViewBag.AlertMessage = "There is no Slot Available. Please Contact Admin at 01X-XXX XXXX";
+    }
+
+
+    // We want to populate this vm
+    EnrollProgramVM enrollProgramVm = new EnrollProgramVM()
+    {
+      StudentProgram = _unitOfWork.StudentProgram.Get(i => i.StudentID==session.StudentProgram.StudentID && i.Status==StudentStatus.Ongoing, includeProperties:"Student"),
+      Schedule = _unitOfWork.Schedule.GetAll(),
+      ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId && p.ProgramID == programId),
+      ScheduleDataJson = JsonConvert.SerializeObject(schedules),
+
+      // -- Header
+      StepList = _unitOfWork.Step.Find(u=>u.RoadmapId==roadmapId),
+      stepId = stepId
+    };
+
+    ViewBag.sessionId = sessionId;
+    ViewBag.studentProgramId = _unitOfWork.Session.Find(u => u.SessionID == sessionId)
+      .Select(u => u.StudentProgramId)
+      .FirstOrDefault();
+    return View(enrollProgramVm);
   }
 
   [HttpPost]
-  public IActionResult SessionEdit()
+  public IActionResult SessionEdit(int studentProgramId, List<int> SessionTimes, int sessionId)
   {
-    return View();
+    if (ModelState.IsValid)
+    {
+
+      foreach (var scheduleId in SessionTimes)
+      {
+        var session = new Session
+        {
+          SessionID = sessionId,
+          StudentProgramId = studentProgramId,
+          ScheduleID = scheduleId,
+        };
+        _unitOfWork.Session.Update(session);
+      }
+      _unitOfWork.Save();
+    }
+    return RedirectToAction("Index", "Session");
   }
 
   #region API CALLS
@@ -173,7 +231,7 @@ public class SessionController : Controller
             // schedules.Add(schedule);
             var calendar = new CalendarVM
             {
-              id = schedule.ScheduleID,
+              id = session.SessionID,
               title = _unitOfWork.Program.Find(p=>p.ProgramID==studentPrograms.ProgramID).Select(p=>p.ProgramName).FirstOrDefault(),
               start = schedule.Date.ToDateTime(schedule.StartTime),
               end = schedule.Date.ToDateTime(schedule.EndDTime),

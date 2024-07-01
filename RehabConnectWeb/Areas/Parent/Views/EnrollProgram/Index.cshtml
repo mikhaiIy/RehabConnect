@@ -70,68 +70,76 @@
                 var sessionContainer = $('#session-container');
                 sessionContainer.html('');
 
-                $('#dateType').on('change', function () {
-                    const isChecked = $('#dateType').prop('checked');
-                    const filteredDates = scheduleData.filter(schedule => {
-                        const dayOfWeek = new Date(schedule.Date).getDay();
-                        if (isChecked) {
-                            return dayOfWeek >= 2 && dayOfWeek <= 4;
-                        } else {
-                            return dayOfWeek === 5 || dayOfWeek === 6;
-                        }
-                    }).map(schedule => schedule.Date);
+        // Event listener for checkbox changes
+        $('#dateType').on('change', function() {
+          const isChecked = $('#dateType').prop('checked');
+          const filteredDates = scheduleData
+            .filter(schedule => {
+              const dayOfWeek = new Date(schedule.Date).getDay();
+              if (isChecked) {
+                return dayOfWeek >= 2 && dayOfWeek <= 4; // Tuesday, Wednesday, Thursday
+              } else {
+                return dayOfWeek === 5 || dayOfWeek === 6; // Friday, Saturday
+              }
+            })
+            .map(schedule => schedule.Date);
 
-                    for (let i = 0; i < numOfSessions; i++) {
-                        initializeFlatpickr(i, filteredDates);
-                    }
-                });
-
-                for (var i = 0; i < numOfSessions; i++) {
-                    var sessionHtml = `
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-6">
-                                        <label class="form-label" for="schedule-date-${i}">Select Date:</label>
-                                        <input type="date" id="schedule-date-${i}" class="form-control" />
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="form-label" for="schedule-time-${i}">Select Time:</label>
-                                        <select name="SessionTimes[${i}]" id="schedule-time-${i}" class="form-control">
-                                            <option value="">Select a time</option>
-                                        </select>
-                                    </div>
-                                </div>`;
-                    sessionContainer.append(sessionHtml);
-
-                    initializeFlatpickr(i, scheduleData.map(schedule => schedule.Date));
-                }
-            }
-
-            function initializeFlatpickr(i, filteredDates) {
-                flatpickr(`#schedule-date-${i}`, {
-                    dateFormat: "Y-m-d",
-                    enable: filteredDates.map(date => new Date(date)),
-                    onChange: function (selectedDates, dateStr, instance) {
-                        populateTimeDropdown(dateStr, instance.element.id.split('-').pop());
-                    }
-                });
-            }
-
-            function populateTimeDropdown(selectedDate, index) {
-                var timeDropdown = document.getElementById(`schedule-time-${index}`);
-                timeDropdown.innerHTML = '';
-                var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
-
-                availableTimes.forEach(schedule => {
-                    var option = document.createElement('option');
-                    option.value = schedule.ScheduleID;
-                    option.text = schedule.StartTime;
-                    timeDropdown.appendChild(option);
-                });
-            }
+          // Update existing flatpickr instances
+          for (let i = 0; i < numOfSessions; i++) {
+            initializeFlatpickr(i, filteredDates);
+          }
         });
-    </script>
+
+        // Initialize flatpickr for each session
+        for (var i = 0; i < numOfSessions; i++) {
+          var sessionHtml = `
+            <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                    <label class="form-label" for="schedule-date-${i}">Select Date:</label>
+                    <input type="date" id="schedule-date-${i}" class="form-control" placeholder="2024-10-23" aria-label="2024-10-23" />
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label" for="schedule-time-${i}">Select Time:</label>
+                    <select name="SessionTimes[${i}]" id="schedule-time-${i}" class="form-control">
+                        <option value="">Select a time</option>
+                    </select>
+                </div>
+            </div>`;
+          sessionContainer.append(sessionHtml);
+
+          // Initialize flatpickr for each session
+          initializeFlatpickr(i, scheduleData.map(schedule => schedule.Date));
+        }
 }
 
+      function initializeFlatpickr(i, filteredDates) {
+        flatpickr(`#schedule-date-${i}`, {
+          dateFormat: "Y-m-d",
+          enable: filteredDates.map(date => new Date(date)),
+          onChange: function (selectedDates, dateStr, instance) {
+            populateTimeDropdown(dateStr, instance.element.id.split('-').pop());
+          }
+        });
+      }
+
+        function populateTimeDropdown(selectedDate, index) {
+            var timeDropdown = document.getElementById(`schedule-time-${index}`);
+            timeDropdown.innerHTML = ''; // Clear the dropdown
+            var availableTimes = scheduleData.filter(schedule => schedule.Date === selectedDate);
+
+            availableTimes.forEach(schedule => {
+                var option = document.createElement('option');
+                option.value = schedule.ScheduleID;
+                option.text = schedule.StartTime;
+                timeDropdown.appendChild(option);
+            });
+        }
+    });
+</script>
+}
+
+
+<!-- Your HTML content -->
 <h4 class="py-3 mb-4">
     <span class="text-muted fw-light">RehabConnect /</span> Booking Session
 </h4>
@@ -139,28 +147,25 @@
 <div class="col-12 mb-4">
     <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
         <div class="bs-stepper-header" role="tablist">
-            @if (Model.StepList != null)
+            @foreach (var step in Model.StepList)
             {
-                @foreach (var step in Model.StepList)
+                <div class="step" id="step-@step.StepId">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="step-content-@step.StepId">
+                        <span class="bs-stepper-icon">
+                            <svg viewBox="0 0 54 54">
+                                <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
+                            </svg>
+                        </span>
+                        <span class="bs-stepper-label label1">Step @step.StepNo</span>
+                        <span class="bs-stepper-label label2">@step.Title</span>
+                        <span class="bs-stepper-label label3"></span>
+                    </button>
+                </div>
+                @if (!ReferenceEquals(step, Model.StepList.Last()))
                 {
-                    <div class="step" id="step-@step.StepId">
-                        <button type="button" class="step-trigger" role="tab" aria-controls="step-content-@step.StepId">
-                            <span class="bs-stepper-icon">
-                                <svg viewBox="0 0 54 54">
-                                    <use xlink:href='/svg/icons/form-wizard-account.svg#wizardAccount'></use>
-                                </svg>
-                            </span>
-                            <span class="bs-stepper-label label1">Step @step.StepNo</span>
-                            <span class="bs-stepper-label label2">@step.Title</span>
-                            <span class="bs-stepper-label label3"></span>
-                        </button>
+                    <div class="line">
+                        <i class="ti ti-chevron-right"></i>
                     </div>
-                    @if (!ReferenceEquals(step, Model.StepList.Last()))
-                    {
-                        <div class="line">
-                            <i class="ti ti-chevron-right"></i>
-                        </div>
-                    }
                 }
             }
         </div>
@@ -170,64 +175,67 @@
                     <div class="content-header mb-3">
                         <h6 class="mb-0">Account Details</h6>
                         <small>Review Your Children Details.</small>
-                        <div class="row g-3 mt-1">
-                            <div class="col-sm-6">
-                                <label class="form-label">Child Name</label>
-                                <input class="form-control" value="@Model.StudentProgram.Student.ChildName" disabled />
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="form-label">IC Number</label>
-                                <input class="form-control" value="@Model.StudentProgram.Student.ChildIC" disabled />
-                            </div>
+                      <div class="row g-3 mt-1">
+                        <div class="col-sm-6">
+                          <label class="form-label">Child Name</label>
+                          <input class="form-control" value="@Model.StudentProgram.Student.ChildName" disabled />
                         </div>
-                        <div class="row g-3 mt-1">
-                            <div class="col-sm-2">
-                                <label class="form-label">Age (Years Old)</label>
-                                <input class="form-control" value="@Model.StudentProgram.Student.ChildAge" disabled />
-                            </div>
+                        <div class="col-sm-4">
+                          <label class="form-label">IC Number</label>
+                          <input class="form-control" value="@Model.StudentProgram.Student.ChildIC" disabled />
                         </div>
+                      </div>
+                      <div class="row g-3 mt-1">
+                        <div class="col-sm-2">
+                          <label class="form-label">Age (Years Old)</label>
+                          <input class="form-control" value="@Model.StudentProgram.Student.ChildAge" disabled />
+                        </div>
+                      </div>
                     </div>
                     <div class="content-header mb-3 pt-3">
                         <h6 class="mb-0">Program and Session Details</h6>
                         <small>Select wisely.</small>
                     </div>
                     <div class="row g-3">
-                        <div class="col-sm-6">
-                            <input asp-for="StudentProgram.Student.StudentID" name="studentId" hidden />
-                            <label asp-for="StudentProgram" class="form-label">Program Name</label>
-                            <select asp-for="StudentProgram" class="form-control" name="ProgramId" id="program-dropdown">
-                                <option value="">Select a program</option>
-                                @foreach (var program in Model.ProgramList)
-                                {
-                                    <option value="@program.ProgramID">@program.ProgramName</option>
-                                }
-                            </select>
-                            <span asp-validation-for="StudentProgram" class="text-danger"></span>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label">Status</label>
-                            <input disabled class="form-control" value="@Model.StudentProgram.Status" />
-                        </div>
+                      <div class="col-sm-6">
+                        <input asp-for="StudentProgram.Student.StudentID" name="studentId" hidden />
+                        <label asp-for="StudentProgram" class="form-label">Program Name</label>
+                        <select asp-for="StudentProgram" class="form-control" name="ProgramId" id="program-dropdown">
+                          <option value="">Select a program</option>
+                          @foreach (var program in Model.ProgramList)
+                          {
+                            <option value="@program.ProgramID">@program.ProgramName</option>
+                          }
+                        </select>
+                        <span asp-validation-for="StudentProgram" class="text-danger"></span>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="form-label">Status</label>
+                        <input disabled class="form-control" value="@Model.StudentProgram.Status" />
+                      </div>
                     </div>
-                    <div class="row g-3 pt-3">
-                        <div class="col-12">
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" name="dateType" id="dateType" />
-                                <label class="form-check-label" for="dateType">Weekdays (Tuesday - Thursday) and Weekends (Friday - Saturday)</label>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="mb-3 pt-3" id="eventType">
+                    <label class="form-label">Session type: </label>
+                    <label class="switch">
+                      <input type="checkbox" class="switch-input" id="dateType"/>
+                      <span class="switch-label">Weekend</span>
+                      <span class="switch-toggle-slider">
+                        <span class="switch-on">
+                          <i class="ti ti-check"></i>
+                        </span>
+                        <span class="switch-off">
+                          <i class="ti ti-check"></i>
+                        </span>
+                      </span>
+                      <span class="switch-label">Weekday</span>
+                    </label>
+                  </div>
                     <div id="session-container"></div>
-                </div>
-                <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-outline-secondary btn-prev" disabled>
-                        <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
-                        <span class="d-sm-inline-block d-none">Previous</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-next">
-                        <span class="d-sm-inline-block d-none me-sm-1">Next</span>
-                        <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
-                    </button>
+                    <div class="col-12 d-flex justify-content-between pt-2">
+                        <div>
+                            <button class="btn btn-success btn-submit me-2" type="submit">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

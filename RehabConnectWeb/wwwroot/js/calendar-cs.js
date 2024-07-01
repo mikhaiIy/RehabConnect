@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
       eventForm = document.querySelector('.eventForm'),
       eventGuests = $('#eventGuests'), // ! Using jquery vars due to select2 jQuery dependency
+      eventGuests1 = $('#eventGuests1'), // ! Using jquery vars due to select2 jQuery dependency
       inlineCalendar = document.querySelector('.inline-calendar');
 
 
@@ -92,8 +93,29 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       eventGuests.wrap('<div class="position-relative"></div>').select2({
-        placeholder: 'Students on this Date',
+        placeholder: 'Students on this Session',
         dropdownParent: eventGuests.parent(),
+        closeOnSelect: false,
+        templateResult: renderGuestName, // Use the modified function
+        templateSelection: renderGuestName, // Use the modified function
+        escapeMarkup: function (es) {
+          return es;
+        },
+        // disabled: true, // Make options non-selectable
+      });
+    }
+
+    if (eventGuests1.length) {
+      function renderGuestName(option) {
+        if (!option.id) {
+          return option.text;
+        }
+        return option.text;
+      }
+
+      eventGuests1.wrap('<div class="position-relative"></div>').select2({
+        placeholder: 'Therapist on this Session',
+        dropdownParent: eventGuests1.parent(),
         closeOnSelect: false,
         templateResult: renderGuestName, // Use the modified function
         templateSelection: renderGuestName, // Use the modified function
@@ -161,6 +183,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }));
       });
 
+      // Populating Therapist List
+      // Clear existing options
+      eventGuests1.empty();
+
+      // Get the students for the clicked event
+      const therapists = eventToUpdate.extendedProps.therapist.split(','); // Assuming students are comma-separated
+      // Populate select options
+      therapists.forEach((therapist) => {
+        eventGuests1.append($('<option>', {
+          value: therapist,
+          text: therapist,
+          disabled: true,
+        }));
+      });
+
       // btnSubmit redirect to Edit page
       btnSubmit.addEventListener('click', () => {
         // Redirect to the edit URL
@@ -204,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fetchEvents(info, successCallback) {
       // Fetch Events from API endpoint reference
-      const scheduleApiUrl = `/Therapist/Schedule/GetSchedule/`;
+      const scheduleApiUrl = `/CustomerSupport/Schedule/GetStudentSchedule`;
 
       $.ajax(
         {
@@ -220,7 +257,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendar : event.extendedProps.calendar,
                 capacity : event.extendedProps.capacity,
                 registered : event.extendedProps.registered,
-                students: event.extendedProps.students
+                students: event.extendedProps.students,
+                therapist: event.extendedProps.therapist
               }
             }));
 

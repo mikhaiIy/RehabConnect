@@ -133,29 +133,30 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
     }
 
-    //public IActionResult Edit(int id)
-    //{
-    //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
-    //public IActionResult Edit(int id)
-    //{
-    //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
-
-    ////  InvoiceEditVM obj = new InvoiceEditVM()
-    ////  {
-    ////    Invoice = invoice,
-    ////    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
-    ////  };
-
-    ////  return View(obj);
-    ////}
-
-    ////[HttpPost]
-    ////public IActionResult Edit()
-    ////{
-
-
-    ////  return View();
-    ////}
+    // public IActionResult Edit(int id)
+    // {
+    //   var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties: "ParentDetail");
+    //   //public IActionResult Edit(int id)
+    //   //{
+    //   //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
+    //
+    //   //  InvoiceEditVM obj = new InvoiceEditVM()
+    //   //  {
+    //   //    Invoice = invoice,
+    //   //    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+    //   //  };
+    //
+    //   //  return View(obj);
+    //   //}
+    //
+    //   //[HttpPost]
+    //   //public IActionResult Edit()
+    //   //{
+    //
+    //
+    //   //  return View();
+    //   //}
+    // }
 
     public IActionResult Preview(int id)
     {
@@ -232,6 +233,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
       // for display all programs
       var programs = _unitOfWork.Program.Find(u => u.StepId == stepId).ToList();
+      //var programs = _unitOfWork.Program.GetA(l => programIds.Contains(l.ProgramID)).ToList();
 
       //retrive session schedule student enroll
       var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId &&  z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
@@ -243,7 +245,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       {
         ProgramList = programs,
         Steps = _unitOfWork.Step.Find(v => v.StepId == stepId).ToList(),
-        TypeOfDay = typeofday
+        // TypeOfDay = typeofday
       };
 
       return Json(new { data = vm });

@@ -1,19 +1,16 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Packaging;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.Utility;
 
-namespace RehabConnectWeb.Areas.Therapist.Controllers;
 
+namespace RehabConnectWeb.Areas.CustomerSupport.Controllers;
 
-[Area("Therapist")]
-[Authorize(Roles = SD.Role_Therapist)]
+[Area("CustomerSupport")]
+[Authorize(Roles = SD.Role_CustomerSupport)]
 public class ScheduleController : Controller
 {
   private readonly IUnitOfWork _unitOfWork;
@@ -26,21 +23,12 @@ public class ScheduleController : Controller
     return View();
   }
 
-  #region API CALLS
-
-  [HttpGet]
-  public IActionResult GetSchedule()
+  #region APICALLS
+[HttpGet]
+      public IActionResult GetStudentSchedule()
       {
-        // Want find Specific Student of this Therapist
-        // We only TherapistId, from this we can get StudentIds
-        // StudentId -> StudentProgram -> Sessions -> Schedules
-
-        // therapisId
-        var userEmail = User.FindFirstValue(ClaimTypes.Email);
-
-        // StudentIds
-        var studentList = _unitOfWork.Student
-          .Find(u => u.Therapist.TherapistEmail == userEmail);
+        // getting all students related to the userId -> Many
+        var studentList = _unitOfWork.Student.GetAll(includeProperties:"Therapist");
 
         // Calendar List to be Pass to API
         var calendars = new List<CalendarVM>();
@@ -96,7 +84,8 @@ public class ScheduleController : Controller
                 Calendar = category,
                 Capacity = schedule.Capacity,
                 Registered = schedule.Registered,
-                Students = obj.ChildName
+                Students = obj.ChildName,
+                Therapist = obj.Therapist.TherapistName
               }
             };
             calendars.Add(calendar);
@@ -106,5 +95,3 @@ public class ScheduleController : Controller
       }
   #endregion
 }
-
-

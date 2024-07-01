@@ -13,5 +13,8 @@ namespace RehabConnect.Models.ViewModel
         public Report Report { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> StudentList { get; set; }
+        
+        public IEnumerable<SelectListItem> ReportList { get; set; }
+        
     }
 }

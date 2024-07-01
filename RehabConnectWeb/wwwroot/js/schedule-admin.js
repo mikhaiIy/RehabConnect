@@ -109,44 +109,14 @@ fetch(apiUrl)
 
   // Multi Date Select
   if (flatpickrMulti) {
-    const dateInput = flatpickrMulti.flatpickr({
+    flatpickrMulti.flatpickr({
       inline: true,
       allowInput: false,
-      mode: 'multiple',
+      mode: 'range',
       minDate: 'today',
       altInput: true,
       altFormat: 'j F Y',
       dateFormat: 'Y-m-d',
-      enable: [
-        function(date) {
-          const checkbox = document.getElementById("dateType");
-          const dayOfWeek = date.getDay(); // 0 (Sunday) to 6 (Saturday)
-
-          if (checkbox.checked) {
-            // Weekday mode: Enable Tuesday, Wednesday, and Thursday
-            return dayOfWeek >= 2 && dayOfWeek <= 4; // Tuesday to Thursday
-          } else {
-            // Weekend mode: Enable Friday and Saturday
-            return dayOfWeek === 5 || dayOfWeek === 6; // Friday or Saturday
-          }
-        }
-      ]
-    });
-
-    // Listen for changes to the checkbox
-    const checkbox = document.getElementById("dateType");
-    checkbox.addEventListener("change", function() {
-      // Update the enabled dates when the checkbox state changes
-      dateInput.set("enable", [
-        function(date) {
-          const dayOfWeek = date.getDay();
-          if (checkbox.checked) {
-            return dayOfWeek >= 2 && dayOfWeek <= 4;
-          } else {
-            return dayOfWeek === 5 || dayOfWeek === 6;
-          }
-        }
-      ]);
     });
   }
 
