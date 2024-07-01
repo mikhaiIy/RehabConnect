@@ -1,0 +1,36 @@
+@model IEnumerable<StudentProgram>
+
+
+@* ************** Content ************** *@
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">Student Program /</span> List
+</h4>
+<div class="card">
+    <div class="card-datatable table-responsive">
+        @* <table class="invoice-list-table table border-top"> *@
+        <table class="table border-top">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Program</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.Student.ChildName</td>
+                        <td>@obj.Program.ProgramName</td>
+                        <td>@obj.Status</td>
+                        <td>
+                            <a asp-controller="StudentProgram" asp-action="Edit" asp-route-id="@obj.StudentProgramId"
+                               class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

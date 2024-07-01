@@ -231,7 +231,6 @@
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="@Url.Action("Billing", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-warning">Billing</a>
-                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="@Url.Action("Preview", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-info">Preview</a>
                                 @* <a href="@Url.Action("Delete", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-danger">Delete</a> *@
                                 <a onclick="deleteConfirmation('@invoice.InvoiceId')" class="btn btn-sm btn-danger text-white">Delete</a>

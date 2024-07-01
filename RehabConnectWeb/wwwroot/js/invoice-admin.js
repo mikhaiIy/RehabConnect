@@ -70,8 +70,9 @@ $(document).ready(function () {
       .then(programData => {
         const programs = programData.data.programList;
         const steps = programData.data.steps;
+        const typeOfDay = programData.data.typeOfDay;
 
-        populateProgramSelect(programs, steps);
+        populateProgramSelect(programs, steps, typeOfDay);
       })
       .catch(error => {
         console.error('Error fetching program data:', error);
@@ -79,7 +80,7 @@ $(document).ready(function () {
   }
 
   // Function to populate the program select dropdown
-  function populateProgramSelect(programs, steps) {
+  function populateProgramSelect(programs, steps, typeOfDay) {
     programSelect.innerHTML = '<option selected disabled>Select Program</option>';
 
     const addedPrograms = new Set();
@@ -111,19 +112,19 @@ $(document).ready(function () {
     });
 
     programSelect.addEventListener('change', () => {
-      const selectedProgramID = programSelect.value;
-      const selectedProgram = programs.find(program => program.programID === parseInt(selectedProgramID));
+      const selectedProgramID = parseInt(programSelect.value, 10);
+      const selectedProgram = programs.find(program => program.programID === selectedProgramID);
       const selectedStep = steps.find(step => step.stepId === selectedProgram.stepId);
 
       if (selectedProgram) {
         let price = 'Price not available';
 
         if (selectedStep && selectedStep.combinedPricing) {
-          price = selectedStep.priceWeekday ? `$${selectedStep.priceWeekday.toFixed(2)}` : 'Price not available';
-          priceInput.value = selectedStep.priceWeekday ? selectedStep.priceWeekday.toFixed(2) : '';
+          price = typeOfDay === 'Weekday' ? (selectedStep.priceWeekday ? `$${selectedStep.priceWeekday.toFixed(2)}` : 'Price not available') : (selectedStep.priceWeekend ? `$${selectedStep.priceWeekend.toFixed(2)}` : 'Price not available');
+          priceInput.value = typeOfDay === 'Weekday' ? (selectedStep.priceWeekday ? selectedStep.priceWeekday.toFixed(2) : '') : (selectedStep.priceWeekend ? selectedStep.priceWeekend.toFixed(2) : '');
         } else {
-          price = selectedProgram.priceWeekday ? `$${selectedProgram.priceWeekday.toFixed(2)}` : 'Price not available';
-          priceInput.value = selectedProgram.priceWeekday ? selectedProgram.priceWeekday.toFixed(2) : '';
+          price = typeOfDay === 'Weekday' ? (selectedProgram.priceWeekday ? `$${selectedProgram.priceWeekday.toFixed(2)}` : 'Price not available') : (selectedProgram.priceWeekend ? `$${selectedProgram.priceWeekend.toFixed(2)}` : 'Price not available');
+          priceInput.value = typeOfDay === 'Weekday' ? (selectedProgram.priceWeekday ? selectedProgram.priceWeekday.toFixed(2) : '') : (selectedProgram.priceWeekend ? selectedProgram.priceWeekend.toFixed(2) : '');
         }
 
         priceDisplay.textContent = price;
@@ -134,7 +135,6 @@ $(document).ready(function () {
         calculateSubtotalAndTotal();
       }
     });
-
   }
 
   // Function to calculate subtotal and total based on selected programs
@@ -157,7 +157,6 @@ $(document).ready(function () {
       totalInput.value = '';
     }
   }
-
 
   // Function to reset display values when no parent is selected
   function resetDisplayValues() {

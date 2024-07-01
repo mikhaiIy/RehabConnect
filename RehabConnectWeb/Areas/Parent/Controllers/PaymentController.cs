@@ -21,31 +21,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       _unitOfWork = unitOfWork;
       _webHostEnvironment = webHostEnvironment;
     }
-    //public IActionResult Index()
-    //{
-    //  string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-    //  if (userId == null)
-    //  {
-    //    return NotFound("User ID not found");
-    //  }
-
-    //  List<Invoice> objInvoiceList = _unitOfWork.Invoice
-    //      .report(r => r.ParentDetail.UserId == userId, includeProperties: "ParentDetail")
-    //      .ToList();
-
-    //  return View(objInvoiceList);
-    //}
-
-    //public IActionResult Index()
-    //{
-    //  var currentUserEmail = User.Identity.Name;
-    //  var objInvoiceList = _unitOfWork.Invoice.GetAll(
-    //      includeProperties: "ParentDetail")
-    //      .Where(i => i.ParentDetail.FatherEmail == currentUserEmail)
-    //      .ToList();
-    //  return View(objInvoiceList);
-    //}
 
     public IActionResult Index()
     {
@@ -61,6 +37,32 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
           .ToList();
 
       return View(objInvoiceList);
+    }
+
+    public IActionResult Preview(int id)
+    {
+      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties: "ParentDetail");
+
+      InvoicePreviewVM vm = new InvoicePreviewVM()
+      {
+        Invoice = invoice,
+        Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+      };
+
+      return View(vm);
+    }
+
+    public IActionResult Print(int id)
+    {
+      var inv = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties: "ParentDetail");
+      InvoicePreviewVM vm = new InvoicePreviewVM()
+      {
+        Invoice = inv,
+        Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+      };
+
+      return View(vm);
+
     }
 
     public IActionResult History(int? id)

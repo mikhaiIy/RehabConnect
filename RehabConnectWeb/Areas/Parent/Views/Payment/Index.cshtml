@@ -129,9 +129,10 @@
             <thead class="border-top">
                 <tr>
                     <th>Invoice ID</th>
-                    <th>Father Name</th>
+                    <th>Parent Name</th>
                     <th>Date Issued</th>
                     <th>Due Date</th>
+                    <th>Invoice</th>
                     <th>Total Outstanding</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -142,9 +143,12 @@
                 {
                     <tr>
                         <td>@obj.InvoiceId</td>
-                        <td>@obj.ParentDetail.FatherName</td>
+                        <td>@obj.ParentDetail.FatherName & @obj.ParentDetail.MotherName</td>
                         <td>@obj.DateIssued</td>
                         <td>@obj.DueDate</td>
+                        <td>
+                            @Html.ActionLink("Preview", "Preview", "Payment", new { area = "Parent", id = obj.InvoiceId }, null)
+                        </td>
                         <td>@obj.Total</td>
                         <td>
                             @if (obj.Status == null)

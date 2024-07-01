@@ -14,5 +14,7 @@ namespace RehabConnect.Models.ViewModel
         public IEnumerable<Step>? Steps { get; set; }
         public IEnumerable<Program>? ProgramList { get; set; }
 
+        public string TypeOfDay { get; set; }
+
     }
 }
