@@ -21,77 +21,100 @@
 
   // Sales last year Area Chart
   // --------------------------------------------------------------------
-  const salesLastYearEl = document.querySelector('#salesLastYear'),
-    salesLastYearConfig = {
-      chart: {
-        height: 78,
-        type: 'area',
-        parentHeightOffset: 0,
-        toolbar: {
-          show: false
-        },
-        sparkline: {
-          enabled: true
-        }
-      },
-      markers: {
-        colors: 'transparent',
-        strokeColors: 'transparent'
-      },
-      grid: {
+  const salesLastYearEl = document.querySelector('#salesLastYear');
+
+  // ApexCharts configuration
+  const salesLastYearEl = document.querySelector('#salesLastYear');
+
+  const salesLastYearConfig = {
+    chart: {
+      height: 78,
+      type: 'area',
+      parentHeightOffset: 0,
+      toolbar: {
         show: false
       },
-      colors: [config.colors.success],
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: shadeColor,
-          shadeIntensity: 0.8,
-          opacityFrom: 0.6,
-          opacityTo: 0.25
-        }
+      sparkline: {
+        enabled: true
+      }
+    },
+    markers: {
+      colors: 'transparent',
+      strokeColors: 'transparent'
+    },
+    grid: {
+      show: false
+    },
+    colors: [config.colors.success],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: shadeColor,
+        shadeIntensity: 0.8,
+        opacityFrom: 0.6,
+        opacityTo: 0.25
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: 2,
+      curve: 'smooth'
+    },
+    series: [{
+      data: [] // Initially empty
+    }],
+    xaxis: {
+      show: true,
+      lines: {
+        show: false
       },
-      dataLabels: {
-        enabled: false
+      labels: {
+        show: false
       },
       stroke: {
-        width: 2,
-        curve: 'smooth'
+        width: 0
       },
-      series: [
-        {
-          data: [200, 55, 400, 250]
-        }
-      ],
-      xaxis: {
-        show: true,
-        lines: {
-          show: false
-        },
-        labels: {
-          show: false
-        },
-        stroke: {
-          width: 0
-        },
-        axisBorder: {
-          show: false
-        }
-      },
-      yaxis: {
-        stroke: {
-          width: 0
-        },
+      axisBorder: {
         show: false
-      },
-      tooltip: {
-        enabled: false
       }
-    };
-  if (typeof salesLastYearEl !== undefined && salesLastYearEl !== null) {
-    const salesLastYear = new ApexCharts(salesLastYearEl, salesLastYearConfig);
-    salesLastYear.render();
+    },
+    yaxis: {
+      stroke: {
+        width: 0
+      },
+      show: false
+    },
+    tooltip: {
+      enabled: false
+    }
+  };
+
+  const updateSalesLastYearData = () => {
+    fetch('/admin/home/getall') // Adjust the URL to your endpoint
+      .then(response => response.json())
+      .then(data => {
+        const totalCount = data.totalCount; // Retrieve totalCount from API response
+        const seriesData = [totalCount]; // Format data for ApexCharts
+
+        salesLastYearConfig.series = [{
+          data: seriesData
+        }];
+
+        const salesLastYear = new ApexCharts(salesLastYearEl, salesLastYearConfig);
+        salesLastYear.render();
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  // Check if element exists and render chart
+  if (salesLastYearEl !== undefined && salesLastYearEl !== null) {
+    updateSalesLastYearData(); // Call function to fetch and render data
   }
+
 
   // Sessions Last Month - Staked Bar Chart
   // --------------------------------------------------------------------
