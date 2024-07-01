@@ -140,22 +140,22 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     //{
     //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
 
-    //  InvoiceEditVM obj = new InvoiceEditVM()
-    //  {
-    //    Invoice = invoice,
-    //    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
-    //  };
+    ////  InvoiceEditVM obj = new InvoiceEditVM()
+    ////  {
+    ////    Invoice = invoice,
+    ////    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+    ////  };
 
-    //  return View(obj);
-    //}
+    ////  return View(obj);
+    ////}
 
-    //[HttpPost]
-    //public IActionResult Edit()
-    //{
+    ////[HttpPost]
+    ////public IActionResult Edit()
+    ////{
 
 
-    //  return View();
-    //}
+    ////  return View();
+    ////}
 
     public IActionResult Preview(int id)
     {

@@ -36,6 +36,10 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       return View(announcements);
     }
 
+    public IActionResult Faq()
+    {
+      return View();
+    }
     public IActionResult Add() => View();
     public IActionResult Edit() => View();
     public IActionResult Preview() => View();
