@@ -14,7 +14,7 @@
         <i class="ti ti-menu-2 ti-sm align-middle"></i>
       </button>
       <!-- Mobile menu toggle: End-->
-      <a href="/FrontPages/LandingPage" class="app-brand-link">
+      <a asp-controller="FrontPages" asp-action="LandingPage" class="app-brand-link">
         <span class="app-brand-logo demo">
           @await Html.PartialAsync("_Partials/_Macros")
         </span>
@@ -78,7 +78,7 @@
 
       <!-- navbar button: Start -->
       <li>
-        <a  id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary" target="_blank"><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span class="d-none d-md-block">Login/Register</span></a>
+        <a  id="login" asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary"><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span><span class="d-none d-md-block">Login/Register</span></a>
       </li>
       <!-- navbar button: End -->
     </ul>

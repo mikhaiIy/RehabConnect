@@ -40,7 +40,7 @@ public class ScheduleController : Controller
 
         // StudentIds
         var studentIds = _unitOfWork.Student
-          .Find(u => u.Therapist.TherapistEmail == userEmail, includeProperties: "Therapist")
+          .Find(u => u.Therapist.TherapistEmail == userEmail)
           .Select(u => u.StudentID);
 
         // StudentProgram
@@ -67,7 +67,7 @@ public class ScheduleController : Controller
         foreach (var ids in sessions)
         {
           var schedule = new List<Schedule>();
-          schedule = _unitOfWork.Schedule.Find(u => u.ScheduleID == ids, includeProperties:"Program").ToList();
+          schedule = _unitOfWork.Schedule.Find(u => u.ScheduleID == ids).ToList();
 
           scheduleList.AddRange(schedule);
         }

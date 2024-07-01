@@ -1,0 +1,20 @@
+@model EditProgramVM
+
+<form method="post">
+    <input asp-for="studentProgram.StudentProgramId" hidden />
+    <input asp-for="studentProgram.ProgramID" hidden />
+
+    <div class="form-group">
+        <label asp-for="studentProgram.Student.ChildName"></label>
+        <input asp-for="studentProgram.Student.ChildName" readonly class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProgramSelectList">Program</label>
+        <select asp-for="ProgramSelectList" asp-items="Model.ProgramSelectList" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+</form>
+

@@ -133,9 +133,9 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
     }
 
-    public IActionResult Edit(int id)
-    {
-      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
+    //public IActionResult Edit(int id)
+    //{
+    //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
     //public IActionResult Edit(int id)
     //{
     //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
@@ -229,19 +229,37 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       var childId = _unitOfWork.Student.Find(u => u.UserId == userId).Select(i => i.StudentID).FirstOrDefault();
       var programIds = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId && z.Status == StudentStatus.Ongoing).Select(o => o.ProgramID).FirstOrDefault();
       var stepId = _unitOfWork.Program.Find(u => u.ProgramID == programIds).Select(i => i.StepId).FirstOrDefault();
-      var programs = _unitOfWork.Program.Find(u => u.StepId == stepId).ToList();
-      //var programs = _unitOfWork.Program.GetA(l => programIds.Contains(l.ProgramID)).ToList();
 
-      //cari step
-      //if combinepricing, amik price dari step, else amik price dari program based on progid
+      // for display all programs
+      var programs = _unitOfWork.Program.Find(u => u.StepId == stepId).ToList();
+
+      //retrive session schedule student enroll
+      var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId &&  z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
+      var schId = _unitOfWork.Session.Find(p => p.StudentProgramId == stdProgId).Select(z => z.ScheduleID).FirstOrDefault();
+      var date = _unitOfWork.Schedule.Find(m => m.ScheduleID == schId).Select(o => o.Date).FirstOrDefault();
+      var typeofday = IsWeekdayOrWeekend(date);// how to know the date is weekday or weekend
 
       InvoiceVM vm = new InvoiceVM()
       {
         ProgramList = programs,
         Steps = _unitOfWork.Step.Find(v => v.StepId == stepId).ToList(),
+        TypeOfDay = typeofday
       };
 
       return Json(new { data = vm });
+    }
+
+    private string IsWeekdayOrWeekend(DateOnly date)
+    {
+      return date.DayOfWeek switch
+      {
+        DayOfWeek.Tuesday => "Weekday",
+        DayOfWeek.Wednesday => "Weekday",
+        DayOfWeek.Thursday => "Weekday",
+        DayOfWeek.Friday => "Weekend",
+        DayOfWeek.Saturday => "Weekend",
+        _ => "Other"
+      };
     }
 
     #endregion
