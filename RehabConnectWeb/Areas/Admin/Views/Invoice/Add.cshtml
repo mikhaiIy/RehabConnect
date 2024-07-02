@@ -36,45 +36,45 @@
             <div class="card-body">
                 <form id="invoiceForm" asp-action="CreateInvoice" asp-controller="Invoice" method="post">
                     <input type="hidden" asp-for="Invoice.ParentID" id="ParentID" />
-                <div class="row m-sm-4 m-0">
-                    <div class="col-md-7 mb-md-0 mb-4 px-0">
-                        <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
-                            <div class="app-brand-logo demo">
-                                @await Html.PartialAsync("_Partials/_Macros")
-                            </div>
-                            <span class="app-brand-text fw-bold fs-4">
-                                @TempData.Peek("appName")
-                            </span>
-                        </div>
-                        <p class="mb-2">Office 423, South Brand Wing A KTDI</p>
-                        <p class="mb-2">UTM, 81310 Skudai, Johor, Malaysia</p>
-                        <p class="mb-3">+60 12-887 1846, +60 11-2810 3703</p>
-                    </div>
-                    <div class="col-md-5">
-                        <dl class="row mb-2">
-                            <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
-                                <span class="h4 text-capitalize mb-0 text-nowrap">Invoice</span>
-                            </dt>
-                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
-                                <div class="input-group input-group-merge disabled w-px-150">
-                                    <label asp-for="Invoice.InvoiceId" class="input-group-text">#</label>
+                    <div class="row m-sm-4 m-0">
+                        <div class="col-md-7 mb-md-0 mb-4 px-0">
+                            <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
+                                <div class="app-brand-logo demo">
+                                    @await Html.PartialAsync("_Partials/_Macros")
                                 </div>
-                            </dd>
-                            <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
-                                <span class="fw-normal">Date:</span>
-                            </dt>
-                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
-                                <input type="date" class="form-control w-px-150 invoice-date" asp-for="Invoice.DateIssued" placeholder="YYYY-MM-DD" />
-                            </dd>
-                            <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
-                                <span class="fw-normal">Due Date:</span>
-                            </dt>
-                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
-                                <input type="date" class="form-control w-px-150 invoice-date" asp-for="Invoice.DueDate" placeholder="YYYY-MM-DD" />
-                            </dd>
-                        </dl>
+                                <span class="app-brand-text fw-bold fs-4">
+                                    @TempData.Peek("appName")
+                                </span>
+                            </div>
+                            <p class="mb-2">Office 423, South Brand Wing A KTDI</p>
+                            <p class="mb-2">UTM, 81310 Skudai, Johor, Malaysia</p>
+                            <p class="mb-3">+60 12-887 1846, +60 11-2810 3703</p>
+                        </div>
+                        <div class="col-md-5">
+                            <dl class="row mb-2">
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="h4 text-capitalize mb-0 text-nowrap">Invoice</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <div class="input-group input-group-merge disabled w-px-150">
+                                        <label asp-for="Invoice.InvoiceId" class="input-group-text">#</label>
+                                    </div>
+                                </dd>
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="fw-normal">Date:</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <input type="date" class="form-control w-px-150 invoice-date" asp-for="Invoice.DateIssued" placeholder="YYYY-MM-DD" />
+                                </dd>
+                                <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                    <span class="fw-normal">Due Date:</span>
+                                </dt>
+                                <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                    <input type="date" class="form-control w-px-150 invoice-date" asp-for="Invoice.DueDate" placeholder="YYYY-MM-DD" />
+                                </dd>
+                            </dl>
+                        </div>
                     </div>
-                </div>
                     <hr class="my-3 mx-n4" />
 
                     <div class="row p-sm-4 p-0">
@@ -174,7 +174,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="note" class="form-label fw-medium">Note:</label>
-                                <textarea class="form-control" rows="2" id="note" asp-for="Invoice.LongNote" />Thank you for entrusting us with your child’s journey. We look forward to witnessing their growth, celebrating their victories, and creating a constellation of love and support!
+                                <textarea class="form-control" rows="2" id="note" asp-for="Invoice.LongNote" />Thank you for entrusting us with your child’s journey. We look forward to witnessing their growth, celebrating their victories, and creating a constellation of love and support!</textarea>
                             </div>
                         </div>
                     </div>

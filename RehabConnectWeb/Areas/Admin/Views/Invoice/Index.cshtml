@@ -168,7 +168,6 @@
         <table class="table border-top">
             <div class="row pb-3">
                 <div class="col-6">
-                  
                 </div>
                 <div class="col-6 text-end">
                     <a asp-controller="Invoice" asp-action="Add" class="btn btn-primary">
@@ -180,7 +179,7 @@
                 <tr>
                     <th></th>
                     <th>#ID</th>
-                    <th>Parent</th>                  
+                    <th>Parent</th>
                     <th class="text-truncate">Date Issued</th>
                     <th class="text-truncate">Due Date</th>
                     <th>Total Due</th>
@@ -194,25 +193,25 @@
                     <tr>
                         <td>
                             @* @if (invoice.avatar_image)
-                            {
-                                <img src="path/to/avatar/image.jpg" alt="Avatar" class="avatar-image" />
-                            } *@
+                        {
+                        <img src="path/to/avatar/image.jpg" alt="Avatar" class="avatar-image" />
+                        } *@
                         </td>
                         <td>@invoice.InvoiceId</td>
                         @* <td>
-                            @if (invoice.ParentDetail.FatherName == "John Doe")
-                            {
-                                <i class='ti ti-check text-success'></i>
-                            }
-                            else if (invoice.ParentDetail.FatherName == "Past Due")
-                            {
-                                <i class='ti ti-alert text-danger'></i>
-                            }
-                            else
-                            {
-                                <i class='ti ti-trending-up text-secondary'></i>
-                            }
-                        </td> *@
+                    @if (invoice.ParentDetail.FatherName == "John Doe")
+                    {
+                    <i class='ti ti-check text-success'></i>
+                    }
+                    else if (invoice.ParentDetail.FatherName == "Past Due")
+                    {
+                    <i class='ti ti-alert text-danger'></i>
+                    }
+                    else
+                    {
+                    <i class='ti ti-trending-up text-secondary'></i>
+                    }
+                    </td> *@
                         <td>@invoice.ParentDetail.FatherName & @invoice.ParentDetail.MotherName</td>
                         <td>@invoice.DateIssued.ToString("MM/dd/yyyy")</td>
                         <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
@@ -227,7 +226,7 @@
                                 @invoice.Status
                             }
                         </td>
-                       
+
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="@Url.Action("Billing", "Invoice", new { id = invoice.InvoiceId })" class="btn btn-sm btn-warning">Billing</a>

@@ -88,7 +88,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
           obj.Item.Name = string.Join(", ", programs);
         }
-        else {
+        else
+        {
           obj.Item.Name = prog.ProgramName;
         }
 
@@ -236,7 +237,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       //var programs = _unitOfWork.Program.GetA(l => programIds.Contains(l.ProgramID)).ToList();
 
       //retrive session schedule student enroll
-      var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId &&  z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
+      var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId && z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
       var schId = _unitOfWork.Session.Find(p => p.StudentProgramId == stdProgId).Select(z => z.ScheduleID).FirstOrDefault();
       var date = _unitOfWork.Schedule.Find(m => m.ScheduleID == schId).Select(o => o.Date).FirstOrDefault();
       var typeofday = IsWeekdayOrWeekend(date);// how to know the date is weekday or weekend

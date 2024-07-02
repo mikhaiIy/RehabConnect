@@ -67,23 +67,20 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 
     [HttpPost]
 
-    public IActionResult Edit(EditProgramVM vm)
+    public IActionResult Edit(int stuId, int progid)
     {
       if (ModelState.IsValid)
       {
-        _unitOfWork.StudentProgram.Update(vm.studentProgram);
+        var studentProgram = _unitOfWork.StudentProgram.Get(i => i.StudentID == stuId);
+
+        studentProgram.ProgramID = progid;
+
         _unitOfWork.Save();
         return RedirectToAction(nameof(Index));
       }
 
-      var programs = _unitOfWork.Program.GetAll();
-      vm.ProgramSelectList = programs.Select(p => new SelectListItem
-      {
-        Value = p.ProgramID.ToString(),
-        Text = p.ProgramName
-      });
+      return View("Index");
 
-      return View(vm);
     }
   }
 }
