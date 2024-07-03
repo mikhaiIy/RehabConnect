@@ -48,10 +48,6 @@ namespace RehabConnect.Models
         [Required]
         [DisplayName("Email")]
         public string TherapistEmail { get; set; }
-
-
-        // Navigation properties
-        public ICollection<Session>? Sessions { get; set; }
-        public ICollection<Report>? Reports { get; set; }
+        
     }
 }

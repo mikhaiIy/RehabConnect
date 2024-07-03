@@ -34,7 +34,7 @@
     <div class="col-lg-9 col-12 mb-lg-0 mb-4">
         <div class="card invoice-preview-card">
             <div class="card-body">
-                <form id="invoiceForm" asp-action="CreateInvoice" asp-controller="Invoice" method="post">
+                <form id="invoiceForm" method="post">
                     <input type="hidden" asp-for="Invoice.ParentID" id="ParentID" />
                     <div class="row m-sm-4 m-0">
                         <div class="col-md-7 mb-md-0 mb-4 px-0">
@@ -174,7 +174,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="note" class="form-label fw-medium">Note:</label>
-                                <textarea class="form-control" rows="2" id="note" asp-for="Invoice.LongNote" />Thank you for entrusting us with your child’s journey. We look forward to witnessing their growth, celebrating their victories, and creating a constellation of love and support!</textarea>
+                                <textarea class="form-control" rows="2" id="note" asp-for="Invoice.LongNote" ></textarea>
                             </div>
                         </div>
                     </div>

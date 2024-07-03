@@ -1,1315 +1,1315 @@
-@model Report
-
-@{
-    Layout = "_BlankLayout";
-    ViewData["Title"] = "Report - Info";
-}
-
-@section PageStyles {
-    <link rel="stylesheet" href="~/vendor/css/pages/app-invoice.css" />
-}
-
-@* ************** Content ************** *@
-<div class="invoice-preview p-5">
-    <form>
-        <input asp-for="ReportID" hidden />
-        <div class="d-flex justify-content-between flex-row">
-            <div class="mb-4">
-                <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
-                    <div class="app-brand-logo demo">
-                        @await Html.PartialAsync("_Partials/_Macros")
-                    </div>
-                    <span class="app-brand-text fw-bold fs-4">
-                        @TempData.Peek("appName")
-                    </span>
-                </div>
-                <p class="mb-1">Student Performance</p>
-                <p class="mb-1">Assessment Report</p>
-                <p class="mb-0">Therapist in charge: Dr. Abu Homelander</p>
-            </div>
-            <div>
-                <h4 class="fw-medium">Report Session</h4>
-                <div class="mb-2">
-                    <span class="text-muted">Date Report:</span>
-                    <span class="fw-medium">@Model.DateReport</span>
-                </div>
-                <div>
-                    <span class="text-muted">Session No.:</span>
-                    <span class="fw-medium">@Model.NoSession</span>
-                </div>
-                <div>
-                    <span class="text-muted">Treatment Provided:</span>
-                    <span class="fw-medium">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="pe-3">Individual Therapy </td>
-                                    <td class="fw-medium">
-                                        @if (Model.IndividualTherapy)
-                                        {
-                                            <i class="fas fa-check-circle text-success"></i>
-
-                                        }
-                                        else
-                                        {
-                                            <i class="fas fa-times-circle text-danger"></i>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pe-3">Group Therapy </td>
-                                    <td class="fw-medium">
-                                        @if (Model.GroupTherapy)
-                                        {
-                                            <i class="fas fa-check-circle text-success"></i>
-
-                                        }
-                                        else
-                                        {
-                                            <i class="fas fa-times-circle text-danger"></i>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pe-3">Early Intervention </td>
-                                    <td class="fw-medium">
-                                        @if (Model.EarlyIntervention)
-                                        {
-                                            <i class="fas fa-check-circle text-success"></i>
-
-                                        }
-                                        else
-                                        {
-                                            <i class="fas fa-times-circle text-danger"></i>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="pe-3">Behavior Management </td>
-                                    <td class="fw-medium">
-                                        @if (Model.BehaviorManagement)
-                                        {
-                                            <i class="fas fa-check-circle text-success"></i>
-
-                                        }
-                                        else
-                                        {
-                                            <i class="fas fa-times-circle text-danger"></i>
-                                        }
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>S-Subjective Assesment</h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">Enter by his/self: </td>
-                            <td class="fw-medium">
-                                @if (Model.CanEnterSelf)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">With Prompting: </td>
-                            <td class="fw-medium">
-                                @if (Model.WithPrompting)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Difficulties Separate With Parents: </td>
-                            <td class="fw-medium">
-                                @if (Model.DifficultiesSeparateWithParents)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">With Crying And Refuse: </td>
-                            <td class="fw-medium">
-                                @if (Model.WithCryingAndRefuse)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Greeting With Prompt: </td>
-                            <td class="fw-medium">
-                                @if (Model.GreetingWithPrompt)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Greeting By Self: </td>
-                            <td class="fw-medium">
-                                @if (Model.GreetingBySelf)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Mute: </td>
-                            <td class="fw-medium">
-                                @if (Model.Mute)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Refuse To Enter: </td>
-                            <td class="fw-medium">
-                                @if (Model.RefuseToEnter)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <h6>Subjective Assessment Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.SubjectiveAssessmentNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>O-Objective Assessment</h6>
-                <h6>Motor & Praxis Skills</h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">Upper Range Of Motion: </td>
-                            <td class="fw-medium">
-                                @if (Model.RangeOfMotion)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Muscle Tone: </td>
-                            <td class="fw-medium">
-                                @if (Model.MuscleTone)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Muscle Strength: </td>
-                            <td class="fw-medium">
-                                @if (Model.MuscleStrength)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Joint Mobility: </td>
-                            <td class="fw-medium">
-                                @if (Model.JointMobility)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Trunk control & balance: </td>
-                            <td class="fw-medium">
-                                @if (Model.TrunkControlBalance)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <div class="mb-2">
-                            <label class="form-label">Gross Motor function:</label>
-                        </div>
-                        <tr>
-                            <td class="pe-3">a) Standing: </td>
-                            <td class="fw-medium">
-                                @if (Model.Standing)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Crawling: </td>
-                            <td class="fw-medium">
-                                @if (Model.Crawling)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Walking: </td>
-                            <td class="fw-medium">
-                                @if (Model.Walking)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Jumping: </td>
-                            <td class="fw-medium">
-                                @if (Model.Jumping)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">e) Broad Jump: </td>
-                            <td class="fw-medium">
-                                @if (Model.BroadJump)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">f) Kick ball: </td>
-                            <td class="fw-medium">
-                                @if (Model.KickBall)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">g) Throw ball: </td>
-                            <td class="fw-medium">
-                                @if (Model.ThrowBall)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <table>
-                    <tbody>
-                        <div class="mb-2">
-                            <label class="form-label">Fine Motor function: </label>
-                        </div>
-                        <tr>
-                            <td class="pe-3">a) Grasp & release: </td>
-                            <td class="fw-medium">
-                                @if (Model.GraspRelease)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Reaching: </td>
-                            <td class="fw-medium">
-                                @if (Model.Reaching)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Put Block in a cup: </td>
-                            <td class="fw-medium">
-                                @if (Model.PutBlockInCup)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Scribbles: </td>
-                            <td class="fw-medium">
-                                @if (Model.Scribbles)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">e) Tower of cubes: </td>
-                            <td class="fw-medium">
-                                @if (Model.TowerOfCubes)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">f) Mature pencil grasping: </td>
-                            <td class="fw-medium">
-                                @if (Model.MaturePencilGrasp)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">g) Immature pencil grasping: </td>
-                            <td class="fw-medium">
-                                @if (Model.ImmaturePencilGrasp)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">h) Imitate vertical line: </td>
-                            <td class="fw-medium">
-                                @if (Model.ImitateVerticalLine)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">i) Copying Square, Triangle, Rhombus: </td>
-                            <td class="fw-medium">
-                                @if (Model.CopySquare)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr></tr>
-                    </tbody>
-                </table>
-                <hr />
-                <h6>Motor & Praxis Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.MotorPraxisSkillsNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>Sensory Regulation Skills</h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">Tactile: </td>
-                            <td class="fw-medium">
-                                @if (Model.Tactile)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Auditory: </td>
-                            <td class="fw-medium">
-                                @if (Model.Auditory)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Visual: </td>
-                            <td class="fw-medium">
-                                @if (Model.Visual)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Olfactory: </td>
-                            <td class="fw-medium">
-                                @if (Model.Olfactory)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Gustatory: </td>
-                            <td class="fw-medium">
-                                @if (Model.Gustatory)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Vestibular: </td>
-                            <td class="fw-medium">
-                                @if (Model.Vestibular)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Proprioception: </td>
-                            <td class="fw-medium">
-                                @if (Model.Proprioception)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <h6>Sensory Regulation Progress Notes: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.SensoryRegulationSkillsNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>Cognitive Regulation Skills</h6>
-                <div class="mb-2">
-                    <label class="form-label">Basic Concept:</label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">a) Alphabet: </td>
-                            <td class="fw-medium">
-                                @if (Model.Alphabet)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Numbers: </td>
-                            <td class="fw-medium">
-                                @if (Model.Numbers)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Shapes: </td>
-                            <td class="fw-medium">
-                                @if (Model.Shapes)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Colors: </td>
-                            <td class="fw-medium">
-                                @if (Model.Colors)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Memory function: </td>
-                            <td class="fw-medium">
-                                @if (Model.MemoryFunction)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Attention: </td>
-                            <td class="fw-medium">
-                                @if (Model.Attention)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Writing skill: </td>
-                            <td class="fw-medium">
-                                @if (Model.WritingSkill)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Concentration: </td>
-                            <td class="fw-medium">@Model.Concentration</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Problem Solving: </td>
-                            <td class="fw-medium">@Model.ProblemSolving</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <h6>Cognitive Regulation Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.CognitiveRegulationSkillsNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>Occupational Performance</h6>
-                <div class="mb-2">
-                    <label class="form-label">Activity Daily Living (ADL):</label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">a) Independent with no helper: </td>
-                            <td class="fw-medium">
-                                @if (Model.ADLIndependent)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) With supervision: </td>
-                            <td class="fw-medium">@Model.ADLSupervision</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Maximum assistance: </td>
-                            <td class="fw-medium">
-                                @if (Model.ADLMaxAssistance)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Toilet trained: </td>
-                            <td class="fw-medium">
-                                @if (Model.ADLToiletTrained)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr />
-                <h6>Occupational Performance Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.OccupationalPerformanceNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <div class="mb-2">
-                    <label class="form-label">Instrumental Activity Daily Living (IADL):</label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">a) Money Management: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLMoneyManagement)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Time concept: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLTimeConcept)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Simple household activities: Folding clothes: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLFoldingClothes)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Simple household activities: Hanging clothes: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLHangingClothes)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">e) Simple household activities: Sweep floor: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLSweepFloor)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">f) Simple domestic activities: Making drinks: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLMakingDrinks)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">g) Simple domestic activities: Prepare simple food: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLPrepareSimpleFood)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">h) Simple domestic activities: Use phone: </td>
-                            <td class="fw-medium">
-                                @if (Model.IADLUsePhone)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>Emotional Regulation Skills</h6>
-                <div class="mb-2">
-                    <label class="form-label">Behaviour:</label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">a) Tempered Tantrum: </td>
-                            <td class="fw-medium">
-                                @if (Model.TemperedTantrum)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Manipulative: </td>
-                            <td class="fw-medium">
-                                @if (Model.Manipulative)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Easily distracted: </td>
-                            <td class="fw-medium">
-                                @if (Model.EasilyDistracted)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">d) Passive: </td>
-                            <td class="fw-medium">
-                                @if (Model.Passive)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">e) Cooperative: </td>
-                            <td class="fw-medium">
-                                @if (Model.Cooperative)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">f) Isolation: </td>
-                            <td class="fw-medium">
-                                @if (Model.Isolation)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">g) Reluctant: </td>
-                            <td class="fw-medium">
-                                @if (Model.Reluctant)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <h6>Emotional Regulation Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.EmotionalRegulationSkillsNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row d-flex justify-content-between mb-4">
-            <div class="col-sm-6 w-50">
-                <h6>Communication & Social Skills</h6>
-                <div class="mb-2">
-                    <label class="form-label">Following Instruction: </label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="pe-3">a) Repetitive prompting: </td>
-                            <td class="fw-medium">
-                                @if (Model.RepetitivePrompting)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Verbal prompting: </td>
-                            <td class="fw-medium">@Model.VerbalPrompting</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">c) Physical prompting: </td>
-                            <td class="fw-medium">@Model.PhysicalPrompting</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr />
-                <h6>Communication & Social Progress Note: </h6>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium">@Model.CommunicationSocialSkillsNotes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-sm-6 w-50">
-                <div class="mb-2">
-                    <label class="form-label">Instrumental Activity Daily Living (IADL):</label>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="fw-medium" colspan="2">Eye Contact:</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">a) Person: </td>
-                            <td class="fw-medium">@Model.EyeContactPerson</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">b) Object: </td>
-                            <td class="fw-medium">@Model.EyeContactObject</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Initiate answer question: </td>
-                            <td class="fw-medium">
-                                @if (Model.InitiateAnswerQuestion)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Verbal respond: </td>
-                            <td class="fw-medium">
-                                @if (Model.VerbalRespond)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Voice clarity: </td>
-                            <td class="fw-medium">@Model.VoiceClarity</td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Facial expressions: </td>
-                            <td class="fw-medium">
-                                @if (Model.FacialExpressions)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Body language: </td>
-                            <td class="fw-medium">
-                                @if (Model.BodyLanguage)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Taking turn: </td>
-                            <td class="fw-medium">
-                                @if (Model.TakingTurn)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Sharing: </td>
-                            <td class="fw-medium">
-                                @if (Model.Sharing)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Stay in group: </td>
-                            <td class="fw-medium">
-                                @if (Model.StayInGroup)
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-sm-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th scope="row" style="width: 30%;">Academic Performance</th>
-                                <td style="width: 70%;">@Model.AcademicPerformance</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-sm-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th scope="row" style="width: 30%;">A - Analysis Problem</th>
-                                <td style="width: 70%;">@Model.AnalysisProblem</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A - Short Term Goals</th>
-                                <td>@Model.ShortTermGoal</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A - Long Term Goals</th>
-                                <td>@Model.LongTermGoal</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-sm-12">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th scope="row" style="width: 30%;">P - Tx PLAN</th>
-                                <td style="width: 70%;">@Model.TxPlan</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="row">
-            <div class="col-10">
-                <span class="fw-medium">Dear Parents:</span>
-                <span>
-                    Your child's unique journey holds boundless potential for growth, learning, and moments of extraordinary joy!
-                </span>
-            </div>
-            <div class="col-2">
-                <span>
-                    <a asp-area="CustomerSupport" asp-controller="Report" asp-action="Index" class="btn btn-outline-primary border form-control">Return back</a>
-                </span>
-            </div>
-        </div>
-    </form>
-</div>
-
+@* @model Report *@
+@* *@
+@* @{ *@
+@*     Layout = "_BlankLayout"; *@
+@*     ViewData["Title"] = "Report - Info"; *@
+@* } *@
+@* *@
+@* @section PageStyles { *@
+@*     <link rel="stylesheet" href="~/vendor/css/pages/app-invoice.css" /> *@
+@* } *@
+@* *@
+@* $1$ ************** Content ************** #1# *@
+@* <div class="invoice-preview p-5"> *@
+@*     <form> *@
+@*         <input asp-for="ReportID" hidden /> *@
+@*         <div class="d-flex justify-content-between flex-row"> *@
+@*             <div class="mb-4"> *@
+@*                 <div class="d-flex svg-illustration mb-4 gap-2 align-items-center"> *@
+@*                     <div class="app-brand-logo demo"> *@
+@*                         @await Html.PartialAsync("_Partials/_Macros") *@
+@*                     </div> *@
+@*                     <span class="app-brand-text fw-bold fs-4"> *@
+@*                         @TempData.Peek("appName") *@
+@*                     </span> *@
+@*                 </div> *@
+@*                 <p class="mb-1">Student Performance</p> *@
+@*                 <p class="mb-1">Assessment Report</p> *@
+@*                 <p class="mb-0">Therapist in charge: Dr. Abu Homelander</p> *@
+@*             </div> *@
+@*             <div> *@
+@*                 <h4 class="fw-medium">Report Session</h4> *@
+@*                 <div class="mb-2"> *@
+@*                     <span class="text-muted">Date Report:</span> *@
+@*                     <span class="fw-medium">@Model.DateReport</span> *@
+@*                 </div> *@
+@*                 <div> *@
+@*                     <span class="text-muted">Session No.:</span> *@
+@*                     <span class="fw-medium">@Model.NoSession</span> *@
+@*                 </div> *@
+@*                 <div> *@
+@*                     <span class="text-muted">Treatment Provided:</span> *@
+@*                     <span class="fw-medium"> *@
+@*                         <table> *@
+@*                             <tbody> *@
+@*                                 <tr> *@
+@*                                     <td class="pe-3">Individual Therapy </td> *@
+@*                                     <td class="fw-medium"> *@
+@*                                         @if (Model.IndividualTherapy) *@
+@*                                         { *@
+@*                                             <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                         } *@
+@*                                         else *@
+@*                                         { *@
+@*                                             <i class="fas fa-times-circle text-danger"></i> *@
+@*                                         } *@
+@*                                     </td> *@
+@*                                 </tr> *@
+@*                                 <tr> *@
+@*                                     <td class="pe-3">Group Therapy </td> *@
+@*                                     <td class="fw-medium"> *@
+@*                                         @if (Model.GroupTherapy) *@
+@*                                         { *@
+@*                                             <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                         } *@
+@*                                         else *@
+@*                                         { *@
+@*                                             <i class="fas fa-times-circle text-danger"></i> *@
+@*                                         } *@
+@*                                     </td> *@
+@*                                 </tr> *@
+@*                                 <tr> *@
+@*                                     <td class="pe-3">Early Intervention </td> *@
+@*                                     <td class="fw-medium"> *@
+@*                                         @if (Model.EarlyIntervention) *@
+@*                                         { *@
+@*                                             <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                         } *@
+@*                                         else *@
+@*                                         { *@
+@*                                             <i class="fas fa-times-circle text-danger"></i> *@
+@*                                         } *@
+@*                                     </td> *@
+@*                                 </tr> *@
+@*                                 <tr> *@
+@*                                     <td class="pe-3">Behavior Management </td> *@
+@*                                     <td class="fw-medium"> *@
+@*                                         @if (Model.BehaviorManagement) *@
+@*                                         { *@
+@*                                             <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                         } *@
+@*                                         else *@
+@*                                         { *@
+@*                                             <i class="fas fa-times-circle text-danger"></i> *@
+@*                                         } *@
+@*                                     </td> *@
+@*                                 </tr> *@
+@*                             </tbody> *@
+@*                         </table> *@
+@*                     </span> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>S-Subjective Assesment</h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Enter by his/self: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.CanEnterSelf) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">With Prompting: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.WithPrompting) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Difficulties Separate With Parents: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.DifficultiesSeparateWithParents) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">With Crying And Refuse: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.WithCryingAndRefuse) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Greeting With Prompt: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.GreetingWithPrompt) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Greeting By Self: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.GreetingBySelf) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Mute: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Mute) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Refuse To Enter: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.RefuseToEnter) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@* *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Subjective Assessment Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.SubjectiveAssessmentNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>O-Objective Assessment</h6> *@
+@*                 <h6>Motor & Praxis Skills</h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Upper Range Of Motion: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.RangeOfMotion) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Muscle Tone: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.MuscleTone) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Muscle Strength: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.MuscleStrength) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Joint Mobility: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.JointMobility) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Trunk control & balance: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.TrunkControlBalance) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <div class="mb-2"> *@
+@*                             <label class="form-label">Gross Motor function:</label> *@
+@*                         </div> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Standing: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Standing) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Crawling: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Crawling) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Walking: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Walking) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Jumping: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Jumping) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">e) Broad Jump: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.BroadJump) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">f) Kick ball: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.KickBall) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">g) Throw ball: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ThrowBall) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <div class="mb-2"> *@
+@*                             <label class="form-label">Fine Motor function: </label> *@
+@*                         </div> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Grasp & release: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.GraspRelease) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Reaching: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Reaching) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Put Block in a cup: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.PutBlockInCup) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Scribbles: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Scribbles) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">e) Tower of cubes: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.TowerOfCubes) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">f) Mature pencil grasping: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.MaturePencilGrasp) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">g) Immature pencil grasping: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ImmaturePencilGrasp) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">h) Imitate vertical line: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ImitateVerticalLine) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">i) Copying Square, Triangle, Rhombus: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.CopySquare) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr></tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*                 <hr /> *@
+@*                 <h6>Motor & Praxis Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.MotorPraxisSkillsNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Sensory Regulation Skills</h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Tactile: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Tactile) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Auditory: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Auditory) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Visual: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Visual) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Olfactory: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Olfactory) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Gustatory: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Gustatory) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Vestibular: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Vestibular) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Proprioception: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Proprioception) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Sensory Regulation Progress Notes: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.SensoryRegulationSkillsNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Cognitive Regulation Skills</h6> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Basic Concept:</label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Alphabet: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Alphabet) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Numbers: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Numbers) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Shapes: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Shapes) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Colors: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Colors) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Memory function: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.MemoryFunction) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Attention: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Attention) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Writing skill: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.WritingSkill) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Concentration: </td> *@
+@*                             <td class="fw-medium">@Model.Concentration</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Problem Solving: </td> *@
+@*                             <td class="fw-medium">@Model.ProblemSolving</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Cognitive Regulation Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.CognitiveRegulationSkillsNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Occupational Performance</h6> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Activity Daily Living (ADL):</label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Independent with no helper: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ADLIndependent) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) With supervision: </td> *@
+@*                             <td class="fw-medium">@Model.ADLSupervision</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Maximum assistance: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ADLMaxAssistance) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Toilet trained: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.ADLToiletTrained) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*                 <hr /> *@
+@*                 <h6>Occupational Performance Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.OccupationalPerformanceNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Instrumental Activity Daily Living (IADL):</label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Money Management: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLMoneyManagement) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Time concept: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLTimeConcept) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Simple household activities: Folding clothes: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLFoldingClothes) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Simple household activities: Hanging clothes: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLHangingClothes) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">e) Simple household activities: Sweep floor: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLSweepFloor) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">f) Simple domestic activities: Making drinks: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLMakingDrinks) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">g) Simple domestic activities: Prepare simple food: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLPrepareSimpleFood) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">h) Simple domestic activities: Use phone: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.IADLUsePhone) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Emotional Regulation Skills</h6> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Behaviour:</label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Tempered Tantrum: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.TemperedTantrum) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Manipulative: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Manipulative) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Easily distracted: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.EasilyDistracted) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">d) Passive: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Passive) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">e) Cooperative: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Cooperative) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">f) Isolation: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Isolation) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">g) Reluctant: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Reluctant) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Emotional Regulation Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.EmotionalRegulationSkillsNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row d-flex justify-content-between mb-4"> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <h6>Communication & Social Skills</h6> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Following Instruction: </label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Repetitive prompting: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.RepetitivePrompting) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Verbal prompting: </td> *@
+@*                             <td class="fw-medium">@Model.VerbalPrompting</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">c) Physical prompting: </td> *@
+@*                             <td class="fw-medium">@Model.PhysicalPrompting</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*                 <hr /> *@
+@*                 <h6>Communication & Social Progress Note: </h6> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium">@Model.CommunicationSocialSkillsNotes</td> *@
+@*                         </tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*             <div class="col-sm-6 w-50"> *@
+@*                 <div class="mb-2"> *@
+@*                     <label class="form-label">Instrumental Activity Daily Living (IADL):</label> *@
+@*                 </div> *@
+@*                 <table> *@
+@*                     <tbody> *@
+@*                         <tr> *@
+@*                             <td class="fw-medium" colspan="2">Eye Contact:</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">a) Person: </td> *@
+@*                             <td class="fw-medium">@Model.EyeContactPerson</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">b) Object: </td> *@
+@*                             <td class="fw-medium">@Model.EyeContactObject</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Initiate answer question: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.InitiateAnswerQuestion) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Verbal respond: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.VerbalRespond) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Voice clarity: </td> *@
+@*                             <td class="fw-medium">@Model.VoiceClarity</td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Facial expressions: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.FacialExpressions) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Body language: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.BodyLanguage) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Taking turn: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.TakingTurn) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Sharing: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.Sharing) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr> *@
+@*                             <td class="pe-3">Stay in group: </td> *@
+@*                             <td class="fw-medium"> *@
+@*                                 @if (Model.StayInGroup) *@
+@*                                 { *@
+@*                                     <i class="fas fa-check-circle text-success"></i> *@
+@*                                 } *@
+@*                                 else *@
+@*                                 { *@
+@*                                     <i class="fas fa-times-circle text-danger"></i> *@
+@*                                 } *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                         <tr></tr> *@
+@*                         <tr></tr> *@
+@*                         <tr></tr> *@
+@*                         <tr></tr> *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="container"> *@
+@*             <div class="row mb-4"> *@
+@*                 <div class="col-sm-12"> *@
+@*                     <table class="table table-bordered"> *@
+@*                         <tbody> *@
+@*                             <tr> *@
+@*                                 <th scope="row" style="width: 30%;">Academic Performance</th> *@
+@*                                 <td style="width: 70%;">@Model.AcademicPerformance</td> *@
+@*                             </tr> *@
+@*                         </tbody> *@
+@*                     </table> *@
+@*                 </div> *@
+@*             </div> *@
+@* *@
+@*             <div class="row mb-4"> *@
+@*                 <div class="col-sm-12"> *@
+@*                     <table class="table table-bordered"> *@
+@*                         <tbody> *@
+@*                             <tr> *@
+@*                                 <th scope="row" style="width: 30%;">A - Analysis Problem</th> *@
+@*                                 <td style="width: 70%;">@Model.AnalysisProblem</td> *@
+@*                             </tr> *@
+@*                             <tr> *@
+@*                                 <th scope="row">A - Short Term Goals</th> *@
+@*                                 <td>@Model.ShortTermGoal</td> *@
+@*                             </tr> *@
+@*                             <tr> *@
+@*                                 <th scope="row">A - Long Term Goals</th> *@
+@*                                 <td>@Model.LongTermGoal</td> *@
+@*                             </tr> *@
+@*                         </tbody> *@
+@*                     </table> *@
+@*                 </div> *@
+@*             </div> *@
+@* *@
+@*             <div class="row mb-4"> *@
+@*                 <div class="col-sm-12"> *@
+@*                     <table class="table table-bordered"> *@
+@*                         <tbody> *@
+@*                             <tr> *@
+@*                                 <th scope="row" style="width: 30%;">P - Tx PLAN</th> *@
+@*                                 <td style="width: 70%;">@Model.TxPlan</td> *@
+@*                             </tr> *@
+@*                         </tbody> *@
+@*                     </table> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@*         <hr /> *@
+@* *@
+@*         <div class="row"> *@
+@*             <div class="col-10"> *@
+@*                 <span class="fw-medium">Dear Parents:</span> *@
+@*                 <span> *@
+@*                     Your child's unique journey holds boundless potential for growth, learning, and moments of extraordinary joy! *@
+@*                 </span> *@
+@*             </div> *@
+@*             <div class="col-2"> *@
+@*                 <span> *@
+@*                     <a asp-area="CustomerSupport" asp-controller="Report" asp-action="Index" class="btn btn-outline-primary border form-control">Return back</a> *@
+@*                 </span> *@
+@*             </div> *@
+@*         </div> *@
+@*     </form> *@
+@* </div> *@
+@* *@

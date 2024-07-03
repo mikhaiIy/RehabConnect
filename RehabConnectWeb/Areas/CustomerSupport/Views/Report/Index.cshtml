@@ -1,4 +1,4 @@
-@model List<Report>
+@model ReportCSVM
 
 @{
     ViewData["Title"] = "Customer Sup - Report";
@@ -33,90 +33,91 @@
 <h4 class="p-4"Report List></h4>
 
 <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Session</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">null</h3>
-                            <p class="text-success mb-0">(+29%)</p>
-                        </div>
-                        <p class="mb-0">Total Sessions</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-user ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Students</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.StudentCount</h3>
+              <p class="text-success mb-0">(+18%)</p>
             </div>
+            <p class="mb-0">Number of Student </p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-danger">
+                <i class="ti ti-user-plus ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Total Patients</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">10</h3>
-                            <p class="text-success mb-0">(+18%)</p>
-                        </div>
-                        <p class="mb-0">Confirmmed Reports </p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                            <i class="ti ti-user-plus ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Session</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.SessionCount</h3>
+              <p class="text-success mb-0">(+29%)</p>
             </div>
+            <p class="mb-0">Total Sessions Booked</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-primary">
+              <i class="ti ti-user ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Your Patients</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">@Model.Count()</h3>
-                            <p class="text-danger mb-0">(-14%)</p>
-                        </div>
-                        <p class="mb-0">Number of Reports</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Reports</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.ReportCount</h3>
+              <p class="text-danger mb-0">(-14%)</p>
             </div>
+            <p class="mb-0">Total Reports</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="ti ti-user-check ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Total Reports</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">@Model.Count()</h3>
-                            <p class="text-success mb-0">(+42%)</p>
-                        </div>
-                        <p class="mb-0">Total of Therapist</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-user-exclamation ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Reports</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.ConfirmedReport</h3>
+              <p class="text-success mb-0">(+42%)</p>
             </div>
+            <p class="mb-0">Confirmed Reports</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-warning">
+              <i class="ti ti-user-exclamation ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Users List Table -->
 <div class="card">
@@ -127,47 +128,79 @@
         <table class="datatables-users table">
             <thead class="border-top">
                 <tr>
-                    <th>Report ID</th>
                     <th>Child Name</th>
-                    <th></th>
-                    <th>Status Confirmation</th>
+                    <th>Child Roadmap</th>
+                    <th>Child Step</th>
+                    <th>Child Program/Session</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model)
+                @foreach (var obj in Model.TableDatas)
                 {
-                    <tr>
-                        <td>@obj.ReportID</td>
-                        <td>@obj.Student.ChildName</td>
-                        <td>@obj.Student.ChildIC</td>
-                        <td>
-                            @if (obj.CustomerSupportConfirmation)
+                    foreach (var studentDetail in obj.StudentDetail)
+                    {
+                      <tr>
+                        <td>@studentDetail.Student.ChildName</td>
+                        <td>@studentDetail.Roadmap.Name</td>
+                        <td>@studentDetail.Step.Title</td>
+                        <td>@studentDetail.Status</td>
+                        <td></td>
+                      </tr>
+                      foreach (var reportList in obj.ReportList)
+                      {
+
+                          foreach (var report in reportList.Report?.Where(r => r != null))
+                          {
+                            if (report != null)
                             {
-                                <span class="badge bg-success">Confirmed</span>
+                              <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Session ID: @report.SessionID</td>
+                                <td>
+                                  @if (report.CustomerSupportConfirmation)
+                                  {
+                                    <span class="badge bg-success">Confirmed</span>
+                                  }
+                                  else
+                                  {
+                                    <span class="badge bg-danger">Unconfirmed</span>
+                                  }
+                                </td>
+                                <td>
+                                  <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group mr-2" role="group">
+                                      <a asp-controller="Report" asp-action="Confirm" asp-route-id="@report.ReportID" class="btn btn-warning">
+                                        Confirm
+                                      </a>
+                                      <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
+                                        Detail
+                                      </a>
+                                      <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
+                                        Print
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
                             }
                             else
                             {
-                                <span class="badge bg-danger">Unconfirmed</span>
+                              <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>No reports</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
                             }
-                        </td>
-                        <td>
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="btn-group mr-2" role="group">
-                                  <a asp-controller="Report" asp-action="Confirm" asp-route-id="@obj.ReportID" class="btn btn-warning">
-                                        Confirm
-                                  </a>
-                                  <a asp-controller="Report" asp-action="Info" asp-route-id="@obj.ReportID" class="btn btn-primary">
-                                        Detail
-                                    </a>
-                                    <a asp-controller="Report" asp-action="Print" asp-route-id="@obj.ReportID" class="btn btn-secondary" target="_blank">
-                                        Print
-                                    </a>
-                                </div>
-                            </div>
-
-                        </td>
-                    </tr>
+                          }
+                      }
+                    }
                 }
             </tbody>
         </table>

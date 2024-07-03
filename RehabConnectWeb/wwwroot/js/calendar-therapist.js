@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
       eventForm = document.querySelector('.eventForm'),
+      eventReport = document.querySelector('#eventReportStatus'),
       eventGuests = $('#eventGuests'), // ! Using jquery vars due to select2 jQuery dependency
       inlineCalendar = document.querySelector('.inline-calendar');
 
@@ -145,6 +146,10 @@ document.addEventListener('DOMContentLoaded', function () {
       eventTitle.classList.remove('d-none');
       eventTitleInfo.value = eventToUpdate.title;
       eventTitleInfo.disabled = true ;
+      console.log("update: ", eventToUpdate.extendedProps.reportstatus);
+      eventReport.value = eventToUpdate.extendedProps.reportstatus;
+      eventReport.disabled = true;
+
 
       // Populating Student List
       // Clear existing options
@@ -162,10 +167,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       // btnSubmit redirect to Edit page
-      btnSubmit.addEventListener('click', () => {
+      btnCancel.addEventListener('click', () => {
         // Redirect to the edit URL
         const sessionId = eventToUpdate.id;
-        window.location.href = `/Parent/Session/SessionEdit?sessionId=${sessionId}`;
+        window.location.href = `/Therapist/Report/Upsert?sessionId=${sessionId}`;
       });
 
       eventTitle.value = eventToUpdate.title;
@@ -220,7 +225,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendar : event.extendedProps.calendar,
                 capacity : event.extendedProps.capacity,
                 registered : event.extendedProps.registered,
-                students: event.extendedProps.students
+                students: event.extendedProps.students,
+                reportstatus : event.extendedProps.reportStatus
               }
             }));
 

@@ -20,4 +20,6 @@ public class ExtendedProps
     public string Students { get; set; }
     
     public string Therapist { get; set; }
+    
+    public string ReportStatus { get; set; }
 }

@@ -84,6 +84,30 @@ public class ScheduleController : Controller
           {
             // Iterate through every Session, and get its Respective Schedule.
             var schedule = _unitOfWork.Schedule.Get(u => u.ScheduleID == session.ScheduleID);
+
+            var report = _unitOfWork.Report.Find(u => u.SessionID == session.SessionID).FirstOrDefault();
+
+            var reportStatus = "";
+
+            if (report == null)
+            {
+              reportStatus = "Not Created";
+            }
+            else
+            {
+              var reportConfirmed = _unitOfWork.Report
+                .Find(u => u.SessionID == session.SessionID && u.CustomerSupportConfirmation == true).FirstOrDefault();
+
+              if (reportConfirmed == null)
+              {
+                reportStatus = "Created, but not Confirmed";
+              }
+              else
+              {
+                reportStatus = "Report Confirmed";
+              }
+            }
+
             // schedules.Add(schedule);
             var calendar = new CalendarVM
             {
@@ -96,7 +120,8 @@ public class ScheduleController : Controller
                 Calendar = category,
                 Capacity = schedule.Capacity,
                 Registered = schedule.Registered,
-                Students = obj.ChildName
+                Students = obj.ChildName,
+                ReportStatus = reportStatus
               }
             };
             calendars.Add(calendar);

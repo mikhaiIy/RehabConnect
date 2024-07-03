@@ -75,30 +75,34 @@ ViewData["Title"] = "Therapist - Report";
         <form method="post" id="ParentDetailForm">
           @Html.AntiForgeryToken()
           <input asp-for="Report.ReportID" hidden />
-          <!-- Account Details -->
-          <div id="accountDetailsValidation" class="content">
-            <div class="content-header mb-4">
-              <h3 class="mb-1">Report Details</h3>
-              <p>Enter Student Report Details.</p>
-            </div>
-            <div class="row g-3">
-              <div class="col-sm-12">
-                                <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
-                                <select asp-for="@Model.Report.StudentID" asp-items="@Model.StudentList" class="form-select border-0 shadow">
-                                    <option disabled selected>--Choose Student--</option>
-                                </select>
-                @* <label class="form-label" asp-for="Report.StudentID">Choose Student: </label>
-                <select class="form-select" asp-for="Report.StudentID" asp-items="ViewBag.Student"></select>
-                <span asp-validation-for="Report.StudentID" class="text-danger"></span> *@
-              </div>
-              <div class="col-sm-3">
-                <label class="form-label" asp-for="Report.NoSession">No. of Session Attended</label>
-                <input asp-for="Report.NoSession" type="number" class="form-control" placeholder="#" />
-              </div>
-              <div class="col-sm-12">
-                <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label>
-                <input asp-for="Report.DateReport" type="datetime-local" class="form-control" value="@Model.Report.DateReport.ToString("yyyy-MM-ddTHH:mm")"/>
-              </div>
+          <input asp-for="Report.SessionID" hidden />
+              <!-- Account Details -->
+              <div id="accountDetailsValidation" class="content">
+                <div class="content-header mb-4">
+                  <h3 class="mb-1">Report Details</h3>
+                  <p>Enter Student Report Details.</p>
+                </div>
+                <div class="row g-3">
+                  <div class="col-sm-12">
+                    <label class="form-label" asp-for="Student.ChildName">Student Name: </label>
+                    <input type="text" class="form-control" asp-for="Student.ChildName" value="@Model.Student.ChildName" disabled/>
+                  </div>
+                  <div class="col-sm-12">
+                    <label class="form-label" asp-for="Roadmap.Name">Roadmap: </label>
+                    <input type="text" class="form-control" asp-for="Roadmap.Name" value="@Model.Roadmap.Name" disabled/>
+                  </div>
+                  <div class="col-sm-12">
+                    <label class="form-label" asp-for="Step.Title">Step: </label>
+                    <input type="text" class="form-control" asp-for="Step.Title" value="@Model.Step.Title" disabled/>
+                  </div>
+                  <div class="col-sm-12">
+                    <label class="form-label" asp-for="Program.ProgramName">Program: </label>
+                    <input type="text" class="form-control" asp-for="Program.ProgramName" value="@Model.Program.ProgramName" disabled/>
+                  </div>
+                  <div class="col-sm-12">
+                    <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label>
+                    <input asp-for="Report.DateReport" type="datetime-local" class="form-control" value="@Model.Report.DateReport.ToString("yyyy-MM-ddTHH:mm")" readonly/>
+                  </div>
               <label class="form-label">Treatment Provided:</label>
               <div class="col-sm-12 form-check">
                 <input class="form-check-input" type="checkbox" asp-for="Report.IndividualTherapy" />
