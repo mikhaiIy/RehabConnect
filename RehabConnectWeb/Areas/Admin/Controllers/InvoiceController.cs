@@ -54,13 +54,19 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
     public IActionResult Add()
     {
-      var model = new InvoiceAddVM();
+      var model = new InvoiceAddVM
+      {
+        Invoice = new Invoice
+        {
+          LongNote = "Thank you for entrusting us with your child’s journey. We look forward to witnessing their growth, celebrating their victories, and creating a constellation of love and support!"
+        }
+      };
 
       return View(model);
     }
 
     [HttpPost]
-    public IActionResult CreateInvoice(InvoiceAddVM obj)
+    public IActionResult Add(InvoiceAddVM obj)
     {
       if (ModelState.IsValid)
       {
