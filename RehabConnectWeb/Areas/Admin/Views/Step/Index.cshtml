@@ -33,13 +33,10 @@
 @section PageScripts {
   <script>
   $(document).ready(function(){
-    // Your JavaScript code goes here
     $(".test-table td a").click(function(){
       // Find the closest parent row
       var parentRow = $(this).closest("tr");
 
-      // Assuming each group of child rows has a unique class or data attribute related to the parent
-      // For example, if you use a data attribute like data-parent-id
       var parentId = parentRow.data("step-id");
 
       // Now toggle all child rows with the same data-parent-id
