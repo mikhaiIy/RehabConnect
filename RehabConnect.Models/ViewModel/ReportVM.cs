@@ -10,11 +10,16 @@ namespace RehabConnect.Models.ViewModel
 {
     public class ReportVM
     {
+        [ValidateNever]
         public Report Report { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> StudentList { get; set; }
-        
-        public IEnumerable<SelectListItem> ReportList { get; set; }
+        public Student Student { get; set; }
+        [ValidateNever]
+        public Program Program { get; set; }
+        [ValidateNever]
+        public Step Step { get; set; }
+        [ValidateNever]
+        public Roadmap Roadmap { get; set; }
         
     }
 }
