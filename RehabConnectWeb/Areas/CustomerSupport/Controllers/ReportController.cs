@@ -71,18 +71,18 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
           var studentStepDetail = _unitOfWork.Step.Get(u => u.StepId == studentProgramDetail.StepId, includeProperties:"Roadmap");
           var studentRoadmapDetail = _unitOfWork.Roadmap.Get(u => u.RoadmapId == studentStepDetail.RoadmapId);
 
-            tableData.ReportList.Add(new ReportList
-            {
-              Report=reports
+          tableData.ReportList.Add(new ReportList
+          {
+            Report=reports
 
-            });
-            tableData.StudentDetail.Add(new StudentDetail{
-              Student = studentDetails,
-              Program = studentProgramDetail,
-              Step = studentStepDetail,
-              Roadmap = studentRoadmapDetail,
-              Status = studentProgramInfo.Status
-            });
+          });
+          tableData.StudentDetail.Add(new StudentDetail{
+            Student = studentDetails,
+            Program = studentProgramDetail,
+            Step = studentStepDetail,
+            Roadmap = studentRoadmapDetail,
+            Status = studentProgramInfo.Status
+          });
         }
         // Add tableData to reportCsVm
         reportCsVm.TableDatas.Add(tableData);

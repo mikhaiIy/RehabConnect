@@ -139,66 +139,68 @@
             <tbody>
                 @foreach (var obj in Model.TableDatas)
                 {
-                  foreach (var studentDetail in obj.StudentDetail)
-                  {
-                    <tr>
-                      <td>@studentDetail.Student.ChildName</td>
-                      <td>@studentDetail.Roadmap.Name</td>
-                      <td>@studentDetail.Step.Title</td>
-                      <td>@studentDetail.Status</td>
-                      <td></td>
-                    </tr>
-                    foreach (var reportList in obj.ReportList)
+                    foreach (var studentDetail in obj.StudentDetail)
                     {
-                      foreach (var report in reportList.Report)
+                      <tr>
+                        <td>@studentDetail.Student.ChildName</td>
+                        <td>@studentDetail.Roadmap.Name</td>
+                        <td>@studentDetail.Step.Title</td>
+                        <td>@studentDetail.Status</td>
+                        <td></td>
+                      </tr>
+                      foreach (var reportList in obj.ReportList)
                       {
-                        @if (report != null )
-                        {
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>Session ID: @report.SessionID</td>
-                          <td>
-                            @if (report.CustomerSupportConfirmation)
+
+                          foreach (var report in reportList.Report?.Where(r => r != null))
+                          {
+                            if (report != null)
                             {
-                              <span class="badge bg-success">Confirmed</span>
+                              <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Session ID: @report.SessionID</td>
+                                <td>
+                                  @if (report.CustomerSupportConfirmation)
+                                  {
+                                    <span class="badge bg-success">Confirmed</span>
+                                  }
+                                  else
+                                  {
+                                    <span class="badge bg-danger">Unconfirmed</span>
+                                  }
+                                </td>
+                                <td>
+                                  <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group mr-2" role="group">
+                                      <a asp-controller="Report" asp-action="Confirm" asp-route-id="@report.ReportID" class="btn btn-warning">
+                                        Confirm
+                                      </a>
+                                      <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
+                                        Detail
+                                      </a>
+                                      <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
+                                        Print
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
                             }
                             else
                             {
-                              <span class="badge bg-danger">Unconfirmed</span>
+                              <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>No reports</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
                             }
-                          </td>
-                          <td>
-                            <div class="btn-toolbar" role="toolbar">
-                              <div class="btn-group mr-2" role="group">
-                                <a asp-controller="Report" asp-action="Confirm" asp-route-id="@report.ReportID" class="btn btn-warning">
-                                  Confirm
-                                </a>
-                                <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
-                                  Detail
-                                </a>
-                                <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
-                                  Print
-                                </a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        }else
-                        {
-                          <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>No reports</td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        }
+                          }
                       }
                     }
-                  }
                 }
             </tbody>
         </table>
