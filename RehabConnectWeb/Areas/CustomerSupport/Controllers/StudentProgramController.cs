@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RehabConnect.DataAccess.Repository.IRepository;
+using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.Utility;
 
@@ -66,21 +67,24 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
     }
 
     [HttpPost]
-
     public IActionResult Edit(int stuId, int progid)
     {
       if (ModelState.IsValid)
       {
-        var studentProgram = _unitOfWork.StudentProgram.Get(i => i.StudentID == stuId);
+        StudentProgram obj = new StudentProgram()
+        {
+          StudentID = stuId,
+          ProgramID = progid,
+          Status = 0
+        };
 
-        studentProgram.ProgramID = progid;
-
+        _unitOfWork.StudentProgram.Add(obj);
         _unitOfWork.Save();
         return RedirectToAction(nameof(Index));
       }
 
       return View("Index");
-
     }
+
   }
 }
