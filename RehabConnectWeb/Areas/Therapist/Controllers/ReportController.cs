@@ -91,7 +91,7 @@ namespace RehabConnectWeb.Areas.Therapist.Controllers
         if (report == null)
         {
           // Create New Report
-
+          reportVm.Report.SessionID = sessionId;
           reportVm.Report.DateReport = DateTime.Now;
           return View(reportVm);
         }

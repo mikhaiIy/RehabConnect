@@ -91,11 +91,11 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       return View(reportCsVm);
     }
 
-    // public IActionResult Print(int? id)
-    // {
-    //   Report? reportFromDb = _unitOfWork.Report.Get(u => u.ReportID == id);
-    //   return View(reportFromDb);
-    // }
+    public IActionResult Print(int? id)
+    {
+      Report? reportFromDb = _unitOfWork.Report.Get(u => u.ReportID == id, includeProperties:"Session, ");
+      return View(reportFromDb);
+    }
     //
     // public IActionResult Info(int? id)
     // {

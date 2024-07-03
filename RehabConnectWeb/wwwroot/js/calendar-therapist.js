@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btnSubmit.innerHTML = 'Update';
       btnSubmit.classList.add('d-none');
       btnSubmit.classList.remove('btn-add-event');
-      btnCancel.innerHTML = 'Okay';
+      btnCancel.innerHTML = 'Manage Report';
       btnCancel.classList.remove('btn-cancel');
       btnCancel.classList.add('btn-primary');
       eventRoadmap.classList.add('d-none');
