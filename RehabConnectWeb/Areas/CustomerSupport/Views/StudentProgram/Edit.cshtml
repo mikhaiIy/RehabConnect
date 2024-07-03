@@ -1,20 +1,29 @@
 @model EditProgramVM
 
 <form asp-action="Edit" method="post">
-    <input asp-for="stuId" value="@Model.studentProgram.StudentID" hidden />
-    <input asp-for="ProgramSelectList" value="@Model.ProgramSelectList" hidden>
+  <input asp-for="studProg" value="@Model.studentProgram.StudentProgramId" hidden />
+  <input asp-for="stuId" value="@Model.studentProgram.StudentID" hidden/>
+  <input asp-for="ProgramSelectList" value="@Model.ProgramSelectList" hidden>
 
-    <div class="form-group">
-        <label asp-for="studentProgram.Student.ChildName"></label>
-        <input asp-for="studentProgram.Student.ChildName" readonly class="form-control" />
-    </div>
+  <div class="form-group">
+    <label asp-for="studentProgram.Student.ChildName"></label>
+    <input asp-for="studentProgram.Student.ChildName" readonly class="form-control"/>
+  </div>
 
-    <div class="form-group">
-        <label asp-for="progid">Program</label>
-        <select asp-for="progid" asp-items="Model.ProgramSelectList" class="form-control"></select>
-    </div>
+  <div class="form-group">
+    <label asp-for="progid">Program</label>
+    <select asp-for="progid" asp-items="Model.ProgramSelectList" class="form-control"></select>
+  </div>
 
+  <div class="form-group">
+    <label asp-for="Status">Status</label>
+    <select asp-for="Status" asp-items="Model.StatusList" class="form-control"></select>
+  </div>
+
+  <div class="pt-4">
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+  </div>
+
 </form>
 

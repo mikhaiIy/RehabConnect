@@ -1,31 +1,83 @@
-@model List<Report>
+@model ReportCSVM
 
 @{
-    ViewData["Title"] = "Parent - Report";
+ViewData["Title"] = "Parent - Report";
 
+}
+
+@section PageStyles {
+<style>
+  .toggle {
+    display: none;
+  }
+  table.test-table a.toggle-children {
+    color: #7367f0; /* Your primary color */
+  }
+  table.test-table a.toggle-children:hover {
+    color: #8a85ff; /* Darker shade of your primary color for hover state */
+  }
+  table.test-table a.toggle-children:active {
+    color: #5a52c6; /* Another color for when it's clicked/active */
+  }
+  table.test-table tr.toggle {
+    background-color: #ceceff; /* Lighter than the parent row */
+  }
+
+  .parent-row {
+    background-color: #e6e6ff; /* Your primary color or any unique color */
+  }
+
+  .parent-row.has-children {
+    background-color: #ceceff; /* Your primary color or any unique color */
+  }
+
+</style>
 }
 
 @section VendorStyles {
-    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+<link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
 }
 
 @section VendorScripts {
-    <script src="~/vendor/libs/moment/moment.js"></script>
-    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="~/vendor/libs/select2/select2.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
 }
 
 @section PageScripts {
-    <script src="~/js/app-user-list.js"></script>
+<script>
+  $(document).ready(function(){
+    // Your JavaScript code goes here
+    $(".test-table td a").click(function(){
+      // Find the closest parent row
+      var parentRow = $(this).closest("tr");
+
+      // Assuming each group of child rows has a unique class or data attribute related to the parent
+      // For example, if you use a data attribute like data-parent-id
+      var parentId = parentRow.data("step-id");
+
+      // Now toggle all child rows with the same data-parent-id
+      $("tr[data-parent-id='" + parentId + "']").toggle();
+    });
+
+    $(".parent-row").each(function() {
+      var stepId = $(this).data("step-id");
+      var childRows = $("tr[data-parent-id='" + stepId + "']");
+      if (childRows.length > 0) {
+        $(this).addClass('has-children');
+      }
+    });
+  });
+</script>
 }
 
 @* ************** Content ************** *@
@@ -33,134 +85,175 @@
 <h4 class="p-4"Report List></h4>
 
 <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Session</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">null</h3>
-                            <p class="text-success mb-0">(+29%)</p>
-                        </div>
-                        <p class="mb-0">Total Sessions</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-user ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Students</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.StudentCount</h3>
             </div>
+            <p class="mb-0">Number of Student </p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-danger">
+                <i class="ti ti-user-plus ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Improvements</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">60%</h3>
-                            <p class="text-success mb-0">(+18%)</p>
-                        </div>
-                        <p class="mb-0">Your Child Improvements</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-danger">
-                            <i class="ti ti-user-plus ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Session</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.SessionCount</h3>
             </div>
+            <p class="mb-0">Total Sessions Booked</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-primary">
+              <i class="ti ti-user ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Session Lefts</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">@Model.Count()</h3>
-                            <p class="text-danger mb-0">(-14%)</p>
-                        </div>
-                        <p class="mb-0">Number of your Sessions Left</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Reports</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.ReportCount</h3>
             </div>
+            <p class="mb-0">Total Reports</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="ti ti-user-check ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-start justify-content-between">
-                    <div class="content-left">
-                        <span>Total Reports</span>
-                        <div class="d-flex align-items-center my-2">
-                            <h3 class="mb-0 me-2">@Model.Count()</h3>
-                            <p class="text-success mb-0">(+42%)</p>
-                        </div>
-                        <p class="mb-0">Total of your Children Reports</p>
-                    </div>
-                    <div class="avatar">
-                        <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-user-exclamation ti-sm"></i>
-                        </span>
-                    </div>
-                </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Reports</span>
+            <div class="d-flex align-items-center my-2">
+              <h3 class="mb-0 me-2">@Model.ConfirmedReport</h3>
             </div>
+            <p class="mb-0">Confirmed Reports</p>
+          </div>
+          <div class="avatar">
+            <span class="avatar-initial rounded bg-label-warning">
+              <i class="ti ti-user-exclamation ti-sm"></i>
+            </span>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Users List Table -->
 <div class="card">
-    <div class="card-header border-bottom">
-        <h5 class="card-title mb-3">Search Filter</h5>
-        <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-            <div class="col-md-4 user_role"></div>
-            <div class="col-md-4 user_plan"></div>
-            <div class="col-md-4 user_status"></div>
-        </div>
-    </div>
-    <div class="card-datatable table-responsive">
+  <div class="card-header border-bottom">
+    <h5 class="card-title mb-3">Search Filter</h5>
+  </div>
+  <div class="card-datatable table-responsive">
+    <table class="datatables-users table test-table">
+      <thead class="border-top">
+      <tr>
+        <th></th>
+        <th>Child Name</th>
+        <th>Roadmap</th>
+        <th>Step</th>
+        <th>Program/Session</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var obj in Model.TableDatas)
+      {
+      foreach (var studentDetail in obj.StudentDetail)
+      {
 
-        <table class="table">
-            <thead class="border-top">
-                <tr>
-                    <th>Report ID</th>
-                    <th>Child Name</th>
-                    <th></th>
-                    <th></th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr>
-                        <td>@obj.ReportID</td>
-                        <td>@obj.Student.ChildName</td>
-                        <td>@obj.Student.ChildIC</td>
-                        <td>@obj.Student.ChildAge</td>
-                        <td>
-                            <div class="w-75 btn-group" >
-                                <a asp-controller="Report" asp-action="Info" asp-route-id="@obj.ReportID" class="btn btn-primary mx-2">
-                                    Info
-                                </a>
-                                <a asp-controller="Report" asp-action="Print" asp-route-id="@obj.ReportID" class="btn btn-secondary mx-2" target="_blank">
-                                    <i class="ti ti-printer me-2"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+      <tr data-step-id="@studentDetail.Student.StudentID" class="parent-row">
+        <td><a class="toggle-children">open</a></td>
+        <td>@studentDetail.Student.ChildName</td>
+        <td>@studentDetail.Roadmap.Name</td>
+        <td>@studentDetail.Step.Title</td>
+        <td>@studentDetail.Program.ProgramName</td>
+        <td>@studentDetail.Status</td>
+        <td></td>
+      </tr>
+      foreach (var reportList in obj.ReportList)
+      {
+      // -- Child row Data --
+      foreach (var report in reportList.Report?.Where(r => r != null))
+      {
+      if (report != null)
+      {
+      <tr class="toggle" data-parent-id="@studentDetail.Student.StudentID">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Report ID: @report.ReportID</td>
+        <td>
+          @if (report.CustomerSupportConfirmation)
+          {
+          <span class="badge bg-success">Complete</span>
+          }
+          else
+          {
+          <span class="badge bg-danger">Incomplete</span>
+          }
+        </td>
+        <td>
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+              <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
+                Preview
+              </a>
+              <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
+                Print
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      }
+      else
+      {
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>No reports</td>
+        <td></td>
+        <td></td>
+      </tr>
+      }
+      }
+      }
+      }
+      }
+      </tbody>
+    </table>
+  </div>
 </div>

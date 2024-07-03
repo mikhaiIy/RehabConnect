@@ -1,793 +1,790 @@
-@* @model ReportVM *@
-@* *@
-@* @{ *@
-@*     ViewData["Title"] = "Customer Support - Confirm Report"; *@
-@* } *@
-@* *@
-@* @section VendorStyles { *@
-@*     <!-- Vendor --> *@
-@*     <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" /> *@
-@*     <link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" /> *@
-@*     <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" /> *@
-@*     <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" /> *@
-@* } *@
-@* *@
-@* @section VendorScripts { *@
-@*     <script src="~/vendor/libs/cleavejs/cleave.js"></script> *@
-@*     <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script> *@
-@*     <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script> *@
-@*     <script src="~/vendor/libs/select2/select2.js"></script> *@
-@*     <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script> *@
-@*     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script> *@
-@*     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script> *@
-@* } *@
-@* *@
-@* @section PageStyles { *@
-@*     <link rel="stylesheet" href="~/vendor/css/pages/page-auth.css"> *@
-@* } *@
-@* *@
-@* @section PageScripts { *@
-@*     $1$ <script src="~/js/pages-auth-multisteps.js"></script> #1# *@
-@*     <script src="~/js/form-wizard-numbered-therapist.js"></script> *@
-@* } *@
-@* *@
-@* <style> *@
-@*     .font-italic { *@
-@*         font-style: italic; *@
-@*     } *@
-@* </style> *@
-@* *@
-@* $1$ ************** Content ************** #1# *@
-@* *@
-@* <div class="d-flex col-lg-10 align-items-center justify-content-center p-sm-5 p-3"> *@
-@*     <div class="w-px-1100"> *@
-@*         <div class="bs-stepper wizard-numbered shadow-none"> *@
-@*             <div class="bs-stepper-header border-bottom-0"> *@
-@*                 <div class="step" data-target="#accountDetailsValidation"> *@
-@*                     <button type="button" class="step-trigger"> *@
-@*                         <span class="bs-stepper-circle">1</span> *@
-@*                         <span class="bs-stepper-label"> *@
-@*                             <span class="bs-stepper-title">Report Details</span> *@
-@*                             <span class="bs-stepper-subtitle">Report Basic Details</span> *@
-@*                         </span> *@
-@*                     </button> *@
-@*                 </div> *@
-@*                 <div class="line"> *@
-@*                     <i class="ti ti-chevron-right"></i> *@
-@*                 </div> *@
-@*                 <div class="step" data-target="#personalInfoValidation"> *@
-@*                     <button type="button" class="step-trigger"> *@
-@*                         <span class="bs-stepper-circle">2</span> *@
-@*                         <span class="bs-stepper-label"> *@
-@*                             <span class="bs-stepper-title">Subjective Assessment</span> *@
-@*                             <span class="bs-stepper-subtitle">Report for S-Subjective Assessment</span> *@
-@*                         </span> *@
-@*                     </button> *@
-@*                 </div> *@
-@*                 <div class="line"> *@
-@*                     <i class="ti ti-chevron-right"></i> *@
-@*                 </div> *@
-@*                 <div class="step" data-target="#billingLinksValidation"> *@
-@*                     <button type="button" class="step-trigger"> *@
-@*                         <span class="bs-stepper-circle">3</span> *@
-@*                         <span class="bs-stepper-label"> *@
-@*                             <span class="bs-stepper-title">Objective Assessment</span> *@
-@*                             <span class="bs-stepper-subtitle">Report for O-Objective Assessment</span> *@
-@*                         </span> *@
-@*                     </button> *@
-@*                 </div> *@
-@*             </div> *@
-@*             <div class="bs-stepper-content"> *@
-@*                 <form method="post" id="ParentDetailForm"> *@
-@*                     @Html.AntiForgeryToken() *@
-@*                     <input asp-for="Report.ReportID" hidden /> *@
-@*                     <!-- Account Details --> *@
-@*                     <div id="accountDetailsValidation" class="content"> *@
-@*                         <div class="content-header mb-4"> *@
-@*                             <h3 class="mb-1">Report Details</h3> *@
-@*                             <p>Student Report Details  to be deleted</p> *@
-@*                         </div> *@
-@*                         <div class="row g-3"> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" asp-for="Report.StudentID">Choose Student: </label> *@
-@*                                 <select asp-for="@Model.Report.StudentID" asp-items="@Model.StudentList" class="form-select border-0 shadow"> *@
-@*                                     <option disabled selected>--Choose Student--</option> *@
-@*                                 </select> *@
-@*                                 @* <label class="form-label" asp-for="Report.StudentID">Choose Student: </label> *@
-@*                                 <select disabled class="form-select" asp-for="Report.StudentID" asp-items="ViewBag.Student"></select> *@
-@*                                 <span asp-validation-for="Report.StudentID" class="text-danger"></span> *@
-@*                             </div> *@
-@*                             <div class="col-sm-3"> *@
-@*                                 <label class="form-label" asp-for="Report.NoSession">No. of Session Attended</label> *@
-@*                                 <input disabled asp-for="Report.NoSession" type="number" class="form-control" placeholder="#" /> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label> *@
-@*                                 <input disabled asp-for="Report.DateReport" type="datetime-local" class="form-control" /> *@
-@*                             </div> *@
-@*                             <label class="form-label">Treatment Provided:</label> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IndividualTherapy" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IndividualTherapy"> *@
-@*                                     Individual Therapy *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.GroupTherapy" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.GroupTherapy"> *@
-@*                                     Group Therapy *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.EarlyIntervention" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.EarlyIntervention"> *@
-@*                                     Early Intervention *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.BehaviorManagement" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.BehaviorManagement"> *@
-@*                                     Behavior Management *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-12 d-flex justify-content-between mt-4"> *@
-@*                                 <button type="button" class="btn btn-label-secondary btn-prev" disabled> *@
-@*                                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i> *@
-@*                                     <span class="align-middle d-sm-inline-block d-none">Previous</span> *@
-@*                                 </button> *@
-@*                                 <button type="button" class="btn btn-primary btn-next"> *@
-@*                                     <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> *@
-@*                                     <i class="ti ti-arrow-right ti-xs"></i> *@
-@*                                 </button> *@
-@*                             </div> *@
-@*                         </div> *@
-@*                     </div> *@
-@*                     <!-- Personal Info --> *@
-@*                     <div id="personalInfoValidation" class="content"> *@
-@*                         <div class="content-header mb-4"> *@
-@*                             <h3 class="mb-1">Subjective Assessment</h3> *@
-@*                             <p>S-Subjective Assessment to be deleted</p> *@
-@*                         </div> *@
-@*                         <div class="row g-3"> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.CanEnterSelf" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.CanEnterSelf"> *@
-@*                                     Can Enter by Self *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.WithPrompting" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.WithPrompting"> *@
-@*                                     With Prompting *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.DifficultiesSeparateWithParents" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.DifficultiesSeparateWithParents"> *@
-@*                                     Difficulties Separate With Parents *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.WithCryingAndRefuse" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.WithCryingAndRefuse"> *@
-@*                                     With Crying And Refuse *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.GreetingWithPrompt" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.GreetingWithPrompt"> *@
-@*                                     Greeting With Prompt *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.GreetingBySelf" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.GreetingBySelf"> *@
-@*                                     Greeting By Self *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Mute" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Mute"> *@
-@*                                     Mute *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.RefuseToEnter" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.RefuseToEnter"> *@
-@*                                     Refuse To Enter *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div> *@
-@*                                 <label for="Report.SubjectiveAssessmentNotes" class="form-label" asp-for="Report.SubjectiveAssessmentNotes">Subjective Assessment Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.SubjectiveAssessmentNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@*                             <div class="col-12 d-flex justify-content-between mt-4"> *@
-@*                                 <button type="button" class="btn btn-label-secondary btn-prev"> *@
-@*                                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i> *@
-@*                                     <span class="align-middle d-sm-inline-block d-none">Previous</span> *@
-@*                                 </button> *@
-@*                                 <button type="button" class="btn btn-primary btn-next"> *@
-@*                                     <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span> *@
-@*                                     <i class="ti ti-arrow-right ti-xs"></i> *@
-@*                                 </button> *@
-@*                             </div> *@
-@*                         </div> *@
-@*                     </div> *@
-@*                     <!-- Billing Links --> *@
-@*                     <div id="billingLinksValidation" class="content"> *@
-@*                         <div class="content-header mb-4"> *@
-@*                             <h3 class="mb-1">Objective Assessment</h3> *@
-@*                             <p> O-Objective Assessment to be deleted</p> *@
-@*                         </div> *@
-@*                         <div class="row g-3"> *@
-@* *@
-@*                             <b>Motor & Praxis Skills</b> *@
-@* *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.RangeOfMotion" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.RangeOfMotion"> *@
-@*                                     Upper Range Of Motion *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.MuscleTone" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.MuscleTone"> *@
-@*                                     Muscle Tone *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.MuscleStrength" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.MuscleStrength"> *@
-@*                                     Muscle Strength *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.JointMobility" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.JointMobility"> *@
-@*                                     Joint Mobility *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.TrunkControlBalance" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.TrunkControlBalance"> *@
-@*                                     Trunk control & balance *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Gross Motor function:</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Standing" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Standing"> *@
-@*                                     a) Standing *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Crawling" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Crawling"> *@
-@*                                     b) Crawling *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Walking" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Walking"> *@
-@*                                     c) Walking *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Jumping" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Jumping"> *@
-@*                                     d) Jumping *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.BroadJump" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.BroadJump"> *@
-@*                                     e) Broad Jump *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.KickBall" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.KickBall"> *@
-@*                                     f) Kick ball *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ThrowBall" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ThrowBall"> *@
-@*                                     g) Throw ball *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Fine Motor function:</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.GraspRelease" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.GraspRelease"> *@
-@*                                     a) Grasp & release *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Reaching" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Reaching"> *@
-@*                                     b) Reaching *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.PutBlockInCup" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.PutBlockInCup"> *@
-@*                                     c) Put Block in a cup *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Scribbles" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Scribbles"> *@
-@*                                     d) Scribbles *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.TowerOfCubes" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.TowerOfCubes"> *@
-@*                                     e) Tower of cubes *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.MaturePencilGrasp" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.MaturePencilGrasp"> *@
-@*                                     f) Mature pencil grasping *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ImmaturePencilGrasp" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ImmaturePencilGrasp"> *@
-@*                                     g) Immature pencil grasping *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ImitateVerticalLine" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ImitateVerticalLine"> *@
-@*                                     h) Imitate vertical line *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.CopySquare" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.CopySquare"> *@
-@*                                     i) Copying Square, Triangle, Rhombus *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div> *@
-@*                                 <label for="Report.MotorPraxisProgressNotes" class="form-label">Motor & Praxis Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.MotorPraxisSkillsNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@* *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <!--new section--> *@
-@*                             <b>Sensory Regulation Skills</b> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Tactile" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Tactile"> *@
-@*                                     Tactile *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Auditory" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Auditory"> *@
-@*                                     Auditory *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Visual" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Visual"> *@
-@*                                     Visual *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Olfactory" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Olfactory"> *@
-@*                                     Olfactory *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Gustatory" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Gustatory"> *@
-@*                                     Gustatory *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Vestibular" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Vestibular"> *@
-@*                                     Vestibular *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Proprioception" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Proprioception"> *@
-@*                                     Proprioception *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div> *@
-@*                                 <label class="form-label" asp-for="Report.SensoryRegulationSkillsNotes">Sensory Regulation Progress Notes</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.SensoryRegulationSkillsNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@* *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <!--new section--> *@
-@*                             <b>Cognitive Regulation Skills</b> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Basic Concept:</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Alphabet" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Alphabet"> *@
-@*                                     a) Alphabet *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Numbers" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Numbers"> *@
-@*                                     b) Numbers *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Shapes" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Shapes"> *@
-@*                                     c) Shapes *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Colors" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Colors"> *@
-@*                                     d) Colors *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.MemoryFunction" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.MemoryFunction"> *@
-@*                                     Memory function *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Attention" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Attention"> *@
-@*                                     Attention *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6"> *@
-@*                                 <label class="form-label" asp-for="Report.Concentration">Concentration</label> *@
-@*                                 <select disabled class="form-select" asp-for="Report.Concentration"> *@
-@*                                     <option value="Good">Good</option> *@
-@*                                     <option value="Fair">Fair</option> *@
-@*                                     <option value="Poor">Poor</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6"> *@
-@*                                 <label class="form-label" asp-for="Report.ProblemSolving">Problem Solving</label> *@
-@*                                 <select disabled class="form-select" asp-for="Report.ProblemSolving"> *@
-@*                                     <option value="Good">Good</option> *@
-@*                                     <option value="Fair">Fair</option> *@
-@*                                     <option value="Poor">Poor</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.WritingSkill" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.WritingSkill"> *@
-@*                                     Writing skill *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div> *@
-@*                                 <label for="Report.CognitiveRegulationSkillsNotes" class="form-label">Cognitive Regulation Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.CognitiveRegulationSkillsNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <!--new section--> *@
-@*                             <b>Occupational Performance</b> *@
-@* *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Activity Daily Living (ADL):</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLIndependent" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ADLIndependent"> *@
-@*                                     a) Independent with no helper *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" asp-for="Report.ADLSupervision">b) With supervision</label> *@
-@*                                 <select disabled class="form-select" asp-for="Report.ADLSupervision"> *@
-@*                                     <option value="all the time">all the time</option> *@
-@*                                     <option value="most of the time">most of the time</option> *@
-@*                                     <option value="sometimes">sometimes</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLMaxAssistance" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ADLMaxAssistance"> *@
-@*                                     c) Maximum assistance *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLToiletTrained" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.ADLToiletTrained"> *@
-@*                                     d) Toilet trained *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Instrumental Activity Daily Living (IADL):</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLMoneyManagement" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLMoneyManagement"> *@
-@*                                     a) Money Management *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLTimeConcept" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLTimeConcept"> *@
-@*                                     b) Time concept *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLFoldingClothes" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLFoldingClothes"> *@
-@*                                     c) Simple household activities: Folding clothes *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLHangingClothes" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLHangingClothes"> *@
-@*                                     d) Simple household activities: Hanging clothes *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLSweepFloor" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLSweepFloor"> *@
-@*                                     e) Simple household activities: Sweep floor *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLMakingDrinks" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLMakingDrinks"> *@
-@*                                     f) Simple domestic activities: Making drinks *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLPrepareSimpleFood" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLPrepareSimpleFood"> *@
-@*                                     g) Simple domestic activities: Prepare simple food *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLUsePhone" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.IADLUsePhone"> *@
-@*                                     h) Simple domestic activities: Use phone *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@* *@
-@*                             <div> *@
-@*                                 <label for="Report.OccupationalPerformanceNotes" class="form-label">Occupational Performance Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.OccupationalPerformanceNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@* *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <!--new section--> *@
-@*                             <b>Emotional Regulation Skills</b> *@
-@* *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Behaviour:</label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.TemperedTantrum" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.TemperedTantrum"> *@
-@*                                     a) Tempered Tantrum *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Manipulative" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Manipulative"> *@
-@*                                     b) Manipulative *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.EasilyDistracted" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.EasilyDistracted"> *@
-@*                                     c) Easily distracted *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Passive" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Passive"> *@
-@*                                     d) Passive *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Cooperative" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Cooperative"> *@
-@*                                     e) Cooperative *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Isolation" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Isolation"> *@
-@*                                     f) Isolation *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Reluctant" /> *@
-@*                                 <label class="form-check-label" asp-for="Report.Reluctant"> *@
-@*                                     g) Reluctant *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div> *@
-@*                                 <label for="Report.EmotionalRegulationSkillsNotes" class="form-label">Emotional Regulation Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" asp-for="Report.EmotionalRegulationSkillsNotes" rows="3"></textarea> *@
-@*                             </div> *@
-@* *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <!--new section--> *@
-@*                             <b>Communication & Social Skills</b> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Following Instruction: </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.RepetitivePrompting" /> *@
-@*                                 <label class="form-check-label" for="Report.RepetitivePrompting"> *@
-@*                                     a) Repetitive prompting *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" for="Report.VerbalPrompting">b) Verbal prompting</label> *@
-@*                                 <select disabled class="form-select" id="VerbalPrompting" asp-for="Report.VerbalPrompting"> *@
-@*                                     <option value="min">min</option> *@
-@*                                     <option value="moderate">moderate</option> *@
-@*                                     <option value="max">max</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" for="Report.PhysicalPrompting">c) Physical prompting</label> *@
-@*                                 <select disabled class="form-select" id="PhysicalPrompting" asp-for="Report.PhysicalPrompting"> *@
-@*                                     <option value="min">min</option> *@
-@*                                     <option value="moderate">moderate</option> *@
-@*                                     <option value="max">max</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label">Eye Contact: </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6"> *@
-@*                                 <label class="form-label" for="Report.EyeContactPerson">a) Person</label> *@
-@*                                 <select disabled class="form-select" id="EyeContactPerson" asp-for="Report.EyeContactPerson"> *@
-@*                                     <option value="good">Good</option> *@
-@*                                     <option value="fair">Fair</option> *@
-@*                                     <option value="poor">Poor</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6"> *@
-@*                                 <label class="form-label" for="Report.EyeContactObject">b) Object</label> *@
-@*                                 <select disabled class="form-select" id="EyeContactObject" asp-for="Report.EyeContactObject"> *@
-@*                                     <option value="good">Good</option> *@
-@*                                     <option value="fair">Fair</option> *@
-@*                                     <option value="poor">Poor</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.InitiateAnswerQuestion" /> *@
-@*                                 <label class="form-check-label" for="Report.InitiateAnswerQuestion"> *@
-@*                                     Initiate answer question *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.VerbalRespond" /> *@
-@*                                 <label class="form-check-label" for="Report.VerbalRespond"> *@
-@*                                     Verbal respond *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-12"> *@
-@*                                 <label class="form-label" for="Report.VoiceClarity">Voice clarity</label> *@
-@*                                 <select disabled class="form-select" id="VoiceClarity" asp-for="Report.VoiceClarity"> *@
-@*                                     <option value="clear">Clear</option> *@
-@*                                     <option value="slurred">Slurred</option> *@
-@*                                     <option value="imitate last vowel sound">imitate last vowel sound</option> *@
-@*                                     <option value="no speech">No speech</option> *@
-@*                                 </select> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.FacialExpressions" /> *@
-@*                                 <label class="form-check-label" for="Report.FacialExpressions"> *@
-@*                                     Facial expressions *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.BodyLanguage" /> *@
-@*                                 <label class="form-check-label" for="Report.BodyLanguage"> *@
-@*                                     Body language *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.TakingTurn" /> *@
-@*                                 <label class="form-check-label" for="Report.TakingTurn"> *@
-@*                                     taking turn *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.Sharing" /> *@
-@*                                 <label class="form-check-label" for="Report.Sharing"> *@
-@*                                     Sharing *@
-@*                                 </label> *@
-@*                             </div> *@
-@*                             <div class="col-sm-6 form-check"> *@
-@*                                 <input disabled class="form-check-input" type="checkbox" asp-for="Report.StayInGroup" /> *@
-@*                                 <label class="form-check-label" for="Report.StayInGroup"> *@
-@*                                     Stay in group *@
-@*                                 </label> *@
-@*                             </div> *@
-@* *@
-@*                             <div> *@
-@*                                 <label for="Report.CommunicationSocialSkillsNotes" class="form-label">Communication & Social Progress Note</label> *@
-@*                                 <textarea disabled class="form-control" id="CommunicationSocialSkillsNotes" rows="3" asp-for="Report.CommunicationSocialSkillsNotes"></textarea> *@
-@*                             </div> *@
-@* *@
-@*                             <hr class="container-m-nx mb-5"> *@
-@*                             <div class="content-header"> *@
-@*                                 <h3 class="mb-1">Academics Performance</h3> *@
-@*                                 <p>Fill in the details for the Academics</p> *@
-@*                             </div> *@
-@*                             <div class="row g-3"> *@
-@*                                 <div class="col-sm-12"> *@
-@*                                     <label class="form-label" for="Report.AcademicPerformance">Academics Grades</label> *@
-@*                                     <select disabled class="form-select" id="AcademicPerformance" asp-for="Report.AcademicPerformance"> *@
-@*                                         <option value="Good">Good</option> *@
-@*                                         <option value="Average">Average</option> *@
-@*                                         <option value="Fair">Fair</option> *@
-@*                                         <option value="Unable to follow">Unable to follow</option> *@
-@*                                     </select> *@
-@*                                 </div> *@
-@*                                 <div> *@
-@*                                     <label for="Report.AnalysisProblem" class="form-label">A - Analysis Problem</label> *@
-@*                                     <textarea disabled class="form-control" id="AnalysisProblem" rows="4" asp-for="Report.AnalysisProblem"></textarea> *@
-@*                                 </div> *@
-@*                                 <div> *@
-@*                                     <label for="Report.ShortTermGoal" class="form-label">A - Short Term Goals</label> *@
-@*                                     <textarea disabled class="form-control" id="ShortTermGoal" rows="4" asp-for="Report.ShortTermGoal"></textarea> *@
-@*                                 </div> *@
-@*                                 <div> *@
-@*                                     <label for="Report.LongTermGoal" class="form-label">A - Long Term Goals</label> *@
-@*                                     <textarea disabled class="form-control" id="LongTermGoal" rows="4" asp-for="Report.LongTermGoal"></textarea> *@
-@*                                 </div> *@
-@*                                 <div> *@
-@*                                     <label for="Report.TxPlan" class="form-label">P - Tx PLAN</label> *@
-@*                                     <textarea disabled class="form-control" id="TxPlan" rows="2" asp-for="Report.TxPlan"></textarea> *@
-@*                                 </div> *@
-@*                             </div> *@
-@* *@
-@*                             <hr /> *@
-@*                             <div class="d-flex justify-content-center"> *@
-@*                                 <div class="form-check"> *@
-@*                                     <input class="form-check-input" type="checkbox" asp-for="Report.CustomerSupportConfirmation" id="CustomerSupportConfirmation"> *@
-@*                                     <label class="form-check-label font-italic" asp-for="Report.CustomerSupportConfirmation"> *@
-@*                                         I Acknowledge and Confirm this Report *@
-@*                                     </label> *@
-@*                                 </div> *@
-@*                             </div> *@
-@*                             <hr /> *@
-@* *@
-@*                             <div class="col-12 d-flex justify-content-between mt-4"> *@
-@*                                 <button type="button" class="btn btn-label-secondary btn-prev"> *@
-@*                                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i> *@
-@*                                     <span class="align-middle d-sm-inline-block d-none">Previous</span> *@
-@*                                 </button> *@
-@*                                 <button type="submit" class="btn btn-danger btn-next btn-submit">Confirm Report</button> *@
-@*                             </div> *@
-@*                         </div> *@
-@*                     </div> *@
-@*                 </form> *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
+@model ReportVM
+
+@{
+ViewData["Title"] = "Therapist - Report";
+}
+
+@section VendorStyles {
+<!-- Vendor -->
+<link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css" />
+<link rel="stylesheet" href="~/vendor/libs/bootstrap-select/bootstrap-select.css" />
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+}
+
+@section VendorScripts {
+<script src="~/vendor/libs/cleavejs/cleave.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+<script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageStyles {
+<link rel="stylesheet" href="~/vendor/css/pages/page-auth.css">
+}
+
+@section PageScripts {
+@* <script src="~/js/pages-auth-multisteps.js"></script> *@
+<script src="~/js/form-wizard-numbered-therapist.js"></script>
+}
+
+@* ************** Content ************** *@
+
+<div class="d-flex col-lg-10 align-items-center justify-content-center p-sm-5 p-3">
+  <div class="w-px-1100">
+    <div class="bs-stepper wizard-numbered shadow-none">
+      <div class="bs-stepper-header border-bottom-0">
+        <div class="step" data-target="#accountDetailsValidation">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">
+            <span class="bs-stepper-title">Report Details</span>
+            <span class="bs-stepper-subtitle">Enter Report Basic Details</span>
+            </span>
+          </button>
+        </div>
+        <div class="line">
+          <i class="ti ti-chevron-right"></i>
+        </div>
+        <div class="step" data-target="#personalInfoValidation">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-label">
+            <span class="bs-stepper-title">Subjective Assessment</span>
+            <span class="bs-stepper-subtitle">Report for S-Subjective Assessment</span>
+            </span>
+          </button>
+        </div>
+        <div class="line">
+          <i class="ti ti-chevron-right"></i>
+        </div>
+        <div class="step" data-target="#billingLinksValidation">
+          <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">3</span>
+            <span class="bs-stepper-label">
+            <span class="bs-stepper-title">Objective Assessment</span>
+            <span class="bs-stepper-subtitle">Report for O-Objective Assessment</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="bs-stepper-content">
+        <form method="post" id="ParentDetailForm">
+          @Html.AntiForgeryToken()
+          <input asp-for="Report.ReportID" hidden />
+          <input asp-for="Report.SessionID" hidden />
+          <!-- Account Details -->
+          <div id="accountDetailsValidation" class="content">
+            <div class="content-header mb-4">
+              <h3 class="mb-1">Report Details</h3>
+              <p>Enter Student Report Details.</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Student.ChildName">Student Name: </label>
+                <input type="text" class="form-control" asp-for="Student.ChildName" value="@Model.Student.ChildName" disabled/>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Roadmap.Name">Roadmap: </label>
+                <input type="text" class="form-control" asp-for="Roadmap.Name" value="@Model.Roadmap.Name" disabled/>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Step.Title">Step: </label>
+                <input type="text" class="form-control" asp-for="Step.Title" value="@Model.Step.Title" disabled/>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Program.ProgramName">Program: </label>
+                <input type="text" class="form-control" asp-for="Program.ProgramName" value="@Model.Program.ProgramName" disabled/>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Report.DateReport">Date of the Report:  </label>
+                <input asp-for="Report.DateReport" type="datetime-local" class="form-control" value="@Model.Report.DateReport.ToString("yyyy-MM-ddTHH:mm")" readonly/>
+              </div>
+              <label class="form-label">Treatment Provided:</label>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IndividualTherapy" />
+                <label class="form-check-label" asp-for="Report.IndividualTherapy">
+                  Individual Therapy
+                </label>
+              </div>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.GroupTherapy" />
+                <label class="form-check-label" asp-for="Report.GroupTherapy">
+                  Group Therapy
+                </label>
+              </div>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.EarlyIntervention" />
+                <label class="form-check-label" asp-for="Report.EarlyIntervention">
+                  Early Intervention
+                </label>
+              </div>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.BehaviorManagement" />
+                <label class="form-check-label" asp-for="Report.BehaviorManagement">
+                  Behavior Management
+                </label>
+              </div>
+              <div class="col-12 d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-label-secondary btn-prev" disabled>
+                  <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-next">
+                  <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
+                  <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Personal Info -->
+          <div id="personalInfoValidation" class="content">
+            <div class="content-header mb-4">
+              <h3 class="mb-1">Subjective Assessment</h3>
+              <p>Check the box if Yes for the S-Subjective Assessment</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.CanEnterSelf" />
+                <label class="form-check-label" asp-for="Report.CanEnterSelf">
+                  Can Enter by Self
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.WithPrompting" />
+                <label class="form-check-label" asp-for="Report.WithPrompting">
+                  With Prompting
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.DifficultiesSeparateWithParents" />
+                <label class="form-check-label" asp-for="Report.DifficultiesSeparateWithParents">
+                  Difficulties Separate With Parents
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.WithCryingAndRefuse" />
+                <label class="form-check-label" asp-for="Report.WithCryingAndRefuse">
+                  With Crying And Refuse
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.GreetingWithPrompt" />
+                <label class="form-check-label" asp-for="Report.GreetingWithPrompt">
+                  Greeting With Prompt
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.GreetingBySelf" />
+                <label class="form-check-label" asp-for="Report.GreetingBySelf">
+                  Greeting By Self
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Mute" />
+                <label class="form-check-label" asp-for="Report.Mute">
+                  Mute
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.RefuseToEnter" />
+                <label class="form-check-label" asp-for="Report.RefuseToEnter">
+                  Refuse To Enter
+                </label>
+              </div>
+              <div>
+                <label  for="Report.SubjectiveAssessmentNotes" class="form-label" asp-for="Report.SubjectiveAssessmentNotes">Subjective Assessment Progress Note</label>
+                <textarea disabled class="form-control" asp-for="Report.SubjectiveAssessmentNotes" rows="3"></textarea>
+              </div>
+              <div class="col-12 d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-label-secondary btn-prev">
+                  <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-next">
+                  <span class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
+                  <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Billing Links -->
+          <div id="billingLinksValidation" class="content">
+            <div class="content-header mb-4">
+              <h3 class="mb-1">Objective Assessment</h3>
+              <p>Check the box if Yes for the O-Objective Assessment</p>
+            </div>
+            <div class="row g-3">
+
+              <b>Motor & Praxis Skills</b>
+
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.RangeOfMotion" />
+                <label class="form-check-label" asp-for="Report.RangeOfMotion">
+                  Upper Range Of Motion
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.MuscleTone" />
+                <label class="form-check-label" asp-for="Report.MuscleTone">
+                  Muscle Tone
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.MuscleStrength" />
+                <label class="form-check-label" asp-for="Report.MuscleStrength">
+                  Muscle Strength
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.JointMobility" />
+                <label class="form-check-label" asp-for="Report.JointMobility">
+                  Joint Mobility
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.TrunkControlBalance" />
+                <label class="form-check-label" asp-for="Report.TrunkControlBalance">
+                  Trunk control & balance
+                </label>
+              </div>
+
+              <div class="col-sm-12">
+                <label class="form-label">Gross Motor function:</label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Standing" />
+                <label class="form-check-label" asp-for="Report.Standing">
+                  a) Standing
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Crawling" />
+                <label class="form-check-label" asp-for="Report.Crawling">
+                  b) Crawling
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Walking" />
+                <label class="form-check-label" asp-for="Report.Walking">
+                  c) Walking
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Jumping" />
+                <label class="form-check-label" asp-for="Report.Jumping">
+                  d) Jumping
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.BroadJump" />
+                <label class="form-check-label" asp-for="Report.BroadJump">
+                  e) Broad Jump
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.KickBall" />
+                <label class="form-check-label" asp-for="Report.KickBall">
+                  f) Kick ball
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ThrowBall" />
+                <label class="form-check-label" asp-for="Report.ThrowBall">
+                  g) Throw ball
+                </label>
+              </div>
+
+              <div class="col-sm-12">
+                <label class="form-label">Fine Motor function:</label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.GraspRelease" />
+                <label class="form-check-label" asp-for="Report.GraspRelease">
+                  a) Grasp & release
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Reaching" />
+                <label class="form-check-label" asp-for="Report.Reaching">
+                  b) Reaching
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.PutBlockInCup" />
+                <label class="form-check-label" asp-for="Report.PutBlockInCup">
+                  c) Put Block in a cup
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Scribbles" />
+                <label class="form-check-label" asp-for="Report.Scribbles">
+                  d) Scribbles
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.TowerOfCubes" />
+                <label class="form-check-label" asp-for="Report.TowerOfCubes">
+                  e) Tower of cubes
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.MaturePencilGrasp" />
+                <label class="form-check-label" asp-for="Report.MaturePencilGrasp">
+                  f) Mature pencil grasping
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ImmaturePencilGrasp" />
+                <label class="form-check-label" asp-for="Report.ImmaturePencilGrasp">
+                  g) Immature pencil grasping
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ImitateVerticalLine" />
+                <label class="form-check-label" asp-for="Report.ImitateVerticalLine">
+                  h) Imitate vertical line
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.CopySquare" />
+                <label class="form-check-label" asp-for="Report.CopySquare">
+                  i) Copying Square, Triangle, Rhombus
+                </label>
+              </div>
+
+              <div>
+                <label  for="Report.MotorPraxisProgressNotes" class="form-label">Motor & Praxis Progress Note</label>
+                <textarea disabled class="form-control" asp-for="Report.MotorPraxisSkillsNotes" rows="3"></textarea>
+              </div>
+
+              <hr class="container-m-nx mb-5">
+              <!--new section-->
+              <b>Sensory Regulation Skills</b>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Tactile" />
+                <label class="form-check-label" asp-for="Report.Tactile">
+                  Tactile
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Auditory" />
+                <label class="form-check-label" asp-for="Report.Auditory">
+                  Auditory
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Visual" />
+                <label class="form-check-label" asp-for="Report.Visual">
+                  Visual
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Olfactory" />
+                <label class="form-check-label" asp-for="Report.Olfactory">
+                  Olfactory
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Gustatory" />
+                <label class="form-check-label" asp-for="Report.Gustatory">
+                  Gustatory
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Vestibular" />
+                <label class="form-check-label" asp-for="Report.Vestibular">
+                  Vestibular
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Proprioception" />
+                <label class="form-check-label" asp-for="Report.Proprioception">
+                  Proprioception
+                </label>
+              </div>
+              <div>
+                <label class="form-label" asp-for="Report.SensoryRegulationSkillsNotes">Sensory Regulation Progress Notes</label>
+                <textarea disabled class="form-control" asp-for="Report.SensoryRegulationSkillsNotes" rows="3"></textarea>
+              </div>
+
+              <hr class="container-m-nx mb-5">
+              <!--new section-->
+              <b>Cognitive Regulation Skills</b>
+              <div class="col-sm-12">
+                <label class="form-label">Basic Concept:</label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Alphabet" />
+                <label class="form-check-label" asp-for="Report.Alphabet">
+                  a) Alphabet
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Numbers" />
+                <label class="form-check-label" asp-for="Report.Numbers">
+                  b) Numbers
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Shapes" />
+                <label class="form-check-label" asp-for="Report.Shapes">
+                  c) Shapes
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Colors" />
+                <label class="form-check-label" asp-for="Report.Colors">
+                  d) Colors
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.MemoryFunction" />
+                <label class="form-check-label" asp-for="Report.MemoryFunction">
+                  Memory function
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Attention" />
+                <label class="form-check-label" asp-for="Report.Attention">
+                  Attention
+                </label>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" asp-for="Report.Concentration">Concentration</label>
+                <select class="form-select" asp-for="Report.Concentration">
+                  <option value="Good">Good</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Poor">Poor</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" asp-for="Report.ProblemSolving">Problem Solving</label>
+                <select class="form-select" asp-for="Report.ProblemSolving">
+                  <option value="Good">Good</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Poor">Poor</option>
+                </select>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.WritingSkill" />
+                <label class="form-check-label" asp-for="Report.WritingSkill">
+                  Writing skill
+                </label>
+              </div>
+
+              <div>
+                <label  for="Report.CognitiveRegulationSkillsNotes" class="form-label">Cognitive Regulation Progress Note</label>
+                <textarea disabled class="form-control" asp-for="Report.CognitiveRegulationSkillsNotes" rows="3"></textarea>
+              </div>
+              <hr class="container-m-nx mb-5">
+              <!--new section-->
+              <b>Occupational Performance</b>
+
+              <div class="col-sm-12">
+                <label class="form-label">Activity Daily Living (ADL):</label>
+              </div>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLIndependent" />
+                <label class="form-check-label" asp-for="Report.ADLIndependent">
+                  a) Independent with no helper
+                </label>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" asp-for="Report.ADLSupervision">b) With supervision</label>
+                <select class="form-select" asp-for="Report.ADLSupervision">
+                  <option value="all the time">all the time</option>
+                  <option value="most of the time">most of the time</option>
+                  <option value="sometimes">sometimes</option>
+                </select>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLMaxAssistance" />
+                <label class="form-check-label" asp-for="Report.ADLMaxAssistance">
+                  c) Maximum assistance
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.ADLToiletTrained" />
+                <label class="form-check-label" asp-for="Report.ADLToiletTrained">
+                  d) Toilet trained
+                </label>
+              </div>
+
+              <div class="col-sm-12">
+                <label class="form-label">Instrumental Activity Daily Living (IADL):</label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLMoneyManagement" />
+                <label class="form-check-label" asp-for="Report.IADLMoneyManagement">
+                  a) Money Management
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLTimeConcept" />
+                <label class="form-check-label" asp-for="Report.IADLTimeConcept">
+                  b) Time concept
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLFoldingClothes" />
+                <label class="form-check-label" asp-for="Report.IADLFoldingClothes">
+                  c) Simple household activities: Folding clothes
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLHangingClothes" />
+                <label class="form-check-label" asp-for="Report.IADLHangingClothes">
+                  d) Simple household activities: Hanging clothes
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLSweepFloor" />
+                <label class="form-check-label" asp-for="Report.IADLSweepFloor">
+                  e) Simple household activities: Sweep floor
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLMakingDrinks" />
+                <label class="form-check-label" asp-for="Report.IADLMakingDrinks">
+                  f) Simple domestic activities: Making drinks
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLPrepareSimpleFood" />
+                <label class="form-check-label" asp-for="Report.IADLPrepareSimpleFood">
+                  g) Simple domestic activities: Prepare simple food
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.IADLUsePhone" />
+                <label class="form-check-label" asp-for="Report.IADLUsePhone">
+                  h) Simple domestic activities: Use phone
+                </label>
+              </div>
+
+
+              <div>
+                <label  for="Report.OccupationalPerformanceNotes" class="form-label">Occupational Performance Progress Note</label>
+                <textarea disabled class="form-control" asp-for="Report.OccupationalPerformanceNotes" rows="3"></textarea>
+              </div>
+
+              <hr class="container-m-nx mb-5">
+              <!--new section-->
+              <b>Emotional Regulation Skills</b>
+
+              <div class="col-sm-12">
+                <label class="form-label">Behaviour:</label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.TemperedTantrum" />
+                <label class="form-check-label" asp-for="Report.TemperedTantrum">
+                  a) Tempered Tantrum
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Manipulative" />
+                <label class="form-check-label" asp-for="Report.Manipulative">
+                  b) Manipulative
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.EasilyDistracted" />
+                <label class="form-check-label" asp-for="Report.EasilyDistracted">
+                  c) Easily distracted
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Passive" />
+                <label class="form-check-label" asp-for="Report.Passive">
+                  d) Passive
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Cooperative" />
+                <label class="form-check-label" asp-for="Report.Cooperative">
+                  e) Cooperative
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Isolation" />
+                <label class="form-check-label" asp-for="Report.Isolation">
+                  f) Isolation
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Reluctant" />
+                <label class="form-check-label" asp-for="Report.Reluctant">
+                  g) Reluctant
+                </label>
+              </div>
+
+              <div>
+                <label  for="Report.EmotionalRegulationSkillsNotes" class="form-label">Emotional Regulation Progress Note</label>
+                <textarea disabled class="form-control" asp-for="Report.EmotionalRegulationSkillsNotes" rows="3"></textarea>
+              </div>
+
+              <hr class="container-m-nx mb-5">
+              <!--new section-->
+              <b>Communication & Social Skills</b>
+              <div class="col-sm-12">
+                <label class="form-label">Following Instruction: </label>
+              </div>
+              <div class="col-sm-12 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.RepetitivePrompting" />
+                <label class="form-check-label"  for="Report.RepetitivePrompting">
+                  a) Repetitive prompting
+                </label>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label"  for="Report.VerbalPrompting">b) Verbal prompting</label>
+                <select class="form-select" id="VerbalPrompting" asp-for="Report.VerbalPrompting">
+                  <option value="min">min</option>
+                  <option value="moderate">moderate</option>
+                  <option value="max">max</option>
+                </select>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label"  for="Report.PhysicalPrompting">c) Physical prompting</label>
+                <select class="form-select" id="PhysicalPrompting" asp-for="Report.PhysicalPrompting">
+                  <option value="min">min</option>
+                  <option value="moderate">moderate</option>
+                  <option value="max">max</option>
+                </select>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label">Eye Contact: </label>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label"  for="Report.EyeContactPerson">a) Person</label>
+                <select class="form-select" id="EyeContactPerson" asp-for="Report.EyeContactPerson">
+                  <option value="good">Good</option>
+                  <option value="fair">Fair</option>
+                  <option value="poor">Poor</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label"  for="Report.EyeContactObject">b) Object</label>
+                <select class="form-select" id="EyeContactObject" asp-for="Report.EyeContactObject">
+                  <option value="good">Good</option>
+                  <option value="fair">Fair</option>
+                  <option value="poor">Poor</option>
+                </select>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.InitiateAnswerQuestion" />
+                <label class="form-check-label"  for="Report.InitiateAnswerQuestion">
+                  Initiate answer question
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.VerbalRespond" />
+                <label class="form-check-label"  for="Report.VerbalRespond">
+                  Verbal respond
+                </label>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label"  for="Report.VoiceClarity">Voice clarity</label>
+                <select class="form-select" id="VoiceClarity" asp-for="Report.VoiceClarity">
+                  <option value="clear">Clear</option>
+                  <option value="slurred">Slurred</option>
+                  <option value="imitate last vowel sound">imitate last vowel sound</option>
+                  <option value="no speech">No speech</option>
+                </select>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.FacialExpressions" />
+                <label class="form-check-label"  for="Report.FacialExpressions">
+                  Facial expressions
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.BodyLanguage" />
+                <label class="form-check-label"  for="Report.BodyLanguage">
+                  Body language
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.TakingTurn" />
+                <label class="form-check-label"  for="Report.TakingTurn">
+                  taking turn
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.Sharing" />
+                <label class="form-check-label"  for="Report.Sharing">
+                  Sharing
+                </label>
+              </div>
+              <div class="col-sm-6 form-check">
+                <input disabled class="form-check-input" type="checkbox" asp-for="Report.StayInGroup" />
+                <label class="form-check-label"  for="Report.StayInGroup">
+                  Stay in group
+                </label>
+              </div>
+
+              <div>
+                <label  for="Report.CommunicationSocialSkillsNotes" class="form-label">Communication & Social Progress Note</label>
+                <textarea disabled class="form-control" id="CommunicationSocialSkillsNotes" rows="3" asp-for="Report.CommunicationSocialSkillsNotes"></textarea>
+              </div>
+
+              <hr class="container-m-nx mb-5">
+              <div class="content-header">
+                <h3 class="mb-1">Academics Performance</h3>
+                <p>Fill in the details for the Academics</p>
+              </div>
+              <div class="row g-3">
+                <div class="col-sm-12">
+                  <label class="form-label"  for="Report.AcademicPerformance">Academics Grades</label>
+                  <select class="form-select" id="AcademicPerformance" asp-for="Report.AcademicPerformance">
+                    <option value="Good">Good</option>
+                    <option value="Average">Average</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Unable to follow">Unable to follow</option>
+                  </select>
+                </div>
+                <div>
+                  <label  for="Report.AnalysisProblem" class="form-label">A - Analysis Problem</label>
+                  <textarea disabled class="form-control" id="AnalysisProblem" rows="4" asp-for="Report.AnalysisProblem"></textarea>
+                </div>
+                <div>
+                  <label  for="Report.ShortTermGoal" class="form-label">A - Short Term Goals</label>
+                  <textarea disabled class="form-control" id="ShortTermGoal" rows="4" asp-for="Report.ShortTermGoal"></textarea>
+                </div>
+                <div>
+                  <label  for="Report.LongTermGoal" class="form-label">A - Long Term Goals</label>
+                  <textarea disabled class="form-control" id="LongTermGoal" rows="4" asp-for="Report.LongTermGoal"></textarea>
+                </div>
+                <div>
+                  <label  for="Report.TxPlan" class="form-label">P - Tx PLAN</label>
+                  <textarea disabled class="form-control" id="TxPlan" rows="2" asp-for="Report.TxPlan"></textarea>
+                </div>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-center">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" asp-for="Report.CustomerSupportConfirmation" id="CustomerSupportConfirmation">
+                  <label class="form-check-label font-italic" asp-for="Report.CustomerSupportConfirmation">
+                    I Acknowledge and Confirm this Report
+                  </label>
+                </div>
+              </div>
+              <hr />
+
+              <div class="col-12 d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-label-secondary btn-prev">
+                  <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                  <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button type="submit" class="btn btn-danger btn-next btn-submit">Confirm Report</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,33 +22,81 @@ namespace RehabConnectWeb.Areas.Therapist.Controllers
 
     public IActionResult Index()
     {
-      // Get the logged-in user's ID
-      // string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-      //
-      // // Find the ApplicationUser associated with the logged-in user
-      // var applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
-      //
-      // if (applicationUser == null)
-      // {
-      //   return NotFound("User not found");
-      // }
-      //
-      // // Find the therapist associated with the ApplicationUser
-      // var therapist = _unitOfWork.Therapist.Get(t => t.TherapistID == applicationUser.TherapistID);
-      //
-      // if (therapist == null)
-      // {
-      //   return NotFound("Therapist not found");
-      // }
-      //
-      // // Fetch reports for the therapist's students
-      // List<Report> objReportList = _unitOfWork.Report
-      //     .GetAll(includeProperties: "Student")
-      //     .Where(r => r.Student.TherapistID == therapist.TherapistID)
-      //     .ToList();
+      // therapisId
+      var userEmail = User.FindFirstValue(ClaimTypes.Email);
 
-      return View();
+      // StudentIds
+      var studentList = _unitOfWork.Student
+        .Find(u => u.Therapist.TherapistEmail == userEmail);
+      // for Scoreboards
+      var studentCount = studentList.ToList().Count;
+      var sessionCount = _unitOfWork.Session.GetAll().ToList().Count;
+      var confirmedReports = _unitOfWork.Report.Find(u => u.CustomerSupportConfirmation == true).ToList().Count();
+      var reportCount = _unitOfWork.Report.GetAll().Count();
+
+      var reportCsVm = new ReportCSVM
+      {
+        TableDatas = new List<TableData>(),
+      };
+
+      // populating the Scoreboard
+      reportCsVm.SessionCount = sessionCount;
+      reportCsVm.StudentCount = studentCount;
+      reportCsVm.ConfirmedReport = confirmedReports;
+      reportCsVm.ReportCount = reportCount;
+
+      foreach (var student in studentList)
+      {
+        // Create a new TableData for this student
+        var tableData = new TableData
+        {
+          ReportList = new List<ReportList>(),
+          StudentDetail = new List<StudentDetail>()
+        };
+        // Find each Report for each Student
+        var studentPrograms = _unitOfWork.StudentProgram.Find(u => u.StudentID == student.StudentID).ToList();
+
+        var sessions = new List<Session>();
+        foreach (var studentProgram in studentPrograms)
+        {
+          var session = _unitOfWork.Session.Find(u => u.StudentProgramId == studentProgram.StudentProgramId, includeProperties:"StudentProgram");
+          sessions.AddRange(session);
+
+          var reports = new List<Report>();
+          foreach (var sessionObj in sessions)
+          {
+            var report = _unitOfWork.Report.Get(u => u.SessionID == sessionObj.SessionID);
+            reports.Add(report);
+          }
+
+          // Find this Student Details at this studentProgram
+          var studentDetails = _unitOfWork.Student.Get(u => u.StudentID == studentProgram.StudentID);
+          var studentProgramInfo = _unitOfWork.StudentProgram
+            .Get(u => u.StudentID == student.StudentID && u.Status == StudentStatus.Ongoing);
+          var studentProgramDetail = _unitOfWork.Program.Get(u=>u.ProgramID==studentProgramInfo.ProgramID, includeProperties:"Step");
+          var studentStepDetail = _unitOfWork.Step.Get(u => u.StepId == studentProgramDetail.StepId, includeProperties:"Roadmap");
+          var studentRoadmapDetail = _unitOfWork.Roadmap.Get(u => u.RoadmapId == studentStepDetail.RoadmapId);
+
+          tableData.ReportList.Add(new ReportList
+          {
+            Report=reports
+
+          });
+          tableData.StudentDetail.Add(new StudentDetail{
+            Student = studentDetails,
+            Program = studentProgramDetail,
+            Step = studentStepDetail,
+            Roadmap = studentRoadmapDetail,
+            Status = studentProgramInfo.Status
+          });
+        }
+        // Add tableData to reportCsVm
+        reportCsVm.TableDatas.Add(tableData);
+      }
+
+      return View(reportCsVm);
     }
+
 
     // public IActionResult Upsert(int? sessionId)
     // {
@@ -101,7 +149,7 @@ namespace RehabConnectWeb.Areas.Therapist.Controllers
 
       }
 
-      return RedirectToAction("Index", "Schedule", new {Areas="Therapist"});
+      return RedirectToAction("Index", "Report", new {Areas="Therapist"});
     }
 
     [HttpPost]

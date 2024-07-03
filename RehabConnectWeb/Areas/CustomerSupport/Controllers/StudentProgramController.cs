@@ -60,31 +60,79 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       var vm = new EditProgramVM()
       {
         studentProgram = stuProgram,
-        ProgramSelectList = programSelectList
+        ProgramSelectList = programSelectList,
+        StatusList = GetStatusList()
       };
 
       return View(vm);
     }
 
+    public IEnumerable<SelectListItem> GetStatusList()
+    {
+      return Enum.GetValues(typeof(StudentStatus))
+        .Cast<StudentStatus>()
+        .Select(status => new SelectListItem
+        {
+          Value = status.ToString(),
+          Text = status.ToString()
+        });
+    }
+
     [HttpPost]
-    public IActionResult Edit(int stuId, int progid)
+
+    public IActionResult Edit(int stuId, int progid, int studProg, StudentStatus status  )
     {
       if (ModelState.IsValid)
       {
-        StudentProgram obj = new StudentProgram()
+
+        var studentProgram = _unitOfWork.StudentProgram.Get(i => i.StudentProgramId==studProg);
+
+        if (progid == studentProgram.ProgramID && status!=StudentStatus.Completed)
         {
-          StudentID = stuId,
-          ProgramID = progid,
-          Status = 0
-        };
+          studentProgram.Status = status;
 
-        _unitOfWork.StudentProgram.Add(obj);
-        _unitOfWork.Save();
-        return RedirectToAction(nameof(Index));
+          _unitOfWork.Save();
+        }
+        else
+        {
+          studentProgram.Status = StudentStatus.Completed;
+
+          _unitOfWork.Save();
+
+          var newStudentProgram = new StudentProgram
+          {
+            StudentID = stuId,
+            ProgramID = progid,
+            Status = StudentStatus.Ongoing
+          };
+
+          _unitOfWork.StudentProgram.Add(newStudentProgram);
+          _unitOfWork.Save();
+          return RedirectToAction(nameof(Index));
+        }
+
       }
-
-      return View("Index");
+      return RedirectToAction("Index");
     }
 
+    public IActionResult Delete(int id)
+    {
+      StudentProgram studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentProgramId == id, includeProperties:"Student,Program");
+
+      return View(studentProgram);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeletePOST(int studentProgramId)
+    {
+      var studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentProgramId == studentProgramId);
+      if (studentProgram == null)
+      {
+        return NotFound();
+      }
+      _unitOfWork.StudentProgram.Remove(studentProgram);
+      _unitOfWork.Save();
+      return RedirectToAction("Index");
+    }
   }
 }

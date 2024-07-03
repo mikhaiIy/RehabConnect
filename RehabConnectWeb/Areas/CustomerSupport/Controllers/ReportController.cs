@@ -93,70 +93,96 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
 
     public IActionResult Print(int? id)
     {
-      Report? reportFromDb = _unitOfWork.Report.Get(u => u.ReportID == id, includeProperties:"Session, ");
-      return View(reportFromDb);
+      var sessionId = _unitOfWork.Report.Find(u => u.ReportID == id).Select(u => u.SessionID).FirstOrDefault();
+      var studentId = _unitOfWork.Session
+        .Find(u => u.SessionID == sessionId, includeProperties: "StudentProgram")
+        .Select(u => u.StudentProgram.StudentID).FirstOrDefault();
+
+      var reportvm = new ReportVM()
+      {
+        Report = _unitOfWork.Report.Get(u=>u.ReportID==id),
+        Student = _unitOfWork.Student.Get(u=>u.StudentID==studentId, includeProperties:"Therapist")
+      };
+      return View(reportvm);
     }
     //
-    // public IActionResult Info(int? id)
-    // {
-    //   Report? reportFromDb = _unitOfWork.Report.Get(u => u.ReportID == id);
-    //   return View(reportFromDb);
-    // }
+    public IActionResult Info(int? id)
+    {
+      var sessionId = _unitOfWork.Report.Find(u => u.ReportID == id).Select(u => u.SessionID).FirstOrDefault();
+      var studentId = _unitOfWork.Session
+        .Find(u => u.SessionID == sessionId, includeProperties: "StudentProgram")
+        .Select(u => u.StudentProgram.StudentID).FirstOrDefault();
 
-    // public IActionResult Confirm(int? id)
-    // {
-    //   ReportVM reportVM = new()
-    //   {
-    //     StudentList = _unitOfWork.Student.GetAll().Select(u => new SelectListItem
-    //     {
-    //       Text = u.ChildName,
-    //       Value = u.StudentID.ToString()
-    //     }),
-    //     Report = new Report()
-    //   };
-    //   if (id == null || id == 0)
-    //   {
-    //     //create
-    //     return View(reportVM);
-    //   }
-    //   else
-    //   {
-    //     //update
-    //     reportVM.Report = _unitOfWork.Report.Get(u => u.ReportID == id);
-    //     return View(reportVM);
-    //   }
-    //
-    // }
+      var reportvm = new ReportVM()
+      {
+        Report = _unitOfWork.Report.Get(u=>u.ReportID==id),
+        Student = _unitOfWork.Student.Get(u=>u.StudentID==studentId, includeProperties:"Therapist")
+      };
+      return View(reportvm);
+    }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult Confirm(ReportVM reportVM)
-    // {
-    //
-    //   if (ModelState.IsValid)
-    //   {
-    //     if (reportVM.Report.ReportID == 0)
-    //     {
-    //       _unitOfWork.Report.Add(reportVM.Report);
-    //     }
-    //     else
-    //     {
-    //       _unitOfWork.Report.Update(reportVM.Report);
-    //     }
-    //     _unitOfWork.Save();
-    //     TempData["success"] = "Report Confirm successfully";
-    //     return RedirectToAction("Index");
-    //   }
-    //   else
-    //   {
-    //     reportVM.StudentList = _unitOfWork.Student.GetAll().Select(u => new SelectListItem
-    //     {
-    //       Text = u.ChildName,
-    //       Value = u.StudentID.ToString()
-    //     });
-    //     return View(reportVM);
-    //   }
-    // }
+    public IActionResult Confirm(int? id)
+    {
+      var sessionId = _unitOfWork.Report.Find(u => u.ReportID == id).Select(u => u.SessionID).FirstOrDefault();
+      var studentId = _unitOfWork.Session
+        .Find(u => u.SessionID == sessionId, includeProperties: "StudentProgram")
+        .Select(u => u.StudentProgram.StudentID).FirstOrDefault();
+
+      var program = _unitOfWork.Session
+        .Find(u => u.SessionID == sessionId, includeProperties: "StudentProgram")
+        .Select(u => u.StudentProgram.ProgramID).FirstOrDefault();
+
+      var step = _unitOfWork.Program.Find(u => u.ProgramID == program, includeProperties: "Step").Select(u=>u.StepId).FirstOrDefault();
+
+      var roadmap = _unitOfWork.Step.Find(u => u.RoadmapId == step).Select(u=>u.RoadmapId).FirstOrDefault();
+
+      var reportvm = new ReportVM()
+      {
+        Report = _unitOfWork.Report.Get(u=>u.ReportID==id),
+        Student = _unitOfWork.Student.Get(u=>u.StudentID==studentId, includeProperties:"Therapist"),
+        Program = _unitOfWork.Program.Get(u => u.ProgramID == program),
+        Step = _unitOfWork.Step.Get(u => u.StepId == step),
+        Roadmap = _unitOfWork.Roadmap.Get(u => u.RoadmapId == roadmap)
+      };
+
+      if (id == null || id == 0)
+      {
+        //create
+        return View(reportvm);
+      }
+      else
+      {
+        //update
+        reportvm.Report = _unitOfWork.Report.Get(u => u.ReportID == id);
+        return View(reportvm);
+      }
+
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Confirm(ReportVM reportVM)
+    {
+
+      if (ModelState.IsValid)
+      {
+        if (reportVM.Report.ReportID == 0)
+        {
+          _unitOfWork.Report.Add(reportVM.Report);
+        }
+        else
+        {
+          _unitOfWork.Report.Update(reportVM.Report);
+        }
+        _unitOfWork.Save();
+        TempData["success"] = "Report Confirm successfully";
+        return RedirectToAction("Index");
+      }
+      else
+      {
+        return View(reportVM);
+      }
+    }
 
     #region API CALLS
     [HttpGet]

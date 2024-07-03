@@ -201,8 +201,8 @@ ViewData["Title"] = "Wizard Icons - Form Wizards";
           </div>
           <div class="row g-3">
             <div class="col-sm-6">
-              <input name="sessionId" value="@ViewBag.sessionId" type="number"/>
-              <input name="studentProgramId" value="@ViewBag.studentProgramId" type="number"/>
+              <input name="sessionId" value="@ViewBag.sessionId" type="number" hidden/>
+              <input name="studentProgramId" value="@ViewBag.studentProgramId" type="number" hidden/>
               <input asp-for="StudentProgram.Student.StudentID" name="studentId" hidden/>
               <label asp-for="StudentProgram" class="form-label">Program Name</label>
               <select asp-for="StudentProgram" class="form-control" name="ProgramId" id="program-dropdown">

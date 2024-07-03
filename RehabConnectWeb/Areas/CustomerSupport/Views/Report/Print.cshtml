@@ -1,4 +1,4 @@
-@model Report
+@model ReportVM
 
 @{
     Layout = "_BlankLayout";
@@ -16,7 +16,7 @@
 @* ************** Content ************** *@
 <div class="invoice-print p-5">
     <form>
-        <input asp-for="ReportID" hidden />
+        <input asp-for="Report.ReportID" hidden />
         <div class="d-flex justify-content-between flex-row">
             <div class="mb-4">
                 <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
@@ -27,19 +27,19 @@
                         @TempData.Peek("appName")
                     </span>
                 </div>
-                <p class="mb-1">Student Performance</p>
-                <p class="mb-1">Assessment Report</p>
-                <p class="mb-0">Therapist in charge: Dr.</p>
+                <p class="mb-1">Student Performance Assessment Report</p>
+                <p class="mb-1">Student Name: @Model.Student.ChildName</p>
+                <p class="mb-0">Therapist in charge: @Model.Student.Therapist.TherapistName</p>
             </div>
             <div>
                 <h4 class="fw-medium">Report Session</h4>
                 <div class="mb-2">
                     <span class="text-muted">Date Report:</span>
-                    <span class="fw-medium">@Model.DateReport</span>
+                    <span class="fw-medium">@Model.Report.DateReport</span>
                 </div>
                 <div>
                     <span class="text-muted">Session ID:</span>
-                    <span class="fw-medium">@Model.Session.SessionID</span>
+                    <span class="fw-medium">@Model.Report.SessionID</span>
                 </div>
                 <div>
                     <span class="text-muted">Treatment Provided:</span>
@@ -49,7 +49,7 @@
                         <tr>
                           <td class="pe-3">Individual Therapy </td>
                           <td class="fw-medium">
-                              @if (Model.IndividualTherapy)
+                              @if (Model.Report.IndividualTherapy)
                               {
                                   <i class="fas fa-check-circle text-success"></i>
 
@@ -63,7 +63,7 @@
                         <tr>
                           <td class="pe-3">Group Therapy </td>
                           <td class="fw-medium">
-                              @if (Model.GroupTherapy)
+                              @if (Model.Report.GroupTherapy)
                               {
                                   <i class="fas fa-check-circle text-success"></i>
 
@@ -77,7 +77,7 @@
                         <tr>
                           <td class="pe-3">Early Intervention </td>
                           <td class="fw-medium">
-                              @if (Model.EarlyIntervention)
+                              @if (Model.Report.EarlyIntervention)
                               {
                                   <i class="fas fa-check-circle text-success"></i>
 
@@ -91,7 +91,7 @@
                         <tr>
                           <td class="pe-3">Behavior Management </td>
                           <td class="fw-medium">
-                              @if (Model.BehaviorManagement)
+                              @if (Model.Report.BehaviorManagement)
                               {
                                   <i class="fas fa-check-circle text-success"></i>
 
@@ -119,7 +119,7 @@
                         <tr>
                             <td class="pe-3">Enter by his/self: </td>
                             <td class="fw-medium">
-                                @if (Model.CanEnterSelf)
+                                @if (Model.Report.CanEnterSelf)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -133,7 +133,7 @@
                         <tr>
                             <td class="pe-3">With Prompting: </td>
                             <td class="fw-medium">
-                                @if (Model.WithPrompting)
+                                @if (Model.Report.WithPrompting)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -147,7 +147,7 @@
                         <tr>
                             <td class="pe-3">Difficulties Separate With Parents: </td>
                             <td class="fw-medium">
-                                @if (Model.DifficultiesSeparateWithParents)
+                                @if (Model.Report.DifficultiesSeparateWithParents)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -161,7 +161,7 @@
                         <tr>
                             <td class="pe-3">With Crying And Refuse: </td>
                             <td class="fw-medium">
-                                @if (Model.WithCryingAndRefuse)
+                                @if (Model.Report.WithCryingAndRefuse)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -175,7 +175,7 @@
                         <tr>
                             <td class="pe-3">Greeting With Prompt: </td>
                             <td class="fw-medium">
-                                @if (Model.GreetingWithPrompt)
+                                @if (Model.Report.GreetingWithPrompt)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -189,7 +189,7 @@
                         <tr>
                             <td class="pe-3">Greeting By Self: </td>
                             <td class="fw-medium">
-                                @if (Model.GreetingBySelf)
+                                @if (Model.Report.GreetingBySelf)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -203,7 +203,7 @@
                         <tr>
                             <td class="pe-3">Mute: </td>
                             <td class="fw-medium">
-                                @if (Model.Mute)
+                                @if (Model.Report.Mute)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -217,7 +217,7 @@
                         <tr>
                             <td class="pe-3">Refuse To Enter: </td>
                             <td class="fw-medium">
-                                @if (Model.RefuseToEnter)
+                                @if (Model.Report.RefuseToEnter)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
 
@@ -236,7 +236,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.SubjectiveAssessmentNotes</td>
+                            <td class="fw-medium">@Model.Report.SubjectiveAssessmentNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -254,7 +254,7 @@
                         <tr>
                             <td class="pe-3">Upper Range Of Motion: </td>
                             <td class="fw-medium">
-                                @if (Model.RangeOfMotion)
+                                @if (Model.Report.RangeOfMotion)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -267,7 +267,7 @@
                         <tr>
                             <td class="pe-3">Muscle Tone: </td>
                             <td class="fw-medium">
-                                @if (Model.MuscleTone)
+                                @if (Model.Report.MuscleTone)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -280,7 +280,7 @@
                         <tr>
                             <td class="pe-3">Muscle Strength: </td>
                             <td class="fw-medium">
-                                @if (Model.MuscleStrength)
+                                @if (Model.Report.MuscleStrength)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -293,7 +293,7 @@
                         <tr>
                             <td class="pe-3">Joint Mobility: </td>
                             <td class="fw-medium">
-                                @if (Model.JointMobility)
+                                @if (Model.Report.JointMobility)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -306,7 +306,7 @@
                         <tr>
                             <td class="pe-3">Trunk control & balance: </td>
                             <td class="fw-medium">
-                                @if (Model.TrunkControlBalance)
+                                @if (Model.Report.TrunkControlBalance)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -322,7 +322,7 @@
                         <tr>
                             <td class="pe-3">a) Standing: </td>
                             <td class="fw-medium">
-                                @if (Model.Standing)
+                                @if (Model.Report.Standing)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -335,7 +335,7 @@
                         <tr>
                             <td class="pe-3">b) Crawling: </td>
                             <td class="fw-medium">
-                                @if (Model.Crawling)
+                                @if (Model.Report.Crawling)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -348,7 +348,7 @@
                         <tr>
                             <td class="pe-3">c) Walking: </td>
                             <td class="fw-medium">
-                                @if (Model.Walking)
+                                @if (Model.Report.Walking)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -361,7 +361,7 @@
                         <tr>
                             <td class="pe-3">d) Jumping: </td>
                             <td class="fw-medium">
-                                @if (Model.Jumping)
+                                @if (Model.Report.Jumping)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -374,7 +374,7 @@
                         <tr>
                             <td class="pe-3">e) Broad Jump: </td>
                             <td class="fw-medium">
-                                @if (Model.BroadJump)
+                                @if (Model.Report.BroadJump)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -387,7 +387,7 @@
                         <tr>
                             <td class="pe-3">f) Kick ball: </td>
                             <td class="fw-medium">
-                                @if (Model.KickBall)
+                                @if (Model.Report.KickBall)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -400,7 +400,7 @@
                         <tr>
                             <td class="pe-3">g) Throw ball: </td>
                             <td class="fw-medium">
-                                @if (Model.ThrowBall)
+                                @if (Model.Report.ThrowBall)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -422,7 +422,7 @@
                         <tr>
                             <td class="pe-3">a) Grasp & release: </td>
                             <td class="fw-medium">
-                                @if (Model.GraspRelease)
+                                @if (Model.Report.GraspRelease)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -435,7 +435,7 @@
                         <tr>
                             <td class="pe-3">b) Reaching: </td>
                             <td class="fw-medium">
-                                @if (Model.Reaching)
+                                @if (Model.Report.Reaching)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -448,7 +448,7 @@
                         <tr>
                             <td class="pe-3">c) Put Block in a cup: </td>
                             <td class="fw-medium">
-                                @if (Model.PutBlockInCup)
+                                @if (Model.Report.PutBlockInCup)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -461,7 +461,7 @@
                         <tr>
                             <td class="pe-3">d) Scribbles: </td>
                             <td class="fw-medium">
-                                @if (Model.Scribbles)
+                                @if (Model.Report.Scribbles)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -474,7 +474,7 @@
                         <tr>
                             <td class="pe-3">e) Tower of cubes: </td>
                             <td class="fw-medium">
-                                @if (Model.TowerOfCubes)
+                                @if (Model.Report.TowerOfCubes)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -487,7 +487,7 @@
                         <tr>
                             <td class="pe-3">f) Mature pencil grasping: </td>
                             <td class="fw-medium">
-                                @if (Model.MaturePencilGrasp)
+                                @if (Model.Report.MaturePencilGrasp)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -500,7 +500,7 @@
                         <tr>
                             <td class="pe-3">g) Immature pencil grasping: </td>
                             <td class="fw-medium">
-                                @if (Model.ImmaturePencilGrasp)
+                                @if (Model.Report.ImmaturePencilGrasp)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -513,7 +513,7 @@
                         <tr>
                             <td class="pe-3">h) Imitate vertical line: </td>
                             <td class="fw-medium">
-                                @if (Model.ImitateVerticalLine)
+                                @if (Model.Report.ImitateVerticalLine)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -526,7 +526,7 @@
                         <tr>
                             <td class="pe-3">i) Copying Square, Triangle, Rhombus: </td>
                             <td class="fw-medium">
-                                @if (Model.CopySquare)
+                                @if (Model.Report.CopySquare)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -544,7 +544,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.MotorPraxisSkillsNotes</td>
+                            <td class="fw-medium">@Model.Report.MotorPraxisSkillsNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -561,7 +561,7 @@
                         <tr>
                             <td class="pe-3">Tactile: </td>
                             <td class="fw-medium">
-                                @if (Model.Tactile)
+                                @if (Model.Report.Tactile)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -574,7 +574,7 @@
                         <tr>
                             <td class="pe-3">Auditory: </td>
                             <td class="fw-medium">
-                                @if (Model.Auditory)
+                                @if (Model.Report.Auditory)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -587,7 +587,7 @@
                         <tr>
                             <td class="pe-3">Visual: </td>
                             <td class="fw-medium">
-                                @if (Model.Visual)
+                                @if (Model.Report.Visual)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -600,7 +600,7 @@
                         <tr>
                             <td class="pe-3">Olfactory: </td>
                             <td class="fw-medium">
-                                @if (Model.Olfactory)
+                                @if (Model.Report.Olfactory)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -613,7 +613,7 @@
                         <tr>
                             <td class="pe-3">Gustatory: </td>
                             <td class="fw-medium">
-                                @if (Model.Gustatory)
+                                @if (Model.Report.Gustatory)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -626,7 +626,7 @@
                         <tr>
                             <td class="pe-3">Vestibular: </td>
                             <td class="fw-medium">
-                                @if (Model.Vestibular)
+                                @if (Model.Report.Vestibular)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -639,7 +639,7 @@
                         <tr>
                             <td class="pe-3">Proprioception: </td>
                             <td class="fw-medium">
-                                @if (Model.Proprioception)
+                                @if (Model.Report.Proprioception)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -657,7 +657,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.SensoryRegulationSkillsNotes</td>
+                            <td class="fw-medium">@Model.Report.SensoryRegulationSkillsNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -677,7 +677,7 @@
                         <tr>
                             <td class="pe-3">a) Alphabet: </td>
                             <td class="fw-medium">
-                                @if (Model.Alphabet)
+                                @if (Model.Report.Alphabet)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -690,7 +690,7 @@
                         <tr>
                             <td class="pe-3">b) Numbers: </td>
                             <td class="fw-medium">
-                                @if (Model.Numbers)
+                                @if (Model.Report.Numbers)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -703,7 +703,7 @@
                         <tr>
                             <td class="pe-3">c) Shapes: </td>
                             <td class="fw-medium">
-                                @if (Model.Shapes)
+                                @if (Model.Report.Shapes)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -716,7 +716,7 @@
                         <tr>
                             <td class="pe-3">d) Colors: </td>
                             <td class="fw-medium">
-                                @if (Model.Colors)
+                                @if (Model.Report.Colors)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -729,7 +729,7 @@
                         <tr>
                             <td class="pe-3">Memory function: </td>
                             <td class="fw-medium">
-                                @if (Model.MemoryFunction)
+                                @if (Model.Report.MemoryFunction)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -742,7 +742,7 @@
                         <tr>
                             <td class="pe-3">Attention: </td>
                             <td class="fw-medium">
-                                @if (Model.Attention)
+                                @if (Model.Report.Attention)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -755,7 +755,7 @@
                         <tr>
                             <td class="pe-3">Writing skill: </td>
                             <td class="fw-medium">
-                                @if (Model.WritingSkill)
+                                @if (Model.Report.WritingSkill)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -767,11 +767,11 @@
                         </tr>
                         <tr>
                             <td class="pe-3">Concentration: </td>
-                            <td class="fw-medium">@Model.Concentration</td>
+                            <td class="fw-medium">@Model.Report.Concentration</td>
                         </tr>
                         <tr>
                             <td class="pe-3">Problem Solving: </td>
-                            <td class="fw-medium">@Model.ProblemSolving</td>
+                            <td class="fw-medium">@Model.Report.ProblemSolving</td>
                         </tr>
                     </tbody>
                 </table>
@@ -781,7 +781,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.CognitiveRegulationSkillsNotes</td>
+                            <td class="fw-medium">@Model.Report.CognitiveRegulationSkillsNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -801,7 +801,7 @@
                         <tr>
                             <td class="pe-3">a) Independent with no helper: </td>
                             <td class="fw-medium">
-                                @if (Model.ADLIndependent)
+                                @if (Model.Report.ADLIndependent)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -813,12 +813,12 @@
                         </tr>
                         <tr>
                             <td class="pe-3">b) With supervision: </td>
-                            <td class="fw-medium">@Model.ADLSupervision</td>
+                            <td class="fw-medium">@Model.Report.ADLSupervision</td>
                         </tr>
                         <tr>
                             <td class="pe-3">c) Maximum assistance: </td>
                             <td class="fw-medium">
-                                @if (Model.ADLMaxAssistance)
+                                @if (Model.Report.ADLMaxAssistance)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -831,7 +831,7 @@
                         <tr>
                             <td class="pe-3">d) Toilet trained: </td>
                             <td class="fw-medium">
-                                @if (Model.ADLToiletTrained)
+                                @if (Model.Report.ADLToiletTrained)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -848,7 +848,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.OccupationalPerformanceNotes</td>
+                            <td class="fw-medium">@Model.Report.OccupationalPerformanceNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -862,7 +862,7 @@
                         <tr>
                             <td class="pe-3">a) Money Management: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLMoneyManagement)
+                                @if (Model.Report.IADLMoneyManagement)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -875,7 +875,7 @@
                         <tr>
                             <td class="pe-3">b) Time concept: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLTimeConcept)
+                                @if (Model.Report.IADLTimeConcept)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -888,7 +888,7 @@
                         <tr>
                             <td class="pe-3">c) Simple household activities: Folding clothes: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLFoldingClothes)
+                                @if (Model.Report.IADLFoldingClothes)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -901,7 +901,7 @@
                         <tr>
                             <td class="pe-3">d) Simple household activities: Hanging clothes: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLHangingClothes)
+                                @if (Model.Report.IADLHangingClothes)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -914,7 +914,7 @@
                         <tr>
                             <td class="pe-3">e) Simple household activities: Sweep floor: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLSweepFloor)
+                                @if (Model.Report.IADLSweepFloor)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -927,7 +927,7 @@
                         <tr>
                             <td class="pe-3">f) Simple domestic activities: Making drinks: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLMakingDrinks)
+                                @if (Model.Report.IADLMakingDrinks)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -940,7 +940,7 @@
                         <tr>
                             <td class="pe-3">g) Simple domestic activities: Prepare simple food: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLPrepareSimpleFood)
+                                @if (Model.Report.IADLPrepareSimpleFood)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -953,7 +953,7 @@
                         <tr>
                             <td class="pe-3">h) Simple domestic activities: Use phone: </td>
                             <td class="fw-medium">
-                                @if (Model.IADLUsePhone)
+                                @if (Model.Report.IADLUsePhone)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -981,7 +981,7 @@
                         <tr>
                             <td class="pe-3">a) Tempered Tantrum: </td>
                             <td class="fw-medium">
-                                @if (Model.TemperedTantrum)
+                                @if (Model.Report.TemperedTantrum)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -994,7 +994,7 @@
                         <tr>
                             <td class="pe-3">b) Manipulative: </td>
                             <td class="fw-medium">
-                                @if (Model.Manipulative)
+                                @if (Model.Report.Manipulative)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1007,7 +1007,7 @@
                         <tr>
                             <td class="pe-3">c) Easily distracted: </td>
                             <td class="fw-medium">
-                                @if (Model.EasilyDistracted)
+                                @if (Model.Report.EasilyDistracted)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1020,7 +1020,7 @@
                         <tr>
                             <td class="pe-3">d) Passive: </td>
                             <td class="fw-medium">
-                                @if (Model.Passive)
+                                @if (Model.Report.Passive)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1033,7 +1033,7 @@
                         <tr>
                             <td class="pe-3">e) Cooperative: </td>
                             <td class="fw-medium">
-                                @if (Model.Cooperative)
+                                @if (Model.Report.Cooperative)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1046,7 +1046,7 @@
                         <tr>
                             <td class="pe-3">f) Isolation: </td>
                             <td class="fw-medium">
-                                @if (Model.Isolation)
+                                @if (Model.Report.Isolation)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1059,7 +1059,7 @@
                         <tr>
                             <td class="pe-3">g) Reluctant: </td>
                             <td class="fw-medium">
-                                @if (Model.Reluctant)
+                                @if (Model.Report.Reluctant)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1077,7 +1077,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.EmotionalRegulationSkillsNotes</td>
+                            <td class="fw-medium">@Model.Report.EmotionalRegulationSkillsNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1097,7 +1097,7 @@
                         <tr>
                             <td class="pe-3">a) Repetitive prompting: </td>
                             <td class="fw-medium">
-                                @if (Model.RepetitivePrompting)
+                                @if (Model.Report.RepetitivePrompting)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1109,11 +1109,11 @@
                         </tr>
                         <tr>
                             <td class="pe-3">b) Verbal prompting: </td>
-                            <td class="fw-medium">@Model.VerbalPrompting</td>
+                            <td class="fw-medium">@Model.Report.VerbalPrompting</td>
                         </tr>
                         <tr>
                             <td class="pe-3">c) Physical prompting: </td>
-                            <td class="fw-medium">@Model.PhysicalPrompting</td>
+                            <td class="fw-medium">@Model.Report.PhysicalPrompting</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1122,7 +1122,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="fw-medium">@Model.CommunicationSocialSkillsNotes</td>
+                            <td class="fw-medium">@Model.Report.CommunicationSocialSkillsNotes</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1138,16 +1138,16 @@
                         </tr>
                         <tr>
                             <td class="pe-3">a) Person: </td>
-                            <td class="fw-medium">@Model.EyeContactPerson</td>
+                            <td class="fw-medium">@Model.Report.EyeContactPerson</td>
                         </tr>
                         <tr>
                             <td class="pe-3">b) Object: </td>
-                            <td class="fw-medium">@Model.EyeContactObject</td>
+                            <td class="fw-medium">@Model.Report.EyeContactObject</td>
                         </tr>
                         <tr>
                             <td class="pe-3">Initiate answer question: </td>
                             <td class="fw-medium">
-                                @if (Model.InitiateAnswerQuestion)
+                                @if (Model.Report.InitiateAnswerQuestion)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1160,7 +1160,7 @@
                         <tr>
                             <td class="pe-3">Verbal respond: </td>
                             <td class="fw-medium">
-                                @if (Model.VerbalRespond)
+                                @if (Model.Report.VerbalRespond)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1172,12 +1172,12 @@
                         </tr>
                         <tr>
                             <td class="pe-3">Voice clarity: </td>
-                            <td class="fw-medium">@Model.VoiceClarity</td>
+                            <td class="fw-medium">@Model.Report.VoiceClarity</td>
                         </tr>
                         <tr>
                             <td class="pe-3">Facial expressions: </td>
                             <td class="fw-medium">
-                                @if (Model.FacialExpressions)
+                                @if (Model.Report.FacialExpressions)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1190,7 +1190,7 @@
                         <tr>
                             <td class="pe-3">Body language: </td>
                             <td class="fw-medium">
-                                @if (Model.BodyLanguage)
+                                @if (Model.Report.BodyLanguage)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1203,7 +1203,7 @@
                         <tr>
                             <td class="pe-3">Taking turn: </td>
                             <td class="fw-medium">
-                                @if (Model.TakingTurn)
+                                @if (Model.Report.TakingTurn)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1216,7 +1216,7 @@
                         <tr>
                             <td class="pe-3">Sharing: </td>
                             <td class="fw-medium">
-                                @if (Model.Sharing)
+                                @if (Model.Report.Sharing)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1229,7 +1229,7 @@
                         <tr>
                             <td class="pe-3">Stay in group: </td>
                             <td class="fw-medium">
-                                @if (Model.StayInGroup)
+                                @if (Model.Report.StayInGroup)
                                 {
                                     <i class="fas fa-check-circle text-success"></i>
                                 }
@@ -1257,7 +1257,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row" style="width: 30%;">Academic Performance</th>
-                                <td style="width: 70%;">@Model.AcademicPerformance</td>
+                                <td style="width: 70%;">@Model.Report.AcademicPerformance</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1270,15 +1270,15 @@
                         <tbody>
                             <tr>
                                 <th scope="row" style="width: 30%;">A - Analysis Problem</th>
-                                <td style="width: 70%;">@Model.AnalysisProblem</td>
+                                <td style="width: 70%;">@Model.Report.AnalysisProblem</td>
                             </tr>
                             <tr>
                                 <th scope="row">A - Short Term Goals</th>
-                                <td>@Model.ShortTermGoal</td>
+                                <td>@Model.Report.ShortTermGoal</td>
                             </tr>
                             <tr>
                                 <th scope="row">A - Long Term Goals</th>
-                                <td>@Model.LongTermGoal</td>
+                                <td>@Model.Report.LongTermGoal</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1291,7 +1291,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row" style="width: 30%;">P - Tx PLAN</th>
-                                <td style="width: 70%;">@Model.TxPlan</td>
+                                <td style="width: 70%;">@Model.Report.TxPlan</td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,10 +1,9 @@
 @model ReportCSVM
 
 @{
-    ViewData["Title"] = "Customer Sup - Report";
+ViewData["Title"] = "Customer Sup - Report";
 
 }
-
 
 @section PageStyles {
 <style>
@@ -36,22 +35,22 @@
 }
 
 @section VendorStyles {
-    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
-    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+<link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+<link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+<link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
 }
 
 @section VendorScripts {
-    <script src="~/vendor/libs/moment/moment.js"></script>
-    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="~/vendor/libs/select2/select2.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="~/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+<script src="~/vendor/libs/moment/moment.js"></script>
+<script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+<script src="~/vendor/libs/select2/select2.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+<script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave.js"></script>
+<script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
 }
 
 @section PageScripts {
@@ -174,94 +173,94 @@
 </div>
 <!-- Users List Table -->
 <div class="card">
-    <div class="card-header border-bottom">
-        <h5 class="card-title mb-3">Search Filter</h5>
-    </div>
-    <div class="card-datatable table-responsive">
-        <table class="datatables-users table test-table">
-            <thead class="border-top">
-            <tr>
-              <th></th>
-              <th>Child Name</th>
-              <th>Roadmap</th>
-              <th>Step</th>
-              <th>Program/Session</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model.TableDatas)
-                {
-                    foreach (var studentDetail in obj.StudentDetail)
-                    {
+  <div class="card-header border-bottom">
+    <h5 class="card-title mb-3">Search Filter</h5>
+  </div>
+  <div class="card-datatable table-responsive">
+    <table class="datatables-users table test-table">
+      <thead class="border-top">
+      <tr>
+        <th></th>
+        <th>Child Name</th>
+        <th>Roadmap</th>
+        <th>Step</th>
+        <th>Program/Session</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var obj in Model.TableDatas)
+      {
+      foreach (var studentDetail in obj.StudentDetail)
+      {
 
-                      <tr data-step-id="@studentDetail.Student.StudentID" class="parent-row">
-                        <td><a class="toggle-children">open</a></td>
-                        <td>@studentDetail.Student.ChildName</td>
-                        <td>@studentDetail.Roadmap.Name</td>
-                        <td>@studentDetail.Step.Title</td>
-                        <td>@studentDetail.Program.ProgramName</td>
-                        <td>@studentDetail.Status</td>
-                        <td></td>
-                      </tr>
-                      foreach (var reportList in obj.ReportList)
-                      {
-                          // -- Child row Data --
-                          foreach (var report in reportList.Report?.Where(r => r != null))
-                          {
-                            if (report != null)
-                            {
-                              <tr class="toggle" data-parent-id="@studentDetail.Student.StudentID">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Session ID: @report.SessionID</td>
-                                <td>
-                                  @if (report.CustomerSupportConfirmation)
-                                  {
-                                    <span class="badge bg-success">Confirmed</span>
-                                  }
-                                  else
-                                  {
-                                    <span class="badge bg-danger">Unconfirmed</span>
-                                  }
-                                </td>
-                                <td>
-                                  <div class="btn-toolbar" role="toolbar">
-                                    <div class="btn-group mr-2" role="group">
-                                      <a asp-controller="Report" asp-action="Confirm" asp-route-id="@report.ReportID" class="btn btn-warning">
-                                        Confirm
-                                      </a>
-                                      <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
-                                        Detail
-                                      </a>
-                                      <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
-                                        Print
-                                      </a>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            }
-                            else
-                            {
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>No reports</td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                            }
-                          }
-                      }
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+      <tr data-step-id="@studentDetail.Student.StudentID" class="parent-row">
+        <td><a class="toggle-children">open</a></td>
+        <td>@studentDetail.Student.ChildName</td>
+        <td>@studentDetail.Roadmap.Name</td>
+        <td>@studentDetail.Step.Title</td>
+        <td>@studentDetail.Program.ProgramName</td>
+        <td>@studentDetail.Status</td>
+        <td></td>
+      </tr>
+      foreach (var reportList in obj.ReportList)
+      {
+      // -- Child row Data --
+      foreach (var report in reportList.Report?.Where(r => r != null))
+      {
+      if (report != null)
+      {
+      <tr class="toggle" data-parent-id="@studentDetail.Student.StudentID">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Report ID: @report.ReportID</td>
+        <td>
+          @if (report.CustomerSupportConfirmation)
+          {
+          <span class="badge bg-success">Confirmed</span>
+          }
+          else
+          {
+          <span class="badge bg-danger">Unconfirmed</span>
+          }
+        </td>
+        <td>
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+              <a asp-controller="Report" asp-action="Confirm" asp-route-id="@report.ReportID" class="btn btn-warning">
+                Confirm
+              </a>
+              <a asp-controller="Report" asp-action="Info" asp-route-id="@report.ReportID" class="btn btn-primary">
+                Preview
+              </a>
+              <a asp-controller="Report" asp-action="Print" asp-route-id="@report.ReportID" class="btn btn-secondary" target="_blank">
+                Print
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      }
+      else
+      {
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>No reports</td>
+        <td></td>
+        <td></td>
+      </tr>
+      }
+      }
+      }
+      }
+      }
+      </tbody>
+    </table>
+  </div>
 </div>

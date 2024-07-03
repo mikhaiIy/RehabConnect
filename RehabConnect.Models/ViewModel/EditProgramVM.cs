@@ -15,5 +15,11 @@ namespace RehabConnect.Models.ViewModel
         public int progid { get; set; }
 
         public int stuId { get; set; }
+        
+        public int studProg { get; set; }
+        public StudentStatus Status { get; set; }
+        
+        public IEnumerable<SelectListItem> StatusList { get; set; }
+        
     }
 }

@@ -49,7 +49,11 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
         List<DateTime> dates = new List<DateTime>();
         for (DateTime currentDate = startDate; currentDate <= endDate; currentDate = currentDate.AddDays(1))
         {
-          dates.Add(currentDate);
+          // Exclude Sundays
+          if (currentDate.DayOfWeek != DayOfWeek.Sunday)
+          {
+            dates.Add(currentDate);
+          }
         }
 
         var schedules = new List<Schedule>();

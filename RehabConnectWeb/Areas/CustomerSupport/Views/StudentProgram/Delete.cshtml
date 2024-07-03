@@ -1,0 +1,20 @@
+@model StudentProgram
+
+<form asp-action="Delete" method="post">
+  <input asp-for="StudentProgramId" hidden />
+
+  <div class="form-group">
+    <label asp-for="Student.ChildName"></label>
+    <input asp-for="Student.ChildName"  readonly class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label asp-for="ProgramID">Program</label>
+    <input class="form-control" asp-for="Program.ProgramName" readonly />
+  </div>
+  <div class="pt-4">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+  </div>
+
+</form>
