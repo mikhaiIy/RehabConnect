@@ -69,9 +69,5 @@ namespace RehabConnect.Models
         [ForeignKey("TherapistID")]
         public Therapist? Therapist { get; set; }
 
-        // Navigation properties
-
-        public ICollection<Session>? Sessions { get; set; }
-        public ICollection<Report>? Reports { get; set; }
     }
 }

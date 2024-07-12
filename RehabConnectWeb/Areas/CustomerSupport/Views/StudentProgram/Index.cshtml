@@ -25,8 +25,10 @@
                         <td>@obj.Program.ProgramName</td>
                         <td>@obj.Status</td>
                         <td>
-                            <a asp-controller="StudentProgram" asp-action="Edit" asp-route-id="@obj.StudentProgramId"
-                               class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
+                          <a asp-controller="StudentProgram" asp-action="Edit" asp-route-id="@obj.StudentProgramId"
+                             class="btn btn-sm btn-icon shadow-none"><i class='ti ti-edit ti-sm'></i></a>
+                          <a asp-controller="StudentProgram" asp-action="Delete" asp-route-id="@obj.StudentProgramId"
+                             class="btn btn-sm btn-icon shadow-none delete-transaction"><i class="ti ti-trash ti-sm"></i></a>
                         </td>
                     </tr>
                 }

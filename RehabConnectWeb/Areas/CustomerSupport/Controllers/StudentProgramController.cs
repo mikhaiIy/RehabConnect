@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RehabConnect.DataAccess.Repository.IRepository;
+using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.Utility;
 
@@ -59,31 +60,79 @@ namespace RehabConnectWeb.Areas.CustomerSupport.Controllers
       var vm = new EditProgramVM()
       {
         studentProgram = stuProgram,
-        ProgramSelectList = programSelectList
+        ProgramSelectList = programSelectList,
+        StatusList = GetStatusList()
       };
 
       return View(vm);
     }
 
+    public IEnumerable<SelectListItem> GetStatusList()
+    {
+      return Enum.GetValues(typeof(StudentStatus))
+        .Cast<StudentStatus>()
+        .Select(status => new SelectListItem
+        {
+          Value = status.ToString(),
+          Text = status.ToString()
+        });
+    }
+
     [HttpPost]
 
-    public IActionResult Edit(EditProgramVM vm)
+    public IActionResult Edit(int stuId, int progid, int studProg, StudentStatus status  )
     {
       if (ModelState.IsValid)
       {
-        _unitOfWork.StudentProgram.Update(vm.studentProgram);
-        _unitOfWork.Save();
-        return RedirectToAction(nameof(Index));
+
+        var studentProgram = _unitOfWork.StudentProgram.Get(i => i.StudentProgramId==studProg);
+
+        if (progid == studentProgram.ProgramID && status!=StudentStatus.Completed)
+        {
+          studentProgram.Status = status;
+
+          _unitOfWork.Save();
+        }
+        else
+        {
+          studentProgram.Status = StudentStatus.Completed;
+
+          _unitOfWork.Save();
+
+          var newStudentProgram = new StudentProgram
+          {
+            StudentID = stuId,
+            ProgramID = progid,
+            Status = StudentStatus.Ongoing
+          };
+
+          _unitOfWork.StudentProgram.Add(newStudentProgram);
+          _unitOfWork.Save();
+          return RedirectToAction(nameof(Index));
+        }
+
       }
+      return RedirectToAction("Index");
+    }
 
-      var programs = _unitOfWork.Program.GetAll();
-      vm.ProgramSelectList = programs.Select(p => new SelectListItem
+    public IActionResult Delete(int id)
+    {
+      StudentProgram studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentProgramId == id, includeProperties:"Student,Program");
+
+      return View(studentProgram);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeletePOST(int studentProgramId)
+    {
+      var studentProgram = _unitOfWork.StudentProgram.Get(u => u.StudentProgramId == studentProgramId);
+      if (studentProgram == null)
       {
-        Value = p.ProgramID.ToString(),
-        Text = p.ProgramName
-      });
-
-      return View(vm);
+        return NotFound();
+      }
+      _unitOfWork.StudentProgram.Remove(studentProgram);
+      _unitOfWork.Save();
+      return RedirectToAction("Index");
     }
   }
 }

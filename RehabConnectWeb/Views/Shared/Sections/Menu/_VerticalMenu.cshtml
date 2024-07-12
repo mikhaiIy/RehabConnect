@@ -56,11 +56,6 @@
             <div data-i18n='Customer Support'>Customer Support</div>
           </a>
           <ul class='menu-sub'>
-            <li class='menu-item@(currentPage == "/Ecommerce/ProductList" ? " active" : "")'>
-              <a asp-controller="Ecommerce" asp-action="ProductList" class="menu-link">
-                <div data-i18n='Overview'>Overview</div>
-              </a>
-            </li>
             <li class='menu-item@(currentPage == "/Ecommerce/ProductAdd" ? " active" : "")'>
               <a asp-controller="CustomerSupport" asp-action="Index" class="menu-link">
                 <div data-i18n='Manage Customer Support'>Manage Customer Support</div>
@@ -73,11 +68,6 @@
             <div data-i18n='Therapist'>Therapist</div>
           </a>
           <ul class='menu-sub'>
-            <li class='menu-item@(currentPage == "/Ecommerce/OrderList" ? " active" : "")'>
-              <a asp-controller="Ecommerce" asp-action="OrderList" class="menu-link">
-                <div data-i18n='Overview'>Overview</div>
-              </a>
-            </li>
             <li class='menu-item@(currentPage == "/Ecommerce/OrderDetails" ? " active" : "")'>
               <a asp-controller="Therapist" asp-action="Index" class="menu-link">
                 <div data-i18n='Manage Therapist'>Manage Therapist</div>
@@ -107,7 +97,7 @@
                     <div data-i18n='Child List'>Child List</div>
                   </a>
                 </li>
-                <li
+                @* <li
                   class='menu-item@(currentPage == "/Ecommerce/CustomerDetailsSecurity" ? " active" : "")'>
                   <a asp-controller='Ecommerce' asp-action='CustomerDetailsSecurity' class="menu-link">
                     <div data-i18n='Enroll Child'>Enroll Child</div>
@@ -124,7 +114,7 @@
                   <a asp-controller='Ecommerce' asp-action='CustomerDetailsNotifications' class="menu-link">
                     <div data-i18n='Notifications'>Notifications</div>
                   </a>
-                </li>
+                </li> *@
               </ul>
             </li>
           </ul>

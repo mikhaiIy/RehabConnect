@@ -54,13 +54,19 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
     public IActionResult Add()
     {
-      var model = new InvoiceAddVM();
+      var model = new InvoiceAddVM
+      {
+        Invoice = new Invoice
+        {
+          LongNote = "Thank you for entrusting us with your child’s journey. We look forward to witnessing their growth, celebrating their victories, and creating a constellation of love and support!"
+        }
+      };
 
       return View(model);
     }
 
     [HttpPost]
-    public IActionResult CreateInvoice(InvoiceAddVM obj)
+    public IActionResult Add(InvoiceAddVM obj)
     {
       if (ModelState.IsValid)
       {
@@ -88,7 +94,8 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
           obj.Item.Name = string.Join(", ", programs);
         }
-        else {
+        else
+        {
           obj.Item.Name = prog.ProgramName;
         }
 
@@ -101,61 +108,96 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       // If ModelState is not valid, return to the view with the invalid invoice object
       return View(obj);
     }
-
     public IActionResult Confirm(int id)
     {
       var billing = _unitOfWork.Billing.Get(b => b.BillingID == id, includeProperties: "Invoice");
       if (billing == null)
       {
-        return NotFound();
-      }
-
-      billing.ConfirmStatus = true;
-      billing.Status = "Paid";
-      _unitOfWork.Billing.Update(billing);
-
-      // Update the invoice total
-      var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == billing.InvoiceID);
-      invoice.Total -= billing.Amount;
-      if (invoice.Total == 0)
-      {
-        // Mark invoice as fully paid
-        invoice.Status = "Fully Paid";
+        return Json(new { success = false, message = "Error while deleting" });
       }
       else
       {
-        // Mark invoice as fully paid
-        invoice.Status = "Partially Paid";
-      }
-      _unitOfWork.Invoice.Update(invoice);
-      _unitOfWork.Save();
+        billing.ConfirmStatus = true;
+        billing.Status = "Paid";
+        _unitOfWork.Billing.Update(billing);
 
-      return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
+        // Update the invoice total
+        var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == billing.InvoiceID);
+        invoice.Total -= billing.Amount;
+        if (invoice.Total == 0)
+        {
+          // Mark invoice as fully paid
+          invoice.Status = "Fully Paid";
+        }
+        else
+        {
+          // Mark invoice as fully paid
+          invoice.Status = "Partially Paid";
+        }
+        _unitOfWork.Invoice.Update(invoice);
+        _unitOfWork.Save();
+
+        return Json(new { success = true, message = "Payment Confirmed" });
+
+        return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
+      }
     }
 
-    //public IActionResult Edit(int id)
-    //{
-    //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
-    //public IActionResult Edit(int id)
-    //{
-    //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
+    // public IActionResult Confirm(int id)
+    // {
+    //   var billing = _unitOfWork.Billing.Get(b => b.BillingID == id, includeProperties: "Invoice");
+    //   if (billing == null)
+    //   {
+    //     return NotFound();
+    //   }
+    //
+    //   billing.ConfirmStatus = true;
+    //   billing.Status = "Paid";
+    //   _unitOfWork.Billing.Update(billing);
+    //
+    //   // Update the invoice total
+    //   var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == billing.InvoiceID);
+    //   invoice.Total -= billing.Amount;
+    //   if (invoice.Total == 0)
+    //   {
+    //     // Mark invoice as fully paid
+    //     invoice.Status = "Fully Paid";
+    //   }
+    //   else
+    //   {
+    //     // Mark invoice as fully paid
+    //     invoice.Status = "Partially Paid";
+    //   }
+    //   _unitOfWork.Invoice.Update(invoice);
+    //   _unitOfWork.Save();
+    //
+    //   return RedirectToAction(nameof(Index)); // Or any other view to redirect after confirmation
+    // }
 
-    ////  InvoiceEditVM obj = new InvoiceEditVM()
-    ////  {
-    ////    Invoice = invoice,
-    ////    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
-    ////  };
-
-    ////  return View(obj);
-    ////}
-
-    ////[HttpPost]
-    ////public IActionResult Edit()
-    ////{
-
-
-    ////  return View();
-    ////}
+    // public IActionResult Edit(int id)
+    // {
+    //   var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties: "ParentDetail");
+    //   //public IActionResult Edit(int id)
+    //   //{
+    //   //  var invoice = _unitOfWork.Invoice.Get(i => i.InvoiceId == id, includeProperties:"ParentDetail");
+    //
+    //   //  InvoiceEditVM obj = new InvoiceEditVM()
+    //   //  {
+    //   //    Invoice = invoice,
+    //   //    Item = _unitOfWork.InvoiceItem.Get(i => i.InvoiceId == id)
+    //   //  };
+    //
+    //   //  return View(obj);
+    //   //}
+    //
+    //   //[HttpPost]
+    //   //public IActionResult Edit()
+    //   //{
+    //
+    //
+    //   //  return View();
+    //   //}
+    // }
 
     public IActionResult Preview(int id)
     {
@@ -232,9 +274,10 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
 
       // for display all programs
       var programs = _unitOfWork.Program.Find(u => u.StepId == stepId).ToList();
+      //var programs = _unitOfWork.Program.GetA(l => programIds.Contains(l.ProgramID)).ToList();
 
       //retrive session schedule student enroll
-      var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId &&  z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
+      var stdProgId = _unitOfWork.StudentProgram.Find(z => z.StudentID == childId && z.Status == StudentStatus.Ongoing).Select(l => l.StudentProgramId).FirstOrDefault();
       var schId = _unitOfWork.Session.Find(p => p.StudentProgramId == stdProgId).Select(z => z.ScheduleID).FirstOrDefault();
       var date = _unitOfWork.Schedule.Find(m => m.ScheduleID == schId).Select(o => o.Date).FirstOrDefault();
       var typeofday = IsWeekdayOrWeekend(date);// how to know the date is weekday or weekend
@@ -243,7 +286,7 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
       {
         ProgramList = programs,
         Steps = _unitOfWork.Step.Find(v => v.StepId == stepId).ToList(),
-        TypeOfDay = typeofday
+        // TypeOfDay = typeofday
       };
 
       return Json(new { data = vm });

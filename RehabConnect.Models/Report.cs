@@ -14,12 +14,17 @@ namespace RehabConnect.Models
     {
         [Key]
         public int ReportID { get; set; }
+        
+        public int? SessionID { get; set; }
+        [ForeignKey("SessionID")]
+        [ValidateNever]
+        public Session Session { get; set; }
 
         // Navigation properties
-        public int StudentID { get; set; }
-        [ForeignKey("StudentID")]
-        [ValidateNever]
-        public Student Student { get; set; }
+        // public int StudentID { get; set; }
+        // [ForeignKey("StudentID")]
+        // [ValidateNever]
+        // public Student Student { get; set; }
         //public int TherapistID { get; set; }
         //[ForeignKey("TherapistID")]
         //public Therapist Therapist { get; set; }
@@ -32,7 +37,7 @@ namespace RehabConnect.Models
         public bool CustomerSupportConfirmation { get; set; }
 
         // Personal Info
-        public int NoSession {  get; set; }
+        // public int NoSession {  get; set; }
         public DateTime DateReport { get; set; }
         public bool IndividualTherapy { get; set; }
         public bool GroupTherapy { get; set; }
@@ -152,4 +157,5 @@ namespace RehabConnect.Models
         public string? LongTermGoal { get; set; }
         public string? TxPlan { get; set; }
     }
+    
 }

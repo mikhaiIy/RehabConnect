@@ -4,43 +4,41 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
- @* ! Brand demo (display only for navbar-full and hide on below xl) *@
-    @if (ViewData["navbarFull"] != null)
-    {
-      <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
+@* ! Brand demo (display only for navbar-full and hide on below xl) *@
+@if (ViewData["navbarFull"] != null)
+{
+    <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a asp-controller="Home" asp-action="Index" class="app-brand-link gap-2">
-          <span class="app-brand-logo demo">
-            @await Html.PartialAsync("_Partials/_Macros")
-          </span>
-          <span class="app-brand-text demo menu-text fw-bold">@TempData.Peek("appName")</span>
+            <span class="app-brand-logo demo">
+                @await Html.PartialAsync("_Partials/_Macros")
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold">@TempData.Peek("appName")</span>
         </a>
 
         @* ! Display menu close icon only for horizontal-menu with navbar-full *@
         @if (Convert.ToBoolean(@TempData.Peek("menuHorizontal")).ToString() == "True")
         {
-          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
-            <i class="ti ti-x ti-sm align-middle"></i>
-          </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
+                <i class="ti ti-x ti-sm align-middle"></i>
+            </a>
         }
-      </div>
-    }
+    </div>
+}
 
-    @* ! Not required for layout-without-menu *@
-    @if (ViewData["navbarHideToggle"] == null)
-    {
-      <div
-        class='layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0  @((Convert.ToBoolean(@TempData.Peek("menuHorizontal")).ToString() == "True") ? "" : "d-xl-none") @((@ViewData["contentNavbar"] != null && Convert.ToBoolean(@ViewData["contentNavbar"])) ? "" : "d-xl-none")'>
+@* ! Not required for layout-without-menu *@
+@if (ViewData["navbarHideToggle"] == null)
+{
+    <div class='layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0  @((Convert.ToBoolean(@TempData.Peek("menuHorizontal")).ToString() == "True") ? "" : "d-xl-none") @((@ViewData["contentNavbar"] != null && Convert.ToBoolean(@ViewData["contentNavbar"])) ? "" : "d-xl-none")'>
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-          <i class="ti ti-menu-2 ti-sm"></i>
+            <i class="ti ti-menu-2 ti-sm"></i>
         </a>
-      </div>
-    }
+    </div>
+}
 
-    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-      <!-- Search -->
-    @* @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() != "True")
+    <!-- Search -->
+    @*  @if (Convert.ToBoolean(TempData.Peek("menuHorizontal")).ToString() != "True")
     {
       <div class="navbar-nav align-items-center">
         <div class="nav-item navbar-search-wrapper mb-0">
@@ -442,7 +440,7 @@
                             <span class="align-middle">My Profile</span>
                         </a>      
             </li>
-            
+            </li>
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
@@ -488,8 +486,8 @@
         </li>
         <!--/ User -->
 
-      </ul>
-    </div>
+    </ul>
+</div>
 
     <!-- Search Small Screens -->
     <div

@@ -1,5 +1,5 @@
 @{
-  ViewData["Title"] = "Therapist - Report";
+ViewData["Title"] = "Therapist - Report";
 
 }
 
@@ -26,7 +26,7 @@
 }
 
 @section PageScripts {
-<script src="~/js/calendar-therapist.js"></script>
+<script src="~/js/calendar-cs.js"></script>
 }
 @* ************** Content ************** *@
 
@@ -128,9 +128,10 @@
               <select class="select2 select-event-guests form-select" id="eventGuests" name="eventGuests" multiple>
               </select>
             </div>
-            <div class="mb-3" >
-              <label class="form-label" for="eventReportStatus">Report Status:</label>
-              <input type="text" class="form-control" id="eventReportStatus" name="eventReportStatus" placeholder="" />
+            <div class="mb-3 select2-primary">
+              <label class="form-label" for="eventGuests1">Therapist List</label>
+              <select class="select2 select-event-guests form-select" id="eventGuests1" name="eventGuests1" multiple>
+              </select>
             </div>
             <div class="mb-3" id="eventType">
               <label class="form-label">Session type: </label>

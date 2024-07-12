@@ -39,9 +39,22 @@ namespace RehabConnectWeb.Areas.Admin.Controllers
     {
       if (!string.IsNullOrEmpty(startDt))
       {
-        var dates = startDt
-          .Split(',').Select(DateTime.Parse)
+        var dateRange = startDt
+          .Split(" to ").Select(DateTime.Parse)
           .ToList();
+
+        var startDate = dateRange[0];
+        var endDate = dateRange[1];
+
+        List<DateTime> dates = new List<DateTime>();
+        for (DateTime currentDate = startDate; currentDate <= endDate; currentDate = currentDate.AddDays(1))
+        {
+          // Exclude Sundays
+          if (currentDate.DayOfWeek != DayOfWeek.Sunday)
+          {
+            dates.Add(currentDate);
+          }
+        }
 
         var schedules = new List<Schedule>();
 

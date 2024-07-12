@@ -238,12 +238,27 @@
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Add.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\AddNew.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Report\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Report\Info.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Report\Print.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\IndexScratch.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Therapist\Views\Report\Upsert.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Parent\Views\Report\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Parent\Views\Report\Info.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Parent\Views\Report\Print.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\CustomerSupport\Views\Report\Confirm.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\CustomerSupport\Views\Report\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\CustomerSupport\Views\Report\Info.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\CustomerSupport\Views\Report\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Areas\Identity\Pages\Account\Register.cshtml.cs">
       <DependentUpon>Register.cshtml</DependentUpon>
     </Compile>
     <Compile Remove="Areas\Identity\Pages\Account\Register1.cshtml.cs" />
+    <Compile Remove="Areas\Therapist\Controllers\ReportControllerScratch.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="Views\Shared\Sections\Menu\_HorizontalMenuTherapist.cshtml" />
@@ -257,7 +272,8 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\Therapist\Views\Report\Edit.cshtml" />
+    <Content Remove="Areas\Therapist\Views\Report\Delete.cshtml" />
+    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\js\schedule.js" />
@@ -278,7 +294,6 @@
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\AddNew.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Invoice\Index.cshtml" />
     <AdditionalFiles Include="Views\Shared\_Partials\_Macros.cshtml" />
-    <Content Remove="Areas\Therapist\Views\Report\Edit.cshtml" />
     <Content Remove="wwwroot\js\schedule.js" />
     <Content Remove="Areas\Parent\Views\ParentDetail\Delete.cshtml" />
   </ItemGroup>

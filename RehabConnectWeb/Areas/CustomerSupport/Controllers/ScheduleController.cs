@@ -1,19 +1,16 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Packaging;
 using RehabConnect.DataAccess.Repository.IRepository;
 using RehabConnect.Models;
 using RehabConnect.Models.ViewModel;
 using RehabConnect.Utility;
 
-namespace RehabConnectWeb.Areas.Therapist.Controllers;
 
+namespace RehabConnectWeb.Areas.CustomerSupport.Controllers;
 
-[Area("Therapist")]
-[Authorize(Roles = SD.Role_Therapist)]
+[Area("CustomerSupport")]
+[Authorize(Roles = SD.Role_CustomerSupport)]
 public class ScheduleController : Controller
 {
   private readonly IUnitOfWork _unitOfWork;
@@ -26,21 +23,12 @@ public class ScheduleController : Controller
     return View();
   }
 
-  #region API CALLS
-
-  [HttpGet]
-  public IActionResult GetSchedule()
+  #region APICALLS
+[HttpGet]
+      public IActionResult GetStudentSchedule()
       {
-        // Want find Specific Student of this Therapist
-        // We only TherapistId, from this we can get StudentIds
-        // StudentId -> StudentProgram -> Sessions -> Schedules
-
-        // therapisId
-        var userEmail = User.FindFirstValue(ClaimTypes.Email);
-
-        // StudentIds
-        var studentList = _unitOfWork.Student
-          .Find(u => u.Therapist.TherapistEmail == userEmail);
+        // getting all students related to the userId -> Many
+        var studentList = _unitOfWork.Student.GetAll(includeProperties:"Therapist");
 
         // Calendar List to be Pass to API
         var calendars = new List<CalendarVM>();
@@ -84,30 +72,6 @@ public class ScheduleController : Controller
           {
             // Iterate through every Session, and get its Respective Schedule.
             var schedule = _unitOfWork.Schedule.Get(u => u.ScheduleID == session.ScheduleID);
-
-            var report = _unitOfWork.Report.Find(u => u.SessionID == session.SessionID).FirstOrDefault();
-
-            var reportStatus = "";
-
-            if (report == null)
-            {
-              reportStatus = "Not Created";
-            }
-            else
-            {
-              var reportConfirmed = _unitOfWork.Report
-                .Find(u => u.SessionID == session.SessionID && u.CustomerSupportConfirmation == true).FirstOrDefault();
-
-              if (reportConfirmed == null)
-              {
-                reportStatus = "Created, but not Confirmed";
-              }
-              else
-              {
-                reportStatus = "Report Confirmed";
-              }
-            }
-
             // schedules.Add(schedule);
             var calendar = new CalendarVM
             {
@@ -121,7 +85,7 @@ public class ScheduleController : Controller
                 Capacity = schedule.Capacity,
                 Registered = schedule.Registered,
                 Students = obj.ChildName,
-                ReportStatus = reportStatus
+                Therapist = obj.Therapist.TherapistName
               }
             };
             calendars.Add(calendar);
@@ -131,5 +95,3 @@ public class ScheduleController : Controller
       }
   #endregion
 }
-
-

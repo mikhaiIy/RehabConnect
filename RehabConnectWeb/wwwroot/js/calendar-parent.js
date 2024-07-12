@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       eventEndDate = document.querySelector('#eventEndDate'),
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
+      eventForm = document.querySelector('.eventForm'),
       eventGuests = $('#eventGuests'), // ! Using jquery vars due to select2 jQuery dependency
       inlineCalendar = document.querySelector('.inline-calendar');
 
@@ -81,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    // Event Guests (select2)
     // Event Guests (select2)
     if (eventGuests.length) {
       function renderGuestName(option) {
@@ -160,11 +160,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // btnSubmit redirect to Edit page
       btnSubmit.addEventListener('click', () => {
-        const scheduleId = eventToUpdate.id;
         // Redirect to the edit URL
-        window.location.href = `/Parent/Session/SessionEdit/${scheduleId}`;
+        const sessionId = eventToUpdate.id;
+        window.location.href = `/Parent/Session/SessionEdit?sessionId=${sessionId}`;
       });
-
 
       eventTitle.value = eventToUpdate.title;
 

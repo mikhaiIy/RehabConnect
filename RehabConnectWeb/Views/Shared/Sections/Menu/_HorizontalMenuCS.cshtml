@@ -49,7 +49,7 @@
         </a>
         <ul class="menu-sub">
           <li class='menu-item@(currentPage == "/LayoutExamples/ContentNavbar" ? " active" : "")'>
-            <a asp-controller='ParentDetail' asp-action='Index' class="menu-link" target="_blank">
+            <a asp-controller='ParentDetail' asp-action='Index' class="menu-link">
               <div data-i18n="Manage Parent">Manage Parent</div>
             </a>
           </li>
@@ -59,7 +59,7 @@
             </a>
             <ul class='menu-sub'>
               <li class='menu-item@(currentPage == "/LayoutExamples/ContentNavbar" ? " active" : "")'>
-                <a asp-controller='Student' asp-action="StudentProgram" class="menu-link" target="_blank">
+                <a asp-controller='Student' asp-action="StudentProgram" class="menu-link">
                   <div data-i18n="Manage Student Program">Manage Student Program</div>
                 </a>
               </li>
@@ -78,7 +78,7 @@
             </a>
             <ul class='menu-sub'>
               <li class='menu-item@(currentPage == "/LayoutExamples/ContentNavbar" ? " active" : "")'>
-                <a asp-controller='Student' asp-action='Index' class="menu-link" target="_blank">
+                <a asp-controller='Schedule' asp-action='Index' class="menu-link">
                   <div data-i18n="Manage Schedule">Manage Schedule</div>
                 </a>
               </li>
@@ -94,7 +94,7 @@
 
         </ul>
       </li>
-      <li class='menu-item@(currentPage.StartsWith("/Ecommerce") ? " active" : "")'>
+     @*  <li class='menu-item@(currentPage.StartsWith("/Ecommerce") ? " active" : "")'>
         <a href='javascript:void(0);' class='menu-link menu-toggle'>
           <i class='menu-icon tf-icons ti ti-shopping-cart'></i>
           <div data-i18n='eCommerce'>eCommerce</div>
@@ -236,7 +236,7 @@
             </ul>
           </li>
         </ul>
-      </li>
+      </li> *@
     </ul>
   </div>
 </aside>

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,15 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
         Title = Path.GetFileNameWithoutExtension(fileName), // Example title from file name
         Description = "Description for " + Path.GetFileNameWithoutExtension(fileName) // Example description
       }).ToList();
+
+      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+      var parent = _unitOfWork.ParentDetail.Get(u => u.UserId == userId);
+      var student = _unitOfWork.Student.Get(u => u.UserId == userId);
+
+      ViewBag.FatherName = parent.FatherName;
+      ViewBag.MotherName = parent.MotherName;
+      ViewBag.studentName = student.ChildName;
 
       return View(announcements);
     }

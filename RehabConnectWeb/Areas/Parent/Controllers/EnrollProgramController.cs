@@ -73,7 +73,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       return RedirectToAction("Index", new { id = Students });
     }
 
-    public IActionResult Index(int id)
+    public IActionResult Index(int? id)
     {
       // we have studentId, from here we can get programId from StudentProgram
       // but we need to find the programId(Select) for the student with the attribute Status == ongoing(&&)
@@ -98,7 +98,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
       var sessionBooked = _unitOfWork.Session.Find(u => u.StudentProgramId == studentProgramId)
         .Count();
 
-      if (sessionBooked<=numOfSession)
+      if (sessionBooked<numOfSession)
       {
         // Filtering only Available Schedule slot &&
         var schedules = _unitOfWork.Schedule.Find(u=>u.ProgramID==programId && u.Registered<u.Capacity)
@@ -117,7 +117,7 @@ namespace RehabConnectWeb.Areas.Parent.Controllers
 
         EnrollProgramVM enrollProgramVm = new EnrollProgramVM()
         {
-          StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.StudentID == id),
+          StudentProgram = _unitOfWork.StudentProgram.Get(i => i.Student.StudentID==id),
           Schedule = _unitOfWork.Schedule.GetAll(),
           ProgramList = _unitOfWork.Program.Find(p => p.StepId == stepId && p.ProgramID == programId),
           ScheduleDataJson = JsonConvert.SerializeObject(schedules),
